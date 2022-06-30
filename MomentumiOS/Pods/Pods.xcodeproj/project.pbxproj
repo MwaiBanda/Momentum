@@ -1,0 +1,548 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXAggregateTarget section */
+		F12ADCBFC27D31831623CB1FE7568F8D /* MomentumSDK */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 3F11D52FC00E8C614962C7977C47A7D2 /* Build configuration list for PBXAggregateTarget "MomentumSDK" */;
+			buildPhases = (
+				6360E1288FE17747C4E80C7640A99B93 /* [CP-User] Build MomentumSDK */,
+			);
+			dependencies = (
+			);
+			name = MomentumSDK;
+		};
+/* End PBXAggregateTarget section */
+
+/* Begin PBXBuildFile section */
+		3316F304F1B080AE6E61515E8563B04A /* Pods-MomentumiOS-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 16E596A34FA5D0413446792E992E34AC /* Pods-MomentumiOS-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AC1799D18B9D4CF2F6097F98822B5F9A /* Pods-MomentumiOS-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = EACA16B54587BC9072D1AD0498625ACC /* Pods-MomentumiOS-dummy.m */; };
+		EB5E46B58C704621518D0413F0444883 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		0DEC275A8199AC7FFD8F20682BE35F69 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F12ADCBFC27D31831623CB1FE7568F8D;
+			remoteInfo = MomentumSDK;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		16E596A34FA5D0413446792E992E34AC /* Pods-MomentumiOS-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-MomentumiOS-umbrella.h"; sourceTree = "<group>"; };
+		1B588A5C97F1AC9A9436CE48DD355E53 /* Pods-MomentumiOS-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-MomentumiOS-acknowledgements.markdown"; sourceTree = "<group>"; };
+		2E02F2560F882F3E0F95A5DDA5D9B476 /* Pods-MomentumiOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-MomentumiOS.debug.xcconfig"; sourceTree = "<group>"; };
+		39A4E101B425973721E2316BE179668B /* Pods-MomentumiOS.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-MomentumiOS.modulemap"; sourceTree = "<group>"; };
+		4A2C10209B893718391D877A9E1054E3 /* Pods-MomentumiOS */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "Pods-MomentumiOS"; path = Pods_MomentumiOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4C10B2E672A4E033285A859F2308419F /* Pods-MomentumiOS-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-MomentumiOS-Info.plist"; sourceTree = "<group>"; };
+		574304B98D367B4DC4281F787B0F17F0 /* Pods-MomentumiOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-MomentumiOS.release.xcconfig"; sourceTree = "<group>"; };
+		73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		9038288D13960E96D2279A7C7DD1129E /* MomentumSDK.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = MomentumSDK.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		A6DA7A19F50217915D95CD4A9DB5F472 /* MomentumSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MomentumSDK.framework; path = build/cocoapods/framework/MomentumSDK.framework; sourceTree = "<group>"; };
+		B4276610064B1FC1A9F4FE226DEA1897 /* MomentumSDK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = MomentumSDK.debug.xcconfig; sourceTree = "<group>"; };
+		D82A082E058448DC756230220A368E03 /* MomentumSDK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = MomentumSDK.release.xcconfig; sourceTree = "<group>"; };
+		EACA16B54587BC9072D1AD0498625ACC /* Pods-MomentumiOS-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-MomentumiOS-dummy.m"; sourceTree = "<group>"; };
+		F1487BA31C640BBE62C04DBAC268A00A /* Pods-MomentumiOS-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-MomentumiOS-acknowledgements.plist"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1873A75CD577FE4F86F3BD8C820CBD63 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EB5E46B58C704621518D0413F0444883 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0682A752BBD41DA009A79735280A6307 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A6DA7A19F50217915D95CD4A9DB5F472 /* MomentumSDK.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		106EACFB7C3DB874C539AF70156588DF /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4A2C10209B893718391D877A9E1054E3 /* Pods-MomentumiOS */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		1A0F0CCCCB69A74FB489F9EEB964392B /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				612050C1ED22BF41E4A473ED5603ADD4 /* Pods-MomentumiOS */,
+			);
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		2F6D322A293623626754099E28339BCC /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				B4276610064B1FC1A9F4FE226DEA1897 /* MomentumSDK.debug.xcconfig */,
+				D82A082E058448DC756230220A368E03 /* MomentumSDK.release.xcconfig */,
+			);
+			name = "Support Files";
+			path = "../MomentumiOS/Pods/Target Support Files/MomentumSDK";
+			sourceTree = "<group>";
+		};
+		578452D2E740E91742655AC8F1636D1F /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		612050C1ED22BF41E4A473ED5603ADD4 /* Pods-MomentumiOS */ = {
+			isa = PBXGroup;
+			children = (
+				39A4E101B425973721E2316BE179668B /* Pods-MomentumiOS.modulemap */,
+				1B588A5C97F1AC9A9436CE48DD355E53 /* Pods-MomentumiOS-acknowledgements.markdown */,
+				F1487BA31C640BBE62C04DBAC268A00A /* Pods-MomentumiOS-acknowledgements.plist */,
+				EACA16B54587BC9072D1AD0498625ACC /* Pods-MomentumiOS-dummy.m */,
+				4C10B2E672A4E033285A859F2308419F /* Pods-MomentumiOS-Info.plist */,
+				16E596A34FA5D0413446792E992E34AC /* Pods-MomentumiOS-umbrella.h */,
+				2E02F2560F882F3E0F95A5DDA5D9B476 /* Pods-MomentumiOS.debug.xcconfig */,
+				574304B98D367B4DC4281F787B0F17F0 /* Pods-MomentumiOS.release.xcconfig */,
+			);
+			name = "Pods-MomentumiOS";
+			path = "Target Support Files/Pods-MomentumiOS";
+			sourceTree = "<group>";
+		};
+		88DF585ABC4207C21454A1D5D055DAA5 /* MomentumSDK */ = {
+			isa = PBXGroup;
+			children = (
+				0682A752BBD41DA009A79735280A6307 /* Frameworks */,
+				C9BD1C732CF8DDC9C21499326FA31681 /* Pod */,
+				2F6D322A293623626754099E28339BCC /* Support Files */,
+			);
+			name = MomentumSDK;
+			path = ../../MomentumSDK;
+			sourceTree = "<group>";
+		};
+		C9BD1C732CF8DDC9C21499326FA31681 /* Pod */ = {
+			isa = PBXGroup;
+			children = (
+				9038288D13960E96D2279A7C7DD1129E /* MomentumSDK.podspec */,
+			);
+			name = Pod;
+			sourceTree = "<group>";
+		};
+		CF1408CF629C7361332E53B88F7BD30C = {
+			isa = PBXGroup;
+			children = (
+				9D940727FF8FB9C785EB98E56350EF41 /* Podfile */,
+				F248675267D719773DC8638E7333C82A /* Development Pods */,
+				D210D550F4EA176C3123ED886F8F87F5 /* Frameworks */,
+				106EACFB7C3DB874C539AF70156588DF /* Products */,
+				1A0F0CCCCB69A74FB489F9EEB964392B /* Targets Support Files */,
+			);
+			sourceTree = "<group>";
+		};
+		D210D550F4EA176C3123ED886F8F87F5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				578452D2E740E91742655AC8F1636D1F /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F248675267D719773DC8638E7333C82A /* Development Pods */ = {
+			isa = PBXGroup;
+			children = (
+				88DF585ABC4207C21454A1D5D055DAA5 /* MomentumSDK */,
+			);
+			name = "Development Pods";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		96A4AE85B5E41FB2E5FC285EF4830182 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3316F304F1B080AE6E61515E8563B04A /* Pods-MomentumiOS-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		9BA7A66DC057E2A7C169848BA65858D9 /* Pods-MomentumiOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FE6C7136BC26C97BE89D3F529DC74AD3 /* Build configuration list for PBXNativeTarget "Pods-MomentumiOS" */;
+			buildPhases = (
+				96A4AE85B5E41FB2E5FC285EF4830182 /* Headers */,
+				93E3BD6E25440ACE26F9027D2E204996 /* Sources */,
+				1873A75CD577FE4F86F3BD8C820CBD63 /* Frameworks */,
+				2CE46F5D6A5D53C0DEBBAFD4CD93B364 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				7F855BD6422CA7A5509874C8EE6459A2 /* PBXTargetDependency */,
+			);
+			name = "Pods-MomentumiOS";
+			productName = Pods_MomentumiOS;
+			productReference = 4A2C10209B893718391D877A9E1054E3 /* Pods-MomentumiOS */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		BFDFE7DC352907FC980B868725387E98 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1240;
+				LastUpgradeCheck = 1240;
+			};
+			buildConfigurationList = 4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = CF1408CF629C7361332E53B88F7BD30C;
+			productRefGroup = 106EACFB7C3DB874C539AF70156588DF /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F12ADCBFC27D31831623CB1FE7568F8D /* MomentumSDK */,
+				9BA7A66DC057E2A7C169848BA65858D9 /* Pods-MomentumiOS */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		2CE46F5D6A5D53C0DEBBAFD4CD93B364 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		6360E1288FE17747C4E80C7640A99B93 /* [CP-User] Build MomentumSDK */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			name = "[CP-User] Build MomentumSDK";
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "                if [ \"YES\" = \"$COCOAPODS_SKIP_KOTLIN_BUILD\" ]; then\n                  echo \"Skipping Gradle build task invocation due to COCOAPODS_SKIP_KOTLIN_BUILD environment variable set to \"YES\"\"\n                  exit 0\n                fi\n                set -ev\n                REPO_ROOT=\"$PODS_TARGET_SRCROOT\"\n                \"$REPO_ROOT/../gradlew\" -p \"$REPO_ROOT\" $KOTLIN_PROJECT_PATH:syncFramework                     -Pkotlin.native.cocoapods.platform=$PLATFORM_NAME                     -Pkotlin.native.cocoapods.archs=\"$ARCHS\"                     -Pkotlin.native.cocoapods.configuration=\"$CONFIGURATION\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		93E3BD6E25440ACE26F9027D2E204996 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AC1799D18B9D4CF2F6097F98822B5F9A /* Pods-MomentumiOS-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		7F855BD6422CA7A5509874C8EE6459A2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = MomentumSDK;
+			target = F12ADCBFC27D31831623CB1FE7568F8D /* MomentumSDK */;
+			targetProxy = 0DEC275A8199AC7FFD8F20682BE35F69 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		48E3B0FA1700CCA1C1584EA067D71798 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2E02F2560F882F3E0F95A5DDA5D9B476 /* Pods-MomentumiOS.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-MomentumiOS/Pods-MomentumiOS-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-MomentumiOS/Pods-MomentumiOS.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		593F10BFFA94DAC7D6E17FB8A7F32D72 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_RELEASE=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Release;
+		};
+		5FEEE6A102ED630C5AD5BA578FDBE85C /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 574304B98D367B4DC4281F787B0F17F0 /* Pods-MomentumiOS.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-MomentumiOS/Pods-MomentumiOS-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-MomentumiOS/Pods-MomentumiOS.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		A0374B8CF9A7D6A45F6D116D698D1C19 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_DEBUG=1",
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Debug;
+		};
+		B4FE1BF7C6A6A8B74C028E5847CB1388 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B4276610064B1FC1A9F4FE226DEA1897 /* MomentumSDK.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		FDAF580EABA254C52BEC017C50F8A27C /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D82A082E058448DC756230220A368E03 /* MomentumSDK.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		3F11D52FC00E8C614962C7977C47A7D2 /* Build configuration list for PBXAggregateTarget "MomentumSDK" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B4FE1BF7C6A6A8B74C028E5847CB1388 /* Debug */,
+				FDAF580EABA254C52BEC017C50F8A27C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A0374B8CF9A7D6A45F6D116D698D1C19 /* Debug */,
+				593F10BFFA94DAC7D6E17FB8A7F32D72 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FE6C7136BC26C97BE89D3F529DC74AD3 /* Build configuration list for PBXNativeTarget "Pods-MomentumiOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				48E3B0FA1700CCA1C1584EA067D71798 /* Debug */,
+				5FEEE6A102ED630C5AD5BA578FDBE85C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+}

@@ -1,0 +1,16 @@
+PODS:
+  - MomentumSDK (1.0.0)
+
+DEPENDENCIES:
+  - MomentumSDK (from `../MomentumSDK`)
+
+EXTERNAL SOURCES:
+  MomentumSDK:
+    :path: "../MomentumSDK"
+
+SPEC CHECKSUMS:
+  MomentumSDK: bc8c05ce8041f7da1fb24a8c464b78a82437cd46
+
+PODFILE CHECKSUM: c2e0e52538b12ddb98163dc5cb664394fdf32484
+
+COCOAPODS: 1.11.2
