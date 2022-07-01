@@ -9,9 +9,9 @@
 /* Begin PBXAggregateTarget section */
 		F12ADCBFC27D31831623CB1FE7568F8D /* MomentumSDK */ = {
 			isa = PBXAggregateTarget;
-			buildConfigurationList = 3F11D52FC00E8C614962C7977C47A7D2 /* Build configuration list for PBXAggregateTarget "MomentumSDK" */;
+			buildConfigurationList = AA9B7328288A318CB3B8F166EACEF919 /* Build configuration list for PBXAggregateTarget "MomentumSDK" */;
 			buildPhases = (
-				6360E1288FE17747C4E80C7640A99B93 /* [CP-User] Build MomentumSDK */,
+				C6957640111E0D2B9872F7C554B8FBC1 /* [CP-User] Build MomentumSDK */,
 			);
 			dependencies = (
 			);
@@ -241,7 +241,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		6360E1288FE17747C4E80C7640A99B93 /* [CP-User] Build MomentumSDK */ = {
+		C6957640111E0D2B9872F7C554B8FBC1 /* [CP-User] Build MomentumSDK */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -249,7 +249,7 @@
 			name = "[CP-User] Build MomentumSDK";
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "                if [ \"YES\" = \"$COCOAPODS_SKIP_KOTLIN_BUILD\" ]; then\n                  echo \"Skipping Gradle build task invocation due to COCOAPODS_SKIP_KOTLIN_BUILD environment variable set to \"YES\"\"\n                  exit 0\n                fi\n                set -ev\n                REPO_ROOT=\"$PODS_TARGET_SRCROOT\"\n                \"$REPO_ROOT/../gradlew\" -p \"$REPO_ROOT\" $KOTLIN_PROJECT_PATH:syncFramework                     -Pkotlin.native.cocoapods.platform=$PLATFORM_NAME                     -Pkotlin.native.cocoapods.archs=\"$ARCHS\"                     -Pkotlin.native.cocoapods.configuration=\"$CONFIGURATION\"\n";
+			shellScript = "                if [ \"YES\" = \"$COCOAPODS_SKIP_KOTLIN_BUILD\" ]; then\n                  echo \"Skipping Gradle build task invocation due to COCOAPODS_SKIP_KOTLIN_BUILD environment variable set to \"YES\"\"\n                  exit 0\n                fi\n                set -ev\n                REPO_ROOT=\"$PODS_TARGET_SRCROOT\"\n                \"$REPO_ROOT/../gradlew\" -p \"$REPO_ROOT\" $KOTLIN_PROJECT_PATH:syncFramework                     -Pkotlin.native.cocoapods.platform=$PLATFORM_NAME                     -Pkotlin.native.cocoapods.archs=\"$ARCHS\"                     -Pkotlin.native.cocoapods.configuration=$CONFIGURATION\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -477,7 +477,7 @@
 			};
 			name = Debug;
 		};
-		B4FE1BF7C6A6A8B74C028E5847CB1388 /* Debug */ = {
+		E35AE447880149591D7D8A6385893DCA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = B4276610064B1FC1A9F4FE226DEA1897 /* MomentumSDK.debug.xcconfig */;
 			buildSettings = {
@@ -494,7 +494,7 @@
 			};
 			name = Debug;
 		};
-		FDAF580EABA254C52BEC017C50F8A27C /* Release */ = {
+		EAADDB36304EAD8CDCE5C5222F61762C /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D82A082E058448DC756230220A368E03 /* MomentumSDK.release.xcconfig */;
 			buildSettings = {
@@ -515,20 +515,20 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		3F11D52FC00E8C614962C7977C47A7D2 /* Build configuration list for PBXAggregateTarget "MomentumSDK" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				B4FE1BF7C6A6A8B74C028E5847CB1388 /* Debug */,
-				FDAF580EABA254C52BEC017C50F8A27C /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A0374B8CF9A7D6A45F6D116D698D1C19 /* Debug */,
 				593F10BFFA94DAC7D6E17FB8A7F32D72 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AA9B7328288A318CB3B8F166EACEF919 /* Build configuration list for PBXAggregateTarget "MomentumSDK" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E35AE447880149591D7D8A6385893DCA /* Debug */,
+				EAADDB36304EAD8CDCE5C5222F61762C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
