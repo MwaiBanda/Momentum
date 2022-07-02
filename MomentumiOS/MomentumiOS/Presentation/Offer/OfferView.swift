@@ -9,53 +9,64 @@
 import SwiftUI
 
 struct OfferView: View {
-    var buttons = [
-        ["1", "2", "3"],
-        ["4", "5", "6"],
-        ["7", "8", "9"],
-        [".", "0", "<"]
-    ]
+    @StateObject private var offerViewModel = OfferViewModel()
     var proxy: GeometryProxy
     var body: some View {
-
-      
-            VStack {
-                Spacer()
+        
+        
+        VStack {
+            Spacer()
+            if offerViewModel.displayText.isEmpty {
                 Text("$0")
-                    .font(Font.system(size: 130, weight: .medium, design: .default))
-                Spacer()
-                ForEach(buttons, id: \.self) { row in
-                    HStack {
-                        ForEach(row, id: \.self) { button in
-                            Spacer()
-                        Button{} label: {
-                            ZStack {
-                                   Circle()
-                                    .stroke(.clear)
-                            Text(button)
-                                .font(Font.system(size: 35, weight: .medium, design: .default))
-                                .padding()
-                            }
-
-
-                        }
-                    }
+                    .font(Font.system(size: 75, design: .default))
+                    .frame(alignment: .center)
+                    .scaleEffect(offerViewModel.scale, anchor: .center)
+                    .animation(.easeInOut(duration: 0.15), value: offerViewModel.scale)
+            } else {
+            HStack(spacing: 0) {
+            ForEach(offerViewModel.displayText, id: \.self) { character in
+                Text(character)
+                    .font(Font.system(size: 75, design: .default))
+                    .frame(alignment: .center)
+                    .scaleEffect(offerViewModel.scale, anchor: .center)
+                    .animation(.easeInOut(duration: 0.15), value: offerViewModel.scale)
+            }
+            }
+            }
+            Spacer()
+            ForEach(offerViewModel.offerKeypad, id: \.self) { row in
+                HStack {
+                    ForEach(row, id: \.self) { button in
                         Spacer()
-
+                        Button{
+                            offerViewModel.processInput(button: button)
+                            
+                        } label: {
+                            ZStack {
+                                Circle()
+                                    .stroke(.clear)
+                                    .frame(width: 80, height: 80)
+                                Text(String(button))
+                                    .font(Font.system(size: 30, design: .default))
+                                    .padding()
+                            }
+                        }.disabled(offerViewModel.isKeypadDisabled && !offerViewModel.controlKeys.contains(button))
                     }
+                    Spacer()
+                    
                 }
-                Button {} label: {
-                    Text("Offer")
-                        .fontWeight(.heavy)
-                        .frame(width: screenBounds.width - 30, height: 55)
-                        .background(Color(hex: Constants.momentumOrange))
-                        .cornerRadius(10)
-                }
-            } .foregroundColor(.white)
-            .frame(minHeight: proxy.size.height - 90)
-
-
-         
+            }
+            Button {} label: {
+                Text("Offer")
+                    .fontWeight(.heavy)
+                    .frame(width: screenBounds.width - 30, height: 55)
+                    .background(Color(hex: Constants.momentumOrange))
+                    .cornerRadius(10)
+            }
+        }
+        .foregroundColor(.white)
+        .frame(minHeight: proxy.size.height - 90)
+        
     }
     
 }
@@ -63,7 +74,7 @@ struct OfferView: View {
 struct OfferVIew_Previews: PreviewProvider {
     static var previews: some View {
         GeometryReader { proxy in
-        OfferView(proxy: proxy)
+            OfferView(proxy: proxy)
         }
     }
 }

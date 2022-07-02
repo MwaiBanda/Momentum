@@ -23,6 +23,8 @@
 		8126AF86286FEF39007DBAB9 /* BottomTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8126AF81286FEF39007DBAB9 /* BottomTabBar.swift */; };
 		8126AF89286FF12F007DBAB9 /* MenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8126AF88286FF12F007DBAB9 /* MenuButton.swift */; };
 		8126AF8B286FFD84007DBAB9 /* BackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8126AF8A286FFD84007DBAB9 /* BackgroundView.swift */; };
+		819B795028708F020010B960 /* OfferViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819B794F28708F020010B960 /* OfferViewModel.swift */; };
+		819B7952287098FA0010B960 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819B7951287098FA0010B960 /* Log.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +58,8 @@
 		8126AF81286FEF39007DBAB9 /* BottomTabBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomTabBar.swift; sourceTree = "<group>"; };
 		8126AF88286FF12F007DBAB9 /* MenuButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuButton.swift; sourceTree = "<group>"; };
 		8126AF8A286FFD84007DBAB9 /* BackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundView.swift; sourceTree = "<group>"; };
+		819B794F28708F020010B960 /* OfferViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfferViewModel.swift; sourceTree = "<group>"; };
+		819B7951287098FA0010B960 /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		8FCA518C1E38B3D34FB9D1EF /* Pods-MomentumiOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MomentumiOS.debug.xcconfig"; path = "Target Support Files/Pods-MomentumiOS/Pods-MomentumiOS.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -159,6 +163,7 @@
 			isa = PBXGroup;
 			children = (
 				8126AF70286FD82D007DBAB9 /* OfferView.swift */,
+				819B794F28708F020010B960 /* OfferViewModel.swift */,
 			);
 			path = Offer;
 			sourceTree = "<group>";
@@ -185,6 +190,7 @@
 			isa = PBXGroup;
 			children = (
 				8126AF7A286FE3C2007DBAB9 /* Constants.swift */,
+				819B7951287098FA0010B960 /* Log.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -342,6 +348,8 @@
 				8126AF77286FE009007DBAB9 /* Color+Swift.swift in Sources */,
 				8126AF85286FEF39007DBAB9 /* MenuView.swift in Sources */,
 				8126AF8B286FFD84007DBAB9 /* BackgroundView.swift in Sources */,
+				819B795028708F020010B960 /* OfferViewModel.swift in Sources */,
+				819B7952287098FA0010B960 /* Log.swift in Sources */,
 				8126AF89286FF12F007DBAB9 /* MenuButton.swift in Sources */,
 				7555FF83242A565900829871 /* ContentView.swift in Sources */,
 				8126AF86286FEF39007DBAB9 /* BottomTabBar.swift in Sources */,
@@ -499,6 +507,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mwaibanda.MomentumiOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -520,6 +529,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mwaibanda.MomentumiOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
