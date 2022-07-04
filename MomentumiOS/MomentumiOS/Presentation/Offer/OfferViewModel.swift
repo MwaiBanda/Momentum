@@ -18,6 +18,7 @@ class OfferViewModel: ObservableObject {
     let controlKeys: [Character] = ["•", "<"]
     @Published var isDecimalMode = false
     @Published var isKeypadDisabled = false
+    @Published var popIn = false
     @Published var scale = 1.3
     @Published var displayText = [String]()
 
@@ -68,18 +69,22 @@ class OfferViewModel: ObservableObject {
             if scale != 1.3 {
                 scale = 1.3
             }
-            scale -= 0.1
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
-                self.scale += 0.1
+            scale -= 0.05
+            popIn.toggle()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
+                self.scale += 0.05
+                self.popIn.toggle()
             }
             
         } else {
             if scale == 1.3 {
-                scale -= 0.5
+                scale -= 0.4
             } else {
-                scale -= 0.1
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
-                    self.scale += 0.1
+                scale -= 0.05
+                popIn.toggle()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
+                    self.scale += 0.05
+                    self.popIn.toggle()
                 }
             }
         }

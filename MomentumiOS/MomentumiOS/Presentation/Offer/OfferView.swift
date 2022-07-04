@@ -11,9 +11,8 @@ import SwiftUI
 struct OfferView: View {
     @StateObject private var offerViewModel = OfferViewModel()
     var proxy: GeometryProxy
+    
     var body: some View {
-        
-        
         VStack {
             Spacer()
             if offerViewModel.displayText.isEmpty {
@@ -23,15 +22,22 @@ struct OfferView: View {
                     .scaleEffect(offerViewModel.scale, anchor: .center)
                     .animation(.easeInOut(duration: 0.15), value: offerViewModel.scale)
             } else {
-            HStack(spacing: 0) {
-            ForEach(offerViewModel.displayText, id: \.self) { character in
-                Text(character)
-                    .font(Font.system(size: 75, design: .default))
-                    .frame(alignment: .center)
-                    .scaleEffect(offerViewModel.scale, anchor: .center)
-                    .animation(.easeInOut(duration: 0.15), value: offerViewModel.scale)
-            }
-            }
+                HStack(spacing: 0) {
+                    ForEach(offerViewModel.displayText, id: \.self) { character in
+                        if offerViewModel.displayText.last == character {
+                            Text(character)
+                                .font(Font.system(size: 75, design: .default))
+                                .frame(alignment: .center)
+                                .scaleEffect(offerViewModel.scale, anchor: .center)
+                                .animation(.easeInOut(duration: 0.1), value: offerViewModel.popIn)
+                        } else {
+                            Text(character)
+                                .font(Font.system(size: 75, design: .default))
+                                .frame(alignment: .center)
+                        }
+                        
+                    }
+                }
             }
             Spacer()
             ForEach(offerViewModel.offerKeypad, id: \.self) { row in
