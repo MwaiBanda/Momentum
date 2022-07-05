@@ -10,6 +10,7 @@ import com.mwaibanda.momentum.android.presentation.MomentumEntry
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.composable
 import com.mwaibanda.momentum.android.presentation.offer.OfferScreen
 
@@ -25,7 +26,7 @@ class MainActivity : ComponentActivity() {
                     startDestination = "offer"
                 ) {
                     composable("offer") {
-                        OfferScreen()
+                        OfferScreen(offerViewModel = viewModel())
                     }
                 }
             }

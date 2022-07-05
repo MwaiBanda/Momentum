@@ -1,40 +1,37 @@
 package com.mwaibanda.momentum.android.presentation.offer
 
-import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
-import androidx.compose.material.ButtonColors
 import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.IconButton
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.BlurredEdgeTreatment
-import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.draw.blur
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.BlendMode
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.mwaibanda.momentum.android.presentation.components.BlurredBackground
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.compose.runtime.setValue
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.platform.LocalLifecycleOwner
 
 @Composable
-fun OfferScreen(){
+fun OfferScreen(offerViewModel: OfferViewModel){
 //    BlurredBackground {
-    val buttons = arrayOf(
-        arrayOf("1", "2", "3"),
-        arrayOf("4", "5", "6"),
-        arrayOf("7", "8", "9"),
-        arrayOf("•", "0", "<"),
-        )
+        var number by remember {
+            mutableStateOf("0")
+        }
+        offerViewModel.number.observe(LocalLifecycleOwner.current) {
+            number = it
+        }
         Column(
             Modifier
                 .fillMaxSize()
@@ -44,7 +41,7 @@ fun OfferScreen(){
         ) {
             Spacer(modifier = Modifier.height(10.dp))
             Text(
-                text = "$0",
+                text = "$$number",
                 fontSize = 100.sp
             )
             Column(
@@ -53,21 +50,23 @@ fun OfferScreen(){
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Bottom
             ) {
-                buttons.forEach { row ->
+                offerViewModel.offerKeypad.forEach { row ->
                     Spacer(modifier = Modifier.height(10.dp))
                     Row {
                         row.forEach { button ->
                             Spacer(modifier = Modifier.width(10.dp))
-                            Box(contentAlignment = Alignment.Center) {
-                                Box(
-                                    modifier = Modifier
-                                        .size(80.dp)
-                                        .clip(CircleShape)
-                                )
-                                Text(
-                                    text = button,
-                                    fontSize = 40.sp
-                                )
+                            IconButton(onClick = { offerViewModel.processInput(button) }) {
+                                Box(contentAlignment = Alignment.Center) {
+                                    Box(
+                                        modifier = Modifier
+                                            .size(80.dp)
+                                            .clip(CircleShape)
+                                    )
+                                    Text(
+                                        text = button.toString(),
+                                        fontSize = 40.sp
+                                    )
+                                }
                             }
                             Spacer(modifier = Modifier.width(10.dp))
 
@@ -94,5 +93,5 @@ fun OfferScreen(){
 @Composable
 @Preview
 fun OfferScreenPreview(){
-    OfferScreen()
+    OfferScreen(offerViewModel = viewModel())
 }

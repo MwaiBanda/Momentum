@@ -44,9 +44,9 @@ class OfferViewModel: ObservableObject {
         if button.isNumber {
             processNumber(button: button)
         } else if button.isPunctuation {
-            processPunctuation(button: button)
+            processPunctuation()
         } else if button.isSymbol {
-            processBackspace(button: button)
+            processBackspace()
         }
         processScale()
     }
@@ -115,7 +115,7 @@ class OfferViewModel: ObservableObject {
     }
     
     
-    private func processPunctuation(button: Character) {
+    private func processPunctuation() {
         if number.dropLast(2).last == "." {
             isDecimalMode = false
             number = String(number.dropLast(3))
@@ -127,19 +127,19 @@ class OfferViewModel: ObservableObject {
         }
     }
     
-    private func processBackspace(button: Character) {
+    private func processBackspace() {
         if number.count == 1 {
             number = "0"
         } else {
             if isDecimalMode {
-                processDecimalModeBackspace(button: button)
+                processDecimalModeBackspace()
             } else {
                 number = String(number.dropLast())
             }
         }
     }
     
-    private func processDecimalModeBackspace(button: Character) {
+    private func processDecimalModeBackspace() {
         if  String(number.dropLast().last ?? Character("")) + String(number.last ?? Character("")) == "00" {
             isDecimalMode = false
             number = String(number.dropLast(3))
