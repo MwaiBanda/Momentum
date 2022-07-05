@@ -22,31 +22,31 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.compose.ui.text.font.FontWeight
+import com.mwaibanda.momentum.android.presentation.components.BlurredBackground
 
 @Composable
 fun OfferScreen(offerViewModel: OfferViewModel){
-//    BlurredBackground {
+   BlurredBackground {
         var number by remember {
             mutableStateOf("0")
         }
-        offerViewModel.number.observe(LocalLifecycleOwner.current) {
+        offerViewModel.displayNumber.observe(LocalLifecycleOwner.current) {
             number = it
         }
         Column(
             Modifier
-                .fillMaxSize()
-                .background(Color.White),
+                .fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.SpaceBetween
         ) {
             Spacer(modifier = Modifier.height(10.dp))
             Text(
                 text = "$$number",
-                fontSize = 100.sp
+                fontSize = if (number.count() > 5) 55.sp else 75.sp,
+                color = Color.White
             )
             Column(
-                Modifier
-                    .background(Color.White),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Bottom
             ) {
@@ -55,7 +55,10 @@ fun OfferScreen(offerViewModel: OfferViewModel){
                     Row {
                         row.forEach { button ->
                             Spacer(modifier = Modifier.width(10.dp))
-                            IconButton(onClick = { offerViewModel.processInput(button) }) {
+                            IconButton(
+                                onClick = { offerViewModel.processInput(button) },
+                                enabled = offerViewModel.isKeypadEnabled || offerViewModel.controlKeys.contains(button)
+                            ) {
                                 Box(contentAlignment = Alignment.Center) {
                                     Box(
                                         modifier = Modifier
@@ -64,7 +67,8 @@ fun OfferScreen(offerViewModel: OfferViewModel){
                                     )
                                     Text(
                                         text = button.toString(),
-                                        fontSize = 40.sp
+                                        fontSize = 40.sp,
+                                        color = Color.White
                                     )
                                 }
                             }
@@ -82,12 +86,16 @@ fun OfferScreen(offerViewModel: OfferViewModel){
                     shape = RoundedCornerShape(10.dp),
                     colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xFFE55F1F))
                 ) {
-                    Text(text = "Offer")
+                    Text(
+                        text = "Offer",
+                        fontWeight = FontWeight.ExtraBold,
+                        color = Color.White
+                    )
                 }
                 Spacer(modifier = Modifier.height(20.dp))
             }
         }
-
+    }
 }
 
 @Composable
