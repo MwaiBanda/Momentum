@@ -55,9 +55,10 @@ dependencies {
     // Navigation
     implementation( "androidx.navigation:navigation-compose:2.5.0")
     // Live Data
-    implementation ("androidx.compose.runtime:runtime-livedata:1.2.0-rc02")
+    implementation ("androidx.compose.runtime:runtime-livedata:1.3.0-alpha01")
     // Status Bar
     implementation ("com.google.accompanist:accompanist-systemuicontroller:0.24.13-rc")
-
+    // Stripe Android SDK
+    implementation ("com.stripe:stripe-android:19.0.0")
 
 }

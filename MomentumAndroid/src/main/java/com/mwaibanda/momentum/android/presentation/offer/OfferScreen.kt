@@ -23,10 +23,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.text.font.FontWeight
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.mwaibanda.momentum.android.presentation.components.BlurredBackground
 
 @Composable
-fun OfferScreen(offerViewModel: OfferViewModel){
+fun OfferScreen(navController: NavController, offerViewModel: OfferViewModel){
    BlurredBackground {
         var number by remember {
             mutableStateOf("0")
@@ -79,7 +81,7 @@ fun OfferScreen(offerViewModel: OfferViewModel){
                 }
                 Spacer(modifier = Modifier.height(20.dp))
                 Button(
-                    onClick = { /*TODO*/ },
+                    onClick = { navController.navigate("pay") },
                     modifier = Modifier
                         .fillMaxWidth(0.85f)
                         .height(55.dp),
@@ -101,5 +103,5 @@ fun OfferScreen(offerViewModel: OfferViewModel){
 @Composable
 @Preview
 fun OfferScreenPreview(){
-    OfferScreen(offerViewModel = viewModel())
+    OfferScreen(rememberNavController() ,offerViewModel = viewModel())
 }

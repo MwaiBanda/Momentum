@@ -1,0 +1,46 @@
+package com.mwaibanda.momentum.android
+
+import androidx.activity.ComponentActivity
+import com.mwaibanda.momentum.android.presentation.offer.payment.PaymentViewModel
+import com.mwaibanda.momentum.controller.PaymentControllerImpl
+import com.mwaibanda.momentum.domain.models.PaymentRequest
+import com.stripe.android.PaymentConfiguration
+import com.stripe.android.paymentsheet.PaymentSheet
+import com.stripe.android.paymentsheet.PaymentSheetResult
+
+open class BaseActivity: ComponentActivity() {
+    private val paymentViewModel by lazy { PaymentViewModel(PaymentControllerImpl()) }
+
+    protected fun checkout(
+        paymentRequest: PaymentRequest,
+        onSuccess: (customer: PaymentSheet.CustomerConfiguration?, intent: String) -> Unit
+    ){
+        paymentViewModel.checkout(paymentRequest)
+        paymentViewModel.paymentResponse.observe(this) { paymentResponse ->
+            PaymentConfiguration.init(this, paymentResponse.publishableKey)
+            val customerConfig = PaymentSheet.CustomerConfiguration(paymentResponse.customer!!, paymentResponse.ephemeralKey!!)
+            onSuccess(customerConfig, paymentResponse.paymentIntent)
+            paymentViewModel.paymentResponse.removeObservers(this)
+        }
+    }
+
+    protected fun onHandlePaymentResult(
+        paymentResult: PaymentSheetResult,
+        onPaymentSuccess: () -> Unit,
+        onPaymentCancellation: () -> Unit,
+        onPaymentFailure: (String) -> Unit
+    ) {
+        when (paymentResult) {
+            is PaymentSheetResult.Completed -> onPaymentSuccess()
+            is PaymentSheetResult.Canceled -> onPaymentCancellation()
+            is PaymentSheetResult.Failed -> onPaymentFailure(paymentResult.error.localizedMessage!!)
+        }
+    }
+    companion object {
+        const val merchantName = "Momentum Church"
+        val googlePayConfig = PaymentSheet.GooglePayConfiguration(
+            environment = PaymentSheet.GooglePayConfiguration.Environment.Test,
+            countryCode = "US"
+        )
+    }
+}

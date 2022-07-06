@@ -1,6 +1,8 @@
 package com.mwaibanda.momentum.di
 
+import com.mwaibanda.momentum.controller.PaymentControllerImpl
 import com.mwaibanda.momentum.data.repository.PaymentRepositoryImpl
+import com.mwaibanda.momentum.domain.controller.PaymentController
 import com.mwaibanda.momentum.domain.repository.PaymentRepository
 import com.mwaibanda.momentum.domain.usecase.CheckoutUseCase
 import io.ktor.client.*
@@ -21,6 +23,7 @@ fun initKoin(appDeclaration: KoinAppDeclaration = {}) =
             singletonModule,
             repositoryModule,
             useCasesModule,
+            controllerModule
         )
     }
 
@@ -30,6 +33,7 @@ fun initKoin() = initKoin {
         singletonModule,
         repositoryModule,
         useCasesModule,
+        controllerModule
     )
 }
 
@@ -65,4 +69,8 @@ val repositoryModule = module {
 
 val useCasesModule = module {
     single { CheckoutUseCase(get()) }
+}
+
+val controllerModule = module {
+    single<PaymentController>{  PaymentControllerImpl() }
 }
