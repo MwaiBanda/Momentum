@@ -14,7 +14,7 @@ kotlin {
 
     cocoapods {
         summary = "Some description for the Shared Module"
-        homepage = "Link to the Shared Module homepage"
+        homepage = "https://momentumindiana.org"
         ios.deploymentTarget = "14.1"
         podfile = project.file("../MomentumiOS/Podfile")
         framework {
@@ -23,7 +23,18 @@ kotlin {
     }
     
     sourceSets {
-        val commonMain by getting
+        val commonMain by getting {
+            dependencies {
+                implementation("co.touchlab:stately-common:1.2.1")
+                implementation("co.touchlab:stately-isolate:1.2.1")
+                implementation("co.touchlab:stately-iso-collections:1.2.1")
+                implementation("io.ktor:ktor-client-core:1.6.7")
+                implementation("io.ktor:ktor-client-serialization:1.6.3")
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.3.1")
+                implementation("io.ktor:ktor-client-logging:1.6.2")
+                implementation("io.insert-koin:koin-core:3.1.5")
+            }
+        }
         val commonTest by getting {
             dependencies {
                 implementation(kotlin("test"))
@@ -39,6 +50,9 @@ kotlin {
             iosX64Main.dependsOn(this)
             iosArm64Main.dependsOn(this)
             iosSimulatorArm64Main.dependsOn(this)
+            dependencies {
+                implementation("io.ktor:ktor-client-ios:1.6.3")
+            }
         }
         val iosX64Test by getting
         val iosArm64Test by getting
