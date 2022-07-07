@@ -13,14 +13,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.mwaibanda.momentum.android.R
 
 
 @Composable
-fun MomentumEntry(content: @Composable (PaddingValues) -> Unit) {
+fun MomentumEntry(content: @Composable (PaddingValues, NavHostController) -> Unit) {
     val systemUiController = rememberSystemUiController()
     val useDarkIcons = MaterialTheme.colors.isLight
+    val navController = rememberNavController()
 
     SideEffect {
         systemUiController.setSystemBarsColor(
@@ -31,7 +34,7 @@ fun MomentumEntry(content: @Composable (PaddingValues) -> Unit) {
     }
     Scaffold() {
         Box {
-            content(it)
+            content(it, navController)
             TopAppBar(
                 title = {
                     Image(painter = painterResource(id = R.drawable.momentum), contentDescription = "logo")

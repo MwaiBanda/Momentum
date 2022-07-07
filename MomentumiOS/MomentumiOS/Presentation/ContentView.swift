@@ -2,8 +2,6 @@ import SwiftUI
 import MomentumSDK
 
 struct ContentView: View {
-	let greet = Greeting().greeting()
-
 	var body: some View {
 		BottomTabBar()
 	}

@@ -19,7 +19,7 @@ open class BaseActivity: ComponentActivity() {
         paymentViewModel.checkout(paymentRequest)
         paymentViewModel.paymentResponse.observe(this) { paymentResponse ->
             PaymentConfiguration.init(this, paymentResponse.publishableKey)
-            val customerConfig = PaymentSheet.CustomerConfiguration(paymentResponse.customer!!, paymentResponse.ephemeralKey!!)
+            val customerConfig = PaymentSheet.CustomerConfiguration(paymentResponse.customer, paymentResponse.ephemeralKey)
             onSuccess(customerConfig, paymentResponse.paymentIntent)
             paymentViewModel.paymentResponse.removeObservers(this)
         }
@@ -38,7 +38,6 @@ open class BaseActivity: ComponentActivity() {
         }
     }
     companion object {
-        const val merchantName = "Momentum Church"
         val googlePayConfig = PaymentSheet.GooglePayConfiguration(
             environment = PaymentSheet.GooglePayConfiguration.Environment.Test,
             countryCode = "US"

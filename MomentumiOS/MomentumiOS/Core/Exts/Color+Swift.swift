@@ -10,13 +10,10 @@ import SwiftUI
 
 
 extension Color {
-    init(hex: UInt, alpha: Double = 1) {
-        self.init(
-            .sRGB,
-            red: Double((hex >> 16) & 0xff) / 255,
-            green: Double((hex >> 08) & 0xff) / 255,
-            blue: Double((hex >> 00) & 0xff) / 255,
-            opacity: alpha
-        )
+    init(hex: Int, opacity: Double = 1.0) {
+        let red = Double((hex & 0xff0000) >> 16) / 255.0
+        let green = Double((hex & 0xff00) >> 8) / 255.0
+        let blue = Double((hex & 0xff) >> 0) / 255.0
+        self.init(.sRGB, red: red, green: green, blue: blue, opacity: opacity)
     }
 }

@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -23,6 +23,11 @@
 		8126AF86286FEF39007DBAB9 /* BottomTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8126AF81286FEF39007DBAB9 /* BottomTabBar.swift */; };
 		8126AF89286FF12F007DBAB9 /* MenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8126AF88286FF12F007DBAB9 /* MenuButton.swift */; };
 		8126AF8B286FFD84007DBAB9 /* BackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8126AF8A286FFD84007DBAB9 /* BackgroundView.swift */; };
+		814E5DE728778E470008BAC1 /* PaymentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 814E5DE628778E470008BAC1 /* PaymentViewModel.swift */; };
+		814E5DEC287794630008BAC1 /* Stripe in Frameworks */ = {isa = PBXBuildFile; productRef = 814E5DEB287794630008BAC1 /* Stripe */; };
+		814E5DEE287794630008BAC1 /* StripeApplePay in Frameworks */ = {isa = PBXBuildFile; productRef = 814E5DED287794630008BAC1 /* StripeApplePay */; };
+		814E5DF0287794630008BAC1 /* StripeCardScan in Frameworks */ = {isa = PBXBuildFile; productRef = 814E5DEF287794630008BAC1 /* StripeCardScan */; };
+		81770C222877A314008B88F6 /* UIColor+Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81770C212877A314008B88F6 /* UIColor+Swift.swift */; };
 		819B795028708F020010B960 /* OfferViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819B794F28708F020010B960 /* OfferViewModel.swift */; };
 		819B7952287098FA0010B960 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819B7951287098FA0010B960 /* Log.swift */; };
 /* End PBXBuildFile section */
@@ -58,6 +63,8 @@
 		8126AF81286FEF39007DBAB9 /* BottomTabBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomTabBar.swift; sourceTree = "<group>"; };
 		8126AF88286FF12F007DBAB9 /* MenuButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuButton.swift; sourceTree = "<group>"; };
 		8126AF8A286FFD84007DBAB9 /* BackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundView.swift; sourceTree = "<group>"; };
+		814E5DE628778E470008BAC1 /* PaymentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentViewModel.swift; sourceTree = "<group>"; };
+		81770C212877A314008B88F6 /* UIColor+Swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Swift.swift"; sourceTree = "<group>"; };
 		819B794F28708F020010B960 /* OfferViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfferViewModel.swift; sourceTree = "<group>"; };
 		819B7951287098FA0010B960 /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		8FCA518C1E38B3D34FB9D1EF /* Pods-MomentumiOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MomentumiOS.debug.xcconfig"; path = "Target Support Files/Pods-MomentumiOS/Pods-MomentumiOS.debug.xcconfig"; sourceTree = "<group>"; };
@@ -68,7 +75,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				814E5DF0287794630008BAC1 /* StripeCardScan in Frameworks */,
+				814E5DEE287794630008BAC1 /* StripeApplePay in Frameworks */,
 				3703363E8055D813FEFB7DBA /* Pods_MomentumiOS.framework in Frameworks */,
+				814E5DEC287794630008BAC1 /* Stripe in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -154,6 +164,7 @@
 				8126AF87286FF11B007DBAB9 /* Component */,
 				8126AF7C286FEF39007DBAB9 /* Navigation */,
 				8126AF6F286FD7EB007DBAB9 /* Offer */,
+				814E5DE528778E270008BAC1 /* Payments */,
 				7555FF82242A565900829871 /* ContentView.swift */,
 			);
 			path = Presentation;
@@ -182,6 +193,7 @@
 			children = (
 				8126AF74286FDB2F007DBAB9 /* View+Swift.swift */,
 				8126AF76286FE009007DBAB9 /* Color+Swift.swift */,
+				81770C212877A314008B88F6 /* UIColor+Swift.swift */,
 			);
 			path = Exts;
 			sourceTree = "<group>";
@@ -215,6 +227,14 @@
 			path = Component;
 			sourceTree = "<group>";
 		};
+		814E5DE528778E270008BAC1 /* Payments */ = {
+			isa = PBXGroup;
+			children = (
+				814E5DE628778E470008BAC1 /* PaymentViewModel.swift */,
+			);
+			path = Payments;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -232,6 +252,11 @@
 			dependencies = (
 			);
 			name = MomentumiOS;
+			packageProductDependencies = (
+				814E5DEB287794630008BAC1 /* Stripe */,
+				814E5DED287794630008BAC1 /* StripeApplePay */,
+				814E5DEF287794630008BAC1 /* StripeCardScan */,
+			);
 			productName = MomentumiOS;
 			productReference = 7555FF7B242A565900829871 /* MomentumiOS.app */;
 			productType = "com.apple.product-type.application";
@@ -282,6 +307,9 @@
 				Base,
 			);
 			mainGroup = 7555FF72242A565900829871;
+			packageReferences = (
+				814E5DEA287794630008BAC1 /* XCRemoteSwiftPackageReference "stripe-ios" */,
+			);
 			productRefGroup = 7555FF7C242A565900829871 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -342,7 +370,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */,
+				814E5DE728778E470008BAC1 /* PaymentViewModel.swift in Sources */,
 				8126AF71286FD82D007DBAB9 /* OfferView.swift in Sources */,
+				81770C222877A314008B88F6 /* UIColor+Swift.swift in Sources */,
 				8126AF84286FEF39007DBAB9 /* NavBar.swift in Sources */,
 				8126AF75286FDB2F007DBAB9 /* View+Swift.swift in Sources */,
 				8126AF77286FE009007DBAB9 /* Color+Swift.swift in Sources */,
@@ -609,6 +639,35 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		814E5DEA287794630008BAC1 /* XCRemoteSwiftPackageReference "stripe-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/stripe/stripe-ios";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		814E5DEB287794630008BAC1 /* Stripe */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 814E5DEA287794630008BAC1 /* XCRemoteSwiftPackageReference "stripe-ios" */;
+			productName = Stripe;
+		};
+		814E5DED287794630008BAC1 /* StripeApplePay */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 814E5DEA287794630008BAC1 /* XCRemoteSwiftPackageReference "stripe-ios" */;
+			productName = StripeApplePay;
+		};
+		814E5DEF287794630008BAC1 /* StripeCardScan */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 814E5DEA287794630008BAC1 /* XCRemoteSwiftPackageReference "stripe-ios" */;
+			productName = StripeCardScan;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 7555FF73242A565900829871 /* Project object */;
 }

@@ -9,5 +9,5 @@
 import Foundation
 
 struct Constants {
-    static let momentumOrange: UInt = 0xE55F1F
+    static let momentumOrange = 0xE55F1F
 }

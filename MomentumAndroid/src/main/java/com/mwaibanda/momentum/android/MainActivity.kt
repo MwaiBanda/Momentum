@@ -6,7 +6,6 @@ import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.foundation.layout.padding
 import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.rememberNavController
 import com.mwaibanda.momentum.android.presentation.MomentumEntry
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -17,6 +16,7 @@ import com.mwaibanda.momentum.android.core.utils.Constants
 import com.mwaibanda.momentum.android.core.utils.NavigationRoutes.*
 import com.mwaibanda.momentum.android.presentation.offer.OfferScreen
 import com.mwaibanda.momentum.android.presentation.payment.PaymentSummaryScreen
+import com.mwaibanda.momentum.utils.MultiplatformConstants
 import com.stripe.android.paymentsheet.PaymentSheet
 import com.stripe.android.paymentsheet.PaymentSheetContract
 import org.koin.androidx.viewmodel.ext.android.getViewModel
@@ -25,11 +25,10 @@ class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            val navController = rememberNavController()
-            MomentumEntry {
+            MomentumEntry { contentPadding, navController ->
                 NavHost(
                     navController = navController,
-                    modifier = Modifier.padding(it),
+                    modifier = Modifier.padding(contentPadding),
                     startDestination = OfferScreen.route
                 ) {
                     composable(OfferScreen.route) {
@@ -45,7 +44,7 @@ class MainActivity : BaseActivity() {
                         ) { request, launcher ->
                             checkout(request) { customer, intent ->
                                 val configuration = PaymentSheet.Configuration(
-                                    merchantDisplayName = merchantName,
+                                    merchantDisplayName = MultiplatformConstants.merchantName,
                                     customer = customer,
                                     googlePay = googlePayConfig,
                                     allowsDelayedPaymentMethods = false,

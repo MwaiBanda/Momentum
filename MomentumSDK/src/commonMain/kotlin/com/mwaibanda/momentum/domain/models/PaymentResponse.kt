@@ -7,6 +7,6 @@ import kotlinx.serialization.Serializable
 data class PaymentResponse(
     val publishableKey: String,
     val paymentIntent: String,
-    val customer: String? = null,
-    val ephemeralKey: String? = null
+    val customer: String,
+    val ephemeralKey: String
 )
