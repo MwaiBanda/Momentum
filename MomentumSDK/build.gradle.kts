@@ -2,6 +2,7 @@ plugins {
     kotlin("multiplatform")
     kotlin("native.cocoapods")
     id("com.android.library")
+    kotlin("plugin.serialization")
 }
 
 version = "1.0.0"
@@ -30,7 +31,6 @@ kotlin {
                 implementation("co.touchlab:stately-iso-collections:1.2.1")
                 implementation("io.ktor:ktor-client-core:1.6.7")
                 implementation("io.ktor:ktor-client-serialization:1.6.3")
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.3.1")
                 implementation("io.ktor:ktor-client-logging:1.6.2")
                 implementation("io.insert-koin:koin-core:3.1.5")
             }
@@ -40,7 +40,12 @@ kotlin {
                 implementation(kotlin("test"))
             }
         }
-        val androidMain by getting
+        val androidMain by getting {
+            dependencies {
+                implementation("io.ktor:ktor-client-okhttp:1.6.3")
+
+            }
+        }
         val androidTest by getting
         val iosX64Main by getting
         val iosArm64Main by getting

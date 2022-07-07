@@ -1,5 +1,6 @@
 package com.mwaibanda.momentum.android.presentation.offer
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
@@ -81,7 +82,10 @@ fun OfferScreen(navController: NavController, offerViewModel: OfferViewModel){
                 }
                 Spacer(modifier = Modifier.height(20.dp))
                 Button(
-                    onClick = { navController.navigate("pay") },
+                    onClick = {
+                        Log.d("OFFER", "${offerViewModel.displayNumber.value?.toFloat()}" )
+                        navController.navigate("pay/${offerViewModel.displayNumber.value?.toFloat()}")
+                    },
                     modifier = Modifier
                         .fillMaxWidth(0.85f)
                         .height(55.dp),

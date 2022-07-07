@@ -1,15 +1,16 @@
 package com.mwaibanda.momentum.android
 
 import androidx.activity.ComponentActivity
-import com.mwaibanda.momentum.android.presentation.offer.payment.PaymentViewModel
-import com.mwaibanda.momentum.controller.PaymentControllerImpl
+import com.mwaibanda.momentum.android.presentation.payment.PaymentViewModel
+import com.mwaibanda.momentum.domain.controller.PaymentController
 import com.mwaibanda.momentum.domain.models.PaymentRequest
 import com.stripe.android.PaymentConfiguration
 import com.stripe.android.paymentsheet.PaymentSheet
 import com.stripe.android.paymentsheet.PaymentSheetResult
+import org.koin.android.ext.android.inject
 
 open class BaseActivity: ComponentActivity() {
-    private val paymentViewModel by lazy { PaymentViewModel(PaymentControllerImpl()) }
+    private val paymentViewModel: PaymentViewModel by inject()
 
     protected fun checkout(
         paymentRequest: PaymentRequest,

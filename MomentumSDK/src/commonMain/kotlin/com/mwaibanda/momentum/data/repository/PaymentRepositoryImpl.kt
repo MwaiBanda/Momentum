@@ -6,14 +6,16 @@ import com.mwaibanda.momentum.domain.models.PaymentResponse
 import com.mwaibanda.momentum.domain.repository.PaymentRepository
 import io.ktor.client.*
 import io.ktor.client.request.*
+import io.ktor.http.*
 
 class PaymentRepositoryImpl(
     private val httpClient: HttpClient
 ): PaymentRepository, MomentumBase() {
 
     override suspend fun prepareCheckout(paymentRequest: PaymentRequest): PaymentResponse {
-        val response: PaymentResponse = httpClient.get {
+        val response: PaymentResponse = httpClient.post {
             momentumAPI(PAYMENT_ENDPOINT)
+            contentType(ContentType.Application.Json)
             body = paymentRequest
         }
         return response

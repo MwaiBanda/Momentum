@@ -1,4 +1,4 @@
-package com.mwaibanda.momentum.android.presentation.offer.payment
+package com.mwaibanda.momentum.android.presentation.payment
 
 import android.util.Log
 import androidx.activity.compose.ManagedActivityResultLauncher
@@ -9,6 +9,7 @@ import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
@@ -16,9 +17,11 @@ import androidx.compose.ui.unit.dp
 import com.mwaibanda.momentum.domain.models.PaymentRequest
 import com.stripe.android.paymentsheet.PaymentSheetContract
 import com.stripe.android.paymentsheet.PaymentSheetResult
+import java.time.temporal.TemporalAmount
 
 @Composable
 fun PaymentSummaryScreen(
+    amount: Float,
     onHandlePaymentSheetResult: (paymentResult: PaymentSheetResult, onPaymentSuccess: () -> Unit, onPaymentCancellation: () -> Unit, onPaymentFailure: (String) -> Unit) -> Unit,
     onInitiateCheckout: (PaymentRequest, ManagedActivityResultLauncher<PaymentSheetContract.Args, PaymentSheetResult>) -> Unit
 ){
@@ -38,11 +41,12 @@ fun PaymentSummaryScreen(
     }
     Column(
         Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Bottom
+        verticalArrangement = Arrangement.Bottom,
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Button(
             onClick = {
-                      onInitiateCheckout(PaymentRequest(100), stripeLauncher)
+                      onInitiateCheckout(PaymentRequest((amount  * 100).toInt()), stripeLauncher)
             },
             modifier = Modifier
                 .fillMaxWidth(0.85f)

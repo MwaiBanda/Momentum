@@ -1,6 +1,8 @@
 plugins {
     id("com.android.application")
     kotlin("android")
+    kotlin("plugin.serialization")
+
 }
 
 android {
@@ -60,5 +62,9 @@ dependencies {
     implementation ("com.google.accompanist:accompanist-systemuicontroller:0.24.13-rc")
     // Stripe Android SDK
     implementation ("com.stripe:stripe-android:19.0.0")
+    //Koin
+    implementation("io.insert-koin:koin-android:3.1.2")
+    implementation("io.insert-koin:koin-core:3.1.5")
+    implementation ("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.7.0")
 
 }

@@ -2,6 +2,7 @@ package com.mwaibanda.momentum.domain.models
 
 import kotlinx.serialization.Serializable
 
+
 @Serializable
 data class PaymentResponse(
     val publishableKey: String,
