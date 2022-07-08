@@ -17,15 +17,15 @@ struct NavBar: View {
     @Environment(\.presentationMode) var presentationMode
     var navTitle: String?
     var navConfig: NavConfig
-    var hasCover: Bool
     var Title: String {
         return navTitle ?? ""
     }
+    
     var body: some View {
         ZStack {
             if navConfig == .defaultConfig {
                 ZStack {
-                    Color(hasCover ? .gray : .clear ).ignoresSafeArea(.all)
+                    Color(.clear ).ignoresSafeArea(.all)
                     
                     HStack(alignment:.center){
                         
@@ -37,13 +37,12 @@ struct NavBar: View {
                                     let haptic = UIImpactFeedbackGenerator(style: .light)
                                     haptic.impactOccurred()
                                 }}) {
-                                    if Title.isEmpty {
                                         
                                         Image(systemName: showMenu ? "xmark" : "line.horizontal.3").imageScale(.large)
                                             .font(.system(size: 25, weight: .medium))
-                                            .foregroundColor(hasCover ? .blue : Color.white)
+                                            .foregroundColor( Color.white)
                                             .unredacted()
-                                    }
+                                    
                                     
                                 }
                                 
@@ -67,7 +66,7 @@ struct NavBar: View {
                                 }}) {
                                     Image(systemName: "clock.arrow.2.circlepath").imageScale(.large)
                                         .font(.system(size: 25, weight: .medium))
-                                        .foregroundColor(hasCover ? Color.gray  : Color.white)
+                                        .foregroundColor(Color.white)
                                 }
                                 }
                                 Button(action: { withAnimation(Animation.easeInOut(duration: 0.5)) {
@@ -77,7 +76,7 @@ struct NavBar: View {
                                 }}) {
                                     Image(systemName: "person.crop.circle").imageScale(.large)
                                         .font(.system(size: 25, weight: .medium))
-                                        .foregroundColor(hasCover ? Color.gray  : Color.white)
+                                        .foregroundColor(Color.white)
                                 }
                             }
                             
@@ -97,7 +96,7 @@ struct NavBar: View {
 
 struct NavBar_Previews: PreviewProvider {
     static var previews: some View {
-        NavBar(showMenu: .constant(false), navConfig: .defaultConfig, hasCover: true)
+        NavBar(showMenu: .constant(false), navConfig: .defaultConfig)
     }
 }
 

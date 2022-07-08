@@ -30,6 +30,12 @@
 		81770C222877A314008B88F6 /* UIColor+Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81770C212877A314008B88F6 /* UIColor+Swift.swift */; };
 		819B795028708F020010B960 /* OfferViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819B794F28708F020010B960 /* OfferViewModel.swift */; };
 		819B7952287098FA0010B960 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819B7951287098FA0010B960 /* Log.swift */; };
+		81B802D42877E4080008509D /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B802D32877E4080008509D /* LoadingView.swift */; };
+		81B802D62877E46A0008509D /* PaymentSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B802D52877E46A0008509D /* PaymentSummaryView.swift */; };
+		81B802D82877E7C40008509D /* PaymentResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B802D72877E7C40008509D /* PaymentResultView.swift */; };
+		81B802DA2877E7D80008509D /* PaymentSuccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B802D92877E7D80008509D /* PaymentSuccessView.swift */; };
+		81B802DC2877E7FF0008509D /* PaymentFailureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B802DB2877E7FF0008509D /* PaymentFailureView.swift */; };
+		81B802DE2877ED7F0008509D /* FilledButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B802DD2877ED7F0008509D /* FilledButtonStyle.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +73,12 @@
 		81770C212877A314008B88F6 /* UIColor+Swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Swift.swift"; sourceTree = "<group>"; };
 		819B794F28708F020010B960 /* OfferViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfferViewModel.swift; sourceTree = "<group>"; };
 		819B7951287098FA0010B960 /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
+		81B802D32877E4080008509D /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		81B802D52877E46A0008509D /* PaymentSummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentSummaryView.swift; sourceTree = "<group>"; };
+		81B802D72877E7C40008509D /* PaymentResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentResultView.swift; sourceTree = "<group>"; };
+		81B802D92877E7D80008509D /* PaymentSuccessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentSuccessView.swift; sourceTree = "<group>"; };
+		81B802DB2877E7FF0008509D /* PaymentFailureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentFailureView.swift; sourceTree = "<group>"; };
+		81B802DD2877ED7F0008509D /* FilledButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilledButtonStyle.swift; sourceTree = "<group>"; };
 		8FCA518C1E38B3D34FB9D1EF /* Pods-MomentumiOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MomentumiOS.debug.xcconfig"; path = "Target Support Files/Pods-MomentumiOS/Pods-MomentumiOS.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -221,8 +233,10 @@
 		8126AF87286FF11B007DBAB9 /* Component */ = {
 			isa = PBXGroup;
 			children = (
+				81B802DF2877ED940008509D /* Styles */,
 				8126AF88286FF12F007DBAB9 /* MenuButton.swift */,
 				8126AF8A286FFD84007DBAB9 /* BackgroundView.swift */,
+				81B802D32877E4080008509D /* LoadingView.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -231,8 +245,20 @@
 			isa = PBXGroup;
 			children = (
 				814E5DE628778E470008BAC1 /* PaymentViewModel.swift */,
+				81B802D52877E46A0008509D /* PaymentSummaryView.swift */,
+				81B802D72877E7C40008509D /* PaymentResultView.swift */,
+				81B802D92877E7D80008509D /* PaymentSuccessView.swift */,
+				81B802DB2877E7FF0008509D /* PaymentFailureView.swift */,
 			);
 			path = Payments;
+			sourceTree = "<group>";
+		};
+		81B802DF2877ED940008509D /* Styles */ = {
+			isa = PBXGroup;
+			children = (
+				81B802DD2877ED7F0008509D /* FilledButtonStyle.swift */,
+			);
+			path = Styles;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -369,10 +395,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				81B802D82877E7C40008509D /* PaymentResultView.swift in Sources */,
+				81B802D62877E46A0008509D /* PaymentSummaryView.swift in Sources */,
 				2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */,
 				814E5DE728778E470008BAC1 /* PaymentViewModel.swift in Sources */,
 				8126AF71286FD82D007DBAB9 /* OfferView.swift in Sources */,
 				81770C222877A314008B88F6 /* UIColor+Swift.swift in Sources */,
+				81B802D42877E4080008509D /* LoadingView.swift in Sources */,
 				8126AF84286FEF39007DBAB9 /* NavBar.swift in Sources */,
 				8126AF75286FDB2F007DBAB9 /* View+Swift.swift in Sources */,
 				8126AF77286FE009007DBAB9 /* Color+Swift.swift in Sources */,
@@ -383,8 +412,11 @@
 				8126AF89286FF12F007DBAB9 /* MenuButton.swift in Sources */,
 				7555FF83242A565900829871 /* ContentView.swift in Sources */,
 				8126AF86286FEF39007DBAB9 /* BottomTabBar.swift in Sources */,
+				81B802DA2877E7D80008509D /* PaymentSuccessView.swift in Sources */,
 				8126AF82286FEF39007DBAB9 /* ContentWrapper.swift in Sources */,
+				81B802DE2877ED7F0008509D /* FilledButtonStyle.swift in Sources */,
 				8126AF7B286FE3C2007DBAB9 /* Constants.swift in Sources */,
+				81B802DC2877E7FF0008509D /* PaymentFailureView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

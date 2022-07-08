@@ -16,13 +16,13 @@ class OfferViewModel: ObservableObject {
         ["•", "0", "<"]
     ]
     let controlKeys: [Character] = ["•", "<"]
-    @Published var isDecimalMode = false
-    @Published var isKeypadDisabled = false
-    @Published var popIn = false
-    @Published var scale = 1.3
-    @Published var displayText = [String]()
+    @Published private(set) var isDecimalMode = false
+    @Published private(set) var isKeypadDisabled = false
+    @Published private(set) var popIn = false
+    @Published private(set) var scale = 1.3
+    @Published private(set) var displayText = [String]()
 
-    @Published private var number = "" {
+    @Published private(set) var number = "" {
         willSet {
             if isDecimalMode {
                 displayNumber = "$" + getDecimalFormattedNumber(number: newValue)

@@ -13,8 +13,8 @@ import UIKit
 
 class PaymentViewModel : ObservableObject {
     private var paymentController: PaymentController
-    @Published var paymentSheet: PaymentSheet?
-    @Published var paymentResult: PaymentSheetResult?
+    @Published private(set) var paymentSheet: PaymentSheet?
+    @Published private(set) var paymentResult: PaymentSheetResult?
      
     init(paymentController: PaymentController) {
         self.paymentController = paymentController
@@ -30,7 +30,7 @@ class PaymentViewModel : ObservableObject {
             var configuration = PaymentSheet.Configuration()
             configuration.merchantDisplayName = MultiplatformConstants.shared.merchantName
             configuration.customer = .init(id: response.customer, ephemeralKeySecret: response.ephemeralKey)
-            configuration.primaryButtonColor = UIColor(hex: Constants.momentumOrange)  
+            configuration.primaryButtonColor = UIColor.init(red: 229/255, green: 95/255, blue: 31/255, alpha: 1)
             configuration.style = .alwaysLight
             configuration.returnURL = "momentumchurch://stripe-redirect"
 

@@ -62,13 +62,18 @@ struct OfferView: View {
                     
                 }
             }
-            Button {} label: {
+            NavigationLink {
+                ContentWrapper(isDetail: true) { proxy in
+                PaymentSummaryView(offerViewModel: offerViewModel)
+                        .frame(minHeight: proxy.size.height - 50)
+                }
+            } label: {
                 Text("Offer")
                     .fontWeight(.heavy)
                     .frame(width: screenBounds.width - 30, height: 55)
-                    .background(Color(hex: Constants.momentumOrange))
-                    .cornerRadius(10)
-            }
+
+         
+            }.buttonStyle(FilledButtonStyle())
         }
         .foregroundColor(.white)
         .frame(minHeight: proxy.size.height - 90)

@@ -13,7 +13,7 @@ import StoreKit
 
 struct ContentWrapper<Content: View>: View {
     @State var showMenu = false
-    var hasCover: Bool
+    var isDetail: Bool
     var navTitle: String
     var navConfig: NavConfig
     var content: (GeometryProxy) -> (Content)
@@ -21,13 +21,13 @@ struct ContentWrapper<Content: View>: View {
     init(
         navConfig: NavConfig = .defaultConfig,
         navTitle: String = "",
-        hasCover: Bool = false,
+        isDetail: Bool = false,
         @ViewBuilder content: @escaping (GeometryProxy) -> (Content)
     ) {
         self.navTitle = navTitle
         self.content = content
         self.navConfig = navConfig
-        self.hasCover = hasCover
+        self.isDetail = isDetail
     }
     
     
@@ -44,13 +44,18 @@ struct ContentWrapper<Content: View>: View {
             ZStack{
                 withAnimation {
                     ZStack {
+                        if isDetail {
+                            Color.white.ignoresSafeArea(.all)
+                        } else {
                         BackgroundView().ignoresSafeArea(.all)
+                        }
                         GeometryReader { geometry in
                             VStack(spacing: 0){
-                                NavBar(showMenu: $showMenu, navTitle: navTitle, navConfig: navConfig, hasCover: hasCover)
+                                if !isDetail {
+                                NavBar(showMenu: $showMenu, navTitle: navTitle, navConfig: navConfig)
                                     .frame(minHeight: 50)
-                            
-                               
+                                    
+                                }
                                 ScrollView(.vertical, showsIndicators: false){
                                 content(geometry)
                                 }.padding(.vertical)
@@ -81,8 +86,7 @@ struct ContentWrapper<Content: View>: View {
                 }
                 
             }
-            .navigationBarBackButtonHidden(true)
-            .navigationBarHidden(true)
+            .navigationBarHidden(isDetail ? false : true)
         }
         .onAppear(perform: {
             
