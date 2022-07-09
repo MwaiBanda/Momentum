@@ -10,7 +10,18 @@ import SwiftUI
 
 struct LoadingView: View {
     var body: some View {
-        ProgressView()
+        VStack {
+            Spacer()
+            ProgressView()
+                .progressViewStyle(
+                    CircularProgressViewStyle(
+                        tint: Color(
+                            hex: Constants.momentumOrange
+                        )
+                    )
+                )
+            Spacer()
+        }
     }
 }
 

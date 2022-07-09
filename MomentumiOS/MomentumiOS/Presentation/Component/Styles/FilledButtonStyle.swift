@@ -11,6 +11,7 @@ import SwiftUI
 struct FilledButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
+            .font(.headline)
             .foregroundColor(.white)
             .background(Color(hex: Constants.momentumOrange))
             .cornerRadius(10)

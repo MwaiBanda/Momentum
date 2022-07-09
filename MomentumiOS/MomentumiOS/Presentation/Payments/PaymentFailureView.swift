@@ -9,8 +9,35 @@
 import SwiftUI
 
 struct PaymentFailureView: View {
+    @Environment(\.presentationMode) private var presentationMode
     var body: some View {
+        ZStack {
+            Color.white.ignoresSafeArea()
+        VStack {
+        LottieView(name: "failed")
+            .frame(width: 250, height: 250)
         Text("Payment Failed")
+            .fontWeight(.heavy)
+            .font(.system(size: 24))
+            .foregroundColor(Color(hex: Constants.momentumOrange))
+            Text("""
+                Your payment hasn't been made successfully.
+                Try again to proceed with making a payment.
+                """)
+                .multilineTextAlignment(.center)
+                .padding()
+                .padding(.bottom)
+            
+            Button {
+                presentationMode.wrappedValue.dismiss()
+            } label: {
+                Text("Back")
+                    .fontWeight(.heavy)
+                    .frame(width: screenBounds.width - 30, height: 55)
+            }.buttonStyle(FilledButtonStyle())
+            Spacer()
+        }.navigationBarBackButtonHidden(true)
+        }
     }
 }
 

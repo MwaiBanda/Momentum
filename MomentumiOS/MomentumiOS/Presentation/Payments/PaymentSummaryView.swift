@@ -32,24 +32,23 @@ struct PaymentSummaryView: View {
                         Divider()
 
                     }
+                    .navigationTitle(paymentViewModel.isNavTitleHidden ? "" : "Payment Summary")
                     .navigationBarBackButtonHidden(false)
-                    .navigationTitle("Payment Summary")
+                   
                 } else {
-                    VStack {
-                        Spacer()
-                    ProgressView()
-                        .progressViewStyle(CircularProgressViewStyle(tint: Color(hex: Constants.momentumOrange)))
-
-                        Spacer()
-
-                    }.navigationBarBackButtonHidden(true)
+                  LoadingView()
+                        .navigationBarBackButtonHidden(true)
 
                 }
             }.onAppear {
                 paymentViewModel.checkout(request: PaymentRequest(amount: Int32((Double(offerViewModel.number) ?? 0.00) * 100)))
             }
             if let paymentResult = paymentViewModel.paymentResult {
+                
                 PaymentResultView(result: paymentResult)
+                        .navigationBarHidden(true)
+
+                
             }
         }
     }
