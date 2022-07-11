@@ -58,13 +58,19 @@ dependencies {
     implementation( "androidx.navigation:navigation-compose:2.5.0")
     // Live Data
     implementation ("androidx.compose.runtime:runtime-livedata:1.3.0-alpha01")
+    // Icons exts
+    implementation( "androidx.compose.material:material-icons-extended:1.1.1")
     // Status Bar
     implementation ("com.google.accompanist:accompanist-systemuicontroller:0.24.13-rc")
+    implementation ("com.google.accompanist:accompanist-insets:0.24.13-rc")
+
     // Stripe Android SDK
     implementation ("com.stripe:stripe-android:19.0.0")
     //Koin
     implementation("io.insert-koin:koin-android:3.1.2")
     implementation("io.insert-koin:koin-core:3.1.5")
     implementation ("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.7.0")
+    //Lottie
+    implementation ("com.airbnb.android:lottie-compose:4.0.0")
 
 }

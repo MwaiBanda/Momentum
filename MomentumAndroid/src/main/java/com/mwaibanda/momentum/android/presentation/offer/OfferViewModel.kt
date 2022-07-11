@@ -19,6 +19,7 @@ class OfferViewModel: ViewModel() {
     var isKeypadEnabled by mutableStateOf(true)
         private set
     private val _number: MutableLiveData<String> = MutableLiveData("0")
+    val number: LiveData<String> = _number
     private val _displayNumber: MutableLiveData<String> = MutableLiveData("0")
     val displayNumber: LiveData<String> = _displayNumber
 

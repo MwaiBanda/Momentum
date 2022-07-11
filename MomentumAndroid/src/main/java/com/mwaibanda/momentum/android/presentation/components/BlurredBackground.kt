@@ -14,6 +14,7 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.google.accompanist.insets.navigationBarsHeight
 import com.mwaibanda.momentum.android.core.utils.Constants
 
 @Composable
@@ -25,7 +26,7 @@ fun BlurredBackground(content: @Composable () -> Unit){
             .background(
                 Brush.linearGradient(
                     colors = listOf(
-                        Color(Constants.MomemtumOrange),
+                        Color(Constants.MomentumOrange),
                         Color.LightGray
                     )
                 )
@@ -39,7 +40,7 @@ fun BlurredBackground(content: @Composable () -> Unit){
                 drawCircle(
                     brush = Brush.radialGradient(
                         colors = listOf(
-                            Color(Constants.MomemtumOrange),
+                            Color(Constants.MomentumOrange),
                             Color.Transparent,
                         ),
                         center = Offset(x = 0.4f, y = 0.2f),
@@ -64,7 +65,7 @@ fun BlurredBackground(content: @Composable () -> Unit){
                 drawCircle(
                     brush = Brush.radialGradient(
                         colors = listOf(
-                            Color(Constants.MomemtumOrange),
+                            Color(Constants.MomentumOrange),
                             Color.Transparent,
                         ),
                         center = Offset(x = 0.4f, y = size.height),
@@ -87,7 +88,7 @@ fun BlurredBackground(content: @Composable () -> Unit){
                 drawCircle(
                     brush = Brush.radialGradient(
                         colors = listOf(
-                            Color(Constants.MomemtumOrange),
+                            Color(Constants.MomentumOrange),
                             Color.Transparent,
                         ),
                         center =  Offset(x = size.width - 0.8f, y = size.height),

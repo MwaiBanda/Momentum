@@ -27,7 +27,7 @@ struct PaymentFailureView: View {
                 .multilineTextAlignment(.center)
                 .padding()
                 .padding(.bottom)
-            
+            Spacer()
             Button {
                 presentationMode.wrappedValue.dismiss()
             } label: {
@@ -35,7 +35,7 @@ struct PaymentFailureView: View {
                     .fontWeight(.heavy)
                     .frame(width: screenBounds.width - 30, height: 55)
             }.buttonStyle(FilledButtonStyle())
-            Spacer()
+            Divider()
         }.navigationBarBackButtonHidden(true)
         }
     }

@@ -26,7 +26,10 @@ import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.text.font.FontWeight
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.google.accompanist.insets.navigationBarsHeight
+import com.mwaibanda.momentum.android.core.utils.Constants
 import com.mwaibanda.momentum.android.presentation.components.BlurredBackground
+import com.mwaibanda.momentum.android.presentation.components.BottomSpacing
 
 @Composable
 fun OfferScreen(navController: NavController, offerViewModel: OfferViewModel){
@@ -83,14 +86,14 @@ fun OfferScreen(navController: NavController, offerViewModel: OfferViewModel){
                 Spacer(modifier = Modifier.height(20.dp))
                 Button(
                     onClick = {
-                        Log.d("OFFER", "${offerViewModel.displayNumber.value?.toFloat()}" )
-                        navController.navigate("pay/${offerViewModel.displayNumber.value?.toFloat()}")
+                        Log.d("OFFER", "${offerViewModel.number.value?.toFloat()}" )
+                        navController.navigate("pay/${offerViewModel.number.value?.toFloat()}")
                     },
                     modifier = Modifier
-                        .fillMaxWidth(0.85f)
+                        .fillMaxWidth(0.9f)
                         .height(55.dp),
                     shape = RoundedCornerShape(10.dp),
-                    colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xFFE55F1F))
+                    colors = ButtonDefaults.buttonColors(backgroundColor = Color(Constants.MomentumOrange))
                 ) {
                     Text(
                         text = "Offer",
@@ -98,7 +101,8 @@ fun OfferScreen(navController: NavController, offerViewModel: OfferViewModel){
                         color = Color.White
                     )
                 }
-                Spacer(modifier = Modifier.height(20.dp))
+                Spacer(modifier = Modifier.height(10.dp))
+                BottomSpacing()
             }
         }
     }
