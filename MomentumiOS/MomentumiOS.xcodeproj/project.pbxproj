@@ -12,6 +12,8 @@
 		2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2152FB032600AC8F00CF470E /* iOSApp.swift */; };
 		3703363E8055D813FEFB7DBA /* Pods_MomentumiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C018D438F8DF226DE8A725D /* Pods_MomentumiOS.framework */; };
 		7555FF83242A565900829871 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7555FF82242A565900829871 /* ContentView.swift */; };
+		811A3E7D287E05D90052682B /* ToggleAmountLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811A3E7C287E05D90052682B /* ToggleAmountLabel.swift */; };
+		811A3E7F287E16AF0052682B /* PaymentSummaryContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811A3E7E287E16AE0052682B /* PaymentSummaryContentView.swift */; };
 		8126AF68286FD796007DBAB9 /* MomentumiOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8126AF67286FD796007DBAB9 /* MomentumiOSTests.swift */; };
 		8126AF71286FD82D007DBAB9 /* OfferView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8126AF70286FD82D007DBAB9 /* OfferView.swift */; };
 		8126AF75286FDB2F007DBAB9 /* View+Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8126AF74286FDB2F007DBAB9 /* View+Swift.swift */; };
@@ -23,6 +25,7 @@
 		8126AF86286FEF39007DBAB9 /* BottomTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8126AF81286FEF39007DBAB9 /* BottomTabBar.swift */; };
 		8126AF89286FF12F007DBAB9 /* MenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8126AF88286FF12F007DBAB9 /* MenuButton.swift */; };
 		8126AF8B286FFD84007DBAB9 /* BackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8126AF8A286FFD84007DBAB9 /* BackgroundView.swift */; };
+		813E158F287F48F10069A6BB /* PaymentSummaryContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813E158E287F48F10069A6BB /* PaymentSummaryContentViewModel.swift */; };
 		814525F528793F3300989B4C /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 814525F428793F3300989B4C /* Lottie */; };
 		814525F728793F5000989B4C /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 814525F628793F5000989B4C /* LottieView.swift */; };
 		814525F9287940DF00989B4C /* failed.json in Resources */ = {isa = PBXBuildFile; fileRef = 814525F8287940DF00989B4C /* failed.json */; };
@@ -61,6 +64,8 @@
 		7555FF82242A565900829871 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		7555FF8C242A565B00829871 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7C018D438F8DF226DE8A725D /* Pods_MomentumiOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MomentumiOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		811A3E7C287E05D90052682B /* ToggleAmountLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleAmountLabel.swift; sourceTree = "<group>"; };
+		811A3E7E287E16AE0052682B /* PaymentSummaryContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentSummaryContentView.swift; sourceTree = "<group>"; };
 		8126AF65286FD796007DBAB9 /* MomentumiOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MomentumiOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8126AF67286FD796007DBAB9 /* MomentumiOSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MomentumiOSTests.swift; sourceTree = "<group>"; };
 		8126AF70286FD82D007DBAB9 /* OfferView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfferView.swift; sourceTree = "<group>"; };
@@ -73,6 +78,7 @@
 		8126AF81286FEF39007DBAB9 /* BottomTabBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomTabBar.swift; sourceTree = "<group>"; };
 		8126AF88286FF12F007DBAB9 /* MenuButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuButton.swift; sourceTree = "<group>"; };
 		8126AF8A286FFD84007DBAB9 /* BackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundView.swift; sourceTree = "<group>"; };
+		813E158E287F48F10069A6BB /* PaymentSummaryContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentSummaryContentViewModel.swift; sourceTree = "<group>"; };
 		814525F628793F5000989B4C /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
 		814525F8287940DF00989B4C /* failed.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = failed.json; sourceTree = "<group>"; };
 		814525FA287940E900989B4C /* success.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = success.json; sourceTree = "<group>"; };
@@ -247,6 +253,7 @@
 				8126AF8A286FFD84007DBAB9 /* BackgroundView.swift */,
 				81B802D32877E4080008509D /* LoadingView.swift */,
 				814525F628793F5000989B4C /* LottieView.swift */,
+				811A3E7C287E05D90052682B /* ToggleAmountLabel.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -268,6 +275,8 @@
 				81B802D72877E7C40008509D /* PaymentResultView.swift */,
 				81B802D92877E7D80008509D /* PaymentSuccessView.swift */,
 				81B802DB2877E7FF0008509D /* PaymentFailureView.swift */,
+				811A3E7E287E16AE0052682B /* PaymentSummaryContentView.swift */,
+				813E158E287F48F10069A6BB /* PaymentSummaryContentViewModel.swift */,
 			);
 			path = Payments;
 			sourceTree = "<group>";
@@ -418,6 +427,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				811A3E7F287E16AF0052682B /* PaymentSummaryContentView.swift in Sources */,
 				81B802D82877E7C40008509D /* PaymentResultView.swift in Sources */,
 				81B802D62877E46A0008509D /* PaymentSummaryView.swift in Sources */,
 				2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */,
@@ -429,11 +439,13 @@
 				8126AF75286FDB2F007DBAB9 /* View+Swift.swift in Sources */,
 				8126AF77286FE009007DBAB9 /* Color+Swift.swift in Sources */,
 				8126AF85286FEF39007DBAB9 /* MenuView.swift in Sources */,
+				813E158F287F48F10069A6BB /* PaymentSummaryContentViewModel.swift in Sources */,
 				8126AF8B286FFD84007DBAB9 /* BackgroundView.swift in Sources */,
 				819B795028708F020010B960 /* OfferViewModel.swift in Sources */,
 				819B7952287098FA0010B960 /* Log.swift in Sources */,
 				8126AF89286FF12F007DBAB9 /* MenuButton.swift in Sources */,
 				7555FF83242A565900829871 /* ContentView.swift in Sources */,
+				811A3E7D287E05D90052682B /* ToggleAmountLabel.swift in Sources */,
 				8126AF86286FEF39007DBAB9 /* BottomTabBar.swift in Sources */,
 				81B802DA2877E7D80008509D /* PaymentSuccessView.swift in Sources */,
 				8126AF82286FEF39007DBAB9 /* ContentWrapper.swift in Sources */,

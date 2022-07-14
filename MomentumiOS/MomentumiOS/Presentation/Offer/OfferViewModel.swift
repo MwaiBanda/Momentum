@@ -8,7 +8,7 @@
 
 import Foundation
 
-class OfferViewModel: ObservableObject {
+final class OfferViewModel: ObservableObject {
     let offerKeypad: [[Character]] = [
         ["1", "2", "3"],
         ["4", "5", "6"],

@@ -11,7 +11,7 @@ import MomentumSDK
 import Stripe
 import UIKit
 
-class PaymentViewModel : ObservableObject {
+final class PaymentViewModel : ObservableObject {
     private var paymentController: PaymentController
     @Published private(set) var paymentSheet: PaymentSheet?
     @Published private(set) var paymentResult: PaymentSheetResult?
