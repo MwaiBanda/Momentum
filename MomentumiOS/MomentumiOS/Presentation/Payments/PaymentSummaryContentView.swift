@@ -7,7 +7,6 @@
 //
 
 import SwiftUI
-import MapKit
 
 struct PaymentSummaryContentView: View {
     @ObservedObject var offerViewModel: OfferViewModel
@@ -20,6 +19,7 @@ struct PaymentSummaryContentView: View {
                 .foregroundColor(Color(hex: Constants.momentumOrange))
                 .padding(.leading)
             VStack {
+                
                 ToggleAmountLabel(
                     title: "Offering",
                     amount: $contentViewModel.offeringAmount,
@@ -29,7 +29,10 @@ struct PaymentSummaryContentView: View {
                     contentViewModel.processToggle(isActive: isActive, type: .offering)
                 } onAmountChanged: { amount in
                     contentViewModel.processAmount(amount: amount, type: .offering)
-                }
+                }.disabled(
+                    contentViewModel.selectedLabels.count == 2 &&
+                    !contentViewModel.selectedLabels.contains(where: { $0 == .offering})
+                )
                 
                 Divider()
                 ToggleAmountLabel(
@@ -41,7 +44,11 @@ struct PaymentSummaryContentView: View {
                     contentViewModel.processToggle(isActive: isActive, type: .tithe)
                 } onAmountChanged: { amount in
                     contentViewModel.processAmount(amount: amount, type: .tithe)
-                }
+                }.disabled(
+                    contentViewModel.selectedLabels.count == 2 &&
+                    !contentViewModel.selectedLabels.contains(where: { $0 == .tithe})
+                )
+                
                 Divider()
                 ToggleAmountLabel(
                     title: "Missions",
@@ -51,8 +58,12 @@ struct PaymentSummaryContentView: View {
                 ) { isActive in
                     contentViewModel.processToggle(isActive: isActive, type: .missions)
                 } onAmountChanged: { amount in
-                    
-                }
+                    contentViewModel.processAmount(amount: amount, type: .missions)
+                }.disabled(
+                    contentViewModel.selectedLabels.count == 2 &&
+                    !contentViewModel.selectedLabels.contains(where: { $0 == .missions})
+                )
+                
                 Divider()
                 ToggleAmountLabel(
                     title: "Special Speaker",
@@ -62,8 +73,11 @@ struct PaymentSummaryContentView: View {
                 ) { isActive in
                     contentViewModel.processToggle(isActive: isActive, type: .specialSpeaker)
                 } onAmountChanged: { amount in
-                    
-                }
+                    contentViewModel.processAmount(amount: amount, type: .tithe)
+                }.disabled(
+                    contentViewModel.selectedLabels.count == 2 &&
+                    !contentViewModel.selectedLabels.contains(where: { $0 == .specialSpeaker})
+                )
                 
                 Divider()
                 ToggleAmountLabel(
@@ -74,8 +88,11 @@ struct PaymentSummaryContentView: View {
                 ) { isActive in
                     contentViewModel.processToggle(isActive: isActive, type: .other)
                 } onAmountChanged: { amount in
-                    
-                }
+                    contentViewModel.processAmount(amount: amount, type: .tithe)
+                }.disabled(
+                    contentViewModel.selectedLabels.count == 2 &&
+                    !contentViewModel.selectedLabels.contains(where: { $0 == .other})
+                )
             }
             Spacer()
             VStack {

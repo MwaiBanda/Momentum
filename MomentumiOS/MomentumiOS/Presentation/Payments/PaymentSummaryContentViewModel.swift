@@ -12,6 +12,7 @@ final class PaymentSummaryContentViewModel: ObservableObject {
     
     @Published var selectedLabels = [ToggleLabel]()
     @Published var previousOption: ToggleOption = ToggleOption(amount: 0)
+    
     /* isSelected State */
     @Published var offeringIsSelected: Bool = false
     @Published var titheIsSelected: Bool = false
@@ -31,6 +32,9 @@ final class PaymentSummaryContentViewModel: ObservableObject {
         var amount: Int
         var type: ToggleLabel = .offering
     }
+    enum ToggleLabel {
+        case offering, tithe, missions, specialSpeaker, other
+    }
     
     func processToggle(isActive: Bool, type: ToggleLabel){
         if selectedLabels.contains(where: { $0 == type }) {
@@ -44,13 +48,13 @@ final class PaymentSummaryContentViewModel: ObservableObject {
                     case .offering:
                         offeringAmount = String((Int(offeringAmount) ?? 0) + previousOption.amount)
                     case .tithe:
-                        break
+                        titheAmount = String((Int(titheAmount) ?? 0) + previousOption.amount)
                     case .missions:
-                        break
+                        missionsAmount = String((Int(missionsAmount) ?? 0) + previousOption.amount)
                     case .specialSpeaker:
-                        break
+                        speakersAmount = String((Int(speakersAmount) ?? 0) + previousOption.amount)
                     case .other:
-                        break
+                        otherAmount = String((Int(otherAmount) ?? 0) + previousOption.amount)
                     case .none:
                         break
                     }
@@ -58,74 +62,259 @@ final class PaymentSummaryContentViewModel: ObservableObject {
                 }
             }
         }else {
-                selectedLabels.append(type)
-                if selectedLabels.count == 1 {
-                    switch type {
-                    case .offering:
-                        offeringAmount = totalAmount
-                    case .tithe:
-                        titheAmount = totalAmount
-                    case .missions:
-                        missionsAmount = totalAmount
-                    case .specialSpeaker:
-                        speakersAmount = totalAmount
-                    case .other:
-                        otherAmount = totalAmount
-                    }
-                }
-                Log.d(tag: "ADD/\(type)", message: selectedLabels)
+            selectedLabels.append(type)
+            Log.d(tag: "ADD/\(type)", message: selectedLabels)
+        }
+        if selectedLabels.count == 1 {
+            resetAmounts()
+            switch selectedLabels.last {
+            case .offering:
+                offeringAmount = totalAmount
+            case .tithe:
+                titheAmount = totalAmount
+            case .missions:
+                missionsAmount = totalAmount
+            case .specialSpeaker:
+                speakersAmount = totalAmount
+            case .other:
+                otherAmount = totalAmount
+                
+            case .none:
+                break
             }
         }
+    }
     
     func processAmount(amount: String, type: ToggleLabel) {
         previousOption = ToggleOption(amount: Int(amount) ?? 0, type: type)
         switch selectedLabels.count {
         case 2:
             switch selectedLabels[0] {
+                
+                
             case .offering:
                 switch selectedLabels[1] {
                 case .offering:
                     break
                 case .tithe:
-                    offeringAmount = getReminder(amount: amount)
+                    if previousOption.type == .tithe {
+                        setOfferingAmount(amount: amount)
+                    } else {
+                        setTitheAmount(amount: amount)
+                    }
+                case .missions:
+                    if previousOption.type == .missions {
+                        setOfferingAmount(amount: amount)
+                    } else {
+                        setMissionsAmount(amount: amount)
+                    }
+                case .specialSpeaker:
+                    if previousOption.type == .specialSpeaker {
+                        setOfferingAmount(amount: amount)
+                    } else {
+                        setSpeakersAmount(amount: amount)
+                    }
+                case .other:
+                    if previousOption.type == .other {
+                        setOfferingAmount(amount: amount)
+                    } else {
+                        setOtherAmount(amount: amount)
+                    }
+                }
+                
+                
+            case .tithe:
+                switch selectedLabels[1] {
+                case .offering:
+                    if previousOption.type == .offering {
+                        setTitheAmount(amount: amount)
+                    } else {
+                        setOfferingAmount(amount: amount)
+                    }
+                case .tithe:
+                    break
+                case .missions:
+                    if previousOption.type == .missions {
+                        setTitheAmount(amount: amount)
+                    } else {
+                        setMissionsAmount(amount: amount)
+                    }
+                case .specialSpeaker:
+                    if previousOption.type == .specialSpeaker {
+                        setTitheAmount(amount: amount)
+                    } else {
+                        setSpeakersAmount(amount: amount)
+                    }
+                case .other:
+                    if previousOption.type == .other {
+                        setTitheAmount(amount: amount)
+                    } else {
+                        setOtherAmount(amount: amount)
+                    }
+                }
+                
+                
+            case .missions:
+                switch selectedLabels[1] {
+                case .offering:
+                    if previousOption.type == .offering {
+                        setMissionsAmount(amount: amount)
+                    } else {
+                        setOfferingAmount(amount: amount)
+                    }
+                case .tithe:
+                    if previousOption.type == .tithe {
+                        setMissionsAmount(amount: amount)
+                    } else {
+                        setTitheAmount(amount: amount)
+                    }
                 case .missions:
                     break
                 case .specialSpeaker:
+                    if previousOption.type == .missions {
+                        setMissionsAmount(amount: amount)
+                    } else {
+                        setSpeakersAmount(amount: amount)
+                    }
+                case .other:
+                    if previousOption.type == .other {
+                        setMissionsAmount(amount: amount)
+                    } else {
+                        setOtherAmount(amount: amount)
+                    }
+                }
+                
+                
+            case .specialSpeaker:
+                switch selectedLabels[1] {
+                case .offering:
+                    if previousOption.type == .offering {
+                        setSpeakersAmount(amount: amount)
+                    } else {
+                        setOfferingAmount(amount: amount)
+                    }
+                case .tithe:
+                    if previousOption.type == .tithe {
+                        setSpeakersAmount(amount: amount)
+                    } else {
+                        setTitheAmount(amount: amount)
+                    }
+                case .missions:
+                    if previousOption.type == .missions {
+                        setSpeakersAmount(amount: amount)
+                    } else {
+                        setMissionsAmount(amount: amount)
+                    }
+                case .specialSpeaker:
                     break
+                case .other:
+                    if previousOption.type == .other {
+                        setSpeakersAmount(amount: amount)
+                    } else {
+                        setOtherAmount(amount: amount)
+                    }
+                }
+                
+                
+            case .other:
+                switch selectedLabels[1] {
+                case .offering:
+                    if previousOption.type == .offering {
+                        setOtherAmount(amount: amount)
+                    } else {
+                        setOfferingAmount(amount: amount)
+                    }
+                case .tithe:
+                    if previousOption.type == .tithe {
+                        setOtherAmount(amount: amount)
+                    } else {
+                        setTitheAmount(amount: amount)
+                    }
+                case .missions:
+                    if previousOption.type == .missions {
+                        setOtherAmount(amount: amount)
+                    } else {
+                        setMissionsAmount(amount: amount)
+                    }
+                case .specialSpeaker:
+                    if previousOption.type == .specialSpeaker {
+                        setOtherAmount(amount: amount)
+                    } else {
+                        setSpeakersAmount(amount: amount)
+                    }
                 case .other:
                     break
                 }
-            case .tithe:
-                break
-            case .missions:
-                break
-            case .specialSpeaker:
-                break
-            case .other:
-                break
             }
             
         default:
             break
         }
     }
-    func getReminder(amount: String) -> String {
-        let reminder = (Int(totalAmount) ?? 0) - (Int(amount) ?? 0)
+    
+ 
+    func subtractAmounts(amounts: String...) -> String {
+        let reminder = (Int(amounts[0]) ?? 0) - (Int(amounts[1]) ?? 0)
         return String(reminder)
+    }
+    
+    func addAmounts(amounts: String...) -> String {
+        let reminder = (Int(amounts[0]) ?? 0) + (Int(amounts[1]) ?? 0)
+        return String(reminder)
+    }
+    
+    func setOtherAmount(amount: String) {
+        if previousOption.amount > (Int(amount) ?? 0) {
+            otherAmount = addAmounts(amounts: totalAmount, amount)
+        } else {
+            otherAmount = subtractAmounts(amounts: totalAmount, amount)
+        }
+    }
+    
+    func setOfferingAmount(amount: String) {
+        if previousOption.amount > (Int(amount) ?? 0) {
+            offeringAmount = addAmounts(amounts: totalAmount, amount)
+        } else {
+            offeringAmount = subtractAmounts(amounts: totalAmount, amount)
+        }
+    }
+    
+    func setTitheAmount(amount: String) {
+        if previousOption.amount > (Int(amount) ?? 0) {
+            titheAmount = addAmounts(amounts: totalAmount, amount)
+        } else {
+            titheAmount = subtractAmounts(amounts: totalAmount, amount)
+        }
+    }
+    
+    func setMissionsAmount(amount: String) {
+        if previousOption.amount > (Int(amount) ?? 0) {
+            titheAmount = addAmounts(amounts: totalAmount, amount)
+        } else {
+            titheAmount = subtractAmounts(amounts: totalAmount, amount)
+        }
+    }
+    
+    func setSpeakersAmount(amount: String) {
+        if previousOption.amount > (Int(amount) ?? 0) {
+            speakersAmount = addAmounts(amounts: totalAmount, amount)
+        } else {
+            speakersAmount = subtractAmounts(amounts: totalAmount, amount)
+        }
     }
     
     func resetPrevious() {
         switch previousOption.type {
         case .offering:
-            break
+            offeringAmount = "0"
         case .tithe:
             titheAmount = "0"
         case .missions:
-            break
+            missionsAmount = "0"
         case .specialSpeaker:
-            break
+            speakersAmount = "0"
         case .other:
-            break
+            otherAmount = "0"
         }
     }
     
@@ -136,8 +325,7 @@ final class PaymentSummaryContentViewModel: ObservableObject {
         speakersAmount = "0"
         otherAmount = "0"
     }
+    
 }
 
-enum ToggleLabel {
-    case offering, tithe, missions, specialSpeaker, other
-}
+
