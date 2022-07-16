@@ -52,6 +52,7 @@ struct ToggleAmountLabel: View {
                 .font(.headline)
                 .fixedSize()
                 .frame(minWidth: 20, alignment: .leading)
+                .disabled(!isSelected)
             }.opacity(showLabel ? 1 : 0)
             
         }.padding()

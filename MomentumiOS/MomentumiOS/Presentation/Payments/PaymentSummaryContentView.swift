@@ -26,9 +26,13 @@ struct PaymentSummaryContentView: View {
                     isSelected: $contentViewModel.offeringIsSelected,
                     showLabel: !contentViewModel.selectedLabels.isEmpty
                 ) { isActive in
+                    DispatchQueue.main.async {
                     contentViewModel.processToggle(isActive: isActive, type: .offering)
+                    }
                 } onAmountChanged: { amount in
-                    contentViewModel.processAmount(amount: amount, type: .offering)
+                    DispatchQueue.main.async {
+                        contentViewModel.processAmount(amount: amount, type: .offering)
+                    }
                 }.disabled(
                     contentViewModel.selectedLabels.count == 2 &&
                     !contentViewModel.selectedLabels.contains(where: { $0 == .offering})
@@ -41,9 +45,13 @@ struct PaymentSummaryContentView: View {
                     isSelected: $contentViewModel.titheIsSelected,
                     showLabel: !contentViewModel.selectedLabels.isEmpty
                 ) { isActive in
+                    DispatchQueue.main.async {
                     contentViewModel.processToggle(isActive: isActive, type: .tithe)
+                    }
                 } onAmountChanged: { amount in
+                    DispatchQueue.main.async {
                     contentViewModel.processAmount(amount: amount, type: .tithe)
+                    }
                 }.disabled(
                     contentViewModel.selectedLabels.count == 2 &&
                     !contentViewModel.selectedLabels.contains(where: { $0 == .tithe})
@@ -58,7 +66,9 @@ struct PaymentSummaryContentView: View {
                 ) { isActive in
                     contentViewModel.processToggle(isActive: isActive, type: .missions)
                 } onAmountChanged: { amount in
+                    DispatchQueue.main.async {
                     contentViewModel.processAmount(amount: amount, type: .missions)
+                    }
                 }.disabled(
                     contentViewModel.selectedLabels.count == 2 &&
                     !contentViewModel.selectedLabels.contains(where: { $0 == .missions})
@@ -71,9 +81,13 @@ struct PaymentSummaryContentView: View {
                     isSelected: $contentViewModel.speakersIsSelected,
                     showLabel: !contentViewModel.selectedLabels.isEmpty
                 ) { isActive in
+                    DispatchQueue.main.async {
                     contentViewModel.processToggle(isActive: isActive, type: .specialSpeaker)
+                    }
                 } onAmountChanged: { amount in
-                    contentViewModel.processAmount(amount: amount, type: .tithe)
+                    DispatchQueue.main.async {
+                    contentViewModel.processAmount(amount: amount, type: .specialSpeaker)
+                    }
                 }.disabled(
                     contentViewModel.selectedLabels.count == 2 &&
                     !contentViewModel.selectedLabels.contains(where: { $0 == .specialSpeaker})
@@ -86,9 +100,13 @@ struct PaymentSummaryContentView: View {
                     isSelected: $contentViewModel.otherIsSelected,
                     showLabel: !contentViewModel.selectedLabels.isEmpty
                 ) { isActive in
+                    DispatchQueue.main.async {
                     contentViewModel.processToggle(isActive: isActive, type: .other)
+                    }
                 } onAmountChanged: { amount in
-                    contentViewModel.processAmount(amount: amount, type: .tithe)
+                    DispatchQueue.main.async {
+                    contentViewModel.processAmount(amount: amount, type: .other)
+                    }
                 }.disabled(
                     contentViewModel.selectedLabels.count == 2 &&
                     !contentViewModel.selectedLabels.contains(where: { $0 == .other})
@@ -103,19 +121,16 @@ struct PaymentSummaryContentView: View {
                         .bold()
                     
                     Spacer()
-                    HStack(spacing: 0) {
-                        Text("$")
-                            .fontWeight(.light)
-                            .font(.title)
-                        Text(contentViewModel.totalAmount)
-                            .fontWeight(.light)
-                            .font(.title)
-                    }
+                    
+                    Text(offerViewModel.isDecimalMode ? offerViewModel.displayNumber : offerViewModel.displayNumber + ".00")
+                    .fontWeight(.light)
+                    .font(.title)
+                    
                 }.padding()
                 Divider()
             }
         }.onAppear{
-            contentViewModel.totalAmount = offerViewModel.number
+            contentViewModel.totalAmount = offerViewModel.isDecimalMode ? String(offerViewModel.number.dropLast(3)) :  offerViewModel.number
         }
     }
 }

@@ -39,35 +39,26 @@ final class PaymentSummaryContentViewModel: ObservableObject {
     func processToggle(isActive: Bool, type: ToggleLabel){
         if selectedLabels.contains(where: { $0 == type }) {
             let index = selectedLabels.firstIndex(where: { $0 == type}) ?? 0
-            if !isActive {
+            if isActive == false {
                 selectedLabels.remove(at: index)
+                resetPrevious()
                 if selectedLabels.isEmpty {
                     resetAmounts()
-                } else {
-                    switch selectedLabels.last {
-                    case .offering:
-                        offeringAmount = String((Int(offeringAmount) ?? 0) + previousOption.amount)
-                    case .tithe:
-                        titheAmount = String((Int(titheAmount) ?? 0) + previousOption.amount)
-                    case .missions:
-                        missionsAmount = String((Int(missionsAmount) ?? 0) + previousOption.amount)
-                    case .specialSpeaker:
-                        speakersAmount = String((Int(speakersAmount) ?? 0) + previousOption.amount)
-                    case .other:
-                        otherAmount = String((Int(otherAmount) ?? 0) + previousOption.amount)
-                    case .none:
-                        break
-                    }
-                    resetPrevious()
                 }
             }
         }else {
             selectedLabels.append(type)
+            if selectedLabels.count > 1 {
+                previousOption = ToggleOption(amount:  0, type: type)
+                resetPrevious()
+            }
             Log.d(tag: "ADD/\(type)", message: selectedLabels)
+            Log.d(tag: "Previous/\(previousOption.type)", message: previousOption)
+
         }
         if selectedLabels.count == 1 {
             resetAmounts()
-            switch selectedLabels.last {
+            switch selectedLabels.first {
             case .offering:
                 offeringAmount = totalAmount
             case .tithe:
@@ -171,7 +162,7 @@ final class PaymentSummaryContentViewModel: ObservableObject {
                 case .missions:
                     break
                 case .specialSpeaker:
-                    if previousOption.type == .missions {
+                    if previousOption.type == .specialSpeaker {
                         setMissionsAmount(amount: amount)
                     } else {
                         setSpeakersAmount(amount: amount)
@@ -252,7 +243,7 @@ final class PaymentSummaryContentViewModel: ObservableObject {
         }
     }
     
- 
+    
     func subtractAmounts(amounts: String...) -> String {
         let reminder = (Int(amounts[0]) ?? 0) - (Int(amounts[1]) ?? 0)
         return String(reminder)
@@ -289,9 +280,9 @@ final class PaymentSummaryContentViewModel: ObservableObject {
     
     func setMissionsAmount(amount: String) {
         if previousOption.amount > (Int(amount) ?? 0) {
-            titheAmount = addAmounts(amounts: totalAmount, amount)
+            missionsAmount = addAmounts(amounts: totalAmount, amount)
         } else {
-            titheAmount = subtractAmounts(amounts: totalAmount, amount)
+            missionsAmount = subtractAmounts(amounts: totalAmount, amount)
         }
     }
     
