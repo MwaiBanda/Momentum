@@ -68,6 +68,26 @@ fun PaymentSummaryScreen(
         ) {
             Divider()
             Spacer(modifier = Modifier.height(10.dp))
+            Row (
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = "Total",
+                    Modifier.padding(start = 10.dp),
+                    fontWeight = FontWeight.ExtraBold,
+                    style = MaterialTheme.typography.h6,
+                )
+                Text(
+                    text = "$0.00",
+                    Modifier.padding(start = 10.dp),
+                    fontWeight = FontWeight.Light,
+                    style = MaterialTheme.typography.h6,
+                )
+            }
+            Spacer(modifier = Modifier.height(10.dp))
+            Divider()
+            Spacer(modifier = Modifier.height(10.dp))
             Button(
                 onClick = {
                     onInitiateCheckout(PaymentRequest((amount * 100).toInt()), stripeLauncher)
