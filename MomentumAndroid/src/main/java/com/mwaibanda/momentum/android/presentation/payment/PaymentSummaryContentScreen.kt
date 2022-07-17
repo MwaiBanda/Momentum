@@ -3,13 +3,18 @@ package com.mwaibanda.momentum.android.presentation.payment
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.Divider
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import com.mwaibanda.momentum.android.presentation.components.ToggleAmountLabel
 import com.mwaibanda.momentum.android.presentation.payment.PaymentSummaryContentViewModel.ToggleLabel.*
 import com.mwaibanda.momentum.utils.MultiplatformConstants
 import org.koin.androidx.compose.getViewModel
 
 @Composable
-fun PaymentSummaryContentScreen(contentViewModel: PaymentSummaryContentViewModel = getViewModel()) {
+fun PaymentSummaryContentScreen(amount: Int, contentViewModel: PaymentSummaryContentViewModel = getViewModel()) {
+    LaunchedEffect(key1 = Unit){
+        contentViewModel.totalAmount = amount.toString()
+    }
+
     Column {
         ToggleAmountLabel(
             title = MultiplatformConstants.OFFERING,
@@ -27,7 +32,9 @@ fun PaymentSummaryContentScreen(contentViewModel: PaymentSummaryContentViewModel
             onAmountChange = {
                 contentViewModel.offeringAmount = it
             },
-            onAmountCommit = {}
+            onAmountCommit = {
+                contentViewModel.processAmount(amount = it, type = OFFERING)
+            }
         )
         Divider()
         ToggleAmountLabel(
@@ -46,12 +53,14 @@ fun PaymentSummaryContentScreen(contentViewModel: PaymentSummaryContentViewModel
             onAmountChange = {
                 contentViewModel.titheAmount = it
             },
-            onAmountCommit = {}
+            onAmountCommit = {
+                contentViewModel.processAmount(amount = it, type = TITHE)
+            }
         )
         Divider()
         ToggleAmountLabel(
             title = MultiplatformConstants.MISSIONS,
-            amount = contentViewModel.missionAmount,
+            amount = contentViewModel.missionsAmount,
             isSelected = contentViewModel.missionsIsSelected,
             isDisabled = {
                 (contentViewModel.selectedLabels.count() == 2).and(
@@ -64,9 +73,11 @@ fun PaymentSummaryContentScreen(contentViewModel: PaymentSummaryContentViewModel
 
             },
             onAmountChange = {
-                contentViewModel.missionAmount = it
+                contentViewModel.missionsAmount = it
             },
-            onAmountCommit = {}
+            onAmountCommit = {
+                contentViewModel.processAmount(amount = it, type = MISSIONS)
+            }
         )
         Divider()
         ToggleAmountLabel(
@@ -85,7 +96,9 @@ fun PaymentSummaryContentScreen(contentViewModel: PaymentSummaryContentViewModel
             onAmountChange = {
                 contentViewModel.speakersAmount = it
             },
-            onAmountCommit = {}
+            onAmountCommit = {
+                contentViewModel.processAmount(amount = it, type = SPECIAL_SPEAKER)
+            }
         )
         Divider()
         ToggleAmountLabel(
@@ -104,7 +117,9 @@ fun PaymentSummaryContentScreen(contentViewModel: PaymentSummaryContentViewModel
             onAmountChange = {
                 contentViewModel.otherAmount = it
             },
-            onAmountCommit = {}
+            onAmountCommit = {
+                contentViewModel.processAmount(amount = it, type = OTHER)
+            }
         )
     }
 }

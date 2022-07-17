@@ -3,10 +3,11 @@
 //  MomentumiOS
 //
 //  Created by Mwai Banda on 7/12/22.
-//  Copyright © 2022 orgName. All rights reserved.
+//  Copyright © 2022 Mwai Banda. All rights reserved.
 //
 
 import SwiftUI
+import MomentumSDK
 
 struct PaymentSummaryContentView: View {
     @ObservedObject var offerViewModel: OfferViewModel
@@ -21,7 +22,7 @@ struct PaymentSummaryContentView: View {
             VStack {
                 
                 ToggleAmountLabel(
-                    title: "Offering",
+                    title: MultiplatformConstants.shared.OFFERING,
                     amount: $contentViewModel.offeringAmount,
                     isSelected: $contentViewModel.offeringIsSelected,
                     showLabel: !contentViewModel.selectedLabels.isEmpty
@@ -40,7 +41,7 @@ struct PaymentSummaryContentView: View {
                 
                 Divider()
                 ToggleAmountLabel(
-                    title: "Tithe",
+                    title: MultiplatformConstants.shared.TITHE,
                     amount: $contentViewModel.titheAmount,
                     isSelected: $contentViewModel.titheIsSelected,
                     showLabel: !contentViewModel.selectedLabels.isEmpty
@@ -59,7 +60,7 @@ struct PaymentSummaryContentView: View {
                 
                 Divider()
                 ToggleAmountLabel(
-                    title: "Missions",
+                    title: MultiplatformConstants.shared.MISSIONS,
                     amount: $contentViewModel.missionsAmount,
                     isSelected: $contentViewModel.missionsIsSelected,
                     showLabel: !contentViewModel.selectedLabels.isEmpty
@@ -76,7 +77,7 @@ struct PaymentSummaryContentView: View {
                 
                 Divider()
                 ToggleAmountLabel(
-                    title: "Special Speaker",
+                    title: MultiplatformConstants.shared.SPECIAL_SPEAKER,
                     amount: $contentViewModel.speakersAmount,
                     isSelected: $contentViewModel.speakersIsSelected,
                     showLabel: !contentViewModel.selectedLabels.isEmpty
@@ -95,7 +96,7 @@ struct PaymentSummaryContentView: View {
                 
                 Divider()
                 ToggleAmountLabel(
-                    title: "Other",
+                    title: MultiplatformConstants.shared.OTHER,
                     amount: $contentViewModel.otherAmount,
                     isSelected: $contentViewModel.otherIsSelected,
                     showLabel: !contentViewModel.selectedLabels.isEmpty

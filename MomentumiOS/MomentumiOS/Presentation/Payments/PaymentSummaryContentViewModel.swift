@@ -3,7 +3,7 @@
 //  MomentumiOS
 //
 //  Created by Mwai Banda on 7/13/22.
-//  Copyright © 2022 orgName. All rights reserved.
+//  Copyright © 2022 Mwai Banda. All rights reserved.
 //
 
 import Foundation
@@ -244,17 +244,17 @@ final class PaymentSummaryContentViewModel: ObservableObject {
     }
     
     
-    func subtractAmounts(amounts: String...) -> String {
+    private func subtractAmounts(amounts: String...) -> String {
         let reminder = (Int(amounts[0]) ?? 0) - (Int(amounts[1]) ?? 0)
         return String(reminder)
     }
     
-    func addAmounts(amounts: String...) -> String {
+    private func addAmounts(amounts: String...) -> String {
         let reminder = (Int(amounts[0]) ?? 0) + (Int(amounts[1]) ?? 0)
         return String(reminder)
     }
     
-    func setOtherAmount(amount: String) {
+    private func setOtherAmount(amount: String) {
         if previousOption.amount > (Int(amount) ?? 0) {
             otherAmount = addAmounts(amounts: totalAmount, amount)
         } else {
@@ -262,7 +262,7 @@ final class PaymentSummaryContentViewModel: ObservableObject {
         }
     }
     
-    func setOfferingAmount(amount: String) {
+    private func setOfferingAmount(amount: String) {
         if previousOption.amount > (Int(amount) ?? 0) {
             offeringAmount = addAmounts(amounts: totalAmount, amount)
         } else {
@@ -270,7 +270,7 @@ final class PaymentSummaryContentViewModel: ObservableObject {
         }
     }
     
-    func setTitheAmount(amount: String) {
+    private func setTitheAmount(amount: String) {
         if previousOption.amount > (Int(amount) ?? 0) {
             titheAmount = addAmounts(amounts: totalAmount, amount)
         } else {
@@ -278,7 +278,7 @@ final class PaymentSummaryContentViewModel: ObservableObject {
         }
     }
     
-    func setMissionsAmount(amount: String) {
+    private func setMissionsAmount(amount: String) {
         if previousOption.amount > (Int(amount) ?? 0) {
             missionsAmount = addAmounts(amounts: totalAmount, amount)
         } else {
@@ -286,7 +286,7 @@ final class PaymentSummaryContentViewModel: ObservableObject {
         }
     }
     
-    func setSpeakersAmount(amount: String) {
+    private func setSpeakersAmount(amount: String) {
         if previousOption.amount > (Int(amount) ?? 0) {
             speakersAmount = addAmounts(amounts: totalAmount, amount)
         } else {
@@ -294,7 +294,7 @@ final class PaymentSummaryContentViewModel: ObservableObject {
         }
     }
     
-    func resetPrevious() {
+    private func resetPrevious() {
         switch previousOption.type {
         case .offering:
             offeringAmount = "0"
@@ -309,7 +309,7 @@ final class PaymentSummaryContentViewModel: ObservableObject {
         }
     }
     
-    func resetAmounts() {
+    private func resetAmounts() {
         offeringAmount = "0"
         titheAmount = "0"
         missionsAmount = "0"

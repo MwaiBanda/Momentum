@@ -3,7 +3,7 @@
 //  MomentumiOS
 //
 //  Created by Mwai Banda on 7/7/22.
-//  Copyright © 2022 orgName. All rights reserved.
+//  Copyright © 2022 Mwai Banda. All rights reserved.
 //
 
 import Foundation
@@ -40,7 +40,7 @@ final class PaymentViewModel : ObservableObject {
         paymentController.checkout(request: request) { response in
             STPAPIClient.shared.publishableKey = response.publishableKey
             var configuration = PaymentSheet.Configuration()
-            configuration.merchantDisplayName = MultiplatformConstants.shared.merchantName
+            configuration.merchantDisplayName = MultiplatformConstants.shared.MERCHANT_NAME
             configuration.customer = .init(id: response.customer, ephemeralKeySecret: response.ephemeralKey)
             configuration.primaryButtonColor = UIColor.init(red: 229/255, green: 95/255, blue: 31/255, alpha: 1)
             configuration.style = .alwaysLight

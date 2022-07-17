@@ -3,7 +3,7 @@
 //  MomentumiOS
 //
 //  Created by Mwai Banda on 7/7/22.
-//  Copyright © 2022 orgName. All rights reserved.
+//  Copyright © 2022 Mwai Banda. All rights reserved.
 //
 
 import UIKit

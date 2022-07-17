@@ -61,7 +61,7 @@ fun PaymentSummaryScreen(
                 )
                 Divider()
             }
-            PaymentSummaryContentScreen()
+            PaymentSummaryContentScreen(amount = amount.toInt())
         }
         Column(
             Modifier.fillMaxWidth(),
