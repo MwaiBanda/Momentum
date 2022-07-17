@@ -12,7 +12,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -30,6 +30,7 @@ fun ToggleAmountLabel(
     title: String,
     amount: String,
     isSelected: Boolean,
+    isDisabled:  () -> Boolean,
     onToggleClick: (Boolean) -> Unit,
     onAmountChange: (String) -> Unit,
     onAmountCommit: (String) -> Unit
@@ -38,7 +39,8 @@ fun ToggleAmountLabel(
     Row(
         Modifier
             .fillMaxWidth()
-            .padding(horizontal = 10.dp, vertical = 25.dp),
+            .padding(start = 10.dp, end = 20.dp)
+            .padding(vertical = 25.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
 
@@ -46,15 +48,20 @@ fun ToggleAmountLabel(
 
 
         Row(
-
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Box(
                 Modifier
                     .clip(CircleShape)
                     .size(25.dp)
-                    .clickable { onToggleClick(isSelected) }
-                    .border(2.dp, if (isSelected) Color(Constants.MomentumOrange) else Color.Gray, CircleShape),
+                    .clickable(enabled = !isDisabled()) {
+                        onToggleClick(isSelected)
+                    }
+                    .border(
+                        2.dp,
+                        if (isSelected) Color(Constants.MomentumOrange) else Color.Gray,
+                        CircleShape
+                    ),
                 contentAlignment = Alignment.Center
             ) {
                 Box(
@@ -74,12 +81,15 @@ fun ToggleAmountLabel(
             )
 
         }
-        Row() {
+        Row {
             Text(
                 text = "amount: ",
-                Modifier.padding(start = 10.dp),
                 color = Color.Gray,
                 fontWeight = FontWeight.ExtraBold,
+                style = MaterialTheme.typography.subtitle2,
+            )
+            Text(
+                text = "$",
                 style = MaterialTheme.typography.subtitle2,
             )
             BasicTextField(
@@ -100,11 +110,15 @@ fun ToggleAmountLabel(
 @Composable
 @Preview
 fun ToggleAmountLabelPreview() {
+    var isSelected by remember {
+        mutableStateOf(false)
+    }
     ToggleAmountLabel(
         title = "Offering",
         amount = "$0",
-        isSelected = true,
-        onToggleClick = {},
+        isSelected = isSelected,
+        isDisabled = { true },
+        onToggleClick = {isSelected = it.not()},
         onAmountChange = {}
     ) {
 

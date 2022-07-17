@@ -18,6 +18,7 @@ import com.mwaibanda.momentum.android.presentation.components.BottomSpacing
 import com.mwaibanda.momentum.domain.models.PaymentRequest
 import com.stripe.android.paymentsheet.PaymentSheetContract
 import com.stripe.android.paymentsheet.PaymentSheetResult
+import java.text.DecimalFormat
 import java.time.temporal.TemporalAmount
 
 @Composable
@@ -69,18 +70,18 @@ fun PaymentSummaryScreen(
             Divider()
             Spacer(modifier = Modifier.height(10.dp))
             Row (
+                Modifier.fillMaxWidth().padding(10.dp),
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
                     text = "Total",
-                    Modifier.padding(start = 10.dp),
                     fontWeight = FontWeight.ExtraBold,
                     style = MaterialTheme.typography.h6,
                 )
                 Text(
-                    text = "$0.00",
-                    Modifier.padding(start = 10.dp),
+                    text = "$" + String.format("%.2f", amount),
+                    Modifier.padding(end = 10.dp),
                     fontWeight = FontWeight.Light,
                     style = MaterialTheme.typography.h6,
                 )
