@@ -59,16 +59,15 @@ fun PaymentSummaryScreen(
                     modifier = Modifier.padding(10.dp)
                 )
                 Divider()
-                Spacer(modifier = Modifier.height(10.dp))
             }
-            Column(Modifier.padding(10.dp)) {
-
-            }
+            PaymentSummaryContentScreen()
         }
         Column(
             Modifier.fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            Divider()
+            Spacer(modifier = Modifier.height(10.dp))
             Button(
                 onClick = {
                     onInitiateCheckout(PaymentRequest((amount * 100).toInt()), stripeLauncher)

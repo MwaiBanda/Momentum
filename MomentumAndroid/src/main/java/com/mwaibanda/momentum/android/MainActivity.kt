@@ -60,7 +60,7 @@ class MainActivity : BaseActivity() {
                             ) { request, launcher ->
                                 checkout(request) { customer, intent ->
                                     val configuration = PaymentSheet.Configuration(
-                                        merchantDisplayName = MultiplatformConstants.merchantName,
+                                        merchantDisplayName = MultiplatformConstants.MERCHANT_NAME,
                                         customer = customer,
                                         googlePay = googlePayConfig,
                                         allowsDelayedPaymentMethods = false,

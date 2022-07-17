@@ -67,9 +67,12 @@ dependencies {
     // Stripe Android SDK
     implementation ("com.stripe:stripe-android:19.0.0")
     //Koin
-    implementation("io.insert-koin:koin-android:3.1.2")
+    implementation("io.insert-koin:koin-android:3.1.5")
     implementation("io.insert-koin:koin-core:3.1.5")
-    implementation ("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.7.0")
+    // Koin Jetpack Compose
+    implementation ("io.insert-koin:koin-androidx-compose:3.1.5")
+    implementation ("io.insert-koin:koin-androidx-navigation:3.1.5")
+
     //Lottie
     implementation ("com.airbnb.android:lottie-compose:4.0.0")
 
