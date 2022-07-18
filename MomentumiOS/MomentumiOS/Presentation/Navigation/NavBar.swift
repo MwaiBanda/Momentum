@@ -6,6 +6,7 @@
 //  Copyright © 2022 Momentum. All rights reserved.
 
 import SwiftUI
+import MomentumSDK
 
 enum NavConfig {
     case defaultConfig
@@ -20,6 +21,7 @@ struct NavBar: View {
     var Title: String {
         return navTitle ?? ""
     }
+    @State private var showTransactionSheet = false
     
     var body: some View {
         ZStack {
@@ -48,7 +50,7 @@ struct NavBar: View {
                                 
                             }
                             Button(action: { withAnimation(Animation.easeInOut(duration: 0.5)) {
-                                presentationMode.wrappedValue.dismiss()
+                                showTransactionSheet.toggle()
                                 let haptic = UIImpactFeedbackGenerator(style: .light)
                                 haptic.impactOccurred()
                             }}) {
@@ -90,9 +92,13 @@ struct NavBar: View {
                     .padding(.horizontal)
                 }
                 .frame(minHeight: 50, maxHeight: 50)
+                
             }
             if navConfig == .detailConfig {
             }
+        }.sheet(isPresented: $showTransactionSheet) {
+            Text("Transactions")
+              
         }
     }
 }

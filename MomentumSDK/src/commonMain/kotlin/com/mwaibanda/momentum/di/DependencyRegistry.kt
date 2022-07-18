@@ -1,6 +1,8 @@
 package com.mwaibanda.momentum.di
 
 import com.mwaibanda.momentum.controller.PaymentControllerImpl
+import com.mwaibanda.momentum.data.db.Database
+import com.mwaibanda.momentum.data.db.DatabaseDriverFactory
 import com.mwaibanda.momentum.data.repository.PaymentRepositoryImpl
 import com.mwaibanda.momentum.domain.controller.PaymentController
 import com.mwaibanda.momentum.domain.repository.PaymentRepository
@@ -62,6 +64,7 @@ val singletonModule = module {
             }
         }
     }
+
 }
 
 val repositoryModule = module {

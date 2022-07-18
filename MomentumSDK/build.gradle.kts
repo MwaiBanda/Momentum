@@ -3,6 +3,8 @@ plugins {
     kotlin("native.cocoapods")
     id("com.android.library")
     kotlin("plugin.serialization")
+    id( "com.squareup.sqldelight")
+
 }
 
 version = "1.0.0"
@@ -30,9 +32,10 @@ kotlin {
                 implementation("co.touchlab:stately-isolate:1.2.1")
                 implementation("co.touchlab:stately-iso-collections:1.2.1")
                 implementation("io.ktor:ktor-client-core:1.6.7")
-                implementation("io.ktor:ktor-client-serialization:1.6.3")
-                implementation("io.ktor:ktor-client-logging:1.6.2")
+                implementation("io.ktor:ktor-client-serialization:1.6.7")
+                implementation("io.ktor:ktor-client-logging:1.6.7")
                 implementation("io.insert-koin:koin-core:3.1.5")
+                implementation("com.squareup.sqldelight:runtime:1.5.3")
             }
         }
         val commonTest by getting {
@@ -42,7 +45,8 @@ kotlin {
         }
         val androidMain by getting {
             dependencies {
-                implementation("io.ktor:ktor-client-okhttp:1.6.3")
+                implementation("io.ktor:ktor-client-okhttp:1.6.7")
+                implementation("com.squareup.sqldelight:android-driver:1.5.3")
 
             }
         }
@@ -56,7 +60,9 @@ kotlin {
             iosArm64Main.dependsOn(this)
             iosSimulatorArm64Main.dependsOn(this)
             dependencies {
-                implementation("io.ktor:ktor-client-ios:1.6.3")
+                implementation("io.ktor:ktor-client-ios:1.6.7")
+                implementation ("com.squareup.sqldelight:native-driver:1.5.3")
+
             }
         }
         val iosX64Test by getting
@@ -69,6 +75,7 @@ kotlin {
             iosSimulatorArm64Test.dependsOn(this)
         }
     }
+
 }
 
 android {
@@ -77,5 +84,12 @@ android {
     defaultConfig {
         minSdk = 21
         targetSdk = 32
+    }
+}
+
+sqldelight {
+    database("MomentumDatabase") {
+        packageName = "com.mwaibanda.momentum.data.db"
+        sourceFolders = listOf("kotlin")
     }
 }

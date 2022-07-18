@@ -1,0 +1,14 @@
+CREATE TABLE UserTransaction (
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    amount REAL NOT NULL
+);
+
+insertTransaction:
+INSERT OR REPLACE INTO UserTransaction(name, amount) VALUES (?, ?);
+
+getAllTransactions:
+SELECT * FROM UserTransaction;
+
+deleteAll:
+DELETE FROM UserTransaction;
