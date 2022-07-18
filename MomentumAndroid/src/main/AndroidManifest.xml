@@ -6,8 +6,9 @@
         android:name=".MomentumApplication"
         android:allowBackup="false"
         android:supportsRtl="true"
-        android:label="Momentum"
-        android:theme="@style/AppTheme">
+        android:label="@string/app_label"
+        android:theme="@style/AppTheme"
+        android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
             android:exported="true"

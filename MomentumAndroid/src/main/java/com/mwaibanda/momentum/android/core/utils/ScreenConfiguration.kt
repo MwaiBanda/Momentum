@@ -8,9 +8,12 @@ sealed class ScreenConfiguration(val screens: List<String>){
             PaymentSuccessScreen.route,
             PaymentFailureScreen.route,
             OfferScreen.route,
-            )
+            LaunchScreen.route
+        )
     )
-
+    object ScreensWithoutNavigation: ScreenConfiguration(
+        listOf(LaunchScreen.route)
+    )
     object ScreensWithLogo: ScreenConfiguration(
         listOf(
             OfferScreen.route

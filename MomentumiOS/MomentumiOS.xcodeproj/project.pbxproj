@@ -35,6 +35,7 @@
 		814E5DEE287794630008BAC1 /* StripeApplePay in Frameworks */ = {isa = PBXBuildFile; productRef = 814E5DED287794630008BAC1 /* StripeApplePay */; };
 		814E5DF0287794630008BAC1 /* StripeCardScan in Frameworks */ = {isa = PBXBuildFile; productRef = 814E5DEF287794630008BAC1 /* StripeCardScan */; };
 		81770C222877A314008B88F6 /* UIColor+Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81770C212877A314008B88F6 /* UIColor+Swift.swift */; };
+		81841AF82884C81200C42204 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81841AF72884C81200C42204 /* LaunchScreen.storyboard */; };
 		819B795028708F020010B960 /* OfferViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819B794F28708F020010B960 /* OfferViewModel.swift */; };
 		819B7952287098FA0010B960 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819B7951287098FA0010B960 /* Log.swift */; };
 		81B802D42877E4080008509D /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B802D32877E4080008509D /* LoadingView.swift */; };
@@ -84,6 +85,7 @@
 		814525FA287940E900989B4C /* success.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = success.json; sourceTree = "<group>"; };
 		814E5DE628778E470008BAC1 /* PaymentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentViewModel.swift; sourceTree = "<group>"; };
 		81770C212877A314008B88F6 /* UIColor+Swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Swift.swift"; sourceTree = "<group>"; };
+		81841AF72884C81200C42204 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		819B794F28708F020010B960 /* OfferViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfferViewModel.swift; sourceTree = "<group>"; };
 		819B7951287098FA0010B960 /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		81B802D32877E4080008509D /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
@@ -157,6 +159,7 @@
 		7555FF7D242A565900829871 /* MomentumiOS */ = {
 			isa = PBXGroup;
 			children = (
+				81841AF72884C81200C42204 /* LaunchScreen.storyboard */,
 				058557BA273AAA24004C7B11 /* Assets.xcassets */,
 				8126AF72286FDB05007DBAB9 /* Core */,
 				8126AF6E286FD7AF007DBAB9 /* Presentation */,
@@ -384,6 +387,7 @@
 				058557D9273AAEEB004C7B11 /* Preview Assets.xcassets in Resources */,
 				814525FB287940E900989B4C /* success.json in Resources */,
 				814525F9287940DF00989B4C /* failed.json in Resources */,
+				81841AF82884C81200C42204 /* LaunchScreen.storyboard in Resources */,
 				058557BB273AAA24004C7B11 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

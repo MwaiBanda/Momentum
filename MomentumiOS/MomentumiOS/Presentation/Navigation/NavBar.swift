@@ -47,10 +47,22 @@ struct NavBar: View {
                                 }
                                 
                             }
+                            Button(action: { withAnimation(Animation.easeInOut(duration: 0.5)) {
+                                presentationMode.wrappedValue.dismiss()
+                                let haptic = UIImpactFeedbackGenerator(style: .light)
+                                haptic.impactOccurred()
+                            }}) {
+                                Image(systemName: "clock").imageScale(.large)
+                                    .font(.system(size: 20, weight: .medium))
+                                    .foregroundColor(Color.white)
+                            }
+                            
                             Spacer()
-                            Image("momentumlong")
+                            Image("momentum")
                                 .resizable()
                                 .aspectRatio( contentMode: .fit)
+                                .frame(width: 60, height: 60)
+
                             
                             Text((Title.isEmpty ? "" : navTitle) ?? "")
                                 .fontWeight(.heavy)
@@ -58,24 +70,15 @@ struct NavBar: View {
                                 .foregroundColor(colorScheme == .dark ? Color.white : Color.white)
                             Spacer()
                             if Title.isEmpty {
-                                if false {
-                                Button(action: { withAnimation(Animation.easeInOut(duration: 0.5)) {
-                                    presentationMode.wrappedValue.dismiss()
-                                    let haptic = UIImpactFeedbackGenerator(style: .light)
-                                    haptic.impactOccurred()
-                                }}) {
-                                    Image(systemName: "clock.arrow.2.circlepath").imageScale(.large)
-                                        .font(.system(size: 25, weight: .medium))
-                                        .foregroundColor(Color.white)
-                                }
-                                }
+                                
+                               
                                 Button(action: { withAnimation(Animation.easeInOut(duration: 0.5)) {
                                     presentationMode.wrappedValue.dismiss()
                                     let haptic = UIImpactFeedbackGenerator(style: .light)
                                     haptic.impactOccurred()
                                 }}) {
                                     Image(systemName: "person.crop.circle").imageScale(.large)
-                                        .font(.system(size: 25, weight: .medium))
+                                        .font(.system(size: 20, weight: .medium))
                                         .foregroundColor(Color.white)
                                 }
                             }

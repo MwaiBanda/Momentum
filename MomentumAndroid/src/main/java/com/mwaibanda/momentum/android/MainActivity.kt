@@ -16,6 +16,7 @@ import androidx.navigation.navArgument
 import com.google.accompanist.insets.ProvideWindowInsets
 import com.mwaibanda.momentum.android.core.utils.Constants
 import com.mwaibanda.momentum.android.core.utils.NavigationRoutes.*
+import com.mwaibanda.momentum.android.presentation.navigation.LaunchScreen
 import com.mwaibanda.momentum.android.presentation.offer.OfferScreen
 import com.mwaibanda.momentum.android.presentation.payment.PaymentFailureScreen
 import com.mwaibanda.momentum.android.presentation.payment.PaymentSuccessScreen
@@ -35,8 +36,13 @@ class MainActivity : BaseActivity() {
                     NavHost(
                         navController = navController,
                         modifier = Modifier.padding(contentPadding),
-                        startDestination = OfferScreen.route
+                        startDestination = LaunchScreen.route
                     ) {
+                        composable(LaunchScreen.route) {
+                            LaunchScreen(
+                                navController = navController
+                            )
+                        }
                         composable(OfferScreen.route) {
                             OfferScreen(
                                 navController = navController,

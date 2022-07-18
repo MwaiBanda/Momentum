@@ -12,6 +12,7 @@ sealed class NavigationRoutes(
     @StringRes val tabName: Int? = null,
     val icon: ImageVector? = null,
 ) {
+    object LaunchScreen: NavigationRoutes(route = "launch")
     object OfferScreen: NavigationRoutes(route = "offer", tabName = R.string.offer, icon = Icons.Filled.CardGiftcard)
     object PaymentSummaryScreen: NavigationRoutes(route = "pay/{amount}")
     object PaymentSuccessScreen: NavigationRoutes(route = "pay/success")
