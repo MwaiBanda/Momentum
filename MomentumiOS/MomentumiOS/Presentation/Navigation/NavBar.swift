@@ -97,8 +97,7 @@ struct NavBar: View {
             if navConfig == .detailConfig {
             }
         }.sheet(isPresented: $showTransactionSheet) {
-            Text("Transactions")
-              
+            TransactionView()
         }
     }
 }

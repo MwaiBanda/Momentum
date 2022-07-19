@@ -1,14 +1,18 @@
-CREATE TABLE UserTransaction (
+
+
+CREATE TABLE MomentumTransaction (
     id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-    name TEXT NOT NULL,
-    amount REAL NOT NULL
+    description TEXT NOT NULL,
+    date TEXT NOT NULL,
+    amount REAL NOT NULL,
+    seen INTEGER AS Boolean DEFAULT 0 NOT NULL
 );
 
 insertTransaction:
-INSERT OR REPLACE INTO UserTransaction(name, amount) VALUES (?, ?);
+INSERT OR REPLACE INTO MomentumTransaction(description, date, amount, seen) VALUES (:description,:date, :amount, :seen);
 
 getAllTransactions:
-SELECT * FROM UserTransaction;
+SELECT * FROM MomentumTransaction;
 
 deleteAll:
-DELETE FROM UserTransaction;
+DELETE FROM MomentumTransaction;

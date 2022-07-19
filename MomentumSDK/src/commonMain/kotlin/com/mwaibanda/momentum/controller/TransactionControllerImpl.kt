@@ -2,17 +2,27 @@ package com.mwaibanda.momentum.controller
 
 import com.mwaibanda.momentum.data.db.Database
 import com.mwaibanda.momentum.data.db.DatabaseDriverFactory
-import com.mwaibanda.momentum.data.db.UserTransaction
+import com.mwaibanda.momentum.data.db.MomentumTransaction
 import com.mwaibanda.momentum.domain.controller.TransactionController
+import org.koin.core.component.KoinComponent
 
-class TransactionControllerImpl(driverFactory: DatabaseDriverFactory): TransactionController {
+class TransactionControllerImpl(driverFactory: DatabaseDriverFactory): TransactionController, KoinComponent {
     private val database = Database(driverFactory)
 
-    override fun addTransaction(name: String, amount: Double) {
-        database.insertTransaction(name, amount)
+    override fun addTransaction(
+        description: String,
+        date: String,
+        amount: Double,
+        isSeen: Boolean,
+    ) {
+        database.insertTransaction(description, date, amount, isSeen)
     }
 
-    override fun getTransactions(onCompletion: (List<UserTransaction>) -> Unit){
+    override fun getAllTransactions(onCompletion: (List<MomentumTransaction>) -> Unit){
         onCompletion(database.getAllTransactions())
+    }
+
+    override fun deleteAllTransactions() {
+        database.deleteAllTransactions()
     }
 }

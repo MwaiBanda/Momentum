@@ -9,7 +9,7 @@ import com.mwaibanda.momentum.domain.models.PaymentResponse
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
-class PaymentViewModel: KoinComponent, ViewModel() {
+class PaymentViewModel: ViewModel(), KoinComponent {
     private val paymentController: PaymentController by inject()
 
     private val _paymentResponse: MutableLiveData<PaymentResponse> = MutableLiveData()

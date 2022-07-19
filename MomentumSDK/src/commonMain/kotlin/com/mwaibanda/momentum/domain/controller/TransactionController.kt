@@ -1,8 +1,15 @@
 package com.mwaibanda.momentum.domain.controller
 
-import com.mwaibanda.momentum.data.db.UserTransaction
+import com.mwaibanda.momentum.data.db.MomentumTransaction
+
 
 interface TransactionController {
-    fun addTransaction(name: String, amount: Double)
-    fun getTransactions(onCompletion: (List<UserTransaction>) -> Unit)
+    fun addTransaction(
+        description: String,
+        date: String,
+        amount: Double,
+        isSeen: Boolean,
+    )
+    fun getAllTransactions(onCompletion: (List<MomentumTransaction>) -> Unit)
+    fun deleteAllTransactions()
 }
