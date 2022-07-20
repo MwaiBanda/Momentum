@@ -12,15 +12,26 @@ import Stripe
 
 struct PaymentSummaryView: View {
     @ObservedObject var offerViewModel: OfferViewModel
-    @StateObject private var paymentViewModel = PaymentViewModel(paymentController: PaymentControllerImpl())
-    
+    @StateObject private var paymentViewModel = PaymentViewModel(
+        paymentController: PaymentControllerImpl()
+    )
+    @StateObject private var contentViewModel = PaymentSummaryContentViewModel()
+    @StateObject private var transactionViewModel = TransactionViewModel(
+        controller: TransactionControllerImpl(
+            driverFactory: DatabaseDriverFactory()
+        )
+    )
+
     var body: some View {
         ZStack {
             VStack {
                 if let paymentSheet = paymentViewModel.paymentSheet {
                     VStack {
                         Divider()
-                        PaymentSummaryContentView(offerViewModel: offerViewModel)
+                        PaymentSummaryContentView(
+                            offerViewModel: offerViewModel,
+                            contentViewModel: contentViewModel
+                        )
                         Spacer()
                         PaymentSheet.PaymentButton(
                             paymentSheet: paymentSheet,
@@ -48,7 +59,21 @@ struct PaymentSummaryView: View {
                 
                 PaymentResultView(result: paymentResult)
                     .navigationBarHidden(true)
-                
+                    .onAppear {
+                        switch paymentResult {
+                        case .completed:
+                            transactionViewModel.addTransaction(
+                                description: contentViewModel.getTransactionDescription(),
+                                date: transactionViewModel.getTransactionDate(),
+                                amount: Double(offerViewModel.number) ?? 0.00,
+                                isSeen: false
+                            )
+                        case .canceled:
+                            break
+                        case .failed(let error):
+                            Log.d(tag: "ERROR", message: error.localizedDescription)
+                        }
+                    }
                 
             }
         }

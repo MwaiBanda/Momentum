@@ -39,4 +39,12 @@ class TransactionViewModel: ObservableObject {
     func deleteAllTransactions() {
         controller.deleteAllTransactions()
     }
+    func getTransactionDate() -> String {
+        let date = Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMMM d"
+        return dateFormatter.string(from: date)
+        
+    }
+
 }

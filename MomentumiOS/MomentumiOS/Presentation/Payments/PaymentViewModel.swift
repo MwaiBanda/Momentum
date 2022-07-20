@@ -27,6 +27,7 @@ final class PaymentViewModel : ObservableObject {
         case .completed:
             Log.d(tag:"Pay/Complete", message: "Payment Success")
             isNavTitleHidden = true
+            paymentSheet = nil
         case .canceled:
             Log.d(tag:"Pay/Cancelled", message: "Payment Cancelled")
             isNavTitleHidden = false

@@ -11,7 +11,7 @@ import MomentumSDK
 
 struct PaymentSummaryContentView: View {
     @ObservedObject var offerViewModel: OfferViewModel
-    @StateObject private var contentViewModel = PaymentSummaryContentViewModel()
+    @ObservedObject var contentViewModel: PaymentSummaryContentViewModel
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -138,6 +138,6 @@ struct PaymentSummaryContentView: View {
 
 struct PaymentSummaryContentView_Previews: PreviewProvider {
     static var previews: some View {
-        PaymentSummaryContentView(offerViewModel: OfferViewModel())
+        PaymentSummaryContentView(offerViewModel: OfferViewModel(), contentViewModel: PaymentSummaryContentViewModel())
     }
 }
