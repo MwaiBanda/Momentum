@@ -10,8 +10,10 @@ import org.koin.core.component.KoinComponent
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.getValue
 
-class TransactionViewModel: ViewModel(), KoinComponent {
-    private val transactionController: TransactionController by inject()
+class TransactionViewModel(
+    private val transactionController: TransactionController
+): ViewModel(), KoinComponent {
+
     private val _transactions: MutableLiveData<List<MomentumTransaction>> = MutableLiveData()
     val transactions: LiveData<List<MomentumTransaction>> = _transactions
 

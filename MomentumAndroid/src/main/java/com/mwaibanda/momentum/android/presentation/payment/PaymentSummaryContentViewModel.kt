@@ -208,6 +208,39 @@ class PaymentSummaryContentViewModel: ViewModel() {
             }
         }
     }
+    fun  getTransactionDescription(): String {
+        if (selectedLabels.count() == 1) {
+            return when(selectedLabels[0]) {
+                OFFERING -> "$$offeringAmount: Offering"
+                TITHE -> "$$titheAmount: Tithe"
+                MISSIONS -> "$$missionsAmount: Missions"
+                SPECIAL_SPEAKER -> "$$speakersAmount: Special Speaker"
+                OTHER -> "$$otherAmount: Other"
+            }
+        } else {
+            var description = ""
+            selectedLabels.forEach { toggleLabel ->
+                if (selectedLabels.last() == toggleLabel) {
+                      description += when(toggleLabel) {
+                          OFFERING -> "$$offeringAmount: Offering"
+                          TITHE -> "$$titheAmount: Tithe"
+                          MISSIONS -> "$$missionsAmount: Missions"
+                          SPECIAL_SPEAKER -> "$$speakersAmount: Special Speaker"
+                          OTHER -> "$$otherAmount: Other"
+                      }
+                } else {
+                    description += when(toggleLabel) {
+                        OFFERING -> "$$offeringAmount: Offering, "
+                        TITHE -> "$$titheAmount: Tithe, "
+                        MISSIONS -> "$$missionsAmount: Missions, "
+                        SPECIAL_SPEAKER -> "$$speakersAmount: Special Speaker, "
+                        OTHER -> "$$otherAmount: Other, "
+                    }
+                }
+            }
+            return description
+        }
+    }
     private fun subtractAmounts(vararg amounts: String): String {
         val reminder = amounts[0].toInt() - amounts[1].toInt()
         return reminder.toString()

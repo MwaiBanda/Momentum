@@ -34,7 +34,7 @@ kotlin {
                 implementation("io.ktor:ktor-client-core:1.6.7")
                 implementation("io.ktor:ktor-client-serialization:1.6.7")
                 implementation("io.ktor:ktor-client-logging:1.6.7")
-                implementation("io.insert-koin:koin-core:3.1.5")
+                implementation("io.insert-koin:koin-core:3.2.0")
                 implementation("com.squareup.sqldelight:runtime:1.5.3")
             }
         }

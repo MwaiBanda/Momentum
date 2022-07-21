@@ -7,10 +7,9 @@ import androidx.compose.runtime.LaunchedEffect
 import com.mwaibanda.momentum.android.presentation.components.ToggleAmountLabel
 import com.mwaibanda.momentum.android.presentation.payment.PaymentSummaryContentViewModel.ToggleLabel.*
 import com.mwaibanda.momentum.utils.MultiplatformConstants
-import org.koin.androidx.compose.getViewModel
 
 @Composable
-fun PaymentSummaryContentScreen(amount: Int, contentViewModel: PaymentSummaryContentViewModel = getViewModel()) {
+fun PaymentSummaryContentScreen(amount: Int, contentViewModel: PaymentSummaryContentViewModel) {
     LaunchedEffect(key1 = Unit){
         contentViewModel.totalAmount = amount.toString()
     }

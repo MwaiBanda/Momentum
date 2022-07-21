@@ -2,6 +2,7 @@ package com.mwaibanda.momentum.android
 
 import androidx.activity.ComponentActivity
 import com.mwaibanda.momentum.android.presentation.payment.PaymentViewModel
+import com.mwaibanda.momentum.android.presentation.transaction.TransactionViewModel
 import com.mwaibanda.momentum.domain.controller.PaymentController
 import com.mwaibanda.momentum.domain.models.PaymentRequest
 import com.stripe.android.PaymentConfiguration
@@ -10,7 +11,8 @@ import com.stripe.android.paymentsheet.PaymentSheetResult
 import org.koin.android.ext.android.inject
 
 open class BaseActivity: ComponentActivity() {
-    private val paymentViewModel: PaymentViewModel by inject()
+    protected val paymentViewModel: PaymentViewModel by inject()
+    protected val transactionViewModel: TransactionViewModel by inject()
 
     protected fun checkout(
         paymentRequest: PaymentRequest,

@@ -17,7 +17,7 @@ import java.time.temporal.TemporalAmount
 
 @Composable
 fun TransactionLabel(description: String, amount: Double, date: String ) {
-    Row(Modifier.fillMaxWidth().padding(10.dp),
+    Row(Modifier.fillMaxWidth().padding(10.dp).padding(vertical = 5.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
     ) {
         Row {
@@ -41,7 +41,7 @@ fun TransactionLabel(description: String, amount: Double, date: String ) {
         }
         Column(horizontalAlignment = Alignment.End) {
             Text(
-                text = "$${amount}",
+                text = "$" + String.format("%.2f", amount),
                 fontWeight = FontWeight.ExtraBold,
                 style = MaterialTheme.typography.subtitle1,
             )

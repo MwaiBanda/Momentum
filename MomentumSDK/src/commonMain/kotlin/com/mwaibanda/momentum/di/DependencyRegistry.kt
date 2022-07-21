@@ -2,15 +2,12 @@ package com.mwaibanda.momentum.di
 
 import com.mwaibanda.momentum.controller.PaymentControllerImpl
 import com.mwaibanda.momentum.controller.TransactionControllerImpl
-import com.mwaibanda.momentum.data.db.Database
-import com.mwaibanda.momentum.data.db.DatabaseDriverFactory
 import com.mwaibanda.momentum.data.repository.PaymentRepositoryImpl
 import com.mwaibanda.momentum.domain.controller.PaymentController
 import com.mwaibanda.momentum.domain.controller.TransactionController
 import com.mwaibanda.momentum.domain.repository.PaymentRepository
 import com.mwaibanda.momentum.domain.usecase.CheckoutUseCase
 import io.ktor.client.*
-import io.ktor.client.engine.*
 import io.ktor.client.features.*
 import io.ktor.client.features.json.*
 import io.ktor.client.features.json.serializer.*

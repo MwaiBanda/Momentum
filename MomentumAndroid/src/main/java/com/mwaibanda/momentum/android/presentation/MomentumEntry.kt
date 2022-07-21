@@ -1,42 +1,33 @@
 package com.mwaibanda.momentum.android.presentation
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBackIosNew
-import androidx.compose.material.icons.filled.Person
-import androidx.compose.material.icons.outlined.AccessTime
-import androidx.compose.material.icons.outlined.AccountCircle
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.google.accompanist.insets.LocalWindowInsets
-import com.google.accompanist.insets.navigationBarsHeight
-import com.google.accompanist.insets.rememberInsetsPaddingValues
+import com.google.accompanist.navigation.material.BottomSheetNavigator
+import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
-import com.mwaibanda.momentum.android.R
-import com.mwaibanda.momentum.android.core.utils.Constants
-import com.mwaibanda.momentum.android.core.utils.NavigationRoutes
-import com.mwaibanda.momentum.android.core.utils.ScreenConfiguration.*
+import com.mwaibanda.momentum.android.core.utils.ScreenConfiguration.ScreensWithoutNavigation
+import com.mwaibanda.momentum.android.presentation.components.rememberBottomSheetNavigator
 import com.mwaibanda.momentum.android.presentation.navigation.BottomBar
 import com.mwaibanda.momentum.android.presentation.navigation.TopBar
 
-
+@OptIn(ExperimentalMaterialApi::class)
+@ExperimentalMaterialNavigationApi
 @Composable
-fun MomentumEntry(content: @Composable (PaddingValues, NavHostController) -> Unit) {
+fun MomentumEntry(content: @Composable (PaddingValues, NavHostController, BottomSheetNavigator) -> Unit) {
     val systemUiController = rememberSystemUiController()
     val useDarkIcons = MaterialTheme.colors.isLight
-    val navController = rememberNavController()
+    val bottomSheetNavigator = rememberBottomSheetNavigator()
+    val navController = rememberNavController(bottomSheetNavigator)
 
     SideEffect {
         systemUiController.setSystemBarsColor(
@@ -50,7 +41,7 @@ fun MomentumEntry(content: @Composable (PaddingValues, NavHostController) -> Uni
 
     Scaffold() {
         Box {
-            content(it, navController)
+            content(it, navController, bottomSheetNavigator)
             if (ScreensWithoutNavigation.screens.contains(currentRoute).not()) {
                 Column(
                     Modifier.fillMaxSize(),

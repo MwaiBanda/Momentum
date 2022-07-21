@@ -70,10 +70,12 @@ dependencies {
     implementation("io.insert-koin:koin-android:3.2.0")
     implementation("io.insert-koin:koin-core:3.2.0")
     // Koin Jetpack Compose
-    implementation ("io.insert-koin:koin-androidx-compose:3.2.0")
-    implementation ("io.insert-koin:koin-androidx-navigation:3.2.0")
-
+    implementation("io.insert-koin:koin-androidx-compose:3.2.0")
+    implementation("io.insert-koin:koin-androidx-navigation:3.2.0")
     //Lottie
-    implementation ("com.airbnb.android:lottie-compose:4.0.0")
+    implementation("com.airbnb.android:lottie-compose:4.0.0")
+    // Bottom Sheet
+    implementation("com.google.accompanist:accompanist-navigation-material:0.24.13-rc")
+
 
 }

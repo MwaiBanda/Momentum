@@ -20,6 +20,7 @@ import com.google.accompanist.insets.LocalWindowInsets
 import com.google.accompanist.insets.rememberInsetsPaddingValues
 import com.mwaibanda.momentum.android.R
 import com.mwaibanda.momentum.android.core.utils.Constants
+import com.mwaibanda.momentum.android.core.utils.NavigationRoutes
 import com.mwaibanda.momentum.android.core.utils.ScreenConfiguration
 
 @Composable
@@ -54,13 +55,13 @@ fun TopBar(navController: NavController, currentRoute: String?) {
                         Text(text = "Back", color = Color(Constants.MomentumOrange))
                     }
                 }
-            else
+            if (ScreenConfiguration.ScreensWithTopBarIcons.screens.contains(currentRoute).not())
                 IconButton(onClick = {
-
+                    navController.navigate(NavigationRoutes.TransactionsScreen.route)
                 }) {
                     Icon(
                         Icons.Outlined.AccessTime,
-                        contentDescription = "History Icon",
+                        contentDescription = "Transactions Icon",
                         tint = Color.White,
                         modifier = Modifier.size(35.dp)
                     )
@@ -68,6 +69,7 @@ fun TopBar(navController: NavController, currentRoute: String?) {
                 }
         },
         actions = {
+            if (ScreenConfiguration.ScreensWithTopBarIcons.screens.contains(currentRoute).not())
             IconButton(onClick = { /*TODO*/ }) {
                 Icon(
                     imageVector = Icons.Outlined.AccountCircle,

@@ -17,4 +17,6 @@ sealed class NavigationRoutes(
     object PaymentSummaryScreen: NavigationRoutes(route = "pay/{amount}")
     object PaymentSuccessScreen: NavigationRoutes(route = "pay/success")
     object PaymentFailureScreen: NavigationRoutes(route = "pay/failure")
+    object TransactionsScreen: NavigationRoutes(route = "transactions")
+
 }
