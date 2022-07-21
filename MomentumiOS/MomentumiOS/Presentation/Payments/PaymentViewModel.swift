@@ -12,14 +12,12 @@ import Stripe
 import UIKit
 
 final class PaymentViewModel : ObservableObject {
-    private var paymentController: PaymentController
+    @Inject private var paymentController: PaymentController
     @Published private(set) var paymentSheet: PaymentSheet?
     @Published private(set) var paymentResult: PaymentSheetResult?
     @Published var isNavTitleHidden = false
 
-    init(paymentController: PaymentController) {
-        self.paymentController = paymentController
-    }
+   
     
     func onPaymentCompletion(paymentResult: PaymentSheetResult) {
         self.paymentResult = paymentResult

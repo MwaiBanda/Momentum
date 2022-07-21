@@ -8,7 +8,7 @@ import io.ktor.client.*
 import io.ktor.client.request.*
 import io.ktor.http.*
 
-class PaymentRepositoryImpl(
+internal class PaymentRepositoryImpl(
     private val httpClient: HttpClient
 ): PaymentRepository, MomentumBase() {
 

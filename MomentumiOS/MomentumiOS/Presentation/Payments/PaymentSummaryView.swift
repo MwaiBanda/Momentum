@@ -12,15 +12,9 @@ import Stripe
 
 struct PaymentSummaryView: View {
     @ObservedObject var offerViewModel: OfferViewModel
-    @StateObject private var paymentViewModel = PaymentViewModel(
-        paymentController: PaymentControllerImpl()
-    )
+    @StateObject private var paymentViewModel = PaymentViewModel()
     @StateObject private var contentViewModel = PaymentSummaryContentViewModel()
-    @StateObject private var transactionViewModel = TransactionViewModel(
-        controller: TransactionControllerImpl(
-            driverFactory: DatabaseDriverFactory()
-        )
-    )
+    @StateObject private var transactionViewModel = TransactionViewModel()
 
     var body: some View {
         ZStack {

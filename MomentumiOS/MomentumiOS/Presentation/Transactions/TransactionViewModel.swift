@@ -10,13 +10,10 @@ import Foundation
 import MomentumSDK
 
 class TransactionViewModel: ObservableObject {
-    private var controller: TransactionController
+    @Inject private var controller: TransactionController
     @Published var transactions = [MomentumTransaction]()
     
-    init(controller: TransactionController){
-        self.controller = controller
-    }
-    
+  
     func addTransaction(
         description: String,
         date: String,

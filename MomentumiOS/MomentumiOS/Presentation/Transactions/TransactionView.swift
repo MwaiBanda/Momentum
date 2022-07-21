@@ -10,7 +10,7 @@ import SwiftUI
 import MomentumSDK
 
 struct TransactionView: View {
-    @StateObject private var transactionViewModel = TransactionViewModel(controller: TransactionControllerImpl(driverFactory: DatabaseDriverFactory()))
+    @StateObject private var transactionViewModel = TransactionViewModel()
     @Environment(\.presentationMode) private var presentationMode
     var body: some View {
         VStack {

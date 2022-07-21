@@ -10,7 +10,7 @@ import io.ktor.client.features.logging.*
 import io.ktor.client.features.observer.*
 import org.koin.dsl.module
 
-val singletonModule = module {
+internal val singletonModule = module {
     single {
         HttpClient {
             install(Logging) {

@@ -6,7 +6,7 @@ import com.mwaibanda.momentum.data.db.MomentumTransaction
 import com.mwaibanda.momentum.domain.controller.TransactionController
 import org.koin.core.component.KoinComponent
 
-class TransactionControllerImpl(driverFactory: DatabaseDriverFactory): TransactionController, KoinComponent {
+class TransactionControllerImpl(driverFactory: DatabaseDriverFactory): TransactionController {
     private val database = Database(driverFactory)
 
     override fun addTransaction(

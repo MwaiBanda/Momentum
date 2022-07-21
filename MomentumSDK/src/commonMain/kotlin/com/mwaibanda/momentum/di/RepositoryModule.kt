@@ -6,7 +6,7 @@ import com.mwaibanda.momentum.domain.repository.AuthRepository
 import com.mwaibanda.momentum.domain.repository.PaymentRepository
 import org.koin.dsl.module
 
-val repositoryModule = module {
+internal val repositoryModule = module {
     single<PaymentRepository>{  PaymentRepositoryImpl(httpClient = get()) }
     single<AuthRepository>{ AuthRepositoryImpl(firebaseAuth = get()) }
 }

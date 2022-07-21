@@ -40,7 +40,11 @@
 		814E5DEE287794630008BAC1 /* StripeApplePay in Frameworks */ = {isa = PBXBuildFile; productRef = 814E5DED287794630008BAC1 /* StripeApplePay */; };
 		814E5DF0287794630008BAC1 /* StripeCardScan in Frameworks */ = {isa = PBXBuildFile; productRef = 814E5DEF287794630008BAC1 /* StripeCardScan */; };
 		81770C222877A314008B88F6 /* UIColor+Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81770C212877A314008B88F6 /* UIColor+Swift.swift */; };
+		81826E28288A060400B22B6E /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81826E27288A060400B22B6E /* Session.swift */; };
 		81841AF82884C81200C42204 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81841AF72884C81200C42204 /* LaunchScreen.storyboard */; };
+		81888DF1288A0FDD00752590 /* Resolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81888DF0288A0FDD00752590 /* Resolver.swift */; };
+		81888DF3288A11EE00752590 /* Inject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81888DF2288A11EE00752590 /* Inject.swift */; };
+		81888DF6288A12F200752590 /* DiRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81888DF5288A12F200752590 /* DiRegistry.swift */; };
 		819497FE288797240099B30B /* TransactionLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819497FD288797240099B30B /* TransactionLabel.swift */; };
 		819498002887B2460099B30B /* ToggleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819497FF2887B2460099B30B /* ToggleLabel.swift */; };
 		819B795028708F020010B960 /* OfferViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819B794F28708F020010B960 /* OfferViewModel.swift */; };
@@ -95,7 +99,11 @@
 		814525FA287940E900989B4C /* success.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = success.json; sourceTree = "<group>"; };
 		814E5DE628778E470008BAC1 /* PaymentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentViewModel.swift; sourceTree = "<group>"; };
 		81770C212877A314008B88F6 /* UIColor+Swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Swift.swift"; sourceTree = "<group>"; };
+		81826E27288A060400B22B6E /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		81841AF72884C81200C42204 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		81888DF0288A0FDD00752590 /* Resolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resolver.swift; sourceTree = "<group>"; };
+		81888DF2288A11EE00752590 /* Inject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Inject.swift; sourceTree = "<group>"; };
+		81888DF5288A12F200752590 /* DiRegistry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiRegistry.swift; sourceTree = "<group>"; };
 		819497FD288797240099B30B /* TransactionLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionLabel.swift; sourceTree = "<group>"; };
 		819497FF2887B2460099B30B /* ToggleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleLabel.swift; sourceTree = "<group>"; };
 		819B794F28708F020010B960 /* OfferViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfferViewModel.swift; sourceTree = "<group>"; };
@@ -181,6 +189,7 @@
 				81841AF72884C81200C42204 /* LaunchScreen.storyboard */,
 				058557BA273AAA24004C7B11 /* Assets.xcassets */,
 				8126AF72286FDB05007DBAB9 /* Core */,
+				81888DF4288A12C700752590 /* Di */,
 				8126AF6E286FD7AF007DBAB9 /* Presentation */,
 				7555FF8C242A565B00829871 /* Info.plist */,
 				2152FB032600AC8F00CF470E /* iOSApp.swift */,
@@ -254,6 +263,9 @@
 				8126AF7A286FE3C2007DBAB9 /* Constants.swift */,
 				819B7951287098FA0010B960 /* Log.swift */,
 				819497FF2887B2460099B30B /* ToggleLabel.swift */,
+				81826E27288A060400B22B6E /* Session.swift */,
+				81888DF0288A0FDD00752590 /* Resolver.swift */,
+				81888DF2288A11EE00752590 /* Inject.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -304,6 +316,14 @@
 				813E158E287F48F10069A6BB /* PaymentSummaryContentViewModel.swift */,
 			);
 			path = Payments;
+			sourceTree = "<group>";
+		};
+		81888DF4288A12C700752590 /* Di */ = {
+			isa = PBXGroup;
+			children = (
+				81888DF5288A12F200752590 /* DiRegistry.swift */,
+			);
+			path = Di;
 			sourceTree = "<group>";
 		};
 		81A4013828852F6900C0802D /* Transactions */ = {
@@ -485,15 +505,19 @@
 				813E158F287F48F10069A6BB /* PaymentSummaryContentViewModel.swift in Sources */,
 				8126AF8B286FFD84007DBAB9 /* BackgroundView.swift in Sources */,
 				819B795028708F020010B960 /* OfferViewModel.swift in Sources */,
+				81888DF3288A11EE00752590 /* Inject.swift in Sources */,
 				819B7952287098FA0010B960 /* Log.swift in Sources */,
 				819497FE288797240099B30B /* TransactionLabel.swift in Sources */,
 				8126AF89286FF12F007DBAB9 /* MenuButton.swift in Sources */,
+				81826E28288A060400B22B6E /* Session.swift in Sources */,
 				7555FF83242A565900829871 /* ContentView.swift in Sources */,
 				811A3E7D287E05D90052682B /* ToggleAmountLabel.swift in Sources */,
 				8126AF86286FEF39007DBAB9 /* BottomTabBar.swift in Sources */,
 				81B802DA2877E7D80008509D /* PaymentSuccessView.swift in Sources */,
 				8126AF82286FEF39007DBAB9 /* ContentWrapper.swift in Sources */,
+				81888DF6288A12F200752590 /* DiRegistry.swift in Sources */,
 				81B802DE2877ED7F0008509D /* FilledButtonStyle.swift in Sources */,
+				81888DF1288A0FDD00752590 /* Resolver.swift in Sources */,
 				814525F728793F5000989B4C /* LottieView.swift in Sources */,
 				8126AF7B286FE3C2007DBAB9 /* Constants.swift in Sources */,
 				81B802DC2877E7FF0008509D /* PaymentFailureView.swift in Sources */,
