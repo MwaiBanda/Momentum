@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "649626638654",
+    "project_id": "momentum-ministry",
+    "storage_bucket": "momentum-ministry.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:649626638654:android:0b5f0475ad92630ccab46f",
+        "android_client_info": {
+          "package_name": "com.mwaibanda.momentum.android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "649626638654-1g8md79tcnfd9m0mvjds7vio7hbnftmt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBANPCy8VwxcmD3vAJ0ouX85QCD6ZzwDag"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "649626638654-1g8md79tcnfd9m0mvjds7vio7hbnftmt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

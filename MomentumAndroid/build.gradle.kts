@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
     kotlin("android")
     kotlin("plugin.serialization")
+    id("com.google.gms.google-services")
 
 }
 
@@ -52,6 +53,7 @@ dependencies {
     implementation( "androidx.compose.ui:ui-tooling:1.1.1")
     // Integration with ViewModels
     implementation( "androidx.lifecycle:lifecycle-viewmodel-compose:2.5.0")
+    implementation("com.google.firebase:firebase-auth:21.0.4")
     // UI Tests
     androidTestImplementation("androidx.compose.ui:ui-test-junit4:1.1.1")
     // Navigation

@@ -5,9 +5,9 @@ import com.mwaibanda.momentum.domain.models.PaymentResponse
 import com.mwaibanda.momentum.domain.repository.PaymentRepository
 
 class CheckoutUseCase(
-    private val repository: PaymentRepository
+    private val paymentRepository: PaymentRepository
 ) {
     suspend operator fun invoke(request: PaymentRequest, onCompletion: (PaymentResponse) -> Unit){
-         onCompletion(repository.prepareCheckout(request))
+         onCompletion(paymentRepository.prepareCheckout(request))
     }
 }

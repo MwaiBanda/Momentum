@@ -36,6 +36,7 @@ kotlin {
                 implementation("io.ktor:ktor-client-logging:1.6.7")
                 implementation("io.insert-koin:koin-core:3.2.0")
                 implementation("com.squareup.sqldelight:runtime:1.5.3")
+                implementation("dev.gitlive:firebase-auth:1.6.1")
             }
         }
         val commonTest by getting {

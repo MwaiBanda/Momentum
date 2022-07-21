@@ -1,5 +1,6 @@
 import SwiftUI
 import MomentumSDK
+import FirebaseCore
 
 @main
 struct iOSApp: App {
@@ -15,6 +16,7 @@ class AppDelegate : NSObject, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         DependencyRegistryKt.doInitKoin()
+        FirebaseApp.configure()
         Thread.sleep(forTimeInterval: 1.5)
         return true
     }

@@ -9,8 +9,9 @@ import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
-class PaymentControllerImpl: PaymentController, KoinComponent {
-    private val checkoutUseCase: CheckoutUseCase by inject()
+class PaymentControllerImpl(
+    private val checkoutUseCase: CheckoutUseCase
+): PaymentController {
     private val scope = MainScope()
 
     override fun checkout(request: PaymentRequest, onCompletion: (PaymentResponse) -> Unit) {

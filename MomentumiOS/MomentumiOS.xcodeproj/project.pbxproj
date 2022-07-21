@@ -25,6 +25,11 @@
 		8126AF86286FEF39007DBAB9 /* BottomTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8126AF81286FEF39007DBAB9 /* BottomTabBar.swift */; };
 		8126AF89286FF12F007DBAB9 /* MenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8126AF88286FF12F007DBAB9 /* MenuButton.swift */; };
 		8126AF8B286FFD84007DBAB9 /* BackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8126AF8A286FFD84007DBAB9 /* BackgroundView.swift */; };
+		813A97CE2889D82600377943 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 813A97CD2889D82600377943 /* GoogleService-Info.plist */; };
+		813A97D12889D93E00377943 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 813A97D02889D93E00377943 /* FirebaseAnalytics */; };
+		813A97D32889D93E00377943 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 813A97D22889D93E00377943 /* FirebaseAuth */; };
+		813A97D52889D93E00377943 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 813A97D42889D93E00377943 /* FirebaseFirestore */; };
+		813A97D72889D93E00377943 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 813A97D62889D93E00377943 /* FirebaseFirestoreSwift */; };
 		813E158F287F48F10069A6BB /* PaymentSummaryContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813E158E287F48F10069A6BB /* PaymentSummaryContentViewModel.swift */; };
 		814525F528793F3300989B4C /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 814525F428793F3300989B4C /* Lottie */; };
 		814525F728793F5000989B4C /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 814525F628793F5000989B4C /* LottieView.swift */; };
@@ -83,6 +88,7 @@
 		8126AF81286FEF39007DBAB9 /* BottomTabBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomTabBar.swift; sourceTree = "<group>"; };
 		8126AF88286FF12F007DBAB9 /* MenuButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuButton.swift; sourceTree = "<group>"; };
 		8126AF8A286FFD84007DBAB9 /* BackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundView.swift; sourceTree = "<group>"; };
+		813A97CD2889D82600377943 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		813E158E287F48F10069A6BB /* PaymentSummaryContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentSummaryContentViewModel.swift; sourceTree = "<group>"; };
 		814525F628793F5000989B4C /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
 		814525F8287940DF00989B4C /* failed.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = failed.json; sourceTree = "<group>"; };
@@ -112,9 +118,13 @@
 			files = (
 				814525F528793F3300989B4C /* Lottie in Frameworks */,
 				814E5DF0287794630008BAC1 /* StripeCardScan in Frameworks */,
+				813A97D12889D93E00377943 /* FirebaseAnalytics in Frameworks */,
 				814E5DEE287794630008BAC1 /* StripeApplePay in Frameworks */,
 				3703363E8055D813FEFB7DBA /* Pods_MomentumiOS.framework in Frameworks */,
+				813A97D52889D93E00377943 /* FirebaseFirestore in Frameworks */,
+				813A97D32889D93E00377943 /* FirebaseAuth in Frameworks */,
 				814E5DEC287794630008BAC1 /* Stripe in Frameworks */,
+				813A97D72889D93E00377943 /* FirebaseFirestoreSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -167,6 +177,7 @@
 		7555FF7D242A565900829871 /* MomentumiOS */ = {
 			isa = PBXGroup;
 			children = (
+				813A97CD2889D82600377943 /* GoogleService-Info.plist */,
 				81841AF72884C81200C42204 /* LaunchScreen.storyboard */,
 				058557BA273AAA24004C7B11 /* Assets.xcassets */,
 				8126AF72286FDB05007DBAB9 /* Core */,
@@ -334,6 +345,10 @@
 				814E5DED287794630008BAC1 /* StripeApplePay */,
 				814E5DEF287794630008BAC1 /* StripeCardScan */,
 				814525F428793F3300989B4C /* Lottie */,
+				813A97D02889D93E00377943 /* FirebaseAnalytics */,
+				813A97D22889D93E00377943 /* FirebaseAuth */,
+				813A97D42889D93E00377943 /* FirebaseFirestore */,
+				813A97D62889D93E00377943 /* FirebaseFirestoreSwift */,
 			);
 			productName = MomentumiOS;
 			productReference = 7555FF7B242A565900829871 /* MomentumiOS.app */;
@@ -388,6 +403,7 @@
 			packageReferences = (
 				814E5DEA287794630008BAC1 /* XCRemoteSwiftPackageReference "stripe-ios" */,
 				814525F328793F3300989B4C /* XCRemoteSwiftPackageReference "lottie-ios" */,
+				813A97CF2889D93E00377943 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 7555FF7C242A565900829871 /* Products */;
 			projectDirPath = "";
@@ -409,6 +425,7 @@
 				814525F9287940DF00989B4C /* failed.json in Resources */,
 				81841AF82884C81200C42204 /* LaunchScreen.storyboard in Resources */,
 				058557BB273AAA24004C7B11 /* Assets.xcassets in Resources */,
+				813A97CE2889D82600377943 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -740,6 +757,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		813A97CF2889D93E00377943 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		814525F328793F3300989B4C /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/airbnb/lottie-ios.git";
@@ -759,6 +784,26 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		813A97D02889D93E00377943 /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 813A97CF2889D93E00377943 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+		813A97D22889D93E00377943 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 813A97CF2889D93E00377943 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		813A97D42889D93E00377943 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 813A97CF2889D93E00377943 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		813A97D62889D93E00377943 /* FirebaseFirestoreSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 813A97CF2889D93E00377943 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestoreSwift;
+		};
 		814525F428793F3300989B4C /* Lottie */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 814525F328793F3300989B4C /* XCRemoteSwiftPackageReference "lottie-ios" */;
