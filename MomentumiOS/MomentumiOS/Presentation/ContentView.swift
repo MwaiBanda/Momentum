@@ -2,8 +2,14 @@ import SwiftUI
 import MomentumSDK
 
 struct ContentView: View {
+    @StateObject private var session = Session()
 	var body: some View {
 		BottomTabBar()
+            .environmentObject(session)
+            .onAppear  {
+                session.observerAuth()
+                session.checkAndSignInAsGuest()
+            }
 	}
 }
 

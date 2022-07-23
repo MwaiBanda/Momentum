@@ -13,21 +13,18 @@ import StoreKit
 
 struct ContentWrapper<Content: View>: View {
     @State var showMenu = false
-    var isDetail: Bool
-    var navTitle: String
-    var navConfig: NavConfig
-    var content: (GeometryProxy) -> (Content)
+    var hasBlurredBackground: Bool
+    var navConfiguration: NavConfiguration
+    var content: () -> (Content)
     
     init(
-        navConfig: NavConfig = .defaultConfig,
-        navTitle: String = "",
-        isDetail: Bool = false,
-        @ViewBuilder content: @escaping (GeometryProxy) -> (Content)
+        navConfiguration: NavConfiguration = .defaultConfig,
+        hasBlurredBackground: Bool = true,
+        @ViewBuilder content: @escaping () -> (Content)
     ) {
-        self.navTitle = navTitle
         self.content = content
-        self.navConfig = navConfig
-        self.isDetail = isDetail
+        self.navConfiguration = navConfiguration
+        self.hasBlurredBackground = hasBlurredBackground
     }
     
     
@@ -44,21 +41,20 @@ struct ContentWrapper<Content: View>: View {
             ZStack{
                 withAnimation {
                     ZStack {
-                        if isDetail {
-                            Color.white.ignoresSafeArea(.all)
+                        if hasBlurredBackground {
+                            BackgroundView().ignoresSafeArea(.all)
                         } else {
-                        BackgroundView().ignoresSafeArea(.all)
+                            Color.white.ignoresSafeArea(.all)
                         }
                         GeometryReader { geometry in
                             VStack(spacing: 0){
-                                if !isDetail {
-                                NavBar(showMenu: $showMenu, navTitle: navTitle, navConfig: navConfig)
-                                    .frame(minHeight: 50)
-                                    
+                                if navConfiguration == .defaultConfig {
+                                    NavBar(showMenu: $showMenu)
                                 }
                                 ScrollView(.vertical, showsIndicators: false){
-                                content(geometry)
-                                }.padding(.vertical)
+                                    content()
+                                        .frame(minHeight:  geometry.size.height - (navConfiguration == .defaultConfig ? 90 : 50))
+                                }
                               /*   Divider()
                                .overlay(Color(.clear))
                                .padding(.bottom) */
@@ -86,19 +82,9 @@ struct ContentWrapper<Content: View>: View {
                 }
                 
             }
-            .navigationBarHidden(isDetail ? false : true)
+            .navigationBarHidden(navConfiguration == .defaultConfig)
         }
-        .onAppear(perform: {
-            
-        })
     }
 }
 
 
-//struct MenuWrapper_Previews: PreviewProvider {
-//    static var previews: some View {
-//        MenuWrapper {
-//            Text("Home")
-//        }
-//    }
-//}

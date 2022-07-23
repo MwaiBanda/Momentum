@@ -40,8 +40,13 @@
 		814E5DEE287794630008BAC1 /* StripeApplePay in Frameworks */ = {isa = PBXBuildFile; productRef = 814E5DED287794630008BAC1 /* StripeApplePay */; };
 		814E5DF0287794630008BAC1 /* StripeCardScan in Frameworks */ = {isa = PBXBuildFile; productRef = 814E5DEF287794630008BAC1 /* StripeCardScan */; };
 		81770C222877A314008B88F6 /* UIColor+Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81770C212877A314008B88F6 /* UIColor+Swift.swift */; };
+		817AD150288BB0B00046441D /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817AD14F288BB0B00046441D /* SignUpView.swift */; };
 		81826E28288A060400B22B6E /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81826E27288A060400B22B6E /* Session.swift */; };
+		8182E778288B91C500A9CF9D /* AuthControllerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8182E777288B91C500A9CF9D /* AuthControllerView.swift */; };
+		8182E77A288B91FB00A9CF9D /* BlurredBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8182E779288B91FB00A9CF9D /* BlurredBackground.swift */; };
+		8182E77C288B9CC100A9CF9D /* PasswordTextfield.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8182E77B288B9CC100A9CF9D /* PasswordTextfield.swift */; };
 		81841AF82884C81200C42204 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81841AF72884C81200C42204 /* LaunchScreen.storyboard */; };
+		8184A3D9288B85FF00083399 /* NavConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8184A3D8288B85FF00083399 /* NavConfiguration.swift */; };
 		81888DF1288A0FDD00752590 /* Resolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81888DF0288A0FDD00752590 /* Resolver.swift */; };
 		81888DF3288A11EE00752590 /* Inject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81888DF2288A11EE00752590 /* Inject.swift */; };
 		81888DF6288A12F200752590 /* DiRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81888DF5288A12F200752590 /* DiRegistry.swift */; };
@@ -99,8 +104,13 @@
 		814525FA287940E900989B4C /* success.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = success.json; sourceTree = "<group>"; };
 		814E5DE628778E470008BAC1 /* PaymentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentViewModel.swift; sourceTree = "<group>"; };
 		81770C212877A314008B88F6 /* UIColor+Swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Swift.swift"; sourceTree = "<group>"; };
+		817AD14F288BB0B00046441D /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		81826E27288A060400B22B6E /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
+		8182E777288B91C500A9CF9D /* AuthControllerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthControllerView.swift; sourceTree = "<group>"; };
+		8182E779288B91FB00A9CF9D /* BlurredBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurredBackground.swift; sourceTree = "<group>"; };
+		8182E77B288B9CC100A9CF9D /* PasswordTextfield.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordTextfield.swift; sourceTree = "<group>"; };
 		81841AF72884C81200C42204 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		8184A3D8288B85FF00083399 /* NavConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavConfiguration.swift; sourceTree = "<group>"; };
 		81888DF0288A0FDD00752590 /* Resolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resolver.swift; sourceTree = "<group>"; };
 		81888DF2288A11EE00752590 /* Inject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Inject.swift; sourceTree = "<group>"; };
 		81888DF5288A12F200752590 /* DiRegistry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiRegistry.swift; sourceTree = "<group>"; };
@@ -218,6 +228,7 @@
 		8126AF6E286FD7AF007DBAB9 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				8182E776288B919700A9CF9D /* Auth */,
 				8126AF87286FF11B007DBAB9 /* Component */,
 				8126AF7C286FEF39007DBAB9 /* Navigation */,
 				81A4013828852F6900C0802D /* Transactions */,
@@ -266,6 +277,7 @@
 				81826E27288A060400B22B6E /* Session.swift */,
 				81888DF0288A0FDD00752590 /* Resolver.swift */,
 				81888DF2288A11EE00752590 /* Inject.swift */,
+				8184A3D8288B85FF00083399 /* NavConfiguration.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -285,12 +297,14 @@
 			isa = PBXGroup;
 			children = (
 				81B802DF2877ED940008509D /* Styles */,
+				8182E77B288B9CC100A9CF9D /* PasswordTextfield.swift */,
 				8126AF88286FF12F007DBAB9 /* MenuButton.swift */,
 				8126AF8A286FFD84007DBAB9 /* BackgroundView.swift */,
 				81B802D32877E4080008509D /* LoadingView.swift */,
 				814525F628793F5000989B4C /* LottieView.swift */,
 				811A3E7C287E05D90052682B /* ToggleAmountLabel.swift */,
 				819497FD288797240099B30B /* TransactionLabel.swift */,
+				8182E779288B91FB00A9CF9D /* BlurredBackground.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -316,6 +330,15 @@
 				813E158E287F48F10069A6BB /* PaymentSummaryContentViewModel.swift */,
 			);
 			path = Payments;
+			sourceTree = "<group>";
+		};
+		8182E776288B919700A9CF9D /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				8182E777288B91C500A9CF9D /* AuthControllerView.swift */,
+				817AD14F288BB0B00046441D /* SignUpView.swift */,
+			);
+			path = Auth;
 			sourceTree = "<group>";
 		};
 		81888DF4288A12C700752590 /* Di */ = {
@@ -493,6 +516,8 @@
 				81B802D62877E46A0008509D /* PaymentSummaryView.swift in Sources */,
 				2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */,
 				819498002887B2460099B30B /* ToggleLabel.swift in Sources */,
+				8184A3D9288B85FF00083399 /* NavConfiguration.swift in Sources */,
+				8182E77A288B91FB00A9CF9D /* BlurredBackground.swift in Sources */,
 				814E5DE728778E470008BAC1 /* PaymentViewModel.swift in Sources */,
 				8126AF71286FD82D007DBAB9 /* OfferView.swift in Sources */,
 				81770C222877A314008B88F6 /* UIColor+Swift.swift in Sources */,
@@ -507,6 +532,7 @@
 				819B795028708F020010B960 /* OfferViewModel.swift in Sources */,
 				81888DF3288A11EE00752590 /* Inject.swift in Sources */,
 				819B7952287098FA0010B960 /* Log.swift in Sources */,
+				8182E778288B91C500A9CF9D /* AuthControllerView.swift in Sources */,
 				819497FE288797240099B30B /* TransactionLabel.swift in Sources */,
 				8126AF89286FF12F007DBAB9 /* MenuButton.swift in Sources */,
 				81826E28288A060400B22B6E /* Session.swift in Sources */,
@@ -517,7 +543,9 @@
 				8126AF82286FEF39007DBAB9 /* ContentWrapper.swift in Sources */,
 				81888DF6288A12F200752590 /* DiRegistry.swift in Sources */,
 				81B802DE2877ED7F0008509D /* FilledButtonStyle.swift in Sources */,
+				8182E77C288B9CC100A9CF9D /* PasswordTextfield.swift in Sources */,
 				81888DF1288A0FDD00752590 /* Resolver.swift in Sources */,
+				817AD150288BB0B00046441D /* SignUpView.swift in Sources */,
 				814525F728793F5000989B4C /* LottieView.swift in Sources */,
 				8126AF7B286FE3C2007DBAB9 /* Constants.swift in Sources */,
 				81B802DC2877E7FF0008509D /* PaymentFailureView.swift in Sources */,

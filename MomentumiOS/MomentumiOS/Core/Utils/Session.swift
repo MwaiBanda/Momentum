@@ -11,11 +11,43 @@ import MomentumSDK
 import FirebaseAuth
 import Combine
 
-final class Session {
-    private var authController: AuthController
+final class Session: ObservableObject {
+    @Inject private var auth: Auth
+    @Inject private var authController: AuthController
     var didChange = PassthroughSubject<Session, Never>()
     var handle: AuthStateDidChangeListenerHandle?
-    init(authController: AuthController) {
-        self.authController = authController
+    @Published var currentUser: User? {
+        didSet {
+            didChange.send(self)
+        }
+    }
+    func observerAuth() {
+        handle = auth.addStateDidChangeListener({ [weak self] auth, user in
+            if let user = user {
+                self?.currentUser = User(
+                    email: user.email ?? "",
+                    id: user.uid,
+                    isGuest: user.isAnonymous
+                )
+            }
+        })
+    }
+    func checkAndSignInAsGuest() {
+        authController.checkAuthAndSignAsGuest(onCompletion: { _ in })
+    }
+    func unbind() {
+        if let handle = handle {
+            auth.removeStateDidChangeListener(handle)
+        }
+    }
+
+    struct User {
+        var email: String
+        var id: String
+        var isGuest: Bool
+    }
+    
+    deinit {
+        unbind()
     }
 }

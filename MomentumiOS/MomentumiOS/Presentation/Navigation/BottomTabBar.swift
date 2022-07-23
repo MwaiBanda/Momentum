@@ -15,7 +15,7 @@ struct BottomTabBar: View {
         itemAppearance.normal.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(Color(.lightGray))]
         let appearance = UITabBarAppearance()
         appearance.shadowColor = UIColor(Color.black)
-        appearance.backgroundColor = UIColor(Color(.lightGray))
+        appearance.backgroundColor = UIColor(Color(.clear))
         appearance.stackedLayoutAppearance = itemAppearance
         appearance.inlineLayoutAppearance = itemAppearance
         appearance.compactInlineLayoutAppearance = itemAppearance
@@ -28,8 +28,8 @@ struct BottomTabBar: View {
     var body: some View {
         TabView {
             NavigationView {
-                ContentWrapper { proxy in
-                    OfferView(proxy: proxy)
+                ContentWrapper {
+                    OfferView()
                 }
             }
             .navigationViewStyle(StackNavigationViewStyle())
@@ -37,10 +37,6 @@ struct BottomTabBar: View {
             .tabItem {
                 Image(systemName: "giftcard")
             }
-            
-   
-            
-           
             
         }
         .accentColor(Color(hex: Constants.momentumOrange))

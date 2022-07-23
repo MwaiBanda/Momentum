@@ -15,6 +15,7 @@ struct DiRegistry {
         Resolver.inject(Auth.auth())
         Resolver.inject(PaymentControllerImpl() as PaymentController)
         Resolver.inject(TransactionControllerImpl(driverFactory: DatabaseDriverFactory()) as TransactionController)
+        Resolver.inject(AuthControllerImpl() as AuthController)
     }
     private init() { }
 }

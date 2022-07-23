@@ -8,95 +8,68 @@
 import SwiftUI
 import MomentumSDK
 
-enum NavConfig {
-    case defaultConfig
-    case detailConfig
-}
+
 struct NavBar: View {
     @Environment(\.colorScheme) var colorScheme
     @Binding var showMenu: Bool
     @Environment(\.presentationMode) var presentationMode
-    var navTitle: String?
-    var navConfig: NavConfig
-    var Title: String {
-        return navTitle ?? ""
-    }
     @State private var showTransactionSheet = false
     
     var body: some View {
-        ZStack {
-            if navConfig == .defaultConfig {
-                ZStack {
-                    Color(.clear ).ignoresSafeArea(.all)
+        HStack(alignment: .center)  {
+            if false {
+                Button(action: { withAnimation(Animation.easeInOut(duration: 0.5)) {
+                    self.showMenu.toggle()
+                    presentationMode.wrappedValue.dismiss()
+                    let haptic = UIImpactFeedbackGenerator(style: .light)
+                    haptic.impactOccurred()
+                }}) {
                     
-                    HStack(alignment:.center){
-                        
-                        HStack(alignment: .center)  {
-                            if false {
-                                Button(action: { withAnimation(Animation.easeInOut(duration: 0.5)) {
-                                    self.showMenu.toggle()
-                                    presentationMode.wrappedValue.dismiss()
-                                    let haptic = UIImpactFeedbackGenerator(style: .light)
-                                    haptic.impactOccurred()
-                                }}) {
-                                        
-                                        Image(systemName: showMenu ? "xmark" : "line.horizontal.3").imageScale(.large)
-                                            .font(.system(size: 25, weight: .medium))
-                                            .foregroundColor( Color.white)
-                                            .unredacted()
-                                    
-                                    
-                                }
-                                
-                            }
-                            Button(action: { withAnimation(Animation.easeInOut(duration: 0.5)) {
-                                showTransactionSheet.toggle()
-                                let haptic = UIImpactFeedbackGenerator(style: .light)
-                                haptic.impactOccurred()
-                            }}) {
-                                Image(systemName: "clock").imageScale(.large)
-                                    .font(.system(size: 20, weight: .medium))
-                                    .foregroundColor(Color.white)
-                            }
-                            
-                            Spacer()
-                            Image("momentum")
-                                .resizable()
-                                .aspectRatio( contentMode: .fit)
-                                .frame(width: 60, height: 60)
-
-                            
-                            Text((Title.isEmpty ? "" : navTitle) ?? "")
-                                .fontWeight(.heavy)
-                                .font(.title2)
-                                .foregroundColor(colorScheme == .dark ? Color.white : Color.white)
-                            Spacer()
-                            if Title.isEmpty {
-                                
-                               
-                                Button(action: { withAnimation(Animation.easeInOut(duration: 0.5)) {
-                                    presentationMode.wrappedValue.dismiss()
-                                    let haptic = UIImpactFeedbackGenerator(style: .light)
-                                    haptic.impactOccurred()
-                                }}) {
-                                    Image(systemName: "person.crop.circle").imageScale(.large)
-                                        .font(.system(size: 20, weight: .medium))
-                                        .foregroundColor(Color.white)
-                                }
-                            }
-                            
-                        }
-                        
-                        
-                    }
-                    .padding(.horizontal)
+                    Image(systemName: showMenu ? "xmark" : "line.horizontal.3").imageScale(.large)
+                        .font(.system(size: 25, weight: .medium))
+                        .foregroundColor( Color.white)
+                        .unredacted()
+                    
+                    
                 }
-                .frame(minHeight: 50, maxHeight: 50)
                 
             }
-            if navConfig == .detailConfig {
+            Button(action: { withAnimation(Animation.easeInOut(duration: 0.5)) {
+                showTransactionSheet.toggle()
+                let haptic = UIImpactFeedbackGenerator(style: .light)
+                haptic.impactOccurred()
+            }}) {
+                Image(systemName: "clock").imageScale(.large)
+                    .font(.system(size: 20, weight: .medium))
+                    .foregroundColor(Color.white)
             }
-        }.sheet(isPresented: $showTransactionSheet) {
+            
+            Spacer()
+            Image("momentum")
+                .resizable()
+                .aspectRatio( contentMode: .fit)
+                .frame(width: 60, height: 60)
+            
+            
+            
+            Spacer()
+            
+            
+            Button(action: { withAnimation(Animation.easeInOut(duration: 0.5)) {
+                presentationMode.wrappedValue.dismiss()
+                let haptic = UIImpactFeedbackGenerator(style: .light)
+                haptic.impactOccurred()
+            }}) {
+                Image(systemName: "person.crop.circle").imageScale(.large)
+                    .font(.system(size: 20, weight: .medium))
+                    .foregroundColor(Color.white)
+            }
+            
+            
+        }
+        .padding(.horizontal)
+        .frame(minHeight: 50, maxHeight: 50)
+        .sheet(isPresented: $showTransactionSheet) {
             TransactionView()
         }
     }
@@ -104,7 +77,7 @@ struct NavBar: View {
 
 struct NavBar_Previews: PreviewProvider {
     static var previews: some View {
-        NavBar(showMenu: .constant(false), navConfig: .defaultConfig)
+        NavBar(showMenu: .constant(false))
     }
 }
 

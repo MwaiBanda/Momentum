@@ -9,8 +9,9 @@
 import SwiftUI
 
 struct OfferView: View {
+    @EnvironmentObject var session: Session
     @StateObject private var offerViewModel = OfferViewModel()
-    var proxy: GeometryProxy
+    @State private var showAuthSheet = false
     
     var body: some View {
         VStack {
@@ -63,9 +64,8 @@ struct OfferView: View {
                 }
             }
             NavigationLink {
-                ContentWrapper(isDetail: true) { proxy in
+                ContentWrapper(navConfiguration: .detailConfig ,hasBlurredBackground: false) {
                 PaymentSummaryView(offerViewModel: offerViewModel)
-                        .frame(minHeight: proxy.size.height - 50)
                 }
             } label: {
                 Text("Offer")
@@ -73,10 +73,21 @@ struct OfferView: View {
                     .frame(width: screenBounds.width - 30, height: 55)
 
          
-            }.buttonStyle(FilledButtonStyle())
+            }
+            .disabled(session.currentUser?.isGuest ?? false)
+            .buttonStyle(FilledButtonStyle())
+            .simultaneousGesture(TapGesture().onEnded{
+                if (session.currentUser?.isGuest ?? false)  {
+                    showAuthSheet.toggle()
+                }
+            })
         }
         .foregroundColor(.white)
-        .frame(minHeight: proxy.size.height - 90)
+        .sheet(isPresented: $showAuthSheet) {
+            ContentWrapper(navConfiguration: .detailConfig) {
+                AuthControllerView()
+            }
+        }
         
     }
     
@@ -84,9 +95,8 @@ struct OfferView: View {
 
 struct OfferVIew_Previews: PreviewProvider {
     static var previews: some View {
-        GeometryReader { proxy in
-            OfferView(proxy: proxy)
-        }
+            OfferView()
+        
     }
 }
 

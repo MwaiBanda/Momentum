@@ -13,13 +13,13 @@ final class Resolver {
     private static let shared = Resolver()
     
     static func inject<T>(_ dependency: T){
-        shared.inject(dependency)
+        shared.inject(dependency: dependency)
     }
     static func resolve<T>() -> T {
         shared.resolve()
     }
     
-    private func inject<T>(_ dependency: T) {
+    private func inject<T>(dependency: T) {
         let key = String(describing: T.self)
         dependencies[key] = dependency as AnyObject
     }
@@ -29,7 +29,5 @@ final class Resolver {
         assert(dependency != nil, "No dependency found of \(key)")
         return dependency!
     }
-    private init() {
-        
-    }
+    private init() { }
 }
