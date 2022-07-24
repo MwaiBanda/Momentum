@@ -32,9 +32,28 @@ final class Session: ObservableObject {
             }
         })
     }
+    
+    func signUp(
+        email: String,
+        password: String,
+        onCompletion: @escaping () -> Void
+    ){
+        authController.signUpWithEmail(email: email, password: password) { [weak self] res in
+            if let user = res.user {
+                self?.currentUser = User(
+                    email: user.email ?? "",
+                    id: user.uid,
+                    isGuest: user.isAnonymous
+                )
+            }
+            onCompletion()
+        }
+    }
+    
     func checkAndSignInAsGuest() {
         authController.checkAuthAndSignAsGuest(onCompletion: { _ in })
     }
+    
     func unbind() {
         if let handle = handle {
             auth.removeStateDidChangeListener(handle)

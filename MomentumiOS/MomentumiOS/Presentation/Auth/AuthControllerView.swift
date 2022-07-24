@@ -26,7 +26,7 @@ struct AuthControllerView: View {
                 SignUpView {
                     presentationMode.wrappedValue.dismiss()
                 }
-            }.frame(width: screenBounds.width - 100, height: 450)
+            }.frame(maxWidth: screenBounds.width - 100, maxHeight: 450)
             Spacer()
             
             HStack(alignment: .lastTextBaseline) {

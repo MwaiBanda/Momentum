@@ -1,6 +1,7 @@
 package com.mwaibanda.momentum.utils
 
 object MultiplatformConstants {
+    const val USERS_COLLECTION = "Users"
     const val MERCHANT_NAME = "Momentum Church"
     const val OFFERING = "Offering"
     const val TITHE = "Tithe"

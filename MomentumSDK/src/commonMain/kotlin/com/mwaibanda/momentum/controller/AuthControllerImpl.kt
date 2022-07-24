@@ -57,4 +57,10 @@ class AuthControllerImpl: AuthController, KoinComponent {
             }
         }
     }
+
+    override fun logOut(){
+        scope.launch {
+            firebaseAuth.signOut()
+        }
+    }
 }

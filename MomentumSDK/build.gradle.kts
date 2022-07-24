@@ -28,15 +28,24 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
+                // Stately
                 implementation("co.touchlab:stately-common:1.2.1")
                 implementation("co.touchlab:stately-isolate:1.2.1")
                 implementation("co.touchlab:stately-iso-collections:1.2.1")
+                // Ktor
                 implementation("io.ktor:ktor-client-core:1.6.7")
                 implementation("io.ktor:ktor-client-serialization:1.6.7")
                 implementation("io.ktor:ktor-client-logging:1.6.7")
+                // Koin
                 implementation("io.insert-koin:koin-core:3.2.0")
+                // SQLDelight
                 implementation("com.squareup.sqldelight:runtime:1.5.3")
+                // Kotlin FirebaseAuth
                 implementation("dev.gitlive:firebase-auth:1.6.1")
+                // Kotlin Firestore
+                implementation("dev.gitlive:firebase-firestore:1.6.1")
+                // Kotlin Datetime
+                implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
             }
         }
         val commonTest by getting {

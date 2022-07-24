@@ -2,6 +2,8 @@ package com.mwaibanda.momentum.di
 
 import dev.gitlive.firebase.Firebase
 import dev.gitlive.firebase.auth.auth
+import dev.gitlive.firebase.firestore.FirebaseFirestore
+import dev.gitlive.firebase.firestore.firestore
 import io.ktor.client.*
 import io.ktor.client.features.*
 import io.ktor.client.features.json.*
@@ -35,4 +37,5 @@ internal val singletonModule = module {
         }
     }
     single { Firebase.auth }
+    single { Firebase.firestore }
 }

@@ -18,7 +18,11 @@ struct PasswordTextfield: View {
             if showPassword {
                 TextField("" ,text: $password, onCommit: onCommit)
                     .placeholder(when: password.isEmpty) {
-                           Text(placeholder).foregroundColor(.white)
+                           Text(placeholder)
+                            .font(.headline)
+                            .fontWeight(.regular)
+                            .foregroundColor(.white)
+                            .padding(.leading, 24)
                     }
                     .padding(.leading, 24)
                     .textContentType(.username)
@@ -29,9 +33,13 @@ struct PasswordTextfield: View {
                     .disableAutocorrection(false)
             } else {
                 SecureField("", text: $password, onCommit: onCommit)
+                    .foregroundColor(.white)
                     .padding(.leading, 24)
                     .placeholder(when: password.isEmpty) {
-                           Text(placeholder).foregroundColor(.white)
+                           Text(placeholder)
+                            .font(.headline)
+                            .fontWeight(.regular)
+                            .foregroundColor(.white)
                             .padding(.leading, 24)
                     }
                     
