@@ -44,7 +44,9 @@ struct BasePlainExpandableCard<
                         Spacer()
                         HStack(spacing: 0) {
                             Button {
+                                withAnimation(.easeInOut) {
                                 onCoverClick()
+                                }
                             } label: {
                                 coverIcon(isExpanded.wrappedValue)
                             }

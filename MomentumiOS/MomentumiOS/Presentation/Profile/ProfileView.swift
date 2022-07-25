@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct ProfileView: View {
-    @State private var isContactInfoExpanded = false
+    @StateObject private var profileViewModel = ProfileViewModel()
     var body: some View {
         VStack(alignment: .leading) {
             Divider()
@@ -35,7 +35,7 @@ struct ProfileView: View {
             ScrollView {
                 BasePlainExpandableCard(
                     contentHeight: 300,
-                    isExpanded: $isContactInfoExpanded,
+                    isExpanded: $profileViewModel.isContactInfoExpanded,
                     coverContent: {
                         HStack {
                             Image(systemName: "person.fill.viewfinder")
@@ -50,14 +50,26 @@ struct ProfileView: View {
                         Image(systemName: isExpanded ? "chevron.up":"chevron.down")
                             .foregroundColor(.gray)
                     }, innerContent: {
-                        Text("Inner Content")
+                        VStack {
+                            TitledTextField(title: "fullname", text: .constant("Mwai Banda")) {
+
+                            }
+                            Divider()
+                            TitledTextField(title: "email", text: .constant("")) {
+
+                            }
+                            Divider()
+                            TitledTextField(title: "password", text: .constant("")) {
+
+                            }
+                        }
                     }, onCoverClick: {
-                        isContactInfoExpanded.toggle()
+                        profileViewModel.isContactInfoExpanded.toggle()
                     }
                 )
                 BasePlainExpandableCard(
                     contentHeight: 300,
-                    isExpanded: $isContactInfoExpanded,
+                    isExpanded: $profileViewModel.isBillingInfoExpanded,
                     coverContent: {
                         HStack {
                             Image(systemName: "person.text.rectangle")
@@ -72,14 +84,30 @@ struct ProfileView: View {
                         Image(systemName: isExpanded ? "chevron.up":"chevron.down")
                             .foregroundColor(.gray)
                     }, innerContent: {
-                        Text("Inner Content")
+                        Group {
+                        TitledTextField(title: "street address", text: .constant("")) {
+
+                        }
+                        Divider()
+                        TitledTextField(title: "apt, suite or floor", text: .constant("")) {
+
+                        }
+                        Divider()
+                        TitledTextField(title: "city", text: .constant("")) {
+
+                        }
+                        Divider()
+                        TitledTextField(title: "zip code", text: .constant("")) {
+
+                        }
+                        }
                     }, onCoverClick: {
-                        isContactInfoExpanded.toggle()
+                        profileViewModel.isBillingInfoExpanded.toggle()
                     }
                 )
                 BasePlainExpandableCard(
                     contentHeight: 300,
-                    isExpanded: $isContactInfoExpanded,
+                    isExpanded: $profileViewModel.isManageAccExpanded,
                     coverContent: {
                         HStack {
                             Image(systemName: "trash")
@@ -96,12 +124,12 @@ struct ProfileView: View {
                     }, innerContent: {
                         Text("Inner Content")
                     }, onCoverClick: {
-                        isContactInfoExpanded.toggle()
+                        profileViewModel.isManageAccExpanded.toggle()
                     }
                 )
                 BasePlainExpandableCard(
                     contentHeight: 300,
-                    isExpanded: $isContactInfoExpanded,
+                    isExpanded: $profileViewModel.isTechSupportExpanded,
                     coverContent: {
                         HStack {
                             Image(systemName: "person.2.wave.2")
@@ -118,12 +146,12 @@ struct ProfileView: View {
                     }, innerContent: {
                         Text("Inner Content")
                     }, onCoverClick: {
-                        isContactInfoExpanded.toggle()
+                        profileViewModel.isTechSupportExpanded.toggle()
                     }
                 )
                 BasePlainExpandableCard(
                     contentHeight: 300,
-                    isExpanded: $isContactInfoExpanded,
+                    isExpanded: $profileViewModel.isFeedbackExpanded,
                     coverContent: {
                         HStack {
                             Image(systemName: "bubble.left.and.exclamationmark.bubble.right")
@@ -140,12 +168,12 @@ struct ProfileView: View {
                     }, innerContent: {
                         Text("Inner Content")
                     }, onCoverClick: {
-                        isContactInfoExpanded.toggle()
+                        profileViewModel.isFeedbackExpanded.toggle()
                     }
                 )
                 BasePlainExpandableCard(
                     contentHeight: 300,
-                    isExpanded: $isContactInfoExpanded,
+                    isExpanded: $profileViewModel.isInformationExpanded,
                     coverContent: {
                         HStack {
                             Image(systemName: "info.circle")
@@ -162,7 +190,7 @@ struct ProfileView: View {
                     }, innerContent: {
                         Text("Inner Content")
                     }, onCoverClick: {
-                        isContactInfoExpanded.toggle()
+                        profileViewModel.isInformationExpanded.toggle()
                     }
                 )
             }

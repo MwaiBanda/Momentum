@@ -64,6 +64,8 @@
 		81B802DA2877E7D80008509D /* PaymentSuccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B802D92877E7D80008509D /* PaymentSuccessView.swift */; };
 		81B802DC2877E7FF0008509D /* PaymentFailureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B802DB2877E7FF0008509D /* PaymentFailureView.swift */; };
 		81B802DE2877ED7F0008509D /* FilledButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B802DD2877ED7F0008509D /* FilledButtonStyle.swift */; };
+		81E937CD288E4F2400D74BD3 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E937CC288E4F2400D74BD3 /* ProfileViewModel.swift */; };
+		81E937CF288E5E2A00D74BD3 /* TitledTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E937CE288E5E2A00D74BD3 /* TitledTextField.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -130,6 +132,8 @@
 		81B802D92877E7D80008509D /* PaymentSuccessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentSuccessView.swift; sourceTree = "<group>"; };
 		81B802DB2877E7FF0008509D /* PaymentFailureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentFailureView.swift; sourceTree = "<group>"; };
 		81B802DD2877ED7F0008509D /* FilledButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilledButtonStyle.swift; sourceTree = "<group>"; };
+		81E937CC288E4F2400D74BD3 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
+		81E937CE288E5E2A00D74BD3 /* TitledTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitledTextField.swift; sourceTree = "<group>"; };
 		8FCA518C1E38B3D34FB9D1EF /* Pods-MomentumiOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MomentumiOS.debug.xcconfig"; path = "Target Support Files/Pods-MomentumiOS/Pods-MomentumiOS.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -311,6 +315,7 @@
 				819497FD288797240099B30B /* TransactionLabel.swift */,
 				8182E779288B91FB00A9CF9D /* BlurredBackground.swift */,
 				818A2E98288DFE5E005D7449 /* BasePlainExpandableCard.swift */,
+				81E937CE288E5E2A00D74BD3 /* TitledTextField.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -319,6 +324,7 @@
 			isa = PBXGroup;
 			children = (
 				813E775D288DC60500109C19 /* ProfileView.swift */,
+				81E937CC288E4F2400D74BD3 /* ProfileViewModel.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -531,6 +537,7 @@
 				818A2E99288DFE5E005D7449 /* BasePlainExpandableCard.swift in Sources */,
 				2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */,
 				813E775E288DC60500109C19 /* ProfileView.swift in Sources */,
+				81E937CD288E4F2400D74BD3 /* ProfileViewModel.swift in Sources */,
 				819498002887B2460099B30B /* ToggleLabel.swift in Sources */,
 				8184A3D9288B85FF00083399 /* NavConfiguration.swift in Sources */,
 				8182E77A288B91FB00A9CF9D /* BlurredBackground.swift in Sources */,
@@ -542,6 +549,7 @@
 				8126AF84286FEF39007DBAB9 /* NavBar.swift in Sources */,
 				8126AF75286FDB2F007DBAB9 /* View+Swift.swift in Sources */,
 				8126AF77286FE009007DBAB9 /* Color+Swift.swift in Sources */,
+				81E937CF288E5E2A00D74BD3 /* TitledTextField.swift in Sources */,
 				8126AF85286FEF39007DBAB9 /* MenuView.swift in Sources */,
 				813E158F287F48F10069A6BB /* PaymentSummaryContentViewModel.swift in Sources */,
 				8126AF8B286FFD84007DBAB9 /* BackgroundView.swift in Sources */,
