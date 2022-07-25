@@ -43,7 +43,7 @@ final class PaymentViewModel : ObservableObject {
             configuration.customer = .init(id: response.customer, ephemeralKeySecret: response.ephemeralKey)
             configuration.primaryButtonColor = UIColor.init(red: 229/255, green: 95/255, blue: 31/255, alpha: 1)
             configuration.style = .alwaysLight
-            configuration.returnURL = "momentumchurch://stripe-redirect"
+            configuration.returnURL = "momentum-church://stripe-redirect"
 
             self.paymentSheet = PaymentSheet(
                 paymentIntentClientSecret: response.paymentIntent,

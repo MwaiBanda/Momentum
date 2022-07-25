@@ -54,16 +54,16 @@ struct NavBar: View {
             
             Spacer()
             
-            
-            Button(action: { withAnimation(Animation.easeInOut(duration: 0.5)) {
-                presentationMode.wrappedValue.dismiss()
-                let haptic = UIImpactFeedbackGenerator(style: .light)
-                haptic.impactOccurred()
-            }}) {
+            NavigationLink { ProfileView() } label: {
                 Image(systemName: "person.crop.circle").imageScale(.large)
                     .font(.system(size: 20, weight: .medium))
                     .foregroundColor(Color.white)
-            }
+            }.simultaneousGesture(TapGesture().onEnded{
+                presentationMode.wrappedValue.dismiss()
+                let haptic = UIImpactFeedbackGenerator(style: .light)
+                haptic.impactOccurred()
+            })
+           
             
             
         }

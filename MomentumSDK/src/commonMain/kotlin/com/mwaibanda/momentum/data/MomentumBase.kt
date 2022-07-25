@@ -10,7 +10,7 @@ open class MomentumBase {
     }
 
     companion object {
-        private const val BASE_URL = "https://momentumchurch.glitch.me"
+        private const val BASE_URL = "https://momentum-church.glitch.me"
         const val PAYMENT_ENDPOINT = "/checkout"
 
         fun HttpRequestBuilder.momentumAPI(path: String) {

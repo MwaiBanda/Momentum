@@ -31,6 +31,7 @@
 		813A97D52889D93E00377943 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 813A97D42889D93E00377943 /* FirebaseFirestore */; };
 		813A97D72889D93E00377943 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 813A97D62889D93E00377943 /* FirebaseFirestoreSwift */; };
 		813E158F287F48F10069A6BB /* PaymentSummaryContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813E158E287F48F10069A6BB /* PaymentSummaryContentViewModel.swift */; };
+		813E775E288DC60500109C19 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813E775D288DC60500109C19 /* ProfileView.swift */; };
 		814525F528793F3300989B4C /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 814525F428793F3300989B4C /* Lottie */; };
 		814525F728793F5000989B4C /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 814525F628793F5000989B4C /* LottieView.swift */; };
 		814525F9287940DF00989B4C /* failed.json in Resources */ = {isa = PBXBuildFile; fileRef = 814525F8287940DF00989B4C /* failed.json */; };
@@ -50,6 +51,7 @@
 		81888DF1288A0FDD00752590 /* Resolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81888DF0288A0FDD00752590 /* Resolver.swift */; };
 		81888DF3288A11EE00752590 /* Inject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81888DF2288A11EE00752590 /* Inject.swift */; };
 		81888DF6288A12F200752590 /* DiRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81888DF5288A12F200752590 /* DiRegistry.swift */; };
+		818A2E99288DFE5E005D7449 /* BasePlainExpandableCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818A2E98288DFE5E005D7449 /* BasePlainExpandableCard.swift */; };
 		819497FE288797240099B30B /* TransactionLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819497FD288797240099B30B /* TransactionLabel.swift */; };
 		819498002887B2460099B30B /* ToggleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819497FF2887B2460099B30B /* ToggleLabel.swift */; };
 		819B795028708F020010B960 /* OfferViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819B794F28708F020010B960 /* OfferViewModel.swift */; };
@@ -99,6 +101,7 @@
 		8126AF8A286FFD84007DBAB9 /* BackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundView.swift; sourceTree = "<group>"; };
 		813A97CD2889D82600377943 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		813E158E287F48F10069A6BB /* PaymentSummaryContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentSummaryContentViewModel.swift; sourceTree = "<group>"; };
+		813E775D288DC60500109C19 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		814525F628793F5000989B4C /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
 		814525F8287940DF00989B4C /* failed.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = failed.json; sourceTree = "<group>"; };
 		814525FA287940E900989B4C /* success.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = success.json; sourceTree = "<group>"; };
@@ -114,6 +117,7 @@
 		81888DF0288A0FDD00752590 /* Resolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resolver.swift; sourceTree = "<group>"; };
 		81888DF2288A11EE00752590 /* Inject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Inject.swift; sourceTree = "<group>"; };
 		81888DF5288A12F200752590 /* DiRegistry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiRegistry.swift; sourceTree = "<group>"; };
+		818A2E98288DFE5E005D7449 /* BasePlainExpandableCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasePlainExpandableCard.swift; sourceTree = "<group>"; };
 		819497FD288797240099B30B /* TransactionLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionLabel.swift; sourceTree = "<group>"; };
 		819497FF2887B2460099B30B /* ToggleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleLabel.swift; sourceTree = "<group>"; };
 		819B794F28708F020010B960 /* OfferViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfferViewModel.swift; sourceTree = "<group>"; };
@@ -228,6 +232,7 @@
 		8126AF6E286FD7AF007DBAB9 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				813E775C288DC5C700109C19 /* Profile */,
 				8182E776288B919700A9CF9D /* Auth */,
 				8126AF87286FF11B007DBAB9 /* Component */,
 				8126AF7C286FEF39007DBAB9 /* Navigation */,
@@ -305,8 +310,17 @@
 				811A3E7C287E05D90052682B /* ToggleAmountLabel.swift */,
 				819497FD288797240099B30B /* TransactionLabel.swift */,
 				8182E779288B91FB00A9CF9D /* BlurredBackground.swift */,
+				818A2E98288DFE5E005D7449 /* BasePlainExpandableCard.swift */,
 			);
 			path = Component;
+			sourceTree = "<group>";
+		};
+		813E775C288DC5C700109C19 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				813E775D288DC60500109C19 /* ProfileView.swift */,
+			);
+			path = Profile;
 			sourceTree = "<group>";
 		};
 		814525F228793A6900989B4C /* Animations */ = {
@@ -514,7 +528,9 @@
 				811A3E7F287E16AF0052682B /* PaymentSummaryContentView.swift in Sources */,
 				81B802D82877E7C40008509D /* PaymentResultView.swift in Sources */,
 				81B802D62877E46A0008509D /* PaymentSummaryView.swift in Sources */,
+				818A2E99288DFE5E005D7449 /* BasePlainExpandableCard.swift in Sources */,
 				2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */,
+				813E775E288DC60500109C19 /* ProfileView.swift in Sources */,
 				819498002887B2460099B30B /* ToggleLabel.swift in Sources */,
 				8184A3D9288B85FF00083399 /* NavConfiguration.swift in Sources */,
 				8182E77A288B91FB00A9CF9D /* BlurredBackground.swift in Sources */,
