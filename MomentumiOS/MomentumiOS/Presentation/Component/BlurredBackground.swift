@@ -45,5 +45,7 @@ struct BlurredBackground<Content: View>: View {
                 content()
             }
         }
+        .clipped()
+        .cornerRadius(15)
     }
 }

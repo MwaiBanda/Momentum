@@ -33,14 +33,36 @@ final class Session: ObservableObject {
         })
     }
     
+    func signIn(
+        email: String,
+        password: String,
+        onCompletion: @escaping () -> Void
+    ){
+        authController.signInWithEmail(
+            email: email,
+            password: password
+        ) { [unowned self] res in
+            if let user = res.user {
+                self.currentUser = User(
+                    email: user.email ?? "",
+                    id: user.uid,
+                    isGuest: user.isAnonymous
+                )
+            }
+            onCompletion()
+        }
+    }
     func signUp(
         email: String,
         password: String,
         onCompletion: @escaping () -> Void
     ){
-        authController.signUpWithEmail(email: email, password: password) { [weak self] res in
+        authController.signUpWithEmail(
+            email: email,
+            password: password
+        ) { [unowned self] res in
             if let user = res.user {
-                self?.currentUser = User(
+                self.currentUser = User(
                     email: user.email ?? "",
                     id: user.uid,
                     isGuest: user.isAnonymous
@@ -52,6 +74,9 @@ final class Session: ObservableObject {
     
     func checkAndSignInAsGuest() {
         authController.checkAuthAndSignAsGuest(onCompletion: { _ in })
+    }
+    func signOut(){
+        authController.logOut()
     }
     
     func unbind() {

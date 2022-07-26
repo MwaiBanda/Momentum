@@ -1,32 +1,29 @@
 //
-//  SignUpView.swift
+//  SignInView.swift
 //  MomentumiOS
 //
-//  Created by Mwai Banda on 7/22/22.
+//  Created by Mwai Banda on 7/26/22.
 //  Copyright © 2022 orgName. All rights reserved.
 //
 
 import SwiftUI
 
-struct SignUpView: View {
-    var namespace: Namespace.ID
-    var onSignUpCompletion: () -> Void
-    @EnvironmentObject var session: Session
-    @State private var fullname = ""
+struct SignInView: View {
     @State private var email = ""
     @State private var password = ""
-    @State private var confirmPassword = ""
+    var namespace: Namespace.ID
+    var onSignInCompletion: () -> Void
 
     var body: some View {
         VStack(alignment: .leading) {
             VStack(alignment: .leading) {
-            Text("Sign Up")
+            Text("Sign In")
                 .font(.title3)
                 .fontWeight(.heavy)
                 .foregroundColor(.white)
                 .padding(.horizontal)
                 .padding(.top)
-            Text("Create An Account To Proceed")
+            Text("Sing In To Your Account Proceed")
                 .font(.subheadline)
                 .foregroundColor(.white.opacity(0.3))
                 .padding(.horizontal)
@@ -35,32 +32,6 @@ struct SignUpView: View {
                 .overlay(Color(.white).opacity(0.5))
                 .padding(.bottom)
             }.matchedGeometryEffect(id: "title", in: namespace)
-
-            Group {
-            TextField("", text: $fullname)
-                .padding(.leading, 24)
-                .placeholder(when: fullname.isEmpty) {
-                    Text("Fullname")
-                        .font(.headline)
-                        .fontWeight(.regular)
-                        .foregroundColor(.white)
-                        .padding(.leading, 24)
-                    
-                }
-                .foregroundColor(.white)
-                .overlay(
-                    HStack{
-                        Image(systemName: "person")
-                        Spacer()
-                    }
-                        .foregroundColor(Color.white)
-                    
-                )
-                .ignoresSafeArea(.keyboard, edges: .bottom)
-                .padding(.horizontal)
-            Divider()
-                .overlay(Color(.white).opacity(0.5))
-                .padding(.vertical)
             TextField("", text: $email)
                 .padding(.leading, 24)
                 .placeholder(when: email.isEmpty) {
@@ -94,20 +65,13 @@ struct SignUpView: View {
             .matchedGeometryEffect(id: "password", in: namespace)
             Divider()
                 .overlay(Color(.white).opacity(0.5))
-                .padding(.vertical)
-            PasswordTextfield(password: $confirmPassword, placeholder: "Confirm Password") {
-                
-            }
-            .padding(.horizontal)
-            }
+                .padding(.top)
             Spacer()
             HStack {
                 Spacer()
                 Button {
                     if !email.isEmpty && !password.isEmpty {
-                        session.signUp(email: email, password: password, onCompletion: {
-                            onSignUpCompletion()
-                        })
+                        
                     }
                 } label: {
                     Text("Confirm")
@@ -118,7 +82,6 @@ struct SignUpView: View {
                 .padding(.bottom, 10)
                 Spacer()
             }.matchedGeometryEffect(id: "button", in: namespace)
-
         }
     }
 }

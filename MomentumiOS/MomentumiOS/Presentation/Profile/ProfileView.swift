@@ -9,7 +9,9 @@
 import SwiftUI
 
 struct ProfileView: View {
+    @EnvironmentObject var session: Session
     @StateObject private var profileViewModel = ProfileViewModel()
+    @State private var showAlert = false
     var body: some View {
         VStack(alignment: .leading) {
             Divider()
@@ -32,177 +34,298 @@ struct ProfileView: View {
                     
                 }
             }.padding(.vertical)
-            ScrollView {
-                BasePlainExpandableCard(
-                    contentHeight: 300,
-                    isExpanded: $profileViewModel.isContactInfoExpanded,
-                    coverContent: {
-                        HStack {
-                            Image(systemName: "person.fill.viewfinder")
-                                .foregroundColor(.gray)
-                                .frame(width: 35)
-                            Text("Contact Information")
-                                .font(.headline)
-                                .fontWeight(.heavy)
-                            
-                        }
-                    }, coverIcon: { isExpanded in
-                        Image(systemName: isExpanded ? "chevron.up":"chevron.down")
-                            .foregroundColor(.gray)
-                    }, innerContent: {
-                        VStack {
-                            TitledTextField(title: "fullname", text: .constant("Mwai Banda")) {
-
+            ScrollViewReader { proxy in
+                ScrollView(showsIndicators: false) {
+                    BasePlainExpandableCard(
+                        contentHeight: 300,
+                        isExpanded: $profileViewModel.isContactInfoExpanded,
+                        coverContent: {
+                            HStack {
+                                Image(systemName: "person.fill.viewfinder")
+                                    .foregroundColor(.gray)
+                                    .frame(width: 35)
+                                Text("Contact Information")
+                                    .font(.headline)
+                                    .fontWeight(.heavy)
+                                
                             }
-                            Divider()
-                            TitledTextField(title: "email", text: .constant("")) {
-
+                        }, coverIcon: { isExpanded in
+                            Image(systemName: isExpanded ? "chevron.up":"chevron.down")
+                                .foregroundColor(.gray)
+                        }, innerContent: {
+                            VStack {
+                                TitledTextField(title: "fullname", text: .constant("Mwai Banda")) {
+                                    
+                                }
+                                Divider()
+                                TitledTextField(title: "email", text: .constant("")) {
+                                    
+                                }
+                                Divider()
+                                TitledTextField(title: "password", text: .constant("")) {
+                                    
+                                }
                             }
-                            Divider()
-                            TitledTextField(title: "password", text: .constant("")) {
-
+                        }, onCoverClick: {
+                            profileViewModel.cardToggle(card: .contactInfo)
+                            profileViewModel.closeCards(
+                                cards: .billingInfo, .manageAcc, .techSupport, .feedback, .information
+                            )
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
+                                withAnimation(.easeIn) {
+                                    proxy.scrollTo(ProfileCard.contactInfo, anchor: .bottom)
+                                }
                             }
                         }
-                    }, onCoverClick: {
-                        profileViewModel.isContactInfoExpanded.toggle()
-                    }
-                )
-                BasePlainExpandableCard(
-                    contentHeight: 300,
-                    isExpanded: $profileViewModel.isBillingInfoExpanded,
-                    coverContent: {
-                        HStack {
-                            Image(systemName: "person.text.rectangle")
+                    ).id(ProfileCard.contactInfo)
+                    
+                    BasePlainExpandableCard(
+                        contentHeight: 300,
+                        isExpanded: $profileViewModel.isBillingInfoExpanded,
+                        coverContent: {
+                            HStack {
+                                Image(systemName: "person.text.rectangle")
+                                    .foregroundColor(.gray)
+                                    .frame(width: 35)
+                                Text("Billing Information")
+                                    .font(.headline)
+                                    .fontWeight(.heavy)
+                                
+                            }
+                        }, coverIcon: { isExpanded in
+                            Image(systemName: isExpanded ? "chevron.up":"chevron.down")
                                 .foregroundColor(.gray)
-                                .frame(width: 35)
-                            Text("Billing Information")
-                                .font(.headline)
-                                .fontWeight(.heavy)
-                            
+                        }, innerContent: {
+                            Group {
+                                TitledTextField(title: "street address", text: .constant("")) {
+                                    
+                                }
+                                Divider()
+                                TitledTextField(title: "apt, suite or floor", text: .constant("")) {
+                                    
+                                }
+                                Divider()
+                                TitledTextField(title: "city", text: .constant("")) {
+                                    
+                                }
+                                Divider()
+                                TitledTextField(title: "zip code", text: .constant("")) {
+                                    
+                                }
+                            }
+                        }, onCoverClick: {
+                            profileViewModel.cardToggle(card: .billingInfo)
+                            profileViewModel.closeCards(
+                                cards: .contactInfo, .manageAcc, .techSupport, .feedback, .information
+                            )
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
+                                withAnimation(.easeIn) {
+                                    proxy.scrollTo(ProfileCard.billingInfo, anchor: .bottom)
+                                }
+                            }
                         }
-                    }, coverIcon: { isExpanded in
-                        Image(systemName: isExpanded ? "chevron.up":"chevron.down")
-                            .foregroundColor(.gray)
-                    }, innerContent: {
-                        Group {
-                        TitledTextField(title: "street address", text: .constant("")) {
-
-                        }
-                        Divider()
-                        TitledTextField(title: "apt, suite or floor", text: .constant("")) {
-
-                        }
-                        Divider()
-                        TitledTextField(title: "city", text: .constant("")) {
-
-                        }
-                        Divider()
-                        TitledTextField(title: "zip code", text: .constant("")) {
-
-                        }
-                        }
-                    }, onCoverClick: {
-                        profileViewModel.isBillingInfoExpanded.toggle()
-                    }
-                )
-                BasePlainExpandableCard(
-                    contentHeight: 300,
-                    isExpanded: $profileViewModel.isManageAccExpanded,
-                    coverContent: {
-                        HStack {
-                            Image(systemName: "trash")
+                    ).id(ProfileCard.billingInfo)
+                    
+                    BasePlainExpandableCard(
+                        contentHeight: 250,
+                        isExpanded: $profileViewModel.isManageAccExpanded,
+                        coverContent: {
+                            HStack {
+                                Image(systemName: "trash")
+                                    .foregroundColor(.gray)
+                                    .frame(width: 35)
+                                Text("Manage Account")
+                                    .font(.headline)
+                                    .fontWeight(.heavy)
+                                
+                            }
+                        }, coverIcon: { isExpanded in
+                            Image(systemName: isExpanded ? "chevron.up":"chevron.down")
                                 .foregroundColor(.gray)
-                                .frame(width: 35)
-                            Text("Manage Account")
-                                .font(.headline)
-                                .fontWeight(.heavy)
-                            
+                        }, innerContent: {
+                            VStack(alignment: .leading) {
+                                Text("Delete Account")
+                                    .fontWeight(.heavy)
+                                    .font(.title3)
+                                Text("Deleting your account will result in removing all the data connected to your Momentum account from our services. This action cannot be undone.")
+                                    .foregroundColor(.gray)
+                                Button { showAlert.toggle() } label: {
+                                    VStack {
+                                        Text("Delete Account")
+                                            .fontWeight(.medium)
+                                            .foregroundColor(Color(hex: Constants.momentumOrange))
+                                            .padding()
+                                            .frame(width: screenBounds.width - 30, height: 55)
+                                    } .overlay(
+                                        RoundedRectangle(cornerRadius: 10)
+                                            .stroke(Color(hex: Constants.momentumOrange), lineWidth: 2)
+                                    )
+                                }
+                                .padding(.vertical)
+                            }
+                            .padding()
+                        }, onCoverClick: {
+                            profileViewModel.cardToggle(card: .manageAcc)
+                            profileViewModel.closeCards(
+                                cards: .contactInfo, .billingInfo, .techSupport, .feedback, .information
+                            )
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
+                                withAnimation(.easeIn) {
+                                    proxy.scrollTo(ProfileCard.manageAcc, anchor: .bottom)
+                                }
+                            }
                         }
-                    }, coverIcon: { isExpanded in
-                        Image(systemName: isExpanded ? "chevron.up":"chevron.down")
-                            .foregroundColor(.gray)
-                    }, innerContent: {
-                        Text("Inner Content")
-                    }, onCoverClick: {
-                        profileViewModel.isManageAccExpanded.toggle()
+                    )
+                    .id(ProfileCard.manageAcc)
+                    .alert(isPresented: $showAlert) {
+                        Alert(
+                            title: Text("Delete Account"),
+                            message: Text("Are you sure you want to delete account?"),
+                            primaryButton: .default(Text("Cancel"), action: {
+                                showAlert.toggle()
+                            }),
+                            secondaryButton: .destructive(Text("Delete"), action: {
+                                // Delete a/c
+                            })
+                        )
                     }
-                )
-                BasePlainExpandableCard(
-                    contentHeight: 300,
-                    isExpanded: $profileViewModel.isTechSupportExpanded,
-                    coverContent: {
-                        HStack {
-                            Image(systemName: "person.2.wave.2")
+                    
+                    BasePlainExpandableCard(
+                        contentHeight: 300,
+                        isExpanded: $profileViewModel.isTechSupportExpanded,
+                        coverContent: {
+                            HStack {
+                                Image(systemName: "person.2.wave.2")
+                                    .foregroundColor(.gray)
+                                    .frame(width: 35)
+                                Text("Technical Support")
+                                    .font(.headline)
+                                    .fontWeight(.heavy)
+                                
+                            }
+                        }, coverIcon: { isExpanded in
+                            Image(systemName: isExpanded ? "chevron.up":"chevron.down")
                                 .foregroundColor(.gray)
-                                .frame(width: 35)
-                            Text("Technical Support")
-                                .font(.headline)
-                                .fontWeight(.heavy)
-                            
+                        }, innerContent: {
+                            VStack {
+                                Text("Are you experiencing any problems? Do you need assistance navigating through the app? Let's get in touch")
+                                    .multilineTextAlignment(.leading)
+                                    .lineSpacing(5)
+                                LinkLabel(title: "Technical Support", description: "Developer Phone") {
+                                    
+                                }.padding(.vertical, 10)
+                                
+                                LinkLabel(title: "Technical Support", description: "Developer Email") {
+                                    
+                                }.padding(.bottom, 10)
+                            }
+                        }, onCoverClick: {
+                            profileViewModel.cardToggle(card: .techSupport)
+                            profileViewModel.closeCards(
+                                cards: .contactInfo, .billingInfo, .manageAcc, .feedback, .information
+                            )
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
+                                withAnimation(.easeIn) {
+                                    proxy.scrollTo(ProfileCard.techSupport, anchor: .bottom)
+                                }
+                            }
                         }
-                    }, coverIcon: { isExpanded in
-                        Image(systemName: isExpanded ? "chevron.up":"chevron.down")
-                            .foregroundColor(.gray)
-                    }, innerContent: {
-                        Text("Inner Content")
-                    }, onCoverClick: {
-                        profileViewModel.isTechSupportExpanded.toggle()
-                    }
-                )
-                BasePlainExpandableCard(
-                    contentHeight: 300,
-                    isExpanded: $profileViewModel.isFeedbackExpanded,
-                    coverContent: {
-                        HStack {
-                            Image(systemName: "bubble.left.and.exclamationmark.bubble.right")
+                    ).id(ProfileCard.techSupport)
+                    
+                    BasePlainExpandableCard(
+                        contentHeight: 200,
+                        isExpanded: $profileViewModel.isFeedbackExpanded,
+                        coverContent: {
+                            HStack {
+                                Image(systemName: "bubble.left.and.exclamationmark.bubble.right")
+                                    .foregroundColor(.gray)
+                                    .frame(width: 35)
+                                Text("Feedback")
+                                    .font(.headline)
+                                    .fontWeight(.heavy)
+                                
+                            }
+                        }, coverIcon: { isExpanded in
+                            Image(systemName: isExpanded ? "chevron.up":"chevron.down")
                                 .foregroundColor(.gray)
-                                .frame(width: 35)
-                            Text("Feedback")
-                                .font(.headline)
-                                .fontWeight(.heavy)
-                            
+                        }, innerContent: {
+                            VStack {
+                                Text("Are enjoying the app? Do you have any thoughts on anything we can improve? Let's get in touch")
+                                    .multilineTextAlignment(.leading)
+                                    .lineSpacing(5)
+                                LinkLabel(title: "Feedback", description: "Developer") {
+                                    
+                                }.padding(.vertical, 10)
+                            }
+                        }, onCoverClick: {
+                            profileViewModel.cardToggle(card: .feedback)
+                            profileViewModel.closeCards(
+                                cards: .contactInfo, .billingInfo, .manageAcc, .techSupport, .information
+                            )
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
+                                withAnimation(.easeIn) {
+                                    proxy.scrollTo(ProfileCard.feedback, anchor: .bottom)
+                                }
+                            }
                         }
-                    }, coverIcon: { isExpanded in
-                        Image(systemName: isExpanded ? "chevron.up":"chevron.down")
-                            .foregroundColor(.gray)
-                    }, innerContent: {
-                        Text("Inner Content")
-                    }, onCoverClick: {
-                        profileViewModel.isFeedbackExpanded.toggle()
-                    }
-                )
-                BasePlainExpandableCard(
-                    contentHeight: 300,
-                    isExpanded: $profileViewModel.isInformationExpanded,
-                    coverContent: {
-                        HStack {
-                            Image(systemName: "info.circle")
+                    ).id(ProfileCard.feedback)
+                    
+                    BasePlainExpandableCard(
+                        contentHeight: 300,
+                        isExpanded: $profileViewModel.isInformationExpanded,
+                        coverContent: {
+                            HStack {
+                                Image(systemName: "info.circle")
+                                    .foregroundColor(.gray)
+                                    .frame(width: 35)
+                                Text("Information")
+                                    .font(.headline)
+                                    .fontWeight(.heavy)
+                                
+                            }
+                        }, coverIcon: { isExpanded in
+                            Image(systemName: isExpanded ? "chevron.up":"chevron.down")
                                 .foregroundColor(.gray)
-                                .frame(width: 35)
-                            Text("Information")
-                                .font(.headline)
-                                .fontWeight(.heavy)
-                            
+                        }, innerContent: {
+                            VStack(alignment: .leading) {
+                                VStack(alignment: .leading) {
+                                    
+                                    Text("**Momentum Church** exists to help people move forward in faith and life by discovering and fulfilling their purpose. The word “**Momentum**” is synonymous with movement. Sometimes people get stuck and need help and support to move forward from their past, their sin, their struggles, their fears, and their worries and into an empowering relationship with **Christ**.")
+                                        .multilineTextAlignment(.leading)
+                                        .lineSpacing(5)
+                                    
+                                    LinkLabel(title: "Momentum Phone", description: "Church Phone") {
+                                        
+                                    }.padding(.vertical, 10)
+                                    
+                                    LinkLabel(title: "Momentum Email", description: "Church Email") {
+                                        
+                                    }.padding(.bottom, 10)
+                                    Text("Copyright **©** 2022 Momentum. All rights reserved.")
+                                }.padding()
+                                Divider()
+                            }
+                        }, onCoverClick: {
+                            profileViewModel.cardToggle(card: .information)
+                            profileViewModel.closeCards(
+                                cards: .contactInfo, .billingInfo, .manageAcc, .techSupport, .feedback
+                            )
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
+                                withAnimation(.easeIn) {
+                                    proxy.scrollTo(ProfileCard.information, anchor: .bottom)
+                                }
+                            }
                         }
-                    }, coverIcon: { isExpanded in
-                        Image(systemName: isExpanded ? "chevron.up":"chevron.down")
-                            .foregroundColor(.gray)
-                    }, innerContent: {
-                        Text("Inner Content")
-                    }, onCoverClick: {
-                        profileViewModel.isInformationExpanded.toggle()
-                    }
-                )
+                    ).id(ProfileCard.information)
+                }
             }
             Spacer()
             HStack {
                 Spacer()
-                Button { } label: {
+                Button { session.signOut() } label: {
                     Text("Sign Out")
                         .fontWeight(.heavy)
                         .frame(width: screenBounds.width - 30, height: 55)
-                    
-                    
                 }.buttonStyle(FilledButtonStyle())
                 Spacer()
             }

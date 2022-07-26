@@ -9,7 +9,7 @@ internal class AuthRepositoryImpl(
     private val firebaseAuth: FirebaseAuth
 ): AuthRepository {
     override suspend fun signInWithEmail(email: String, password: String): AuthResult {
-        if (firebaseAuth.currentUser != null)
+        if (firebaseAuth.currentUser != null && (firebaseAuth.currentUser?.isAnonymous == true))
             firebaseAuth.currentUser?.delete()
         return firebaseAuth.signInWithEmailAndPassword(email = email, password = password)
     }

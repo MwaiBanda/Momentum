@@ -40,6 +40,8 @@
 		814E5DEC287794630008BAC1 /* Stripe in Frameworks */ = {isa = PBXBuildFile; productRef = 814E5DEB287794630008BAC1 /* Stripe */; };
 		814E5DEE287794630008BAC1 /* StripeApplePay in Frameworks */ = {isa = PBXBuildFile; productRef = 814E5DED287794630008BAC1 /* StripeApplePay */; };
 		814E5DF0287794630008BAC1 /* StripeCardScan in Frameworks */ = {isa = PBXBuildFile; productRef = 814E5DEF287794630008BAC1 /* StripeCardScan */; };
+		816CCDE1288F365600795B59 /* LinkLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816CCDE0288F365600795B59 /* LinkLabel.swift */; };
+		816CCDE328903C8C00795B59 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816CCDE228903C8C00795B59 /* SignInView.swift */; };
 		81770C222877A314008B88F6 /* UIColor+Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81770C212877A314008B88F6 /* UIColor+Swift.swift */; };
 		817AD150288BB0B00046441D /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817AD14F288BB0B00046441D /* SignUpView.swift */; };
 		81826E28288A060400B22B6E /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81826E27288A060400B22B6E /* Session.swift */; };
@@ -108,6 +110,8 @@
 		814525F8287940DF00989B4C /* failed.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = failed.json; sourceTree = "<group>"; };
 		814525FA287940E900989B4C /* success.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = success.json; sourceTree = "<group>"; };
 		814E5DE628778E470008BAC1 /* PaymentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentViewModel.swift; sourceTree = "<group>"; };
+		816CCDE0288F365600795B59 /* LinkLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkLabel.swift; sourceTree = "<group>"; };
+		816CCDE228903C8C00795B59 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		81770C212877A314008B88F6 /* UIColor+Swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Swift.swift"; sourceTree = "<group>"; };
 		817AD14F288BB0B00046441D /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		81826E27288A060400B22B6E /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
@@ -316,6 +320,7 @@
 				8182E779288B91FB00A9CF9D /* BlurredBackground.swift */,
 				818A2E98288DFE5E005D7449 /* BasePlainExpandableCard.swift */,
 				81E937CE288E5E2A00D74BD3 /* TitledTextField.swift */,
+				816CCDE0288F365600795B59 /* LinkLabel.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -357,6 +362,7 @@
 			children = (
 				8182E777288B91C500A9CF9D /* AuthControllerView.swift */,
 				817AD14F288BB0B00046441D /* SignUpView.swift */,
+				816CCDE228903C8C00795B59 /* SignInView.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -539,6 +545,8 @@
 				813E775E288DC60500109C19 /* ProfileView.swift in Sources */,
 				81E937CD288E4F2400D74BD3 /* ProfileViewModel.swift in Sources */,
 				819498002887B2460099B30B /* ToggleLabel.swift in Sources */,
+				816CCDE1288F365600795B59 /* LinkLabel.swift in Sources */,
+				816CCDE328903C8C00795B59 /* SignInView.swift in Sources */,
 				8184A3D9288B85FF00083399 /* NavConfiguration.swift in Sources */,
 				8182E77A288B91FB00A9CF9D /* BlurredBackground.swift in Sources */,
 				814E5DE728778E470008BAC1 /* PaymentViewModel.swift in Sources */,
