@@ -1,14 +1,12 @@
 package com.mwaibanda.momentum.data.db
 
 internal class Database(databaseDriverFactory: DatabaseDriverFactory) {
-
-
     private val database = MomentumDatabase(
         driver = databaseDriverFactory.createDriver()
     ).momentumDatabaseQueries
 
     internal fun deleteAllTransactions() {
-        database.deleteAll()
+        database.deleteAllTransactions()
     }
 
     internal fun getAllTransactions() : List<MomentumTransaction> {

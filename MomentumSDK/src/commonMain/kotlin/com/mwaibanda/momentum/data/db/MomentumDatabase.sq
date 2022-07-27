@@ -1,18 +1,125 @@
-
-
+-- Tables
+-- Table: MomentumTransaction
 CREATE TABLE MomentumTransaction (
     id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     description TEXT NOT NULL,
     date TEXT NOT NULL,
     amount REAL NOT NULL,
-    seen INTEGER AS Boolean DEFAULT 0 NOT NULL
+    is_seen INTEGER AS Boolean DEFAULT 0 NOT NULL
 );
 
+-- Table: MomentumUser
+CREATE TABLE MomentumUser(
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    fullname TEXT NOT NULL,
+    password TEXT NOT NULL,
+    email TEXT NOT NULL,
+    created TEXT NOT NULL,
+    user_id TEXT NOT NULL
+);
+
+-- Table: MomentumBillingAddress
+CREATE TABLE MomentumBillingAddress(
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    user_id TEXT NOT NULL,
+    street_address TEXT NOT NULL,
+    apt TEXT,
+    city TEXT NOT NULL,
+    zip_code TEXT NOT NULL
+);
+
+-- CREATE
+-- insert (table: MomentumTransaction)
 insertTransaction:
-INSERT OR REPLACE INTO MomentumTransaction(description, date, amount, seen) VALUES (:description,:date, :amount, :seen);
+INSERT OR REPLACE INTO MomentumTransaction(description, date, amount, is_seen)
+VALUES (:description,:date, :amount, :seen);
+-- insert (table: MomentumUser)
+INSERT OR REPLACE  INTO MomentumUser(id, fullname, password, email, created, user_id)
+VALUES (:id, :fullname, :password, :email, :created, :userId);
+-- insert (table: MomentumBillingAddress)
+INSERT OR REPLACE INTO MomentumBillingAddress(id, user_id, street_address, apt, city, zip_code)
+VALUES ( :id, :userId, :streetAddress, :apt, :city, :zipCode);
 
+-- READ: (table: MomentumTransaction)
+-- get all transactions (table: MomentumTransaction)
 getAllTransactions:
-SELECT * FROM MomentumTransaction;
+SELECT *
+FROM MomentumTransaction;
 
-deleteAll:
-DELETE FROM MomentumTransaction;
+-- READ: (table: MomentumUser)
+-- get user by Id (table: MomentumUser)
+getUserById:
+SELECT *
+FROM MomentumUser
+WHERE user_id = :userId;
+
+-- READ: (table: MomentumBillingAddress)
+-- get billing address by userId (table: MomentumBillingAddress)
+getBillingAddressById:
+SELECT *
+FROM MomentumBillingAddress
+WHERE user_id = :userId;
+
+-- UPDATE:  (table: MomentumUser)
+-- update user(fullname) by Id (table: MomentumUser)
+updateUserFullnameByUserId:
+UPDATE MomentumUser
+SET fullname = :fullname
+WHERE user_id = :userId;
+-- update user(email) by Id (table: MomentumUser)
+updateUserEmailByUserId:
+UPDATE MomentumUser
+SET email = :email
+WHERE user_id = :userId;
+-- update user(password) by Id (table: MomentumUser)
+updateUserPasswordUserId:
+UPDATE MomentumUser
+SET password = :password
+WHERE user_id = :userId;
+
+-- UPDATE:  (table: MomentumBillingAddress)
+-- update address(street_address) by Id (table: MomentumBillingAddress)
+updateBillingStreetByUserId:
+UPDATE MomentumBillingAddress
+SET street_address = :streetAddress
+WHERE user_id = :userId;
+-- update address(apt) by Id (table: MomentumBillingAddress)
+updateBillingAptByUserId:
+UPDATE MomentumBillingAddress
+SET apt = :apt
+WHERE user_id = :userId;
+-- update address(city) by Id (table: MomentumBillingAddress)
+updateBillingCityByUserId:
+UPDATE MomentumBillingAddress
+SET city = :city
+WHERE user_id = :userId;
+-- update address(zipCode) by Id (table: MomentumBillingAddress)
+updateBillingZipCodeByUserId:
+UPDATE MomentumBillingAddress
+SET zip_code = :zipCode
+WHERE user_id = :userId;
+
+-- DELETE: (table: MomentumTransaction)
+-- delete all transactions (table: MomentumTransaction)
+deleteAllTransactions:
+DELETE
+FROM MomentumTransaction;
+-- delete transactions by Id (table: MomentumTransaction)
+deleteTransactionById:
+DELETE
+FROM MomentumTransaction
+WHERE id = :id;
+
+-- DELETE: (table: MomentumUser)
+-- delete user by userId (table: MomentumUser)
+deleteUserByUserId:
+DELETE
+FROM MomentumUser
+WHERE user_id = :userId;
+
+-- DELETE: (table: MomentumBillingAddress)
+-- delete billingAddress by userId (table: MomentumBillingAddress)
+deleteBillingByUserId:
+DELETE
+FROM MomentumBillingAddress
+WHERE user_id = :userId;

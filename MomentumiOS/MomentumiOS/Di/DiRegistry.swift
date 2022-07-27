@@ -10,12 +10,38 @@ import Foundation
 import FirebaseAuth
 import MomentumSDK
 
-struct DiRegistry {
-    static func inject() {
-        Resolver.inject(Auth.auth())
-        Resolver.inject(PaymentControllerImpl() as PaymentController)
-        Resolver.inject(TransactionControllerImpl(driverFactory: DatabaseDriverFactory()) as TransactionController)
-        Resolver.inject(AuthControllerImpl() as AuthController)
+final class DiRegistry {
+    
+    @Provides
+    func provideAuth() {
+        Auth.auth()
     }
+  
+    
+     func inject() {
+        Resolver.register { resolver in
+            provideAuth()
+            
+            @Providing
+            var db = {
+                DatabaseDriverFactory()
+            }()
+            
+            @Providing
+            var paymentController: PaymentController = {
+                PaymentControllerImpl()
+            }()
+            
+            @Providing
+            var transactionController: TransactionController = { TransactionControllerImpl(driverFactory: resolver.resolve())
+            }()
+            
+            @Providing
+            var authController: AuthController = {
+                AuthControllerImpl()
+            }()
+        }
+    }
+    static let sharedInstance = DiRegistry()
     private init() { }
 }
