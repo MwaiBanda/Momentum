@@ -20,19 +20,35 @@ class UserRepositoryImpl(
             .set(User.serializer(), user, encodeDefaults = true)
     }
 
+    override suspend fun updateUserEmail(userID: String, email: String) {
+        db.collection(MultiplatformConstants.USERS_COLLECTION)
+            .document(userID)
+            .set(hashMapOf(EMAIL_KEY to email), merge = true)
+    }
 
-    override suspend fun getUserPhone(userID: String, phone: String) {
+    override suspend fun updateUserPhone(userID: String, phone: String) {
         db.collection(MultiplatformConstants.USERS_COLLECTION)
             .document(userID)
             .set(hashMapOf(PHONE_KEY to phone), merge = true)
     }
 
-    override suspend fun getUser(userID: String) {
 
+
+    override suspend fun updateUserFullname(userID: String, fullname: String) {
+        db.collection(MultiplatformConstants.USERS_COLLECTION)
+            .document(userID)
+            .set(hashMapOf(FULLNAME_KEY to fullname), merge = true)
     }
-    
+
+    override suspend fun deleteUser(userID: String) {
+        db.collection(MultiplatformConstants.USERS_COLLECTION)
+            .document(userID)
+            .delete()
+    }
+
     companion object {
+        const val EMAIL_KEY = "email"
         const val PHONE_KEY = "phone"
+        const val FULLNAME_KEY = "fullname"
     }
-
 }

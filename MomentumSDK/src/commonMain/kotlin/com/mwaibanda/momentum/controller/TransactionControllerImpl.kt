@@ -15,7 +15,16 @@ class TransactionControllerImpl(driverFactory: DatabaseDriverFactory): Transacti
         amount: Double,
         isSeen: Boolean,
     ) {
-        database.insertTransaction(description, date, amount, isSeen)
+        database.insertTransaction(
+            description = description,
+            date = date,
+            amount = amount,
+            isSeen = isSeen
+        )
+    }
+
+    override fun deleteTransactionById(transactionId: Int) {
+        database.deleteTransactionById(transactionId = transactionId)
     }
 
     override fun getAllTransactions(onCompletion: (List<MomentumTransaction>) -> Unit){

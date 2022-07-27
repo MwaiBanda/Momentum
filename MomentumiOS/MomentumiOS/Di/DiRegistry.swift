@@ -13,30 +13,34 @@ import MomentumSDK
 final class DiRegistry {
     
     @Provides
-    func provideAuth() {
+    func providesAuth() {
         Auth.auth()
     }
-  
     
-     func inject() {
+    @Provides
+    func providesDBFactory() {
+        DatabaseDriverFactory()
+    }
+    
+  
+    func inject() {
         Resolver.register { resolver in
-            provideAuth()
+            providesAuth()
+            providesDBFactory()
             
-            @Providing
-            var db = {
-                DatabaseDriverFactory()
-            }()
-            
-            @Providing
+            @Binds
             var paymentController: PaymentController = {
                 PaymentControllerImpl()
             }()
             
-            @Providing
-            var transactionController: TransactionController = { TransactionControllerImpl(driverFactory: resolver.resolve())
+            @Binds
+            var transactionController: TransactionController = {
+                TransactionControllerImpl(
+                    driverFactory: resolver.resolve()
+                )
             }()
             
-            @Providing
+            @Binds
             var authController: AuthController = {
                 AuthControllerImpl()
             }()

@@ -12,9 +12,10 @@ CREATE TABLE MomentumTransaction (
 CREATE TABLE MomentumUser(
     id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     fullname TEXT NOT NULL,
+    phone TEXT NOT NULL,
     password TEXT NOT NULL,
     email TEXT NOT NULL,
-    created TEXT NOT NULL,
+    created_on TEXT NOT NULL,
     user_id TEXT NOT NULL
 );
 
@@ -34,11 +35,13 @@ insertTransaction:
 INSERT OR REPLACE INTO MomentumTransaction(description, date, amount, is_seen)
 VALUES (:description,:date, :amount, :seen);
 -- insert (table: MomentumUser)
-INSERT OR REPLACE  INTO MomentumUser(id, fullname, password, email, created, user_id)
-VALUES (:id, :fullname, :password, :email, :created, :userId);
+insertUser:
+INSERT OR REPLACE  INTO MomentumUser(fullname, phone, password, email, created_on, user_id)
+VALUES (:fullname, :phone, :password, :email, :createdOn, :userId);
 -- insert (table: MomentumBillingAddress)
-INSERT OR REPLACE INTO MomentumBillingAddress(id, user_id, street_address, apt, city, zip_code)
-VALUES ( :id, :userId, :streetAddress, :apt, :city, :zipCode);
+insertBillingAddress:
+INSERT OR REPLACE INTO MomentumBillingAddress(user_id, street_address, apt, city, zip_code)
+VALUES (:userId, :streetAddress, :apt, :city, :zipCode);
 
 -- READ: (table: MomentumTransaction)
 -- get all transactions (table: MomentumTransaction)
@@ -65,6 +68,11 @@ WHERE user_id = :userId;
 updateUserFullnameByUserId:
 UPDATE MomentumUser
 SET fullname = :fullname
+WHERE user_id = :userId;
+-- update user(phon) by Id (table: MomentumUser)
+updateUserPhoneByUserId:
+UPDATE MomentumUser
+SET phone = :phone
 WHERE user_id = :userId;
 -- update user(email) by Id (table: MomentumUser)
 updateUserEmailByUserId:

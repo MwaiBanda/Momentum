@@ -10,9 +10,9 @@ import Foundation
 
 
 
-final class Resolver {
+final class Resolver: Resolving {
     private var dependencies = [String: AnyObject]()
-    private static let shared = Resolver()
+    static let shared = Resolver()
     
     static func inject<T>(dependency: T){
         shared.inject(dependency)
@@ -21,7 +21,7 @@ final class Resolver {
     static func resolve<T>() -> T {
         shared.resolve()
     }
-    static func register(context: (Resolver) -> Void) {
+    static func register(context: (Resolving) -> Void) {
         context(shared)
     }
     

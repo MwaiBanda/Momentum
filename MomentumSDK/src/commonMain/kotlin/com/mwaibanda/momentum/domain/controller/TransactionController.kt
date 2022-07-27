@@ -12,4 +12,5 @@ interface TransactionController {
     )
     fun getAllTransactions(onCompletion: (List<MomentumTransaction>) -> Unit)
     fun deleteAllTransactions()
+    fun deleteTransactionById(transactionId: Int)
 }
