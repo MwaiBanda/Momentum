@@ -54,8 +54,8 @@ internal class Database(databaseDriverFactory: DatabaseDriverFactory) {
         )
     }
 
-    internal fun getUserByUserId(userId: String): MomentumUser {
-        return database.getUserById(userId = userId).executeAsOne()
+    internal fun getUserByUserId(userId: String): MomentumUser? {
+        return database.getUserByUserId(userId = userId).executeAsOneOrNull()
     }
 
     internal fun updateUserFullnameByUserId(userId: String, fullname: String){
@@ -88,5 +88,58 @@ internal class Database(databaseDriverFactory: DatabaseDriverFactory) {
 
     internal fun deleteUserByUserId(userId: String){
         database.deleteUserByUserId(userId = userId)
+    }
+    /**
+     * Billing Address Queries
+     */
+    internal fun insertBillingAddress(
+        streetAddress: String,
+        apt: String?,
+        city: String,
+        zipCode: String,
+        userId: String
+    ) {
+        database.insertBillingAddress(
+            streetAddress = streetAddress,
+            apt = apt,
+            city = city,
+            zipCode = zipCode,
+            userId = userId
+        )
+    }
+
+    internal fun getBillingAddressByUserId(userId: String): MomentumBillingAddress? {
+        return database.getBillingAddressByUserId(userId = userId).executeAsOneOrNull()
+    }
+
+    internal fun updateBillingStreetByUserId(userId: String, streetAddress: String) {
+        database.updateBillingStreetByUserId(
+            streetAddress = streetAddress,
+            userId = userId
+        )
+    }
+    internal fun updateBillingAptByUserId(userId: String, apt: String) {
+        database.updateBillingAptByUserId(
+            apt = apt,
+            userId = userId
+        )
+    }
+
+    internal fun updateBillingCityByUserId(userId: String, city: String) {
+        database.updateBillingCityByUserId(
+            city = city,
+            userId = userId
+        )
+    }
+
+    internal fun updateBillingZipCodeByUserId(userId: String, zipCode: String) {
+        database.updateBillingZipCodeByUserId(
+            zipCode = zipCode,
+            userId = userId
+        )
+    }
+
+    internal fun deleteBillingByUserId(userId: String) {
+        database.deleteBillingByUserId(userId = userId)
     }
 }

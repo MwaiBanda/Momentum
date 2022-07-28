@@ -22,11 +22,11 @@ CREATE TABLE MomentumUser(
 -- Table: MomentumBillingAddress
 CREATE TABLE MomentumBillingAddress(
     id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-    user_id TEXT NOT NULL,
     street_address TEXT NOT NULL,
     apt TEXT,
     city TEXT NOT NULL,
-    zip_code TEXT NOT NULL
+    zip_code TEXT NOT NULL,
+    user_id TEXT NOT NULL
 );
 
 -- CREATE
@@ -40,8 +40,8 @@ INSERT OR REPLACE  INTO MomentumUser(fullname, phone, password, email, created_o
 VALUES (:fullname, :phone, :password, :email, :createdOn, :userId);
 -- insert (table: MomentumBillingAddress)
 insertBillingAddress:
-INSERT OR REPLACE INTO MomentumBillingAddress(user_id, street_address, apt, city, zip_code)
-VALUES (:userId, :streetAddress, :apt, :city, :zipCode);
+INSERT OR REPLACE INTO MomentumBillingAddress(street_address, apt, city, zip_code, user_id)
+VALUES (:streetAddress, :apt, :city, :zipCode, :userId);
 
 -- READ: (table: MomentumTransaction)
 -- get all transactions (table: MomentumTransaction)
@@ -51,14 +51,14 @@ FROM MomentumTransaction;
 
 -- READ: (table: MomentumUser)
 -- get user by Id (table: MomentumUser)
-getUserById:
+getUserByUserId:
 SELECT *
 FROM MomentumUser
 WHERE user_id = :userId;
 
 -- READ: (table: MomentumBillingAddress)
 -- get billing address by userId (table: MomentumBillingAddress)
-getBillingAddressById:
+getBillingAddressByUserId:
 SELECT *
 FROM MomentumBillingAddress
 WHERE user_id = :userId;

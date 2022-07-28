@@ -3,9 +3,7 @@ package com.mwaibanda.momentum.data.repository
 import com.mwaibanda.momentum.domain.models.User
 import com.mwaibanda.momentum.domain.repository.UserRepository
 import com.mwaibanda.momentum.utils.MultiplatformConstants
-import dev.gitlive.firebase.Firebase
 import dev.gitlive.firebase.firestore.FirebaseFirestore
-import dev.gitlive.firebase.firestore.firestore
 
 class UserRepositoryImpl(
     private val db: FirebaseFirestore
@@ -20,29 +18,29 @@ class UserRepositoryImpl(
             .set(User.serializer(), user, encodeDefaults = true)
     }
 
-    override suspend fun updateUserEmail(userID: String, email: String) {
+    override suspend fun updateUserEmail(userId: String, email: String) {
         db.collection(MultiplatformConstants.USERS_COLLECTION)
-            .document(userID)
+            .document(userId)
             .set(hashMapOf(EMAIL_KEY to email), merge = true)
     }
 
-    override suspend fun updateUserPhone(userID: String, phone: String) {
+    override suspend fun updateUserPhone(userId: String, phone: String) {
         db.collection(MultiplatformConstants.USERS_COLLECTION)
-            .document(userID)
+            .document(userId)
             .set(hashMapOf(PHONE_KEY to phone), merge = true)
     }
 
 
 
-    override suspend fun updateUserFullname(userID: String, fullname: String) {
+    override suspend fun updateUserFullname(userId: String, fullname: String) {
         db.collection(MultiplatformConstants.USERS_COLLECTION)
-            .document(userID)
+            .document(userId)
             .set(hashMapOf(FULLNAME_KEY to fullname), merge = true)
     }
 
-    override suspend fun deleteUser(userID: String) {
+    override suspend fun deleteUser(userId: String) {
         db.collection(MultiplatformConstants.USERS_COLLECTION)
-            .document(userID)
+            .document(userId)
             .delete()
     }
 
