@@ -12,7 +12,7 @@ struct SessionTime {
     static func getCurrentTime() -> String {
         let date = Date()
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "mm/dd/yyyy"
+        dateFormatter.dateFormat = "MM/dd/yyyy"
         return dateFormatter.string(from: date)
     }
 }

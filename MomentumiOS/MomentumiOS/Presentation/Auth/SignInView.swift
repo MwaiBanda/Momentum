@@ -11,6 +11,7 @@ import SwiftUI
 struct SignInView: View {
     @State private var email = ""
     @State private var password = ""
+    @EnvironmentObject var session: Session
     var namespace: Namespace.ID
     var onSignInCompletion: () -> Void
 
@@ -71,7 +72,9 @@ struct SignInView: View {
                 Spacer()
                 Button {
                     if !email.isEmpty && !password.isEmpty {
-                        
+                        session.signIn(email: email, password: password) {
+                            onSignInCompletion()
+                        }
                     }
                 } label: {
                     Text("Confirm")

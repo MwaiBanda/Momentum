@@ -60,15 +60,15 @@ struct ProfileView: View {
                                 }
                                 Divider()
                                 TitledTextField(title: "phone", text: $profileViewModel.phone) {
-                                    
+                                    profileViewModel.updatePhone(userId: session.currentUser?.id ?? "")
                                 }
                                 Divider()
                                 TitledTextField(title: "email", text: $profileViewModel.email) {
-                                    
+                                    profileViewModel.updateEmail(userId: session.currentUser?.id ?? "")
                                 }
                                 Divider()
                                 TitledTextField(title: "password", text:  $profileViewModel.password) {
-                                    
+                                    profileViewModel.updatePassword(userId: session.currentUser?.id ?? "")
                                 }
                             }
                         }, onCoverClick: {
@@ -103,19 +103,19 @@ struct ProfileView: View {
                         }, innerContent: {
                             Group {
                                 TitledTextField(title: "street address", text: $profileViewModel.streetAddress) {
-                                    
+                                    profileViewModel.updateStreetAddress(userId: session.currentUser?.id ?? "")
                                 }
                                 Divider()
                                 TitledTextField(title: "apt, suite or floor", text: $profileViewModel.apt) {
-                                    
+                                    profileViewModel.updateApt(userId: session.currentUser?.id ?? "")
                                 }
                                 Divider()
                                 TitledTextField(title: "city", text: $profileViewModel.city) {
-                                    
+                                    profileViewModel.updateCity(userId: session.currentUser?.id ?? "")
                                 }
                                 Divider()
                                 TitledTextField(title: "zip code", text: $profileViewModel.zipCode) {
-                                    
+                                    profileViewModel.updateZipCode(userId: session.currentUser?.id ?? "")
                                 }
                             }
                         }, onCoverClick: {

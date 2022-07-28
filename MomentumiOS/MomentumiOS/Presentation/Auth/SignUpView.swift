@@ -106,6 +106,7 @@ struct SignUpView: View {
                             .foregroundColor(Color.white)
                         
                     )
+                    .disableAutocorrection(true)
                     .autocapitalization(.none)
                     .ignoresSafeArea(.keyboard, edges: .bottom)
                     .padding(.horizontal)

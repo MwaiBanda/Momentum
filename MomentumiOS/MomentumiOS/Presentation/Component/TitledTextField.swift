@@ -9,19 +9,12 @@
 import SwiftUI
 
 struct TitledTextField: View {
+    @State private var isTyping = false
+    @State private var textHidden = ""
     var title: String
     @Binding var text: String
     var onCommit: () -> Void
-    @State private var isTyping = false
-    var password: String {
-        var returnStr = ""
-        text.forEach { ch in
-            
-                returnStr.append("*")
-           
-        }
-        return returnStr
-    }
+  
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             Text(title)
@@ -30,21 +23,21 @@ struct TitledTextField: View {
                 .font(.subheadline)
             ZStack(alignment: .center) {
                 
-                if  title == "password" {
-                    Text(password)
-                        .font(Font.headline.weight(.bold))
-                        .onTapGesture {
-                            isTyping = true
-                        }
-               
-                } else {
-                    TextField("***", text: $text, onCommit: { isTyping = false })
-                        .simultaneousGesture(TapGesture().onEnded({
-                            isTyping = true
-                        }))
-                        .font(text.isEmpty ? Font.body : Font.headline.weight(.bold))
-                }
-                   
+                
+                TextField(
+                    "***",
+                    text: (title == "password" && !isTyping) ? $textHidden : $text,
+                    onCommit: {
+                        isTyping = false
+                        onCommit()
+                    }
+                )
+                .simultaneousGesture(TapGesture().onEnded({
+                    isTyping = true
+                }))
+                .font(text.isEmpty ? Font.body : Font.headline.weight(.bold))
+                
+                
                 
                 HStack  {
                     Spacer()
@@ -57,6 +50,15 @@ struct TitledTextField: View {
         }
         .padding(.horizontal)
         .padding(.vertical, 10)
+        .onAppear {
+            text.forEach { ch in
+                if textHidden.count < text.count - 3 {
+                    textHidden.append("*")
+                } else {
+                    textHidden.append(ch)
+                }
+            }
+        }
     }
 }
 

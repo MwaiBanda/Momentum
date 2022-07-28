@@ -17,7 +17,7 @@ class ProfileViewModel: ObservableObject {
     @Published var fullname = ""
     @Published var phone = ""
     @Published var email = ""
-    @Published var password = "Ngosa1978"
+    @Published var password = ""
     @Published var createdOn = ""
     
     /* Billing Information */
@@ -119,7 +119,9 @@ class ProfileViewModel: ObservableObject {
     }
     
     func getBillingInformation(userId: String) {
-        billingAddressController.getBillingAddressByUserId(userId: userId) { [unowned self] address in
+        billingAddressController.getBillingAddressByUserId(
+            userId: userId
+        ) { [unowned self] address in
             if let address = address {
                 streetAddress = address.street_address
                 apt = address.apt ?? ""
@@ -130,8 +132,59 @@ class ProfileViewModel: ObservableObject {
     }
     
     func updateFullname(userId: String){
-        userController.updateUserFullname(userID: userId, fullname: fullname)
+        userController.updateMomentumUserFullnameByUserId(
+            userId: userId,
+            fullname: fullname
+        ) { [unowned self] in
+            userController.updateUserFullname(userID: userId, fullname: fullname)
+        }
     }
     
+    func updatePhone(userId: String) {
+        userController.updateMomentumUserPhoneByUserId(
+            userId: userId,
+            phone: phone
+        ) { [unowned self] in
+            userController.updatePhoneByUserId(userId: userId, phone: phone)
+        }
+    }
     
+    func updateEmail(userId: String) {
+        userController.updateMomentumUserEmailByUserId(
+            userId: userId,
+            email: email
+        ) { [unowned self] in
+            userController.updateUserEmail(userID: userId, email: email)
+        }
+    }
+    
+    func updatePassword(userId: String) {
+        userController.updateMomentumUserPasswordUserId(userId: userId, password: password) {
+            Log.d(tag: "Profile/Password", message: "Password Updated")
+        }
+    }
+    
+    func updateStreetAddress(userId: String) {
+        billingAddressController.updateBillingStreetByUserId(userId: userId, streetAddress: streetAddress)
+    }
+    
+    func updateApt(userId: String) {
+        billingAddressController.updateBillingAptByUserId(userId: userId, apt: apt)
+    }
+    
+    func updateCity(userId: String) {
+        billingAddressController.updateBillingCityByUserId(userId: userId, city: city)
+    }
+    
+    func updateZipCode(userId: String) {
+        billingAddressController.updateBillingZipCodeByUserId(userId: userId, zipCode: zipCode)
+    }
+    
+    func deleteUser(userId: String){
+        userController.deleteUser(userID: userId)
+    }
+    
+    func deleteBillingAddress(userId: String) {
+        billingAddressController.deleteBillingByUserId(userId: userId)
+    }
 }
