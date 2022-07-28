@@ -69,6 +69,8 @@
 		81B802DA2877E7D80008509D /* PaymentSuccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B802D92877E7D80008509D /* PaymentSuccessView.swift */; };
 		81B802DC2877E7FF0008509D /* PaymentFailureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B802DB2877E7FF0008509D /* PaymentFailureView.swift */; };
 		81B802DE2877ED7F0008509D /* FilledButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B802DD2877ED7F0008509D /* FilledButtonStyle.swift */; };
+		81E8F8D12892144400F4A87C /* ProfileCards.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E8F8D02892144400F4A87C /* ProfileCards.swift */; };
+		81E8F8D428921F1300F4A87C /* SessionTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E8F8D328921F1300F4A87C /* SessionTime.swift */; };
 		81E937CD288E4F2400D74BD3 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E937CC288E4F2400D74BD3 /* ProfileViewModel.swift */; };
 		81E937CF288E5E2A00D74BD3 /* TitledTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E937CE288E5E2A00D74BD3 /* TitledTextField.swift */; };
 /* End PBXBuildFile section */
@@ -142,6 +144,8 @@
 		81B802D92877E7D80008509D /* PaymentSuccessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentSuccessView.swift; sourceTree = "<group>"; };
 		81B802DB2877E7FF0008509D /* PaymentFailureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentFailureView.swift; sourceTree = "<group>"; };
 		81B802DD2877ED7F0008509D /* FilledButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilledButtonStyle.swift; sourceTree = "<group>"; };
+		81E8F8D02892144400F4A87C /* ProfileCards.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCards.swift; sourceTree = "<group>"; };
+		81E8F8D328921F1300F4A87C /* SessionTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionTime.swift; sourceTree = "<group>"; };
 		81E937CC288E4F2400D74BD3 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		81E937CE288E5E2A00D74BD3 /* TitledTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitledTextField.swift; sourceTree = "<group>"; };
 		8FCA518C1E38B3D34FB9D1EF /* Pods-MomentumiOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MomentumiOS.debug.xcconfig"; path = "Target Support Files/Pods-MomentumiOS/Pods-MomentumiOS.debug.xcconfig"; sourceTree = "<group>"; };
@@ -290,11 +294,11 @@
 		8126AF78286FE38D007DBAB9 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				81E8F8D228921EF800F4A87C /* Session */,
 				8142D165289189F7001C206A /* Di */,
 				8142D164289189E4001C206A /* enums */,
 				8126AF7A286FE3C2007DBAB9 /* Constants.swift */,
 				819B7951287098FA0010B960 /* Log.swift */,
-				81826E27288A060400B22B6E /* Session.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -343,6 +347,7 @@
 			children = (
 				8184A3D8288B85FF00083399 /* NavConfiguration.swift */,
 				819497FF2887B2460099B30B /* ToggleLabel.swift */,
+				81E8F8D02892144400F4A87C /* ProfileCards.swift */,
 			);
 			path = enums;
 			sourceTree = "<group>";
@@ -415,6 +420,15 @@
 				81B802DD2877ED7F0008509D /* FilledButtonStyle.swift */,
 			);
 			path = Styles;
+			sourceTree = "<group>";
+		};
+		81E8F8D228921EF800F4A87C /* Session */ = {
+			isa = PBXGroup;
+			children = (
+				81826E27288A060400B22B6E /* Session.swift */,
+				81E8F8D328921F1300F4A87C /* SessionTime.swift */,
+			);
+			path = Session;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -572,6 +586,7 @@
 				819498002887B2460099B30B /* ToggleLabel.swift in Sources */,
 				816CCDE1288F365600795B59 /* LinkLabel.swift in Sources */,
 				816CCDE328903C8C00795B59 /* SignInView.swift in Sources */,
+				81E8F8D12892144400F4A87C /* ProfileCards.swift in Sources */,
 				8184A3D9288B85FF00083399 /* NavConfiguration.swift in Sources */,
 				8182E77A288B91FB00A9CF9D /* BlurredBackground.swift in Sources */,
 				814E5DE728778E470008BAC1 /* PaymentViewModel.swift in Sources */,
@@ -594,6 +609,7 @@
 				819497FE288797240099B30B /* TransactionLabel.swift in Sources */,
 				8126AF89286FF12F007DBAB9 /* MenuButton.swift in Sources */,
 				81826E28288A060400B22B6E /* Session.swift in Sources */,
+				81E8F8D428921F1300F4A87C /* SessionTime.swift in Sources */,
 				7555FF83242A565900829871 /* ContentView.swift in Sources */,
 				811A3E7D287E05D90052682B /* ToggleAmountLabel.swift in Sources */,
 				8126AF86286FEF39007DBAB9 /* BottomTabBar.swift in Sources */,

@@ -17,7 +17,7 @@ class AppDelegate : NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         DependencyRegistryKt.doInitKoin()
         FirebaseApp.configure()
-        DiRegistry.sharedInstance.inject()
+        DiRegistry.shared.inject()
         Thread.sleep(forTimeInterval: 1.5)
         return true
     }

@@ -5,6 +5,6 @@ import com.squareup.sqldelight.drivers.native.NativeSqliteDriver
 
 actual class DatabaseDriverFactory {
     actual fun createDriver(): SqlDriver {
-        return NativeSqliteDriver(MomentumDatabase.Schema, "test2.db")
+        return NativeSqliteDriver(MomentumDatabase.Schema, "momentumTest.db")
     }
 }

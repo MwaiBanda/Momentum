@@ -13,12 +13,12 @@ import MomentumSDK
 final class DiRegistry {
     
     @Provides
-    func providesAuth() {
+    private func providesAuth() {
         Auth.auth()
     }
     
     @Provides
-    func providesDBFactory() {
+    private func providesDBFactory() {
         DatabaseDriverFactory()
     }
     
@@ -41,11 +41,25 @@ final class DiRegistry {
             }()
             
             @Binds
+            var userController: UserController = {
+                UserControllerImpl(
+                    driverFactory: resolver.resolve()
+                )
+            }()
+            
+            @Binds
+            var billingAddressController: BillingAddressController = {
+                BillingAddressControllerImpl(
+                    driverFactory: resolver.resolve()
+                )
+            }()
+            
+            @Binds
             var authController: AuthController = {
                 AuthControllerImpl()
             }()
         }
     }
-    static let sharedInstance = DiRegistry()
+    static let shared = DiRegistry()
     private init() { }
 }

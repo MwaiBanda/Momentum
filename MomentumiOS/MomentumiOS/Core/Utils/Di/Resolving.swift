@@ -12,5 +12,5 @@ protocol Resolving {
     static func resolve<T>() -> T
     static func register(context: (Resolving) -> Void)
     func resolve<T>() -> T
-    func inject<T>(_ dependency: T)
+    func inject<T>(_ dependency: T, named: String)
 }

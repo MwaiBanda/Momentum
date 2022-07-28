@@ -14,8 +14,8 @@ final class Resolver: Resolving {
     private var dependencies = [String: AnyObject]()
     static let shared = Resolver()
     
-    static func inject<T>(dependency: T){
-        shared.inject(dependency)
+    static func inject<T>(dependency: T, named: String = ""){
+        shared.inject(dependency, named: named)
     }
     
     static func resolve<T>() -> T {
@@ -25,8 +25,8 @@ final class Resolver: Resolving {
         context(shared)
     }
     
-    internal func inject<T>(_ dependency: T) {
-        let key = String(describing: T.self)
+    internal func inject<T>(_ dependency: T, named: String) {
+        let key = (named.isEmpty ? String(describing: T.self) : named)
         dependencies[key] = dependency as AnyObject
     }
     

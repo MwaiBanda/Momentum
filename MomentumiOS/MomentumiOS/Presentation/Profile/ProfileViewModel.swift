@@ -7,16 +7,26 @@
 //
 
 import Foundation
+import MomentumSDK
 
-enum ProfileCard {
-    case contactInfo
-    case billingInfo
-    case manageAcc
-    case techSupport
-    case feedback
-    case information
-}
 class ProfileViewModel: ObservableObject {
+    @Inject private var userController: UserController
+    @Inject private var billingAddressController: BillingAddressController
+    
+    /* Contact Information */
+    @Published var fullname = ""
+    @Published var phone = ""
+    @Published var email = ""
+    @Published var password = "Ngosa1978"
+    @Published var createdOn = ""
+    
+    /* Billing Information */
+    @Published var streetAddress = ""
+    @Published var apt = ""
+    @Published var city = ""
+    @Published var zipCode = ""
+
+    /* Card State */
     @Published var isContactInfoExpanded = false
     @Published var isBillingInfoExpanded = false
     @Published var isManageAccExpanded = false
@@ -59,4 +69,69 @@ class ProfileViewModel: ObservableObject {
             }
         }
     }
+    
+    func addUser(
+        fullname: String,
+        phone: String,
+        password: String,
+        email: String,
+        createdOn: String,
+        userId: String
+    ) {
+        userController.addMomentumUser(
+            fullname: fullname,
+            phone: phone,
+            password: password,
+            email: email,
+            createdOn: createdOn,
+            userId: userId
+        ) { [unowned self] in
+            self.userController.postUser(
+                user: User(
+                    fullname: fullname,
+                    email: email,
+                    phone: phone,
+                    userId: userId,
+                    createdOn: createdOn
+                )
+            )
+            self.billingAddressController.addBillingAddress(
+                streetAddress: "",
+                apt: "",
+                city: "",
+                zipCode: "",
+                userId: userId
+            )
+        }
+    }
+    
+    func getContactInformation(userId: String, onCompletion: @escaping () -> Void) {
+        userController.getMomentumUserById(userId: userId) { [unowned self] user in
+            if let user = user {
+                fullname = user.fullname
+                phone = user.phone
+                email = user.email
+                password = user.password
+                createdOn = user.created_on
+                onCompletion()
+            }
+        }
+    }
+    
+    func getBillingInformation(userId: String) {
+        billingAddressController.getBillingAddressByUserId(userId: userId) { [unowned self] address in
+            if let address = address {
+                streetAddress = address.street_address
+                apt = address.apt ?? ""
+                city = address.city
+                zipCode = address.zip_code
+            }
+        }
+    }
+    
+    func updateFullname(userId: String){
+        userController.updateUserFullname(userID: userId, fullname: fullname)
+    }
+    
+    
 }

@@ -10,9 +10,18 @@ import SwiftUI
 
 struct TitledTextField: View {
     var title: String
-    var text: Binding<String>
+    @Binding var text: String
     var onCommit: () -> Void
     @State private var isTyping = false
+    var password: String {
+        var returnStr = ""
+        text.forEach { ch in
+            
+                returnStr.append("*")
+           
+        }
+        return returnStr
+    }
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             Text(title)
@@ -20,11 +29,23 @@ struct TitledTextField: View {
                 .textCase(.uppercase )
                 .font(.subheadline)
             ZStack(alignment: .center) {
-                TextField("***", text: text, onCommit: { isTyping = false })
-                    .simultaneousGesture(TapGesture().onEnded({
-                        isTyping = true
-                    }))
-                    .font(text.wrappedValue.isEmpty ? Font.body : Font.headline.weight(.bold))
+                
+                if  title == "password" {
+                    Text(password)
+                        .font(Font.headline.weight(.bold))
+                        .onTapGesture {
+                            isTyping = true
+                        }
+               
+                } else {
+                    TextField("***", text: $text, onCommit: { isTyping = false })
+                        .simultaneousGesture(TapGesture().onEnded({
+                            isTyping = true
+                        }))
+                        .font(text.isEmpty ? Font.body : Font.headline.weight(.bold))
+                }
+                   
+                
                 HStack  {
                     Spacer()
                     Image(systemName: isTyping ? "keyboard.badge.ellipsis" : "square.and.pencil")

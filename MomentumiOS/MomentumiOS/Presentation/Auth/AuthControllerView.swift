@@ -39,7 +39,7 @@ struct AuthControllerView: View {
                     }
                 }
             }
-            .frame(maxWidth: screenBounds.width - 100, maxHeight: showSignUp ? 450 : 300)
+            .frame(maxWidth: screenBounds.width - 100, maxHeight: showSignUp ? 490 : 300)
             Spacer()
             Button {
                 withAnimation(.easeOut(duration: 0.35)){

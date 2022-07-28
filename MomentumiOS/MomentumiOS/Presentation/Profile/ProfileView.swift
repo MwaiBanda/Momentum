@@ -9,6 +9,7 @@
 import SwiftUI
 
 struct ProfileView: View {
+    @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var session: Session
     @StateObject private var profileViewModel = ProfileViewModel()
     @State private var showAlert = false
@@ -25,10 +26,10 @@ struct ProfileView: View {
                     .padding(.leading)
                 
                 VStack(alignment: .leading) {
-                    Text("Mwai Banda")
+                    Text(profileViewModel.fullname.isEmpty ? "Guest" : profileViewModel.fullname)
                         .font(.title3)
                         .fontWeight(.heavy)
-                    Text("Est. 07/24/2022")
+                    Text(profileViewModel.createdOn.isEmpty ? "Create an Account or Sign In" : "Est. \(profileViewModel.createdOn)")
                         .font(.caption)
                         .foregroundColor(.gray)
                     
@@ -54,15 +55,19 @@ struct ProfileView: View {
                                 .foregroundColor(.gray)
                         }, innerContent: {
                             VStack {
-                                TitledTextField(title: "fullname", text: .constant("Mwai Banda")) {
+                                TitledTextField(title: "fullname", text: $profileViewModel.fullname) {
+                                    profileViewModel.updateFullname(userId: session.currentUser?.id ?? "")
+                                }
+                                Divider()
+                                TitledTextField(title: "phone", text: $profileViewModel.phone) {
                                     
                                 }
                                 Divider()
-                                TitledTextField(title: "email", text: .constant("")) {
+                                TitledTextField(title: "email", text: $profileViewModel.email) {
                                     
                                 }
                                 Divider()
-                                TitledTextField(title: "password", text: .constant("")) {
+                                TitledTextField(title: "password", text:  $profileViewModel.password) {
                                     
                                 }
                             }
@@ -97,19 +102,19 @@ struct ProfileView: View {
                                 .foregroundColor(.gray)
                         }, innerContent: {
                             Group {
-                                TitledTextField(title: "street address", text: .constant("")) {
+                                TitledTextField(title: "street address", text: $profileViewModel.streetAddress) {
                                     
                                 }
                                 Divider()
-                                TitledTextField(title: "apt, suite or floor", text: .constant("")) {
+                                TitledTextField(title: "apt, suite or floor", text: $profileViewModel.apt) {
                                     
                                 }
                                 Divider()
-                                TitledTextField(title: "city", text: .constant("")) {
+                                TitledTextField(title: "city", text: $profileViewModel.city) {
                                     
                                 }
                                 Divider()
-                                TitledTextField(title: "zip code", text: .constant("")) {
+                                TitledTextField(title: "zip code", text: $profileViewModel.zipCode) {
                                     
                                 }
                             }
@@ -322,7 +327,12 @@ struct ProfileView: View {
             Spacer()
             HStack {
                 Spacer()
-                Button { session.signOut() } label: {
+                Button {
+                    session.signOut {
+                        presentationMode.wrappedValue.dismiss()
+                        session.checkAndSignInAsGuest()
+                    }
+                } label: {
                     Text("Sign Out")
                         .fontWeight(.heavy)
                         .frame(width: screenBounds.width - 30, height: 55)
@@ -334,6 +344,11 @@ struct ProfileView: View {
         .navigationBarHidden(false)
         .navigationTitle("Profile")
         .navigationBarTitleDisplayMode(.large)
+        .onAppear {
+            profileViewModel.getContactInformation(userId: session.currentUser?.id ?? "") {
+                profileViewModel.getBillingInformation(userId: session.currentUser?.id ?? "")
+            }
+        }
     }
     var circleIcon: some View {
         ZStack(alignment: .center) {
@@ -351,10 +366,14 @@ struct ProfileView: View {
                     .frame(width: 70, height: 70)
                 
             }
-            Text("MB")
-                .font(.title2)
-                .fontWeight(.heavy)
-                .foregroundColor(.white)
+            Text(profileViewModel.fullname.isEmpty ? "G" : profileViewModel.fullname
+                .split(separator: " ")
+                .map({ String($0.first?.uppercased() ?? "")})
+                .reduce("", { x, y in x + y})
+            )
+            .font(.title2)
+            .fontWeight(.heavy)
+            .foregroundColor(.white)
         }
         
     }
