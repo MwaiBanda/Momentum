@@ -35,6 +35,10 @@ struct TransactionView: View {
                 )
                 Divider()
             }
+            if transactionViewModel.transactions.isEmpty {
+                Spacer()
+                Text("No Transactions")
+            }
             Spacer()
         }
         .onAppear {

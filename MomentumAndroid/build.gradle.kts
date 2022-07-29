@@ -1,8 +1,7 @@
 plugins {
     id("com.android.application")
     kotlin("android")
-    kotlin("plugin.serialization")
-    id("com.google.gms.google-services")
+    kotlin("plugin.serialization") version "1.6.10"
 
 }
 
@@ -11,7 +10,7 @@ android {
     defaultConfig {
         applicationId = "com.mwaibanda.momentum.android"
         minSdk = 21
-        targetSdk = 32
+        targetSdk = 31
         versionCode = 1
         versionName = "1.0"
     }
@@ -39,29 +38,29 @@ android {
 
 dependencies {
     implementation(project(":MomentumSDK"))
-    implementation("com.google.android.material:material:1.6.1")
-    implementation("androidx.appcompat:appcompat:1.4.2")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+    implementation ("androidx.core:core-ktx:1.8.0")
+    implementation ("androidx.appcompat:appcompat:1.4.2")
+    implementation ("com.google.android.material:material:1.6.1")
 
     // Integration with activities
-    implementation( "androidx.activity:activity-compose:1.5.1")
+    implementation( "androidx.activity:activity-compose:1.4.0")
     // Compose Material Design
-    implementation( "androidx.compose.material:material:1.2.0")
+    implementation( "androidx.compose.material:material:1.1.1")
     // Animations
-    implementation("androidx.compose.animation:animation:1.2.0")
+    implementation("androidx.compose.animation:animation:1.1.1")
     // Tooling support (Previews, etc.)
-    implementation( "androidx.compose.ui:ui-tooling:1.2.0")
+    implementation( "androidx.compose.ui:ui-tooling:1.1.1")
     // Integration with ViewModels
     implementation( "androidx.lifecycle:lifecycle-viewmodel-compose:2.5.1")
     implementation("com.google.firebase:firebase-auth:21.0.6")
     // UI Tests
-    androidTestImplementation("androidx.compose.ui:ui-test-junit4:1.2.0")
+    androidTestImplementation("androidx.compose.ui:ui-test-junit4:1.1.1")
     // Navigation
     implementation( "androidx.navigation:navigation-compose:2.5.1")
     // Live Data
     implementation ("androidx.compose.runtime:runtime-livedata:1.3.0-alpha02")
     // Icons exts
-    implementation( "androidx.compose.material:material-icons-extended:1.2.0")
+    implementation( "androidx.compose.material:material-icons-extended:1.1.1")
     // Status Bar
     implementation ("com.google.accompanist:accompanist-systemuicontroller:0.24.13-rc")
     implementation ("com.google.accompanist:accompanist-insets:0.24.13-rc")

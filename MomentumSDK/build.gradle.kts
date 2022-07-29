@@ -2,10 +2,10 @@ plugins {
     kotlin("multiplatform")
     kotlin("native.cocoapods")
     id("com.android.library")
-    kotlin("plugin.serialization")
     id( "com.squareup.sqldelight")
-
+    kotlin("plugin.serialization") version "1.7.10"
 }
+
 
 version = "1.0.0"
 
@@ -13,7 +13,7 @@ kotlin {
     android()
     iosX64()
     iosArm64()
-    iosSimulatorArm64()
+    //iosSimulatorArm64()
 
     cocoapods {
         summary = "Some description for the Shared Module"
@@ -26,6 +26,7 @@ kotlin {
     }
     
     sourceSets {
+        val ktorVersion = "2.0.3"
         val commonMain by getting {
             dependencies {
                 // Stately
@@ -33,9 +34,10 @@ kotlin {
                 implementation("co.touchlab:stately-isolate:1.2.1")
                 implementation("co.touchlab:stately-iso-collections:1.2.1")
                 // Ktor
-                implementation("io.ktor:ktor-client-core:1.6.7")
-                implementation("io.ktor:ktor-client-serialization:1.6.7")
-                implementation("io.ktor:ktor-client-logging:1.6.7")
+                implementation("io.ktor:ktor-client-core:$ktorVersion")
+                implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
+                implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
+                implementation("io.ktor:ktor-client-logging:$ktorVersion")
                 // Koin
                 implementation("io.insert-koin:koin-core:3.2.0")
                 // SQLDelight
@@ -44,8 +46,8 @@ kotlin {
                 implementation("dev.gitlive:firebase-auth:1.6.1")
                 // Kotlin Firestore
                 implementation("dev.gitlive:firebase-firestore:1.6.1")
-                // Kotlin Datetime
-                implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
+                implementation ("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.3")
+
             }
         }
         val commonTest by getting {
@@ -55,7 +57,7 @@ kotlin {
         }
         val androidMain by getting {
             dependencies {
-                implementation("io.ktor:ktor-client-okhttp:1.6.7")
+                implementation("io.ktor:ktor-client-okhttp:$ktorVersion")
                 implementation("com.squareup.sqldelight:android-driver:1.5.3")
 
             }
@@ -63,26 +65,31 @@ kotlin {
         val androidTest by getting
         val iosX64Main by getting
         val iosArm64Main by getting
-        val iosSimulatorArm64Main by getting
+        //val iosSimulatorArm64Main by getting
+
         val iosMain by creating {
             dependsOn(commonMain)
             iosX64Main.dependsOn(this)
             iosArm64Main.dependsOn(this)
-            iosSimulatorArm64Main.dependsOn(this)
+            //iosSimulatorArm64Main.dependsOn(this)
             dependencies {
-                implementation("io.ktor:ktor-client-ios:1.6.7")
+                implementation("io.ktor:ktor-client-ios:$ktorVersion")
                 implementation ("com.squareup.sqldelight:native-driver:1.5.3")
-
+                implementation ("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.3")
             }
         }
         val iosX64Test by getting
         val iosArm64Test by getting
-        val iosSimulatorArm64Test by getting
+        //val iosSimulatorArm64Test by getting
         val iosTest by creating {
             dependsOn(commonTest)
             iosX64Test.dependsOn(this)
             iosArm64Test.dependsOn(this)
-            iosSimulatorArm64Test.dependsOn(this)
+            //iosSimulatorArm64Test.dependsOn(this)
+            dependencies {
+                implementation("dev.gitlive:firebase-auth:1.6.1")
+                implementation ("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.3")
+            }
         }
     }
 
@@ -93,7 +100,7 @@ android {
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     defaultConfig {
         minSdk = 21
-        targetSdk = 32
+        targetSdk = 31
     }
 }
 

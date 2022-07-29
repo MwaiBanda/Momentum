@@ -180,8 +180,12 @@ class ProfileViewModel: ObservableObject {
         billingAddressController.updateBillingZipCodeByUserId(userId: userId, zipCode: zipCode)
     }
     
-    func deleteUser(userId: String){
-        userController.deleteUser(userID: userId)
+    func deleteUser(userId: String, onCompletion: @escaping () -> Void){
+        userController.deleteMomentumUserByUserId(userId: userId) { [unowned self] in
+            userController.deleteUser(userID: userId) {
+                onCompletion()
+            }
+        }
     }
     
     func deleteBillingAddress(userId: String) {

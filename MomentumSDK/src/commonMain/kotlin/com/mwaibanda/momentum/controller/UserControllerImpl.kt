@@ -5,8 +5,7 @@ import com.mwaibanda.momentum.data.db.DatabaseDriverFactory
 import com.mwaibanda.momentum.data.db.MomentumUser
 import com.mwaibanda.momentum.domain.controller.UserController
 import com.mwaibanda.momentum.domain.models.User
-import com.mwaibanda.momentum.domain.repository.UserRepository
-import com.mwaibanda.momentum.domain.usecase.*
+import com.mwaibanda.momentum.domain.usecase.user.*
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
@@ -17,7 +16,7 @@ class UserControllerImpl(driverFactory: DatabaseDriverFactory): UserController, 
     private val updateUserFullnameUseCase: UpdateUserFullnameUseCase by inject()
     private val updateUserEmailUseCase: UpdateUserEmailUseCase by inject()
     private val updateUserPhoneUseCase: UpdateUserPhoneUseCase by inject()
-    private val deleteUserUseCase: DeleteUserUseCase by inject()
+    private val deleteOnlineUserUseCase: DeleteRemoteUserUseCase by inject()
     private val database = Database(driverFactory)
     private val scope = MainScope()
 
@@ -132,9 +131,9 @@ class UserControllerImpl(driverFactory: DatabaseDriverFactory): UserController, 
         onCompletion()
     }
 
-    override fun deleteUser(userID: String) {
+    override fun deleteUser(userID: String, onCompletion: () -> Unit) {
         scope.launch {
-            deleteUserUseCase(userId = userID)
+            deleteOnlineUserUseCase(userId = userID)
         }
     }
 }

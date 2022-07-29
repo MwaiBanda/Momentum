@@ -1,4 +1,4 @@
-package com.mwaibanda.momentum.domain.usecase
+package com.mwaibanda.momentum.domain.usecase.auth
 
 import com.mwaibanda.momentum.domain.repository.AuthRepository
 import dev.gitlive.firebase.auth.AuthResult

@@ -1,0 +1,14 @@
+${PODS_ROOT}/Target Support Files/Pods-MomentumiOS/Pods-MomentumiOS-frameworks.sh
+${BUILT_PRODUCTS_DIR}/FirebaseAuth/FirebaseAuth.framework
+${BUILT_PRODUCTS_DIR}/FirebaseCore/FirebaseCore.framework
+${BUILT_PRODUCTS_DIR}/FirebaseCoreDiagnostics/FirebaseCoreDiagnostics.framework
+${BUILT_PRODUCTS_DIR}/FirebaseCoreInternal/FirebaseCoreInternal.framework
+${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework
+${BUILT_PRODUCTS_DIR}/GoogleDataTransport/GoogleDataTransport.framework
+${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework
+${BUILT_PRODUCTS_DIR}/PromisesObjC/FBLPromises.framework
+${BUILT_PRODUCTS_DIR}/Stripe/Stripe.framework
+${BUILT_PRODUCTS_DIR}/StripeApplePay/StripeApplePay.framework
+${BUILT_PRODUCTS_DIR}/StripeCore/StripeCore.framework
+${BUILT_PRODUCTS_DIR}/StripeUICore/StripeUICore.framework
+${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework

@@ -26,10 +26,6 @@
 		8126AF89286FF12F007DBAB9 /* MenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8126AF88286FF12F007DBAB9 /* MenuButton.swift */; };
 		8126AF8B286FFD84007DBAB9 /* BackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8126AF8A286FFD84007DBAB9 /* BackgroundView.swift */; };
 		813A97CE2889D82600377943 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 813A97CD2889D82600377943 /* GoogleService-Info.plist */; };
-		813A97D12889D93E00377943 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 813A97D02889D93E00377943 /* FirebaseAnalytics */; };
-		813A97D32889D93E00377943 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 813A97D22889D93E00377943 /* FirebaseAuth */; };
-		813A97D52889D93E00377943 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 813A97D42889D93E00377943 /* FirebaseFirestore */; };
-		813A97D72889D93E00377943 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 813A97D62889D93E00377943 /* FirebaseFirestoreSwift */; };
 		813E158F287F48F10069A6BB /* PaymentSummaryContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813E158E287F48F10069A6BB /* PaymentSummaryContentViewModel.swift */; };
 		813E775E288DC60500109C19 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813E775D288DC60500109C19 /* ProfileView.swift */; };
 		8142D16728918A24001C206A /* Provides.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8142D16628918A24001C206A /* Provides.swift */; };
@@ -38,9 +34,6 @@
 		814525F9287940DF00989B4C /* failed.json in Resources */ = {isa = PBXBuildFile; fileRef = 814525F8287940DF00989B4C /* failed.json */; };
 		814525FB287940E900989B4C /* success.json in Resources */ = {isa = PBXBuildFile; fileRef = 814525FA287940E900989B4C /* success.json */; };
 		814E5DE728778E470008BAC1 /* PaymentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 814E5DE628778E470008BAC1 /* PaymentViewModel.swift */; };
-		814E5DEC287794630008BAC1 /* Stripe in Frameworks */ = {isa = PBXBuildFile; productRef = 814E5DEB287794630008BAC1 /* Stripe */; };
-		814E5DEE287794630008BAC1 /* StripeApplePay in Frameworks */ = {isa = PBXBuildFile; productRef = 814E5DED287794630008BAC1 /* StripeApplePay */; };
-		814E5DF0287794630008BAC1 /* StripeCardScan in Frameworks */ = {isa = PBXBuildFile; productRef = 814E5DEF287794630008BAC1 /* StripeCardScan */; };
 		816CCDE1288F365600795B59 /* LinkLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816CCDE0288F365600795B59 /* LinkLabel.swift */; };
 		816CCDE328903C8C00795B59 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816CCDE228903C8C00795B59 /* SignInView.swift */; };
 		81770C222877A314008B88F6 /* UIColor+Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81770C212877A314008B88F6 /* UIColor+Swift.swift */; };
@@ -57,12 +50,17 @@
 		818A2E99288DFE5E005D7449 /* BasePlainExpandableCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818A2E98288DFE5E005D7449 /* BasePlainExpandableCard.swift */; };
 		818CA42D2890E04B001A5D4D /* Resolving.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818CA42C2890E04B001A5D4D /* Resolving.swift */; };
 		818CA42F2890E553001A5D4D /* Binds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818CA42E2890E553001A5D4D /* Binds.swift */; };
+		818E26142893B51A00749888 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 818E26132893B51A00749888 /* FirebaseAuth */; };
+		818E26162893B51A00749888 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 818E26152893B51A00749888 /* FirebaseFirestore */; };
 		819497FE288797240099B30B /* TransactionLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819497FD288797240099B30B /* TransactionLabel.swift */; };
 		819498002887B2460099B30B /* ToggleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819497FF2887B2460099B30B /* ToggleLabel.swift */; };
 		819B795028708F020010B960 /* OfferViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819B794F28708F020010B960 /* OfferViewModel.swift */; };
 		819B7952287098FA0010B960 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819B7951287098FA0010B960 /* Log.swift */; };
 		819E6161288654F0007BD761 /* TransactionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819E6160288654F0007BD761 /* TransactionView.swift */; };
 		819E616328865523007BD761 /* TransactionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819E616228865523007BD761 /* TransactionViewModel.swift */; };
+		81ABDEE72893AFC300C98645 /* Stripe in Frameworks */ = {isa = PBXBuildFile; productRef = 81ABDEE62893AFC300C98645 /* Stripe */; };
+		81ABDEE92893AFC300C98645 /* StripeApplePay in Frameworks */ = {isa = PBXBuildFile; productRef = 81ABDEE82893AFC300C98645 /* StripeApplePay */; };
+		81ABDEEB2893AFC300C98645 /* StripeCardScan in Frameworks */ = {isa = PBXBuildFile; productRef = 81ABDEEA2893AFC300C98645 /* StripeCardScan */; };
 		81B802D42877E4080008509D /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B802D32877E4080008509D /* LoadingView.swift */; };
 		81B802D62877E46A0008509D /* PaymentSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B802D52877E46A0008509D /* PaymentSummaryView.swift */; };
 		81B802D82877E7C40008509D /* PaymentResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B802D72877E7C40008509D /* PaymentResultView.swift */; };
@@ -138,6 +136,7 @@
 		819B7951287098FA0010B960 /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		819E6160288654F0007BD761 /* TransactionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionView.swift; sourceTree = "<group>"; };
 		819E616228865523007BD761 /* TransactionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionViewModel.swift; sourceTree = "<group>"; };
+		81ABDEEC2893AFE700C98645 /* MomentumiOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MomentumiOS.entitlements; sourceTree = "<group>"; };
 		81B802D32877E4080008509D /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		81B802D52877E46A0008509D /* PaymentSummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentSummaryView.swift; sourceTree = "<group>"; };
 		81B802D72877E7C40008509D /* PaymentResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentResultView.swift; sourceTree = "<group>"; };
@@ -156,15 +155,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				81ABDEEB2893AFC300C98645 /* StripeCardScan in Frameworks */,
+				818E26142893B51A00749888 /* FirebaseAuth in Frameworks */,
+				81ABDEE92893AFC300C98645 /* StripeApplePay in Frameworks */,
 				814525F528793F3300989B4C /* Lottie in Frameworks */,
-				814E5DF0287794630008BAC1 /* StripeCardScan in Frameworks */,
-				813A97D12889D93E00377943 /* FirebaseAnalytics in Frameworks */,
-				814E5DEE287794630008BAC1 /* StripeApplePay in Frameworks */,
+				81ABDEE72893AFC300C98645 /* Stripe in Frameworks */,
 				3703363E8055D813FEFB7DBA /* Pods_MomentumiOS.framework in Frameworks */,
-				813A97D52889D93E00377943 /* FirebaseFirestore in Frameworks */,
-				813A97D32889D93E00377943 /* FirebaseAuth in Frameworks */,
-				814E5DEC287794630008BAC1 /* Stripe in Frameworks */,
-				813A97D72889D93E00377943 /* FirebaseFirestoreSwift in Frameworks */,
+				818E26162893B51A00749888 /* FirebaseFirestore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -217,6 +214,7 @@
 		7555FF7D242A565900829871 /* MomentumiOS */ = {
 			isa = PBXGroup;
 			children = (
+				81ABDEEC2893AFE700C98645 /* MomentumiOS.entitlements */,
 				813A97CD2889D82600377943 /* GoogleService-Info.plist */,
 				81841AF72884C81200C42204 /* LaunchScreen.storyboard */,
 				058557BA273AAA24004C7B11 /* Assets.xcassets */,
@@ -449,14 +447,12 @@
 			);
 			name = MomentumiOS;
 			packageProductDependencies = (
-				814E5DEB287794630008BAC1 /* Stripe */,
-				814E5DED287794630008BAC1 /* StripeApplePay */,
-				814E5DEF287794630008BAC1 /* StripeCardScan */,
 				814525F428793F3300989B4C /* Lottie */,
-				813A97D02889D93E00377943 /* FirebaseAnalytics */,
-				813A97D22889D93E00377943 /* FirebaseAuth */,
-				813A97D42889D93E00377943 /* FirebaseFirestore */,
-				813A97D62889D93E00377943 /* FirebaseFirestoreSwift */,
+				81ABDEE62893AFC300C98645 /* Stripe */,
+				81ABDEE82893AFC300C98645 /* StripeApplePay */,
+				81ABDEEA2893AFC300C98645 /* StripeCardScan */,
+				818E26132893B51A00749888 /* FirebaseAuth */,
+				818E26152893B51A00749888 /* FirebaseFirestore */,
 			);
 			productName = MomentumiOS;
 			productReference = 7555FF7B242A565900829871 /* MomentumiOS.app */;
@@ -487,8 +483,8 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1340;
-				LastUpgradeCheck = 1130;
-				ORGANIZATIONNAME = orgName;
+				LastUpgradeCheck = 1340;
+				ORGANIZATIONNAME = Momentum;
 				TargetAttributes = {
 					7555FF7A242A565900829871 = {
 						CreatedOnToolsVersion = 11.3.1;
@@ -509,9 +505,9 @@
 			);
 			mainGroup = 7555FF72242A565900829871;
 			packageReferences = (
-				814E5DEA287794630008BAC1 /* XCRemoteSwiftPackageReference "stripe-ios" */,
 				814525F328793F3300989B4C /* XCRemoteSwiftPackageReference "lottie-ios" */,
-				813A97CF2889D93E00377943 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				81ABDEE52893AFC300C98645 /* XCRemoteSwiftPackageReference "stripe-ios" */,
+				818E26122893B51A00749888 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 7555FF7C242A565900829871 /* Products */;
 			projectDirPath = "";
@@ -683,6 +679,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_BITCODE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -746,6 +743,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -761,7 +759,7 @@
 				MTL_FAST_MATH = YES;
 				OTHER_LDFLAGS = "-lsqlite3";
 				SDKROOT = iphoneos;
-				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -772,9 +770,11 @@
 			baseConfigurationReference = 8FCA518C1E38B3D34FB9D1EF /* Pods-MomentumiOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = MomentumiOS/MomentumiOS.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"MomentumiOS/Preview Content\"";
 				DEVELOPMENT_TEAM = 2HB3YHCHVH;
+				ENABLE_BITCODE = NO;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = MomentumiOS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -785,7 +785,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.mwaibanda.MomentumiOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -794,9 +794,11 @@
 			baseConfigurationReference = 06D68FEC8ABE2B8A7159EAFB /* Pods-MomentumiOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = MomentumiOS/MomentumiOS.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"MomentumiOS/Preview Content\"";
 				DEVELOPMENT_TEAM = 2HB3YHCHVH;
+				ENABLE_BITCODE = NO;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = MomentumiOS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -807,7 +809,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.mwaibanda.MomentumiOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -885,14 +887,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		813A97CF2889D93E00377943 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
-			requirement = {
-				branch = master;
-				kind = branch;
-			};
-		};
 		814525F328793F3300989B4C /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/airbnb/lottie-ios.git";
@@ -901,7 +895,15 @@
 				kind = branch;
 			};
 		};
-		814E5DEA287794630008BAC1 /* XCRemoteSwiftPackageReference "stripe-ios" */ = {
+		818E26122893B51A00749888 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+		81ABDEE52893AFC300C98645 /* XCRemoteSwiftPackageReference "stripe-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/stripe/stripe-ios";
 			requirement = {
@@ -912,44 +914,34 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		813A97D02889D93E00377943 /* FirebaseAnalytics */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 813A97CF2889D93E00377943 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseAnalytics;
-		};
-		813A97D22889D93E00377943 /* FirebaseAuth */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 813A97CF2889D93E00377943 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseAuth;
-		};
-		813A97D42889D93E00377943 /* FirebaseFirestore */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 813A97CF2889D93E00377943 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseFirestore;
-		};
-		813A97D62889D93E00377943 /* FirebaseFirestoreSwift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 813A97CF2889D93E00377943 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseFirestoreSwift;
-		};
 		814525F428793F3300989B4C /* Lottie */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 814525F328793F3300989B4C /* XCRemoteSwiftPackageReference "lottie-ios" */;
 			productName = Lottie;
 		};
-		814E5DEB287794630008BAC1 /* Stripe */ = {
+		818E26132893B51A00749888 /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 814E5DEA287794630008BAC1 /* XCRemoteSwiftPackageReference "stripe-ios" */;
+			package = 818E26122893B51A00749888 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		818E26152893B51A00749888 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 818E26122893B51A00749888 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		81ABDEE62893AFC300C98645 /* Stripe */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 81ABDEE52893AFC300C98645 /* XCRemoteSwiftPackageReference "stripe-ios" */;
 			productName = Stripe;
 		};
-		814E5DED287794630008BAC1 /* StripeApplePay */ = {
+		81ABDEE82893AFC300C98645 /* StripeApplePay */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 814E5DEA287794630008BAC1 /* XCRemoteSwiftPackageReference "stripe-ios" */;
+			package = 81ABDEE52893AFC300C98645 /* XCRemoteSwiftPackageReference "stripe-ios" */;
 			productName = StripeApplePay;
 		};
-		814E5DEF287794630008BAC1 /* StripeCardScan */ = {
+		81ABDEEA2893AFC300C98645 /* StripeCardScan */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 814E5DEA287794630008BAC1 /* XCRemoteSwiftPackageReference "stripe-ios" */;
+			package = 81ABDEE52893AFC300C98645 /* XCRemoteSwiftPackageReference "stripe-ios" */;
 			productName = StripeCardScan;
 		};
 /* End XCSwiftPackageProductDependency section */

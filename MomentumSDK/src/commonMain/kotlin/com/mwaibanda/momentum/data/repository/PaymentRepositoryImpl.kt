@@ -5,6 +5,7 @@ import com.mwaibanda.momentum.domain.models.PaymentRequest
 import com.mwaibanda.momentum.domain.models.PaymentResponse
 import com.mwaibanda.momentum.domain.repository.PaymentRepository
 import io.ktor.client.*
+import io.ktor.client.call.*
 import io.ktor.client.request.*
 import io.ktor.http.*
 
@@ -16,8 +17,8 @@ internal class PaymentRepositoryImpl(
         val response: PaymentResponse = httpClient.post {
             momentumAPI(PAYMENT_ENDPOINT)
             contentType(ContentType.Application.Json)
-            body = paymentRequest
-        }
+            setBody(paymentRequest)
+        }.body()
         return response
     }
 }

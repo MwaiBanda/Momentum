@@ -10,7 +10,7 @@ internal class AuthRepositoryImpl(
 ): AuthRepository {
     override suspend fun signInWithEmail(email: String, password: String): AuthResult {
         if (firebaseAuth.currentUser != null && (firebaseAuth.currentUser?.isAnonymous == true))
-            firebaseAuth.currentUser?.delete()
+            deleteUser()
         return firebaseAuth.signInWithEmailAndPassword(email = email, password = password)
     }
 
@@ -23,5 +23,16 @@ internal class AuthRepositoryImpl(
 
     override suspend fun signInAsGuest(): AuthResult {
         return firebaseAuth.signInAnonymously()
+    }
+
+    override suspend fun isUserSignedIn(): Boolean {
+        return (firebaseAuth.currentUser != null)
+    }
+    override suspend fun deleteUser() {
+        firebaseAuth.currentUser?.delete()
+    }
+
+    override suspend fun signOut() {
+        firebaseAuth.signOut()
     }
 }

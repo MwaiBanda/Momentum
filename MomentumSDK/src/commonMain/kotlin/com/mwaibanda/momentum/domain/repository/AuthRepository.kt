@@ -7,4 +7,7 @@ interface AuthRepository {
     suspend fun signInWithEmail(email: String, password: String): AuthResult
     suspend fun signUpWithEmail(email: String, password: String): AuthResult
     suspend fun signInAsGuest(): AuthResult
+    suspend fun isUserSignedIn(): Boolean
+    suspend fun deleteUser()
+    suspend fun signOut()
 }

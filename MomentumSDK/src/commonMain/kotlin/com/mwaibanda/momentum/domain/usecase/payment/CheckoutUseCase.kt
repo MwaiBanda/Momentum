@@ -1,4 +1,4 @@
-package com.mwaibanda.momentum.domain.usecase
+package com.mwaibanda.momentum.domain.usecase.payment
 
 import com.mwaibanda.momentum.domain.models.PaymentRequest
 import com.mwaibanda.momentum.domain.models.PaymentResponse

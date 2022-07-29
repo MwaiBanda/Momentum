@@ -71,7 +71,17 @@ final class Session: ObservableObject {
             onCompletion()
         }
     }
-    
+    func signInAsGuest() {
+        authController.signInAsGuest { res in
+            if let user = res.user {
+                self.currentUser = User(
+                    email: user.email ?? "",
+                    id: user.uid,
+                    isGuest: user.isAnonymous
+                )
+            }
+        }
+    }
     func checkAndSignInAsGuest() {
         authController.checkAuthAndSignAsGuest(onCompletion: { res in
             if let user = res.user {
@@ -84,8 +94,13 @@ final class Session: ObservableObject {
         })
     }
     
+    func deleteCurrentUser(onCompletion: @escaping () -> Void){
+        authController.deleteUser()
+        onCompletion()
+    }
+    
     func signOut(onCompletion: @escaping () -> Void) {
-        authController.logOut()
+        authController.signOut()
         onCompletion()
     }
     

@@ -1,9 +1,7 @@
 package com.mwaibanda.momentum.controller
 
 import com.mwaibanda.momentum.domain.controller.AuthController
-import com.mwaibanda.momentum.domain.usecase.SignInAsGuestUseCase
-import com.mwaibanda.momentum.domain.usecase.SignInWithEmailUseCase
-import com.mwaibanda.momentum.domain.usecase.SignUpWithEmailUseCase
+import com.mwaibanda.momentum.domain.usecase.auth.*
 import dev.gitlive.firebase.auth.AuthResult
 import dev.gitlive.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.MainScope
@@ -12,10 +10,12 @@ import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
 class AuthControllerImpl: AuthController, KoinComponent {
-    private val firebaseAuth: FirebaseAuth by inject()
     private val signInWithEmailUseCase: SignInWithEmailUseCase by inject()
     private val signUpWithEmailUseCase: SignUpWithEmailUseCase by inject()
     private val signInAsGuestUseCase: SignInAsGuestUseCase by inject()
+    private val isUserSignedInUseCase: IsUserSignedInUseCase by inject()
+    private val deleteUserUseCase: DeleteUserUseCase by inject()
+    private val signOutUseCase: SignOutUseCase by inject()
     private val scope = MainScope()
 
     override fun signInWithEmail(
@@ -50,17 +50,31 @@ class AuthControllerImpl: AuthController, KoinComponent {
         }
     }
 
+    override fun isUserSignedIn(onCompletion: (Boolean) -> Unit)  {
+        scope.launch {
+            onCompletion(isUserSignedInUseCase())
+        }
+    }
+
     override fun checkAuthAndSignAsGuest(onCompletion: (AuthResult) -> Unit) {
-        if (firebaseAuth.currentUser == null) {
-            signInAsGuest {
-                onCompletion(it)
+        isUserSignedIn { isSignedIn ->
+            if (isSignedIn.not()) {
+                signInAsGuest {
+                    onCompletion(it)
+                }
             }
         }
     }
 
-    override fun logOut(){
+    override fun deleteUser() {
         scope.launch {
-            firebaseAuth.signOut()
+            deleteUserUseCase()
+        }
+    }
+
+    override fun signOut(){
+        scope.launch {
+            signOutUseCase()
         }
     }
 }

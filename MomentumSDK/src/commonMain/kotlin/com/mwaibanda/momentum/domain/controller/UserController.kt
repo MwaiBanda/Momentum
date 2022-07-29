@@ -39,5 +39,5 @@ interface UserController {
     )
     fun updatePhoneByUserId(userId: String, phone: String)
     fun deleteMomentumUserByUserId(userId: String, onCompletion: () -> Unit)
-    fun deleteUser(userID: String)
+    fun deleteUser(userID: String, onCompletion: () -> Unit)
 }

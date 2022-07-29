@@ -1,4 +1,4 @@
-package com.mwaibanda.momentum.domain.usecase
+package com.mwaibanda.momentum.domain.usecase.user
 
 import com.mwaibanda.momentum.domain.repository.UserRepository
 

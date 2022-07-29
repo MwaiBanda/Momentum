@@ -7,5 +7,7 @@ interface AuthController {
     fun signUpWithEmail(email: String, password: String, onCompletion: (AuthResult) -> Unit)
     fun signInAsGuest(onCompletion: (AuthResult) -> Unit)
     fun checkAuthAndSignAsGuest(onCompletion: (AuthResult) -> Unit)
-    fun logOut()
+    fun isUserSignedIn(onCompletion: (Boolean) -> Unit)
+    fun deleteUser()
+    fun signOut()
 }

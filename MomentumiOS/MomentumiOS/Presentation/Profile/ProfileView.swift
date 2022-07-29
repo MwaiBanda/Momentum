@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import MomentumSDK
 
 struct ProfileView: View {
     @Environment(\.presentationMode) var presentationMode
@@ -190,7 +191,12 @@ struct ProfileView: View {
                                 showAlert.toggle()
                             }),
                             secondaryButton: .destructive(Text("Delete"), action: {
-                                // Delete a/c
+                                profileViewModel.deleteUser(userId: session.currentUser?.id ?? "") {
+                                    session.deleteCurrentUser {
+                                        session.signInAsGuest()
+                                        presentationMode.wrappedValue.dismiss()
+                                    }
+                                }
                             })
                         )
                     }
@@ -217,11 +223,14 @@ struct ProfileView: View {
                                     .multilineTextAlignment(.leading)
                                     .lineSpacing(5)
                                 LinkLabel(title: "Technical Support", description: "Developer Phone") {
-                                    
+                                    guard let url =  URL(string: "tel:\(MultiplatformConstants.shared.DEVELOPER_PHONE)") else { return }
+                                    UIApplication.shared.open(url)
                                 }.padding(.vertical, 10)
                                 
                                 LinkLabel(title: "Technical Support", description: "Developer Email") {
-                                    
+                                    let mailSubject = "?subject=Technical Support".replacingOccurrences(of: " ", with: "%20")
+                                    guard let url =  URL(string: "mailto:\(MultiplatformConstants.shared.DEVELOPER_EMAIL)" + mailSubject) else { return }
+                                    UIApplication.shared.open(url)
                                 }.padding(.bottom, 10)
                             }
                         }, onCoverClick: {
@@ -259,7 +268,9 @@ struct ProfileView: View {
                                     .multilineTextAlignment(.leading)
                                     .lineSpacing(5)
                                 LinkLabel(title: "Feedback", description: "Developer") {
-                                    
+                                    let mailSubject = "?subject=Developer Feedback".replacingOccurrences(of: " ", with: "%20")
+                                    guard let url =  URL(string: "mailto:\(MultiplatformConstants.shared.DEVELOPER_EMAIL)" + mailSubject) else { return }
+                                    UIApplication.shared.open(url)
                                 }.padding(.vertical, 10)
                             }
                         }, onCoverClick: {
@@ -300,11 +311,17 @@ struct ProfileView: View {
                                         .lineSpacing(5)
                                     
                                     LinkLabel(title: "Momentum Phone", description: "Church Phone") {
-                                        
+                                        guard let url =  URL(string: "tel:\(MultiplatformConstants.shared.CHURCH_PHONE)") else { return }
+                                        UIApplication.shared.open(url)
                                     }.padding(.vertical, 10)
-                                    
+                                    LinkLabel(title: "Momentum Phone", description: "Emergency Phone") {
+                                        guard let url =  URL(string: "tel:\(MultiplatformConstants.shared.CHURCH_EMERGENCY_PHONE)") else { return }
+                                        UIApplication.shared.open(url)
+                                    }.padding(.bottom, 10)
                                     LinkLabel(title: "Momentum Email", description: "Church Email") {
-                                        
+                                        let mailSubject = "?subject=Developer Feedback".replacingOccurrences(of: " ", with: "%20")
+                                        guard let url =  URL(string: "mailto:\(MultiplatformConstants.shared.CHURCH_EMAIL)" + mailSubject) else { return }
+                                        UIApplication.shared.open(url)
                                     }.padding(.bottom, 10)
                                     Text("Copyright **©** 2022 Momentum. All rights reserved.")
                                 }.padding()
@@ -330,7 +347,7 @@ struct ProfileView: View {
                 Button {
                     session.signOut {
                         presentationMode.wrappedValue.dismiss()
-                        session.checkAndSignInAsGuest()
+                        session.signInAsGuest()
                     }
                 } label: {
                     Text("Sign Out")
