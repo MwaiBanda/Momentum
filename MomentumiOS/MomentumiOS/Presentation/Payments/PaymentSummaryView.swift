@@ -36,11 +36,10 @@ struct PaymentSummaryView: View {
                                 .frame(width: screenBounds.width - 30, height: 55)
                         }.buttonStyle(FilledButtonStyle())
                         Divider()
-                        
+
                     }
-                    .navigationTitle(paymentViewModel.isNavTitleHidden ? "" : "Payment Summary")
-                    .navigationBarBackButtonHidden(false)
-                    
+                        .navigationTitle(paymentViewModel.isNavTitleHidden ? "" : "Payment Summary")
+                        .navigationBarBackButtonHidden(false)
                 } else {
                     LoadingView()
                         .navigationBarBackButtonHidden(true)
@@ -71,6 +70,7 @@ struct PaymentSummaryView: View {
                 
             }
         }
+
     }
    
 }

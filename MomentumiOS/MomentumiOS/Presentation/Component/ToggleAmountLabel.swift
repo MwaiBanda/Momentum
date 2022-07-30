@@ -48,17 +48,27 @@ struct ToggleAmountLabel: View {
                     .bold()
                 TextField("", text: $amount, onEditingChanged: { isTyping in
                     onAmountChanged(amount)
+                    Log.d(tag: "ToggleLabel/Amount", message: "Amount changed \(title):\(amount)")
                 })
                 .font(.headline)
+                .textContentType(.oneTimeCode)
+                .keyboardType(.numberPad)
                 .fixedSize()
-                .frame(minWidth: 20, alignment: .leading)
+                .frame(minWidth: 30, alignment: .leading)
+                .textFieldFocusableArea()
                 .disabled(!isSelected)
             }.opacity(showLabel ? 1 : 0)
             
-        }.padding()
-            .onAppear {
-                amount = initialAmount
-            }
+        }
+        .padding()
+        .onAppear {
+            amount = initialAmount
+            
+        }
+    
+    }
+    func commitAmountChanged() {
+        onAmountChanged(amount)
     }
 }
 

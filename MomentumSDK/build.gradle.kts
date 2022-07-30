@@ -3,7 +3,7 @@ plugins {
     kotlin("native.cocoapods")
     id("com.android.library")
     id( "com.squareup.sqldelight")
-    kotlin("plugin.serialization") version "1.7.10"
+    kotlin("plugin.serialization") version "1.7.0"
 }
 
 
@@ -13,7 +13,7 @@ kotlin {
     android()
     iosX64()
     iosArm64()
-    //iosSimulatorArm64()
+    iosSimulatorArm64()
 
     cocoapods {
         summary = "Some description for the Shared Module"
@@ -26,7 +26,10 @@ kotlin {
     }
     
     sourceSets {
-        val ktorVersion = "2.0.3"
+        val ktorVersion = "2.0.2"
+        val serialization = "1.3.2"
+        val firebase = "1.6.1"
+        val sqlDelight = "1.5.3"
         val commonMain by getting {
             dependencies {
                 // Stately
@@ -41,12 +44,12 @@ kotlin {
                 // Koin
                 implementation("io.insert-koin:koin-core:3.2.0")
                 // SQLDelight
-                implementation("com.squareup.sqldelight:runtime:1.5.3")
+                implementation("com.squareup.sqldelight:runtime:$sqlDelight")
                 // Kotlin FirebaseAuth
-                implementation("dev.gitlive:firebase-auth:1.6.1")
+                implementation("dev.gitlive:firebase-auth:$firebase")
                 // Kotlin Firestore
-                implementation("dev.gitlive:firebase-firestore:1.6.1")
-                implementation ("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.3")
+                implementation("dev.gitlive:firebase-firestore:$firebase")
+                implementation ("org.jetbrains.kotlinx:kotlinx-serialization-json:$serialization")
 
             }
         }
@@ -58,37 +61,37 @@ kotlin {
         val androidMain by getting {
             dependencies {
                 implementation("io.ktor:ktor-client-okhttp:$ktorVersion")
-                implementation("com.squareup.sqldelight:android-driver:1.5.3")
+                implementation("com.squareup.sqldelight:android-driver:$sqlDelight")
 
             }
         }
         val androidTest by getting
         val iosX64Main by getting
         val iosArm64Main by getting
-        //val iosSimulatorArm64Main by getting
+        val iosSimulatorArm64Main by getting
 
         val iosMain by creating {
             dependsOn(commonMain)
             iosX64Main.dependsOn(this)
             iosArm64Main.dependsOn(this)
-            //iosSimulatorArm64Main.dependsOn(this)
+            iosSimulatorArm64Main.dependsOn(this)
             dependencies {
                 implementation("io.ktor:ktor-client-ios:$ktorVersion")
-                implementation ("com.squareup.sqldelight:native-driver:1.5.3")
-                implementation ("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.3")
+                implementation ("com.squareup.sqldelight:native-driver:$sqlDelight")
+                implementation ("org.jetbrains.kotlinx:kotlinx-serialization-json:$serialization")
             }
         }
         val iosX64Test by getting
         val iosArm64Test by getting
-        //val iosSimulatorArm64Test by getting
+        val iosSimulatorArm64Test by getting
         val iosTest by creating {
             dependsOn(commonTest)
             iosX64Test.dependsOn(this)
             iosArm64Test.dependsOn(this)
-            //iosSimulatorArm64Test.dependsOn(this)
+            iosSimulatorArm64Test.dependsOn(this)
             dependencies {
-                implementation("dev.gitlive:firebase-auth:1.6.1")
-                implementation ("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.3")
+                implementation("dev.gitlive:firebase-auth:$firebase")
+                implementation ("org.jetbrains.kotlinx:kotlinx-serialization-json:$serialization")
             }
         }
     }

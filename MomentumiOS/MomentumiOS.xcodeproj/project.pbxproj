@@ -44,6 +44,8 @@
 		8182E77C288B9CC100A9CF9D /* PasswordTextfield.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8182E77B288B9CC100A9CF9D /* PasswordTextfield.swift */; };
 		81841AF82884C81200C42204 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81841AF72884C81200C42204 /* LaunchScreen.storyboard */; };
 		8184A3D9288B85FF00083399 /* NavConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8184A3D8288B85FF00083399 /* NavConfiguration.swift */; };
+		8186F1EE2894E84E00FEA781 /* KeyboardToolbar in Frameworks */ = {isa = PBXBuildFile; productRef = 8186F1ED2894E84E00FEA781 /* KeyboardToolbar */; };
+		8186F1F12894EA0700FEA781 /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = 8186F1F02894EA0700FEA781 /* Introspect */; };
 		81888DF1288A0FDD00752590 /* Resolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81888DF0288A0FDD00752590 /* Resolver.swift */; };
 		81888DF3288A11EE00752590 /* Inject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81888DF2288A11EE00752590 /* Inject.swift */; };
 		81888DF6288A12F200752590 /* DiRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81888DF5288A12F200752590 /* DiRegistry.swift */; };
@@ -156,8 +158,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				81ABDEEB2893AFC300C98645 /* StripeCardScan in Frameworks */,
+				8186F1F12894EA0700FEA781 /* Introspect in Frameworks */,
 				818E26142893B51A00749888 /* FirebaseAuth in Frameworks */,
 				81ABDEE92893AFC300C98645 /* StripeApplePay in Frameworks */,
+				8186F1EE2894E84E00FEA781 /* KeyboardToolbar in Frameworks */,
 				814525F528793F3300989B4C /* Lottie in Frameworks */,
 				81ABDEE72893AFC300C98645 /* Stripe in Frameworks */,
 				3703363E8055D813FEFB7DBA /* Pods_MomentumiOS.framework in Frameworks */,
@@ -453,6 +457,8 @@
 				81ABDEEA2893AFC300C98645 /* StripeCardScan */,
 				818E26132893B51A00749888 /* FirebaseAuth */,
 				818E26152893B51A00749888 /* FirebaseFirestore */,
+				8186F1ED2894E84E00FEA781 /* KeyboardToolbar */,
+				8186F1F02894EA0700FEA781 /* Introspect */,
 			);
 			productName = MomentumiOS;
 			productReference = 7555FF7B242A565900829871 /* MomentumiOS.app */;
@@ -508,6 +514,8 @@
 				814525F328793F3300989B4C /* XCRemoteSwiftPackageReference "lottie-ios" */,
 				81ABDEE52893AFC300C98645 /* XCRemoteSwiftPackageReference "stripe-ios" */,
 				818E26122893B51A00749888 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				8186F1EC2894E84D00FEA781 /* XCRemoteSwiftPackageReference "KeyboardToolbar" */,
+				8186F1EF2894EA0700FEA781 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */,
 			);
 			productRefGroup = 7555FF7C242A565900829871 /* Products */;
 			projectDirPath = "";
@@ -772,6 +780,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = MomentumiOS/MomentumiOS.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"MomentumiOS/Preview Content\"";
 				DEVELOPMENT_TEAM = 2HB3YHCHVH;
 				ENABLE_BITCODE = NO;
@@ -796,6 +805,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = MomentumiOS/MomentumiOS.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"MomentumiOS/Preview Content\"";
 				DEVELOPMENT_TEAM = 2HB3YHCHVH;
 				ENABLE_BITCODE = NO;
@@ -895,6 +905,22 @@
 				kind = branch;
 			};
 		};
+		8186F1EC2894E84D00FEA781 /* XCRemoteSwiftPackageReference "KeyboardToolbar" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/cameronshemilt/KeyboardToolbar";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+		8186F1EF2894EA0700FEA781 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/siteline/SwiftUI-Introspect.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		818E26122893B51A00749888 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
@@ -918,6 +944,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 814525F328793F3300989B4C /* XCRemoteSwiftPackageReference "lottie-ios" */;
 			productName = Lottie;
+		};
+		8186F1ED2894E84E00FEA781 /* KeyboardToolbar */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8186F1EC2894E84D00FEA781 /* XCRemoteSwiftPackageReference "KeyboardToolbar" */;
+			productName = KeyboardToolbar;
+		};
+		8186F1F02894EA0700FEA781 /* Introspect */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8186F1EF2894EA0700FEA781 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */;
+			productName = Introspect;
 		};
 		818E26132893B51A00749888 /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;

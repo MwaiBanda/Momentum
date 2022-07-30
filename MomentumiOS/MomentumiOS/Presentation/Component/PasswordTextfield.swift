@@ -25,7 +25,6 @@ struct PasswordTextfield: View {
                             .padding(.leading, 24)
                     }
                     .padding(.leading, 24)
-                    .textContentType(.username)
                     .disableAutocorrection(true)
                     .keyboardType(.emailAddress)
                     .autocapitalization(.none)

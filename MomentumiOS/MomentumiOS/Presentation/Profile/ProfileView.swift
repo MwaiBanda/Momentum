@@ -8,6 +8,7 @@
 
 import SwiftUI
 import MomentumSDK
+import KeyboardToolbar
 
 struct ProfileView: View {
     @Environment(\.presentationMode) var presentationMode
@@ -63,6 +64,8 @@ struct ProfileView: View {
                                 TitledTextField(title: "phone", text: $profileViewModel.phone) {
                                     profileViewModel.updatePhone(userId: session.currentUser?.id ?? "")
                                 }
+                                .textContentType(.oneTimeCode)
+                                .keyboardType(.numberPad)
                                 Divider()
                                 TitledTextField(title: "email", text: $profileViewModel.email) {
                                     profileViewModel.updateEmail(userId: session.currentUser?.id ?? "")
@@ -118,6 +121,8 @@ struct ProfileView: View {
                                 TitledTextField(title: "zip code", text: $profileViewModel.zipCode) {
                                     profileViewModel.updateZipCode(userId: session.currentUser?.id ?? "")
                                 }
+                                .textContentType(.oneTimeCode)
+                                .keyboardType(.numberPad)
                             }
                         }, onCoverClick: {
                             profileViewModel.cardToggle(card: .billingInfo)
@@ -193,8 +198,9 @@ struct ProfileView: View {
                             secondaryButton: .destructive(Text("Delete"), action: {
                                 profileViewModel.deleteUser(userId: session.currentUser?.id ?? "") {
                                     session.deleteCurrentUser {
-                                        session.signInAsGuest()
-                                        presentationMode.wrappedValue.dismiss()
+                                        popNavigation {
+                                            session.signInAsGuest()
+                                        }
                                     }
                                 }
                             })
@@ -394,7 +400,10 @@ struct ProfileView: View {
         }
         
     }
-    
+    func popNavigation(onCompletion: @escaping () -> Void) {
+        presentationMode.wrappedValue.dismiss()
+        onCompletion()
+    }
 }
 
 struct AccountView_Previews: PreviewProvider {

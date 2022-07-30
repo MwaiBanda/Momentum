@@ -12,7 +12,7 @@ import MomentumSDK
 struct PaymentSummaryContentView: View {
     @ObservedObject var offerViewModel: OfferViewModel
     @ObservedObject var contentViewModel: PaymentSummaryContentViewModel
-    
+
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             Text("SELECT MULTIPLE OPTIONS TO EDIT AMOUNTS")
@@ -130,7 +130,8 @@ struct PaymentSummaryContentView: View {
                 }.padding()
                 Divider()
             }
-        }.onAppear{
+        }
+        .onAppear{
             contentViewModel.totalAmount = offerViewModel.isDecimalMode ? String(offerViewModel.number.dropLast(3)) :  offerViewModel.number
         }
     }

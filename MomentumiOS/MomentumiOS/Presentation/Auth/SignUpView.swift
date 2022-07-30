@@ -58,6 +58,7 @@ struct SignUpView: View {
                             .foregroundColor(Color.white)
                         
                     )
+                    .textContentType(.name)
                     .ignoresSafeArea(.keyboard, edges: .bottom)
                     .padding(.horizontal)
                 Divider()
@@ -74,6 +75,8 @@ struct SignUpView: View {
                         
                     }
                     .foregroundColor(.white)
+                    .textContentType(.oneTimeCode)
+                    .keyboardType(.numberPad)
                     .overlay(
                         HStack{
                             Image(systemName: "phone")
@@ -106,6 +109,7 @@ struct SignUpView: View {
                             .foregroundColor(Color.white)
                         
                     )
+                    .textContentType(.emailAddress)
                     .disableAutocorrection(true)
                     .autocapitalization(.none)
                     .ignoresSafeArea(.keyboard, edges: .bottom)
@@ -117,7 +121,8 @@ struct SignUpView: View {
                 
                 PasswordTextfield(password: $password, placeholder: "Password") {
                     
-                }
+                }                    .textContentType(.newPassword)
+
                 .padding(.horizontal)
                 .matchedGeometryEffect(id: "password", in: namespace)
                 Divider()
@@ -126,6 +131,8 @@ struct SignUpView: View {
                 PasswordTextfield(password: $confirmPassword, placeholder: "Confirm Password") {
                     
                 }
+                .textContentType(.newPassword)
+
                 .padding(.horizontal)
                 Divider()
                     .overlay(Color(.white).opacity(0.5))

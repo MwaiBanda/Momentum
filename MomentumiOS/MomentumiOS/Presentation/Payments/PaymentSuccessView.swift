@@ -24,8 +24,7 @@ struct PaymentSuccessView: View {
             Text("""
                 Your payment has been made successfully.
                 For more details. Check the transactions
-                tab to see or give again, in the Accounts
-                section.
+                tab to see or give again, on the Homepage.
                 """)
                 .multilineTextAlignment(.center)
                 .padding()

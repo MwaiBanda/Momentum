@@ -7,6 +7,7 @@
 //
 
 import XCTest
+@testable import MomentumiOS
 
 class MomentumiOSTests: XCTestCase {
 

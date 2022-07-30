@@ -9,7 +9,7 @@ import SwiftUI
 import AVFoundation
 import SwiftUI
 import StoreKit
-
+import KeyboardToolbar
 
 struct ContentWrapper<Content: View>: View {
     @State var showMenu = false
@@ -84,6 +84,7 @@ struct ContentWrapper<Content: View>: View {
             }
             .navigationBarHidden(navConfiguration == .defaultConfig)
         }
+        .keyboardToolbar([.dismissKeyboard])
     }
 }
 

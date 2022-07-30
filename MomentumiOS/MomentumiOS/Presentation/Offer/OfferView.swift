@@ -12,7 +12,7 @@ struct OfferView: View {
     @EnvironmentObject var session: Session
     @StateObject private var offerViewModel = OfferViewModel()
     @State private var showAuthSheet = false
-    
+
     var body: some View {
         VStack {
             Spacer()

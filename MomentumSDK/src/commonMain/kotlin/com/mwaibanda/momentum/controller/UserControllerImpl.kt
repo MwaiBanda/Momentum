@@ -134,6 +134,7 @@ class UserControllerImpl(driverFactory: DatabaseDriverFactory): UserController, 
     override fun deleteUser(userID: String, onCompletion: () -> Unit) {
         scope.launch {
             deleteOnlineUserUseCase(userId = userID)
+            onCompletion()
         }
     }
 }
