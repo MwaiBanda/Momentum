@@ -19,7 +19,7 @@ struct PaymentFailureView: View {
         Text("Payment Failed")
             .fontWeight(.heavy)
             .font(.system(size: 24))
-            .foregroundColor(Color(hex: Constants.momentumOrange))
+            .foregroundColor(Color(hex: Constants.MOMENTUM_ORANGE))
             Text("""
                 Your payment hasn't been made successfully.
                 Try again to proceed with making a payment.

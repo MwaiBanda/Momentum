@@ -24,6 +24,7 @@ import com.mwaibanda.momentum.android.presentation.offer.OfferScreen
 import com.mwaibanda.momentum.android.presentation.payment.PaymentFailureScreen
 import com.mwaibanda.momentum.android.presentation.payment.PaymentSuccessScreen
 import com.mwaibanda.momentum.android.presentation.payment.PaymentSummaryScreen
+import com.mwaibanda.momentum.android.presentation.profie.ProfileScreen
 import com.mwaibanda.momentum.android.presentation.transaction.TransactionScreen
 import com.mwaibanda.momentum.utils.MultiplatformConstants
 import com.stripe.android.paymentsheet.PaymentSheet
@@ -54,6 +55,9 @@ class MainActivity : BaseActivity() {
                                     navController = navController,
                                     offerViewModel = getViewModel()
                                 )
+                            }
+                            composable(ProfileScreen.route) {
+                                ProfileScreen()
                             }
                             composable(PaymentSuccessScreen.route) {
                                 PaymentSuccessScreen(navController = navController)

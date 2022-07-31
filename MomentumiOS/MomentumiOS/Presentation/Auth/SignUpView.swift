@@ -137,7 +137,7 @@ struct SignUpView: View {
                 Divider()
                     .overlay(Color(.white).opacity(0.5))
                     .padding(.vertical)
-            }.accentColor(Color(hex: Constants.momentumOrange))
+            }.accentColor(Color(hex: Constants.MOMENTUM_ORANGE))
             Spacer()
             HStack {
                 Spacer()

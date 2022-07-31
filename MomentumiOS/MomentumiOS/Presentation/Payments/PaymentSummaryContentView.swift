@@ -17,7 +17,7 @@ struct PaymentSummaryContentView: View {
         VStack(alignment: .leading, spacing: 0) {
             Text("SELECT MULTIPLE OPTIONS TO EDIT AMOUNTS")
                 .font(.caption)
-                .foregroundColor(Color(hex: Constants.momentumOrange))
+                .foregroundColor(Color(hex: Constants.MOMENTUM_ORANGE))
                 .padding(.leading)
             VStack {
                 

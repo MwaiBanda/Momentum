@@ -13,7 +13,7 @@ struct FilledButtonStyle: ButtonStyle {
         configuration.label
             .font(.headline)
             .foregroundColor(.white)
-            .background(Color(hex: Constants.momentumOrange))
+            .background(Color(hex: Constants.MOMENTUM_ORANGE))
             .cornerRadius(10)
     }
 }

@@ -39,7 +39,7 @@ struct BottomTabBar: View {
             }
             
         }
-        .accentColor(Color(hex: Constants.momentumOrange))
+        .accentColor(Color(hex: Constants.MOMENTUM_ORANGE))
     }
 }
 

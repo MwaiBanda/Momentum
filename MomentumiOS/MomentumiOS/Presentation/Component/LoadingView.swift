@@ -16,7 +16,7 @@ struct LoadingView: View {
                 .progressViewStyle(
                     CircularProgressViewStyle(
                         tint: Color(
-                            hex: Constants.momentumOrange
+                            hex: Constants.MOMENTUM_ORANGE
                         )
                     )
                 )

@@ -13,6 +13,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.mwaibanda.momentum.android.core.utils.Constants
 import com.mwaibanda.momentum.android.core.utils.NavigationRoutes
 import com.mwaibanda.momentum.android.presentation.components.BottomSpacing
 import com.mwaibanda.momentum.android.presentation.transaction.TransactionViewModel
@@ -74,6 +75,12 @@ fun PaymentSummaryScreen(
                     modifier = Modifier.padding(10.dp)
                 )
                 Divider()
+                Text(
+                    text = "Select multiple options to edit amounts".uppercase(),
+                    style = MaterialTheme.typography.caption,
+                    modifier = Modifier.padding(horizontal = 10.dp),
+                    color = Color(Constants.MomentumOrange)
+                )
             }
             PaymentSummaryContentScreen(amount = amount.toInt(), contentViewModel = contentViewModel)
         }

@@ -39,7 +39,7 @@ final class PaymentViewModel : ObservableObject {
         paymentController.checkout(request: request) { response in
             STPAPIClient.shared.publishableKey = response.publishableKey
             var configuration = PaymentSheet.Configuration()
-            configuration.applePay = .init(merchantId: "merchant.com.mwaibanda.momentum", merchantCountryCode: "US")
+            configuration.applePay = .init(merchantId: "merchant.mwaibanda.momentum", merchantCountryCode: "US")
             configuration.merchantDisplayName = MultiplatformConstants.shared.MERCHANT_NAME
             configuration.customer = .init(id: response.customer, ephemeralKeySecret: response.ephemeralKey)
             configuration.primaryButtonColor = UIColor.init(red: 229/255, green: 95/255, blue: 31/255, alpha: 1)

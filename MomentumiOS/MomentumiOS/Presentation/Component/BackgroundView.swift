@@ -11,7 +11,7 @@ import SwiftUI
 struct BackgroundView: View {
     var body: some View {
         ZStack {
-            LinearGradient(colors: [ Color(hex: Constants.momentumOrange), Color(.lightGray)
+            LinearGradient(colors: [ Color(hex: Constants.MOMENTUM_ORANGE), Color(.lightGray)
                                    ], startPoint: .top, endPoint: .bottom)
             .ignoresSafeArea()
             Color(.black)
@@ -20,7 +20,7 @@ struct BackgroundView: View {
                 .ignoresSafeArea(.all)
            
                 Circle()
-                    .fill(Color(hex: Constants.momentumOrange))
+                    .fill(Color(hex: Constants.MOMENTUM_ORANGE))
                     .frame(width: screenBounds.width * 0.85, height: screenBounds.height * 0.85)
                     .blur(radius: 60)
                     .offset(x: -screenBounds.width / 1.8, y: -((screenBounds.height) / 4))
@@ -36,12 +36,12 @@ struct BackgroundView: View {
                 .blur(radius: 60)
                 .offset(x: screenBounds.width / 1.8, y: ((screenBounds.height) / 2))
             Circle()
-                .fill(Color(hex: Constants.momentumOrange))
+                .fill(Color(hex: Constants.MOMENTUM_ORANGE))
                 .frame(width: screenBounds.width * 0.75, height: screenBounds.height * 0.75)
                 .blur(radius: 110)
                 .offset(x: screenBounds.width / 1.8, y: ((screenBounds.height) / 2))
             Circle()
-                .fill(Color(hex: Constants.momentumOrange))
+                .fill(Color(hex: Constants.MOMENTUM_ORANGE))
                 .frame(width: screenBounds.width * 0.75, height: screenBounds.height * 0.75)
                 .blur(radius: 110)
                 .offset(x: -screenBounds.width / 1.8, y: ((screenBounds.height) / 2))

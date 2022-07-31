@@ -20,7 +20,7 @@ struct PaymentSuccessView: View {
         Text("Payment Success")
             .fontWeight(.heavy)
             .font(.system(size: 24))
-            .foregroundColor(Color(hex: Constants.momentumOrange))
+            .foregroundColor(Color(hex: Constants.MOMENTUM_ORANGE))
             Text("""
                 Your payment has been made successfully.
                 For more details. Check the transactions

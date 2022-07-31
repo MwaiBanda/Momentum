@@ -70,7 +70,7 @@ fun TopBar(navController: NavController, currentRoute: String?) {
         },
         actions = {
             if (ScreenConfiguration.ScreensWithTopBarIcons.screens.contains(currentRoute).not())
-            IconButton(onClick = { /*TODO*/ }) {
+            IconButton(onClick = { navController.navigate(NavigationRoutes.ProfileScreen.route) }) {
                 Icon(
                     imageVector = Icons.Outlined.AccountCircle,
                     contentDescription = "Personal Info Icon",

@@ -20,12 +20,12 @@ struct ToggleAmountLabel: View {
         HStack(alignment: .center) {
             HStack {
                 Circle()
-                    .fill(isSelected ? Color(hex: Constants.momentumOrange) : .gray)
+                    .fill(isSelected ? Color(hex: Constants.MOMENTUM_ORANGE) : .gray)
                     .frame(width: 15, height: 15)
                     .padding(5)
                     .overlay(
                         Circle()
-                            .strokeBorder(isSelected ? Color(hex: Constants.momentumOrange) : .gray, lineWidth: 3)
+                            .strokeBorder(isSelected ? Color(hex: Constants.MOMENTUM_ORANGE) : .gray, lineWidth: 3)
                             .frame(width: 25, height: 25)
                     )
                 Text(title)

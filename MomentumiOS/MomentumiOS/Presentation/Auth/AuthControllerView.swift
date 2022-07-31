@@ -53,7 +53,7 @@ struct AuthControllerView: View {
                         .font(Font.subheadline.weight(.light)) +
                     Text("\(showSignUp ? "Sign In" : "Sign Up") here")
                         .fontWeight(.heavy)
-                        .foregroundColor(Color(hex: Constants.momentumOrange))
+                        .foregroundColor(Color(hex: Constants.MOMENTUM_ORANGE))
                     Image(systemName: "hand.tap")
                         .font(Font.subheadline.weight(.light))
                     Spacer()

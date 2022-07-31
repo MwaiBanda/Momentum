@@ -20,7 +20,7 @@ struct ProfileView: View {
             Divider()
             Text("Edit Personal Information & Manage Account".uppercased())
                 .font(.caption)
-                .foregroundColor(Color(hex: Constants.momentumOrange))
+                .foregroundColor(Color(hex: Constants.MOMENTUM_ORANGE))
                 .padding(.leading)
                 .padding(.leading, 5)
             HStack {
@@ -164,12 +164,12 @@ struct ProfileView: View {
                                     VStack {
                                         Text("Delete Account")
                                             .fontWeight(.medium)
-                                            .foregroundColor(Color(hex: Constants.momentumOrange))
+                                            .foregroundColor(Color(hex: Constants.MOMENTUM_ORANGE))
                                             .padding()
                                             .frame(width: screenBounds.width - 30, height: 55)
                                     } .overlay(
                                         RoundedRectangle(cornerRadius: 10)
-                                            .stroke(Color(hex: Constants.momentumOrange), lineWidth: 2)
+                                            .stroke(Color(hex: Constants.MOMENTUM_ORANGE), lineWidth: 2)
                                     )
                                 }
                                 .padding(.vertical)
@@ -378,14 +378,14 @@ struct ProfileView: View {
             ZStack {
                 ZStack {
                     Circle()
-                        .fill(Color(hex: Constants.momentumOrange))
+                        .fill(Color(hex: Constants.MOMENTUM_ORANGE))
                     
                     Circle()
                         .strokeBorder(.white, lineWidth: 5)
                 }
                 .frame(width: 60, height: 60)
                 Circle()
-                    .strokeBorder(Color(hex: Constants.momentumOrange), lineWidth: 5)
+                    .strokeBorder(Color(hex: Constants.MOMENTUM_ORANGE), lineWidth: 5)
                     .frame(width: 70, height: 70)
                 
             }

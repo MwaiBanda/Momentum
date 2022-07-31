@@ -43,7 +43,7 @@ struct TitledTextField: View {
                     Spacer()
                     Image(systemName: isTyping ? "keyboard.badge.ellipsis" : "square.and.pencil")
                         .imageScale(.medium)
-                        .foregroundColor(Color(hex: Constants.momentumOrange))
+                        .foregroundColor(Color(hex: Constants.MOMENTUM_ORANGE))
                         .offset(y: -10)
                 }
             }

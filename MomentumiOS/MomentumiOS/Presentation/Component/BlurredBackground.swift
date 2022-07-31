@@ -28,8 +28,8 @@ struct BlurredBackground<Content: View>: View {
                     RoundedRectangle(cornerRadius: 15)
                         .stroke(
                             .linearGradient(colors: [
-                                Color(hex: Constants.momentumOrange),
-                                Color(hex: Constants.momentumOrange).opacity(0.5),
+                                Color(hex: Constants.MOMENTUM_ORANGE),
+                                Color(hex: Constants.MOMENTUM_ORANGE).opacity(0.5),
                                 Color(.white).opacity(0.2),
                                 .clear,
                                 Color(.white).opacity(0.2)
