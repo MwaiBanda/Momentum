@@ -39,7 +39,10 @@ fun TopBar(navController: NavController, currentRoute: String?) {
                 }
 
         },
-        backgroundColor = Color.Transparent,
+        backgroundColor = if (ScreenConfiguration.ScreensWithoutBackButton.screens.contains(
+                currentRoute
+            )
+        ) Color.Transparent else Color.White,
         elevation = 0.dp,
         navigationIcon = {
             if (ScreenConfiguration.ScreensWithoutBackButton.screens.contains(currentRoute).not())
@@ -50,15 +53,20 @@ fun TopBar(navController: NavController, currentRoute: String?) {
                         Icon(
                             Icons.Filled.ArrowBackIosNew,
                             "",
-                            tint = Color(Constants.MomentumOrange)
+                            tint = Color(Constants.MOMENTUM_ORANGE)
                         )
-                        Text(text = "Back", color = Color(Constants.MomentumOrange))
+                        Text(text = "Back", color = Color(Constants.MOMENTUM_ORANGE))
                     }
                 }
             if (ScreenConfiguration.ScreensWithTopBarIcons.screens.contains(currentRoute).not())
-                IconButton(onClick = {
-                    navController.navigate(NavigationRoutes.TransactionsScreen.route)
-                }) {
+                IconButton(
+                    onClick = {
+                        navController.navigate(NavigationRoutes.TransactionsScreen.route)
+                    },
+                    enabled = ScreenConfiguration.ScreensWithoutBackButton.screens.contains(
+                        currentRoute
+                    )
+                ) {
                     Icon(
                         Icons.Outlined.AccessTime,
                         contentDescription = "Transactions Icon",
@@ -70,14 +78,19 @@ fun TopBar(navController: NavController, currentRoute: String?) {
         },
         actions = {
             if (ScreenConfiguration.ScreensWithTopBarIcons.screens.contains(currentRoute).not())
-            IconButton(onClick = { navController.navigate(NavigationRoutes.ProfileScreen.route) }) {
-                Icon(
-                    imageVector = Icons.Outlined.AccountCircle,
-                    contentDescription = "Personal Info Icon",
-                    tint = Color.White,
-                    modifier = Modifier.size(35.dp)
-                )
-            }
+                IconButton(
+                    onClick = { navController.navigate(NavigationRoutes.ProfileScreen.route) },
+                    enabled = ScreenConfiguration.ScreensWithoutBackButton.screens.contains(
+                        currentRoute
+                    )
+                ) {
+                    Icon(
+                        imageVector = Icons.Outlined.AccountCircle,
+                        contentDescription = "Personal Info Icon",
+                        tint = Color.White,
+                        modifier = Modifier.size(35.dp)
+                    )
+                }
         },
         modifier = Modifier.padding(
             rememberInsetsPaddingValues(

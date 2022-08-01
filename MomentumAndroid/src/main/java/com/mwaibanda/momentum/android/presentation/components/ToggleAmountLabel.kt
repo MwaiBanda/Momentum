@@ -1,6 +1,5 @@
 package com.mwaibanda.momentum.android.presentation.components
 
-import android.icu.text.CaseMap
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -11,7 +10,6 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
-import androidx.compose.material.TextField
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -21,7 +19,6 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.mwaibanda.momentum.android.core.utils.Constants
 
@@ -59,7 +56,7 @@ fun ToggleAmountLabel(
                     }
                     .border(
                         2.dp,
-                        if (isSelected) Color(Constants.MomentumOrange) else Color.Gray,
+                        if (isSelected) Color(Constants.MOMENTUM_ORANGE) else Color.Gray,
                         CircleShape
                     ),
                 contentAlignment = Alignment.Center
@@ -68,7 +65,7 @@ fun ToggleAmountLabel(
                     Modifier
                         .clip(CircleShape)
                         .size(15.dp)
-                        .background(if (isSelected) Color(Constants.MomentumOrange) else Color.Gray)
+                        .background(if (isSelected) Color(Constants.MOMENTUM_ORANGE) else Color.Gray)
                         .padding(5.dp)
                 )
 

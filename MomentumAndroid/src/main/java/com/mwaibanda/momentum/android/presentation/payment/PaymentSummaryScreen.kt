@@ -4,7 +4,9 @@ import android.util.Log
 import androidx.activity.compose.ManagedActivityResultLauncher
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -61,13 +63,15 @@ fun PaymentSummaryScreen(
     }
 
     Column(
-        Modifier.fillMaxSize(),
+        Modifier
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.SpaceBetween,
         horizontalAlignment = Alignment.Start
     ) {
         Column {
             Column {
-                Spacer(modifier = Modifier.height(50.dp))
+                Spacer(modifier = Modifier.height(65.dp))
                 Text(
                     text = "Payment Summary",
                     fontWeight = FontWeight.ExtraBold,
@@ -79,7 +83,7 @@ fun PaymentSummaryScreen(
                     text = "Select multiple options to edit amounts".uppercase(),
                     style = MaterialTheme.typography.caption,
                     modifier = Modifier.padding(horizontal = 10.dp),
-                    color = Color(Constants.MomentumOrange)
+                    color = Color(Constants.MOMENTUM_ORANGE)
                 )
             }
             PaymentSummaryContentScreen(amount = amount.toInt(), contentViewModel = contentViewModel)
@@ -91,7 +95,9 @@ fun PaymentSummaryScreen(
             Divider()
             Spacer(modifier = Modifier.height(10.dp))
             Row (
-                Modifier.fillMaxWidth().padding(10.dp),
+                Modifier
+                    .fillMaxWidth()
+                    .padding(10.dp),
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {

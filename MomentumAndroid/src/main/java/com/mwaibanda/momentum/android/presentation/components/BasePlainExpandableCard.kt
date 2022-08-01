@@ -45,10 +45,9 @@ fun BasePlainExpandableCard(
         Column(
             Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 10.dp)
                 .height(animatedSizeDp)
         ) {
-                    Spacer(modifier = Modifier.height(70.dp))
+                    Spacer(modifier = Modifier.height(60.dp))
                     content()
 
             }

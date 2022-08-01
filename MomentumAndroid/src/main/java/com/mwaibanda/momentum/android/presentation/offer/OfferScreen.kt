@@ -1,7 +1,6 @@
 package com.mwaibanda.momentum.android.presentation.offer
 
 import android.util.Log
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -26,7 +25,6 @@ import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.text.font.FontWeight
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.google.accompanist.insets.navigationBarsHeight
 import com.mwaibanda.momentum.android.core.utils.Constants
 import com.mwaibanda.momentum.android.presentation.components.BlurredBackground
 import com.mwaibanda.momentum.android.presentation.components.BottomSpacing
@@ -93,7 +91,7 @@ fun OfferScreen(navController: NavController, offerViewModel: OfferViewModel){
                         .fillMaxWidth(0.9f)
                         .height(55.dp),
                     shape = RoundedCornerShape(10.dp),
-                    colors = ButtonDefaults.buttonColors(backgroundColor = Color(Constants.MomentumOrange))
+                    colors = ButtonDefaults.buttonColors(backgroundColor = Color(Constants.MOMENTUM_ORANGE))
                 ) {
                     Text(
                         text = "Offer",

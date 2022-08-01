@@ -8,7 +8,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -18,7 +17,6 @@ import com.mwaibanda.momentum.android.R
 import com.mwaibanda.momentum.android.core.utils.Constants
 import com.mwaibanda.momentum.android.core.utils.NavigationRoutes
 import com.mwaibanda.momentum.android.presentation.components.BottomSpacing
-import com.mwaibanda.momentum.domain.models.PaymentRequest
 
 @Composable
 fun PaymentSuccessScreen(navController: NavController) {
@@ -51,7 +49,7 @@ fun PaymentSuccessScreen(navController: NavController) {
             Text(
                 text = "Payment Success",
                 fontWeight = FontWeight.ExtraBold,
-                color = Color(Constants.MomentumOrange),
+                color = Color(Constants.MOMENTUM_ORANGE),
                 style = MaterialTheme.typography.h5,
                 modifier = Modifier.padding(10.dp)
             )
@@ -77,7 +75,7 @@ fun PaymentSuccessScreen(navController: NavController) {
                     .fillMaxWidth(0.9f)
                     .height(55.dp),
                 shape = RoundedCornerShape(10.dp),
-                colors = ButtonDefaults.buttonColors(backgroundColor = Color(Constants.MomentumOrange))
+                colors = ButtonDefaults.buttonColors(backgroundColor = Color(Constants.MOMENTUM_ORANGE))
             ) {
                 Text(
                     text = "Back",

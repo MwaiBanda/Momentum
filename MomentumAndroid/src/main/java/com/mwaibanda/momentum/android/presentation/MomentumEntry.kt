@@ -15,6 +15,7 @@ import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.navigation.material.BottomSheetNavigator
 import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import com.mwaibanda.momentum.android.core.utils.ScreenConfiguration
 import com.mwaibanda.momentum.android.core.utils.ScreenConfiguration.ScreensWithoutNavigation
 import com.mwaibanda.momentum.android.presentation.components.rememberBottomSheetNavigator
 import com.mwaibanda.momentum.android.presentation.navigation.BottomBar
@@ -28,16 +29,17 @@ fun MomentumEntry(content: @Composable (PaddingValues, NavHostController, Bottom
     val useDarkIcons = MaterialTheme.colors.isLight
     val bottomSheetNavigator = rememberBottomSheetNavigator()
     val navController = rememberNavController(bottomSheetNavigator)
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val currentRoute = navBackStackEntry?.destination?.route
 
     SideEffect {
         systemUiController.setSystemBarsColor(
-            color = Color.Transparent,
+            color = if (ScreenConfiguration.ScreensWithoutBackButton.screens.contains(currentRoute)) Color.Transparent else Color.White,
             darkIcons = useDarkIcons
         )
 
     }
-    val navBackStackEntry by navController.currentBackStackEntryAsState()
-    val currentRoute = navBackStackEntry?.destination?.route
+
 
     Scaffold() {
         Box {

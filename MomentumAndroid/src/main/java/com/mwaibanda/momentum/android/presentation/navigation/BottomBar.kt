@@ -14,6 +14,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.mwaibanda.momentum.android.core.utils.Constants
 import com.mwaibanda.momentum.android.core.utils.NavigationRoutes
+import com.mwaibanda.momentum.android.core.utils.ScreenConfiguration
 
 @Composable
 fun BottomBar(navController: NavController, currentRoute: String?) {
@@ -25,7 +26,7 @@ fun BottomBar(navController: NavController, currentRoute: String?) {
     Column {
         BottomNavigation(
             elevation = 0.dp,
-            backgroundColor = Color.Transparent
+            backgroundColor = if (ScreenConfiguration.ScreensWithoutBackButton.screens.contains(currentRoute)) Color.Transparent else Color.White
         ) {
             bottomTabs.forEach { bottomTab ->
                 BottomNavigationItem(
@@ -37,7 +38,7 @@ fun BottomBar(navController: NavController, currentRoute: String?) {
                             )
                         )
                     },
-                    selectedContentColor = Color(Constants.MomentumOrange),
+                    selectedContentColor = Color(Constants.MOMENTUM_ORANGE),
                     alwaysShowLabel = false,
                     selected = currentRoute == bottomTab.route,
                     onClick = {

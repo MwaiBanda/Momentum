@@ -87,7 +87,7 @@ class MainActivity : BaseActivity() {
                                             allowsDelayedPaymentMethods = false,
                                             primaryButtonColor = ColorStateList.valueOf(
                                                 Color(
-                                                    Constants.MomentumOrange
+                                                    Constants.MOMENTUM_ORANGE
                                                 ).hashCode()
                                             )
                                         )

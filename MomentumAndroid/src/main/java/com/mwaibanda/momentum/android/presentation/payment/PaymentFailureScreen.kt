@@ -52,7 +52,7 @@ fun PaymentFailureScreen(navController: NavController) {
             Text(
                 text = "Payment Failed",
                 fontWeight = FontWeight.ExtraBold,
-                color = Color(Constants.MomentumOrange),
+                color = Color(Constants.MOMENTUM_ORANGE),
                 style = MaterialTheme.typography.h5,
                 modifier = Modifier.padding(10.dp)
             )
@@ -76,7 +76,7 @@ fun PaymentFailureScreen(navController: NavController) {
                     .fillMaxWidth(0.9f)
                     .height(55.dp),
                 shape = RoundedCornerShape(10.dp),
-                colors = ButtonDefaults.buttonColors(backgroundColor = Color(Constants.MomentumOrange))
+                colors = ButtonDefaults.buttonColors(backgroundColor = Color(Constants.MOMENTUM_ORANGE))
             ) {
                 Text(
                     text = "Back",

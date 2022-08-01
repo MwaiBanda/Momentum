@@ -15,6 +15,20 @@ class ProfileViewModel: ViewModel() {
         FEEDBACK,
         INFORMATION
     }
+    /* Contact Information */
+    var fullname by mutableStateOf("")
+    var phone by mutableStateOf("")
+    var email by mutableStateOf("")
+    var password by mutableStateOf("")
+    var createdOn by mutableStateOf("")
+
+    /* Billing Information */
+    var streetAddress by mutableStateOf("")
+    var apt by mutableStateOf("")
+    var city by mutableStateOf("")
+    var zipCode by mutableStateOf("")
+
+    /* Card State */
     var isContactExpanded by  mutableStateOf(false)
     var isBillingExpanded by  mutableStateOf(false)
     var isManageAccExpanded by mutableStateOf(false)
