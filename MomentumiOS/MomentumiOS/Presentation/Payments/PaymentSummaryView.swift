@@ -46,7 +46,9 @@ struct PaymentSummaryView: View {
                     
                 }
             }.onAppear {
-                paymentViewModel.checkout(request: PaymentRequest(amount: Int32((Double(offerViewModel.number) ?? 0.00) * 100)))
+                paymentViewModel.checkout(request: PaymentRequest(amount: Int32((Double(offerViewModel.number) ?? 0.00) * 100))) {
+                    paymentViewModel.setUpPaymentSheet()
+                }
             }
             if let paymentResult = paymentViewModel.paymentResult {
                 

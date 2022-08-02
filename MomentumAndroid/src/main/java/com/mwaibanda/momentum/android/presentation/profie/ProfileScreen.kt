@@ -136,7 +136,6 @@ fun ProfileScreen(profileViewModel: ProfileViewModel = getViewModel()) {
                             )
                         },
                         coverIcon = { isExpanded ->
-
                             Icon(
                                 imageVector = if (isExpanded)
                                     Icons.Default.ArrowDropUp

@@ -18,7 +18,7 @@ struct ProfileView: View {
     var body: some View {
         VStack(alignment: .leading) {
             Divider()
-            Text("Edit Personal Information & Manage Account".uppercased())
+            Text(MultiplatformConstants.shared.PROFILE_SUBHEADING.uppercased())
                 .font(.caption)
                 .foregroundColor(Color(hex: Constants.MOMENTUM_ORANGE))
                 .padding(.leading)
@@ -47,7 +47,7 @@ struct ProfileView: View {
                                 Image(systemName: "person.fill.viewfinder")
                                     .foregroundColor(.gray)
                                     .frame(width: 35)
-                                Text("Contact Information")
+                                Text(MultiplatformConstants.shared.CONTACT_INFORMATION)
                                     .font(.headline)
                                     .fontWeight(.heavy)
                                 
@@ -57,21 +57,33 @@ struct ProfileView: View {
                                 .foregroundColor(.gray)
                         }, innerContent: {
                             VStack {
-                                TitledTextField(title: "fullname", text: $profileViewModel.fullname) {
+                                TitledTextField(
+                                    title: MultiplatformConstants.shared.FULLNAME,
+                                    text: $profileViewModel.fullname
+                                ) {
                                     profileViewModel.updateFullname(userId: session.currentUser?.id ?? "")
                                 }
                                 Divider()
-                                TitledTextField(title: "phone", text: $profileViewModel.phone) {
+                                TitledTextField(
+                                    title: MultiplatformConstants.shared.PHONE,
+                                    text: $profileViewModel.phone
+                                ) {
                                     profileViewModel.updatePhone(userId: session.currentUser?.id ?? "")
                                 }
                                 .textContentType(.oneTimeCode)
                                 .keyboardType(.numberPad)
                                 Divider()
-                                TitledTextField(title: "email", text: $profileViewModel.email) {
+                                TitledTextField(
+                                    title: MultiplatformConstants.shared.EMAIL,
+                                    text: $profileViewModel.email
+                                ) {
                                     profileViewModel.updateEmail(userId: session.currentUser?.id ?? "")
                                 }
                                 Divider()
-                                TitledTextField(title: "password", text:  $profileViewModel.password) {
+                                TitledTextField(
+                                    title: MultiplatformConstants.shared.PASSWORD,
+                                    text:  $profileViewModel.password
+                                ) {
                                     profileViewModel.updatePassword(userId: session.currentUser?.id ?? "")
                                 }
                             }
@@ -96,7 +108,7 @@ struct ProfileView: View {
                                 Image(systemName: "person.text.rectangle")
                                     .foregroundColor(.gray)
                                     .frame(width: 35)
-                                Text("Billing Information")
+                                Text(MultiplatformConstants.shared.BILLING_INFORMATION)
                                     .font(.headline)
                                     .fontWeight(.heavy)
                                 
@@ -106,19 +118,31 @@ struct ProfileView: View {
                                 .foregroundColor(.gray)
                         }, innerContent: {
                             Group {
-                                TitledTextField(title: "street address", text: $profileViewModel.streetAddress) {
+                                TitledTextField(
+                                    title: MultiplatformConstants.shared.STREET_ADDRESS,
+                                    text: $profileViewModel.streetAddress
+                                ) {
                                     profileViewModel.updateStreetAddress(userId: session.currentUser?.id ?? "")
                                 }
                                 Divider()
-                                TitledTextField(title: "apt, suite or floor", text: $profileViewModel.apt) {
+                                TitledTextField(
+                                    title: MultiplatformConstants.shared.APT,
+                                    text: $profileViewModel.apt
+                                ) {
                                     profileViewModel.updateApt(userId: session.currentUser?.id ?? "")
                                 }
                                 Divider()
-                                TitledTextField(title: "city", text: $profileViewModel.city) {
+                                TitledTextField(
+                                    title: MultiplatformConstants.shared.CITY,
+                                    text: $profileViewModel.city
+                                ) {
                                     profileViewModel.updateCity(userId: session.currentUser?.id ?? "")
                                 }
                                 Divider()
-                                TitledTextField(title: "zip code", text: $profileViewModel.zipCode) {
+                                TitledTextField(
+                                    title: MultiplatformConstants.shared.ZIP_CODE,
+                                    text: $profileViewModel.zipCode
+                                ) {
                                     profileViewModel.updateZipCode(userId: session.currentUser?.id ?? "")
                                 }
                                 .textContentType(.oneTimeCode)
@@ -145,7 +169,7 @@ struct ProfileView: View {
                                 Image(systemName: "trash")
                                     .foregroundColor(.gray)
                                     .frame(width: 35)
-                                Text("Manage Account")
+                                Text(MultiplatformConstants.shared.MANAGE_ACCOUNT)
                                     .font(.headline)
                                     .fontWeight(.heavy)
                                 
@@ -155,14 +179,14 @@ struct ProfileView: View {
                                 .foregroundColor(.gray)
                         }, innerContent: {
                             VStack(alignment: .leading) {
-                                Text("Delete Account")
+                                Text(MultiplatformConstants.shared.DELETE_ACCOUNT)
                                     .fontWeight(.heavy)
                                     .font(.title3)
-                                Text("Deleting your account will result in removing all the data connected to your Momentum account from our services. This action cannot be undone.")
+                                Text(MultiplatformConstants.shared.DELETION_WARNING)
                                     .foregroundColor(.gray)
                                 Button { showAlert.toggle() } label: {
                                     VStack {
-                                        Text("Delete Account")
+                                        Text(MultiplatformConstants.shared.DELETE_ACCOUNT)
                                             .fontWeight(.medium)
                                             .foregroundColor(Color(hex: Constants.MOMENTUM_ORANGE))
                                             .padding()
@@ -190,7 +214,7 @@ struct ProfileView: View {
                     .id(ProfileCard.manageAcc)
                     .alert(isPresented: $showAlert) {
                         Alert(
-                            title: Text("Delete Account"),
+                            title: Text(MultiplatformConstants.shared.DELETE_ACCOUNT),
                             message: Text("Are you sure you want to delete account?"),
                             primaryButton: .default(Text("Cancel"), action: {
                                 showAlert.toggle()
@@ -215,7 +239,7 @@ struct ProfileView: View {
                                 Image(systemName: "person.2.wave.2")
                                     .foregroundColor(.gray)
                                     .frame(width: 35)
-                                Text("Technical Support")
+                                Text(MultiplatformConstants.shared.TECHNICAL_SUPPORT)
                                     .font(.headline)
                                     .fontWeight(.heavy)
                                 
@@ -225,15 +249,21 @@ struct ProfileView: View {
                                 .foregroundColor(.gray)
                         }, innerContent: {
                             VStack {
-                                Text("Are you experiencing any problems? Do you need assistance navigating through the app? Let's get in touch")
+                                Text(MultiplatformConstants.shared.TECHNICAL_SUPPORT_PROMPT)
                                     .multilineTextAlignment(.leading)
                                     .lineSpacing(5)
-                                LinkLabel(title: "Technical Support", description: "Developer Phone") {
+                                LinkLabel(
+                                    title: MultiplatformConstants.shared.TECHNICAL_SUPPORT,
+                                    description: MultiplatformConstants.shared.DEVELOPER_PHONE_TITLE
+                                ) {
                                     guard let url =  URL(string: "tel:\(MultiplatformConstants.shared.DEVELOPER_PHONE)") else { return }
                                     UIApplication.shared.open(url)
                                 }.padding(.vertical, 10)
                                 
-                                LinkLabel(title: "Technical Support", description: "Developer Email") {
+                                LinkLabel(
+                                    title:MultiplatformConstants.shared.TECHNICAL_SUPPORT,
+                                    description: MultiplatformConstants.shared.DEVELOPER_EMAIL_TITLE
+                                ) {
                                     let mailSubject = "?subject=Technical Support".replacingOccurrences(of: " ", with: "%20")
                                     guard let url =  URL(string: "mailto:\(MultiplatformConstants.shared.DEVELOPER_EMAIL)" + mailSubject) else { return }
                                     UIApplication.shared.open(url)
@@ -260,7 +290,7 @@ struct ProfileView: View {
                                 Image(systemName: "bubble.left.and.exclamationmark.bubble.right")
                                     .foregroundColor(.gray)
                                     .frame(width: 35)
-                                Text("Feedback")
+                                Text(MultiplatformConstants.shared.FEEDBACK)
                                     .font(.headline)
                                     .fontWeight(.heavy)
                                 
@@ -270,10 +300,13 @@ struct ProfileView: View {
                                 .foregroundColor(.gray)
                         }, innerContent: {
                             VStack {
-                                Text("Are enjoying the app? Do you have any thoughts on anything we can improve? Let's get in touch")
+                                Text(MultiplatformConstants.shared.FEEDBACK_PROMPT)
                                     .multilineTextAlignment(.leading)
                                     .lineSpacing(5)
-                                LinkLabel(title: "Feedback", description: "Developer") {
+                                LinkLabel(
+                                    title: MultiplatformConstants.shared.FEEDBACK,
+                                    description: MultiplatformConstants.shared.DEVELOPER
+                                ) {
                                     let mailSubject = "?subject=Developer Feedback".replacingOccurrences(of: " ", with: "%20")
                                     guard let url =  URL(string: "mailto:\(MultiplatformConstants.shared.DEVELOPER_EMAIL)" + mailSubject) else { return }
                                     UIApplication.shared.open(url)
@@ -300,7 +333,7 @@ struct ProfileView: View {
                                 Image(systemName: "info.circle")
                                     .foregroundColor(.gray)
                                     .frame(width: 35)
-                                Text("Information")
+                                Text(MultiplatformConstants.shared.INFORMATION)
                                     .font(.headline)
                                     .fontWeight(.heavy)
                                 
@@ -316,20 +349,30 @@ struct ProfileView: View {
                                         .multilineTextAlignment(.leading)
                                         .lineSpacing(5)
                                     
-                                    LinkLabel(title: "Momentum Phone", description: "Church Phone") {
+                                    LinkLabel(
+                                        title: MultiplatformConstants.shared.MOMENTUM_PHONE,
+                                        description: MultiplatformConstants.shared.CHURCH_PHONE_TITLE
+                                    ) {
                                         guard let url =  URL(string: "tel:\(MultiplatformConstants.shared.CHURCH_PHONE)") else { return }
                                         UIApplication.shared.open(url)
                                     }.padding(.vertical, 10)
-                                    LinkLabel(title: "Momentum Phone", description: "Emergency Phone") {
+                                    LinkLabel(
+                                        title: MultiplatformConstants.shared.MOMENTUM_PHONE,
+                                        description: MultiplatformConstants.shared.CHURCH_EMERGENCY_PHONE_TITLE
+                                    ) {
                                         guard let url =  URL(string: "tel:\(MultiplatformConstants.shared.CHURCH_EMERGENCY_PHONE)") else { return }
                                         UIApplication.shared.open(url)
                                     }.padding(.bottom, 10)
-                                    LinkLabel(title: "Momentum Email", description: "Church Email") {
+                                    LinkLabel(
+                                        title: MultiplatformConstants.shared.MOMENTUM_EMAIL,
+                                        description: MultiplatformConstants.shared.CHURCH_EMAIL_TITLE
+                                    ) {
                                         let mailSubject = "?subject=Developer Feedback".replacingOccurrences(of: " ", with: "%20")
                                         guard let url =  URL(string: "mailto:\(MultiplatformConstants.shared.CHURCH_EMAIL)" + mailSubject) else { return }
                                         UIApplication.shared.open(url)
                                     }.padding(.bottom, 10)
-                                    Text("Copyright **©** 2022 Momentum. All rights reserved.")
+                                    Text(MultiplatformConstants.shared.COPYRIGHT)
+                                        .font(.caption)
                                 }.padding()
                                 Divider()
                             }

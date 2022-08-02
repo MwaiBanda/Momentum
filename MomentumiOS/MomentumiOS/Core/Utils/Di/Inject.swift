@@ -10,9 +10,19 @@ import Foundation
 
 @propertyWrapper
 struct Inject<T> {
-    var wrappedValue: T
+    var wrappedValue: T {
+        get {
+            Resolver.resolve()
+        }
+    }
     
-    init() {
-        wrappedValue = Resolver.resolve()
+    func release<T>(_ type: T) {
+        
+        Resolver.release(type)
+        print(Resolver.shared.dependencies)
+    }
+    func release() {
+        Resolver.release(wrappedValue)
     }
 }
+

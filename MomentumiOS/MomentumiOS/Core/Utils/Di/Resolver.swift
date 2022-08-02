@@ -11,7 +11,7 @@ import Foundation
 
 
 final class Resolver: Resolving {
-    private var dependencies = [String: AnyObject]()
+    var dependencies = [String: AnyObject]()
     static let shared = Resolver()
     
     static func inject<T>(dependency: T, named: String = ""){
@@ -24,7 +24,12 @@ final class Resolver: Resolving {
     static func register(context: (Resolving) -> Void) {
         context(shared)
     }
-    
+    static func clear(onCompletion: @escaping () -> Void) {
+        shared.clear(onCompletion: onCompletion)
+    }
+    static func release<T>(_ dependency: T) {
+        shared.release(dependency)
+    }
     internal func inject<T>(_ dependency: T, named: String) {
         let key = (named.isEmpty ? String(describing: T.self) : named)
         dependencies[key] = dependency as AnyObject
@@ -36,6 +41,18 @@ final class Resolver: Resolving {
         let dependency = dependencies[key] as? T
         assert(dependency != nil, "No dependency found of \(key)")
         return dependency!
+    }
+    
+    func release<T>(_ dependency: T) {
+        let key = String(describing: T.self)
+            .replacingOccurrences(of: ".Protocol", with: "")
+        dependencies[key] = nil
+        print("[AFTER RELEASE]: \(dependencies)")
+    }
+    
+    func clear(onCompletion: @escaping () -> Void) {
+        dependencies.removeAll()
+        onCompletion()
     }
     private init() { }
 }

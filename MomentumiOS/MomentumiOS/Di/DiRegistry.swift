@@ -60,6 +60,9 @@ final class DiRegistry {
             }()
         }
     }
+    func clear(onCompletion: @escaping () -> Void) {
+        Resolver.clear(onCompletion: onCompletion)
+    }
     static let shared = DiRegistry()
     private init() { }
 }
