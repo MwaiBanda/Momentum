@@ -14,7 +14,7 @@ import org.koin.core.component.inject
 
 class PaymentViewModel(
     private val paymentController: PaymentController
-): ViewModel(), KoinComponent {
+): ViewModel() {
 
     private val _paymentResponse: MutableLiveData<PaymentResponse> = MutableLiveData()
     val  paymentResponse: LiveData<PaymentResponse> = _paymentResponse

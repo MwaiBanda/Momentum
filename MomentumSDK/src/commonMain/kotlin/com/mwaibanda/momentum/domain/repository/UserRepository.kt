@@ -1,9 +1,9 @@
 package com.mwaibanda.momentum.domain.repository
 
-import com.mwaibanda.momentum.domain.models.User
+import com.mwaibanda.momentum.domain.models.UserRequest
 
 interface UserRepository {
-    suspend fun postUser(user: User)
+    suspend fun postUser(userRequest: UserRequest)
     suspend fun updateUserEmail(userId: String, email: String)
     suspend fun updateUserPhone(userId: String, phone: String)
     suspend fun updateUserFullname(userId: String, fullname: String)

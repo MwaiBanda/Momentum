@@ -26,11 +26,18 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.mwaibanda.momentum.android.core.utils.Constants
+import com.mwaibanda.momentum.android.core.utils.NavigationRoutes
+import com.mwaibanda.momentum.android.presentation.auth.AuthViewModel
 import com.mwaibanda.momentum.android.presentation.components.BlurredBackground
 import com.mwaibanda.momentum.android.presentation.components.BottomSpacing
+import org.koin.androidx.compose.getViewModel
 
 @Composable
-fun OfferScreen(navController: NavController, offerViewModel: OfferViewModel){
+fun OfferScreen(
+    navController: NavController,
+    offerViewModel: OfferViewModel = getViewModel(),
+    authViewModel: AuthViewModel = getViewModel()
+){
    BlurredBackground {
         var number by remember {
             mutableStateOf("0")
@@ -85,7 +92,11 @@ fun OfferScreen(navController: NavController, offerViewModel: OfferViewModel){
                 Button(
                     onClick = {
                         Log.d("OFFER", "${offerViewModel.number.value?.toFloat()}" )
-                        navController.navigate("pay/${offerViewModel.number.value?.toFloat()}")
+                        if (authViewModel.user?.isGuest == true) {
+                            navController.navigate(NavigationRoutes.AuthControllerScreen.route)
+                        } else {
+                            navController.navigate("pay/${offerViewModel.number.value?.toFloat()}")
+                        }
                     },
                     modifier = Modifier
                         .fillMaxWidth(0.9f)
@@ -109,5 +120,5 @@ fun OfferScreen(navController: NavController, offerViewModel: OfferViewModel){
 @Composable
 @Preview
 fun OfferScreenPreview(){
-    OfferScreen(rememberNavController() ,offerViewModel = viewModel())
+    OfferScreen(rememberNavController() ,offerViewModel = getViewModel(), authViewModel = getViewModel())
 }

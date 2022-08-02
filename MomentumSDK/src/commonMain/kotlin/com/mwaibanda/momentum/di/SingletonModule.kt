@@ -11,7 +11,7 @@ import io.ktor.serialization.kotlinx.json.*
 import kotlinx.serialization.json.Json
 import org.koin.dsl.module
 
-internal val singletonModule = module {
+val singletonModule = module {
     single {
         HttpClient {
             install(Logging) {

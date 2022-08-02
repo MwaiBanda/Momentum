@@ -19,4 +19,5 @@ sealed class NavigationRoutes(
     object PaymentFailureScreen: NavigationRoutes(route = "pay/failure")
     object TransactionsScreen: NavigationRoutes(route = "transactions")
     object ProfileScreen: NavigationRoutes(route = "profile")
+    object AuthControllerScreen: NavigationRoutes(route = "auth")
 }

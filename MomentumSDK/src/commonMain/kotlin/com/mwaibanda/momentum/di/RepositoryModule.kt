@@ -9,7 +9,7 @@ import com.mwaibanda.momentum.domain.repository.UserRepository
 import org.koin.dsl.module
 import kotlin.math.sin
 
-internal val repositoryModule = module {
+val repositoryModule = module {
     single<PaymentRepository>{  PaymentRepositoryImpl(httpClient = get()) }
     single<AuthRepository>{ AuthRepositoryImpl(firebaseAuth = get()) }
     single<UserRepository> { UserRepositoryImpl(db = get()) }

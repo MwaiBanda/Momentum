@@ -2,7 +2,7 @@ plugins {
     id("com.android.application")
     kotlin("android")
     kotlin("plugin.serialization") version "1.7.0"
-
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -78,5 +78,6 @@ dependencies {
     // Bottom Sheet
     implementation("com.google.accompanist:accompanist-navigation-material:0.24.13-rc")
 
-
+    implementation("dev.gitlive:firebase-auth:1.6.1")
 }
+

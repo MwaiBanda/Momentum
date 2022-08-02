@@ -4,7 +4,8 @@ import com.mwaibanda.momentum.data.db.Database
 import com.mwaibanda.momentum.data.db.DatabaseDriverFactory
 import com.mwaibanda.momentum.data.db.MomentumUser
 import com.mwaibanda.momentum.domain.controller.UserController
-import com.mwaibanda.momentum.domain.models.User
+import com.mwaibanda.momentum.domain.models.UserRequest
+import com.mwaibanda.momentum.domain.usecase.auth.GetCurrentUserUseCase
 import com.mwaibanda.momentum.domain.usecase.user.*
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
@@ -40,9 +41,9 @@ class UserControllerImpl(driverFactory: DatabaseDriverFactory): UserController, 
         onCompletion()
     }
 
-    override fun postUser(user: User) {
+    override fun postUser(userRequest: UserRequest) {
         scope.launch {
-            postUserUseCase(user = user)
+            postUserUseCase(userRequest = userRequest)
         }
     }
 

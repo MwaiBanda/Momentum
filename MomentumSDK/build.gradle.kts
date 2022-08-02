@@ -62,7 +62,7 @@ kotlin {
             dependencies {
                 implementation("io.ktor:ktor-client-okhttp:$ktorVersion")
                 implementation("com.squareup.sqldelight:android-driver:$sqlDelight")
-
+                implementation("dev.gitlive:firebase-auth:$firebase")
             }
         }
         val androidTest by getting

@@ -5,7 +5,7 @@ import com.mwaibanda.momentum.domain.usecase.payment.CheckoutUseCase
 import com.mwaibanda.momentum.domain.usecase.user.*
 import org.koin.dsl.module
 
-internal val useCasesModule = module {
+val useCasesModule = module {
     /**
      * @Payment - Use-cases
      */
@@ -17,6 +17,7 @@ internal val useCasesModule = module {
     single { SignUpWithEmailUseCase(authRepository = get()) }
     single { SignInAsGuestUseCase(authRepository = get()) }
     single { IsUserSignedInUseCase(authRepository = get()) }
+    single { GetCurrentUserUseCase(authRepository = get()) }
     single { DeleteUserUseCase(authRepository = get()) }
     single { SignOutUseCase(authRepository = get()) }
     /**

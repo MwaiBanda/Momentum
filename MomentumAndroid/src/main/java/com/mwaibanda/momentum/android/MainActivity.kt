@@ -17,8 +17,10 @@ import com.google.accompanist.insets.ProvideWindowInsets
 import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
 import com.google.accompanist.navigation.material.ModalBottomSheetLayout
 import com.google.accompanist.navigation.material.bottomSheet
+import com.google.firebase.FirebaseApp
 import com.mwaibanda.momentum.android.core.utils.Constants
 import com.mwaibanda.momentum.android.core.utils.NavigationRoutes.*
+import com.mwaibanda.momentum.android.presentation.auth.AuthControllerScreen
 import com.mwaibanda.momentum.android.presentation.navigation.LaunchScreen
 import com.mwaibanda.momentum.android.presentation.offer.OfferScreen
 import com.mwaibanda.momentum.android.presentation.payment.PaymentFailureScreen
@@ -51,10 +53,7 @@ class MainActivity : BaseActivity() {
                                 )
                             }
                             composable(OfferScreen.route) {
-                                OfferScreen(
-                                    navController = navController,
-                                    offerViewModel = getViewModel()
-                                )
+                                OfferScreen(navController = navController)
                             }
                             composable(ProfileScreen.route) {
                                 ProfileScreen()
@@ -105,6 +104,9 @@ class MainActivity : BaseActivity() {
                                 TransactionScreen(transactionViewModel = transactionViewModel) {
                                     navController.popBackStack()
                                 }
+                            }
+                            bottomSheet(AuthControllerScreen.route){
+                                AuthControllerScreen()
                             }
                         }
                     }

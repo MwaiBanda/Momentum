@@ -42,13 +42,11 @@ final class Session: ObservableObject {
             email: email,
             password: password
         ) { [unowned self] res in
-            if let user = res.user {
-                self.currentUser = User(
-                    email: user.email ?? "",
-                    id: user.uid,
-                    isGuest: user.isAnonymous
-                )
-            }
+            self.currentUser = User(
+                email: res.email ?? "",
+                id: res.uid,
+                isGuest: res.isAnonymous
+            )
             onCompletion()
         }
     }
@@ -61,36 +59,30 @@ final class Session: ObservableObject {
             email: email,
             password: password
         ) { [unowned self] res in
-            if let user = res.user {
-                self.currentUser = User(
-                    email: user.email ?? "",
-                    id: user.uid,
-                    isGuest: user.isAnonymous
-                )
-            }
+            self.currentUser = User(
+                email: res.email ?? "",
+                id: res.uid,
+                isGuest: res.isAnonymous
+            )
             onCompletion()
         }
     }
     func signInAsGuest() {
         authController.signInAsGuest { res in
-            if let user = res.user {
-                self.currentUser = User(
-                    email: user.email ?? "",
-                    id: user.uid,
-                    isGuest: user.isAnonymous
-                )
-            }
+            self.currentUser = User(
+                email: res.email ?? "",
+                id: res.uid,
+                isGuest: res.isAnonymous
+            )
         }
     }
     func checkAndSignInAsGuest() {
         authController.checkAuthAndSignAsGuest(onCompletion: { res in
-            if let user = res.user {
-                self.currentUser = User(
-                    email: user.email ?? "",
-                    id: user.uid,
-                    isGuest: user.isAnonymous
-                )
-            }
+            self.currentUser = User(
+                email: res.email ?? "",
+                id: res.uid,
+                isGuest: res.isAnonymous
+            )
         })
     }
     
