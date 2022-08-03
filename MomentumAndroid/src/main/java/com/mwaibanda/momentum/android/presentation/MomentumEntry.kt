@@ -34,7 +34,7 @@ fun MomentumEntry(content: @Composable (PaddingValues, NavHostController, Bottom
 
     SideEffect {
         systemUiController.setSystemBarsColor(
-            color = if (ScreenConfiguration.ScreensWithoutBackButton.screens.contains(currentRoute)) Color.Transparent else Color.White,
+            color = if (ScreenConfiguration.ScreensWithWhiteStatusBar.screens.contains(currentRoute))  Color.White else Color.Transparent,
             darkIcons = useDarkIcons
         )
 

@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.dp
 import com.mwaibanda.momentum.android.core.utils.Constants
 
 @Composable
-fun BlurredBackground(content: @Composable () -> Unit){
+fun BlurredBackground(hasHeaderPadding: Boolean = true,content: @Composable () -> Unit){
 
     Box(
         Modifier
@@ -118,7 +118,7 @@ fun BlurredBackground(content: @Composable () -> Unit){
                                 center = Offset.Infinite
                             )
                         )
-                        .padding(top = 60.dp)
+                        .padding(top = if (hasHeaderPadding) 60.dp else 0.dp)
 
                 ) {
                     content()

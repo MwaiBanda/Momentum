@@ -14,13 +14,23 @@ sealed class ScreenConfiguration(val screens: List<String>){
     )
     object ScreensWithTopBarIcons: ScreenConfiguration(
         listOf(
-            TransactionsScreen.route
+            TransactionsScreen.route,
+            AuthControllerScreen.route
         )
     )
     object ScreensWithoutNavigation: ScreenConfiguration(
         listOf(
             LaunchScreen.route,
-            TransactionsScreen.route
+            TransactionsScreen.route,
+            AuthControllerScreen.route
+        )
+    )
+    object ScreensWithWhiteStatusBar: ScreenConfiguration (
+        listOf(
+            ProfileScreen.route,
+            PaymentSummaryScreen.route,
+            PaymentSuccessScreen.route,
+            PaymentFailureScreen.route,
         )
     )
     object ScreensWithLogo: ScreenConfiguration(

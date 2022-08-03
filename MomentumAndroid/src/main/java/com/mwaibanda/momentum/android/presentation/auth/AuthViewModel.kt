@@ -19,17 +19,13 @@ class AuthViewModel(
     }
 
     private fun checkAndSignIn() {
-        authController.isUserSignedIn { isSignedIn ->
-            if (isSignedIn) {
-                val user = Firebase.auth.currentUser
-                Log.d("Auth", user?.uid ?: "")
-                this.user = User(id = user?.uid ?: "", email = user?.email, isGuest = user?.isAnonymous ?: false)
-            } else {
-                authController.signInAsGuest { res ->
-                    val user = res.user
-                    this.user = User(id = user?.uid ?: "", email = user?.email, isGuest = user?.isAnonymous ?: false)
-                }
-            }
+        authController.checkAuthAndSignAsGuest { res ->
+            user = User(
+                id = res.uid,
+                email = res.email,
+                isGuest = res.isAnonymous
+            )
+            Log.d("Auth", "User {id: ${res.uid}, isGuest: ${res.isAnonymous}}")
         }
     }
     data class User(

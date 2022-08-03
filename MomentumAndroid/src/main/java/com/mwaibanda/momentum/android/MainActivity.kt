@@ -106,7 +106,9 @@ class MainActivity : BaseActivity() {
                                 }
                             }
                             bottomSheet(AuthControllerScreen.route){
-                                AuthControllerScreen()
+                                AuthControllerScreen {
+                                    navController.popBackStack()
+                                }
                             }
                         }
                     }

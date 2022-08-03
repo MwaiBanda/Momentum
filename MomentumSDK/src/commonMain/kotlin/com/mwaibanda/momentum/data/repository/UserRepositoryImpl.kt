@@ -1,6 +1,6 @@
 package com.mwaibanda.momentum.data.repository
 
-import com.mwaibanda.momentum.domain.models.UserRequest
+import com.mwaibanda.momentum.domain.models.User
 import com.mwaibanda.momentum.domain.repository.UserRepository
 import com.mwaibanda.momentum.utils.MultiplatformConstants
 import dev.gitlive.firebase.firestore.FirebaseFirestore
@@ -12,10 +12,17 @@ class UserRepositoryImpl(
         db.setSettings(persistenceEnabled = false)
     }
 
-    override suspend fun postUser(userRequest: UserRequest) {
+    override suspend fun postUser(user: User) {
         db.collection(MultiplatformConstants.USERS_COLLECTION)
-            .document(userRequest.userId)
-            .set(UserRequest.serializer(), userRequest, encodeDefaults = true)
+            .document(user.userId)
+            .set(User.serializer(), user, encodeDefaults = true)
+    }
+
+    override suspend fun getUser(userId: String): User {
+        return db.collection(MultiplatformConstants.USERS_COLLECTION)
+            .document(userId)
+            .get()
+            .data()
     }
 
     override suspend fun updateUserEmail(userId: String, email: String) {
@@ -43,7 +50,13 @@ class UserRepositoryImpl(
             .document(userId)
             .delete()
     }
+    suspend fun g(userId: String): User {
+        return db.collection(MultiplatformConstants.USERS_COLLECTION)
+            .document(userId)
+            .get()
+            .data()
 
+    }
     companion object {
         const val EMAIL_KEY = "email"
         const val PHONE_KEY = "phone"

@@ -1,7 +1,7 @@
 package com.mwaibanda.momentum.domain.controller
 
 import com.mwaibanda.momentum.data.db.MomentumUser
-import com.mwaibanda.momentum.domain.models.UserRequest
+import com.mwaibanda.momentum.domain.models.User
 
 interface UserController {
     fun addMomentumUser(
@@ -13,8 +13,9 @@ interface UserController {
         userId: String,
         onCompletion: () -> Unit
     )
-    fun postUser(userRequest: UserRequest)
+    fun postUser(user: User)
     fun getMomentumUserById(userId: String, onCompletion: (MomentumUser?) -> Unit)
+    fun getUser(userId: String, onCompletion: (User) -> Unit)
     fun updateMomentumUserFullnameByUserId(
         userId: String,
         fullname: String,

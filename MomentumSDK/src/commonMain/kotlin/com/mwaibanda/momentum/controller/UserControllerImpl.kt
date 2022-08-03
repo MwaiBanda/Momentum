@@ -4,8 +4,7 @@ import com.mwaibanda.momentum.data.db.Database
 import com.mwaibanda.momentum.data.db.DatabaseDriverFactory
 import com.mwaibanda.momentum.data.db.MomentumUser
 import com.mwaibanda.momentum.domain.controller.UserController
-import com.mwaibanda.momentum.domain.models.UserRequest
-import com.mwaibanda.momentum.domain.usecase.auth.GetCurrentUserUseCase
+import com.mwaibanda.momentum.domain.models.User
 import com.mwaibanda.momentum.domain.usecase.user.*
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
@@ -14,6 +13,7 @@ import org.koin.core.component.inject
 
 class UserControllerImpl(driverFactory: DatabaseDriverFactory): UserController, KoinComponent {
     private val postUserUseCase: PostUserUseCase by inject()
+    private val getUserUseCase: GetUserUseCase by inject()
     private val updateUserFullnameUseCase: UpdateUserFullnameUseCase by inject()
     private val updateUserEmailUseCase: UpdateUserEmailUseCase by inject()
     private val updateUserPhoneUseCase: UpdateUserPhoneUseCase by inject()
@@ -41,14 +41,22 @@ class UserControllerImpl(driverFactory: DatabaseDriverFactory): UserController, 
         onCompletion()
     }
 
-    override fun postUser(userRequest: UserRequest) {
+    override fun postUser(user: User) {
         scope.launch {
-            postUserUseCase(userRequest = userRequest)
+            postUserUseCase(user = user)
         }
     }
 
     override fun getMomentumUserById(userId: String, onCompletion: (MomentumUser?) -> Unit) {
         onCompletion(database.getUserByUserId(userId = userId))
+    }
+
+    override fun getUser(userId: String, onCompletion: (User) -> Unit) {
+        scope.launch {
+            getUserUseCase(userId) {
+                onCompletion(it)
+            }
+        }
     }
 
     override fun updateMomentumUserFullnameByUserId(

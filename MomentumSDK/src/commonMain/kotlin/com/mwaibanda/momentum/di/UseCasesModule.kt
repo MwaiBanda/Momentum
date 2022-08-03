@@ -21,9 +21,10 @@ val useCasesModule = module {
     single { DeleteUserUseCase(authRepository = get()) }
     single { SignOutUseCase(authRepository = get()) }
     /**
-     * @User - Use-case
+     * @User - Use-cases
      */
     single { PostUserUseCase(userRepository = get()) }
+    single { GetUserUseCase(userRepository = get()) }
     single { UpdateUserEmailUseCase(userRepository = get()) }
     single { UpdateUserFullnameUseCase(userRepository = get()) }
     single { UpdateUserPhoneUseCase(userRepository = get()) }
