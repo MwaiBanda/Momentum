@@ -3,6 +3,7 @@ package com.mwaibanda.momentum.controller
 import com.mwaibanda.momentum.domain.controller.AuthController
 import com.mwaibanda.momentum.domain.models.UserResponse
 import com.mwaibanda.momentum.domain.usecase.auth.*
+import com.mwaibanda.momentum.utils.Result
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
@@ -17,14 +18,13 @@ class AuthControllerImpl: AuthController, KoinComponent {
     private val deleteUserUseCase: DeleteUserUseCase by inject()
     private val signOutUseCase: SignOutUseCase by inject()
     private val scope = MainScope()
-
     override fun signInWithEmail(
         email: String,
         password: String,
-        onCompletion: (UserResponse) -> Unit
+        onCompletion: (Result<UserResponse>) -> Unit
     ) {
         scope.launch {
-           signInWithEmailUseCase(email = email, password = password) {
+            signInWithEmailUseCase(email = email, password = password) {
                onCompletion(it)
            }
         }
@@ -33,7 +33,7 @@ class AuthControllerImpl: AuthController, KoinComponent {
     override fun signUpWithEmail(
         email: String,
         password: String,
-        onCompletion: (UserResponse) -> Unit
+        onCompletion: (Result<UserResponse>) -> Unit
     ) {
         scope.launch {
             signUpWithEmailUseCase(email = email, password = password) {
@@ -42,7 +42,7 @@ class AuthControllerImpl: AuthController, KoinComponent {
         }
     }
 
-    override fun signInAsGuest(onCompletion: (UserResponse) -> Unit) {
+    override fun signInAsGuest(onCompletion: (Result<UserResponse>) -> Unit) {
         scope.launch {
             signInAsGuestUseCase {
                 onCompletion(it)
@@ -56,7 +56,7 @@ class AuthControllerImpl: AuthController, KoinComponent {
         }
     }
 
-    override fun getCurrentUser(onCompletion: (UserResponse) -> Unit) {
+    override fun getCurrentUser(onCompletion: (Result<UserResponse>) -> Unit) {
         scope.launch {
             getCurrentUserUseCase {
                 onCompletion(it)
@@ -64,7 +64,7 @@ class AuthControllerImpl: AuthController, KoinComponent {
         }
     }
 
-    override fun checkAuthAndSignAsGuest(onCompletion: (UserResponse) -> Unit) {
+    override fun checkAuthAndSignAsGuest(onCompletion: (Result<UserResponse>) -> Unit) {
         isUserSignedIn { isSignedIn ->
             if (isSignedIn.not()) {
                 signInAsGuest {

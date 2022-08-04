@@ -36,7 +36,7 @@ import org.koin.androidx.compose.getViewModel
 fun OfferScreen(
     navController: NavController,
     offerViewModel: OfferViewModel = getViewModel(),
-    authViewModel: AuthViewModel = getViewModel()
+    authViewModel: AuthViewModel
 ){
    BlurredBackground {
         var number by remember {

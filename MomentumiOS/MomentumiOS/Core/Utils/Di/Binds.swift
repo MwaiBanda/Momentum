@@ -11,10 +11,12 @@ import Foundation
 @propertyWrapper
 struct Binds<T> {
     var wrappedValue: T
+    var named: String
     
-    init(wrappedValue: T) {
+    init(wrappedValue: T, named: String = "") {
         self.wrappedValue = wrappedValue
-        Resolver.inject(dependency: self.wrappedValue)
+        self.named = named
+        Resolver.inject(dependency: self.wrappedValue, named: named)
     }
 }
 

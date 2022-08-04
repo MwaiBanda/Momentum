@@ -14,7 +14,6 @@ class BaseXCTestCase: XCTestCase {
         try super.setUpWithError()
         DiRegistry.shared.clear {
             DiRegistry.shared.injectTestDependencies()
-            print(Resolver.shared.dependencies)
         }
         
     }

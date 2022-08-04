@@ -30,6 +30,16 @@ fun TitleTextField(title: String, text: String, onTextChange: (String) -> Unit) 
     var isTyping by remember {
         mutableStateOf(false)
     }
+    val password: String by lazy {
+        var res = ""
+        text.forEach {
+            if(res.count() < text.count() - 3)
+                res += "*"
+            else
+                res += it
+        }
+        res
+    }
 
     Column(Modifier.padding(10.dp)) {
 
@@ -48,7 +58,8 @@ fun TitleTextField(title: String, text: String, onTextChange: (String) -> Unit) 
                 )
             }
             BasicTextField(
-                value = if (isTyping or text.isNotEmpty()) text else "***",
+                value = if (isTyping or text.isNotEmpty()) {
+                    if (title == "password" && isTyping.not()) password else text }else "***",
                 onValueChange = {
                     onTextChange(it)
                 },

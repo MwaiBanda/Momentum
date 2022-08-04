@@ -10,7 +10,7 @@ import Foundation
 
 @resultBuilder
 struct Provides {
-    static var named:String = ""
+    static var named: String = ""
     
     init(named: String = ""){
         Provides.named = named

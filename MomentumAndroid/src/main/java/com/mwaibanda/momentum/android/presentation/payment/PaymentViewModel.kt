@@ -1,5 +1,6 @@
 package com.mwaibanda.momentum.android.presentation.payment
 
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -9,6 +10,8 @@ import androidx.lifecycle.ViewModel
 import com.mwaibanda.momentum.domain.controller.PaymentController
 import com.mwaibanda.momentum.domain.models.PaymentRequest
 import com.mwaibanda.momentum.domain.models.PaymentResponse
+import com.mwaibanda.momentum.utils.Result
+import com.mwaibanda.momentum.utils.Result.*
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
@@ -22,8 +25,15 @@ class PaymentViewModel(
     var canInitiateTransaction by mutableStateOf(true)
 
     fun checkout(paymentRequest: PaymentRequest){
-        paymentController.checkout(paymentRequest){
-            _paymentResponse.value = it
+        paymentController.checkout(paymentRequest){ res ->
+            when(res) {
+                is Failure -> {
+                    Log.d("Pay/Failure", res.message ?: "")
+                }
+                is Success -> {
+                    _paymentResponse.value = res.data
+                }
+            }
         }
     }
 }

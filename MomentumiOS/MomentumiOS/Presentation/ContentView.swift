@@ -7,7 +7,6 @@ struct ContentView: View {
 		BottomTabBar()
             .environmentObject(session)
             .onAppear  {
-                session.observerAuth()
                 session.checkAndSignInAsGuest()
             }
 	}

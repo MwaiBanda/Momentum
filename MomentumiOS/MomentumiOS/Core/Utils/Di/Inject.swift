@@ -10,16 +10,18 @@ import Foundation
 
 @propertyWrapper
 struct Inject<T> {
+    var named: String
     var wrappedValue: T {
         get {
-            Resolver.resolve()
+            Resolver.resolve(named: named)
         }
+    }
+    init(named: String = ""){
+        self.named = named
     }
     
     func release<T>(_ type: T) {
-        
         Resolver.release(type)
-        print(Resolver.shared.dependencies)
     }
     func release() {
         Resolver.release(wrappedValue)

@@ -11,17 +11,17 @@ import Foundation
 
 
 final class Resolver: Resolving {
-    var dependencies = [String: AnyObject]()
+    private var dependencies = [String: AnyObject]()
     static let shared = Resolver()
     
-    static func inject<T>(dependency: T, named: String = ""){
+    static func inject<T>(dependency: T, named: String){
         shared.inject(dependency, named: named)
     }
     
-    static func resolve<T>() -> T {
-        shared.resolve()
+    static func resolve<T>(named: String) -> T {
+        shared.resolve(named: named)
     }
-    static func register(context: (Resolving) -> Void) {
+    static func register(context: (Resolver) -> Void) {
         context(shared)
     }
     static func clear(onCompletion: @escaping () -> Void) {
@@ -30,27 +30,27 @@ final class Resolver: Resolving {
     static func release<T>(_ dependency: T) {
         shared.release(dependency)
     }
-    internal func inject<T>(_ dependency: T, named: String) {
+    internal func inject<T>(_ dependency: T, named: String = "") {
         let key = (named.isEmpty ? String(describing: T.self) : named)
         dependencies[key] = dependency as AnyObject
     }
     
    
-    internal func resolve<T>() -> T {
-        let key = String(describing: T.self)
+    internal func resolve<T>(named: String = "") -> T {
+        let key = (named.isEmpty ? String(describing: T.self) : named)
         let dependency = dependencies[key] as? T
         assert(dependency != nil, "No dependency found of \(key)")
         return dependency!
     }
     
-    func release<T>(_ dependency: T) {
+    internal func release<T>(_ dependency: T) {
         let key = String(describing: T.self)
             .replacingOccurrences(of: ".Protocol", with: "")
         dependencies[key] = nil
         print("[AFTER RELEASE]: \(dependencies)")
     }
     
-    func clear(onCompletion: @escaping () -> Void) {
+    internal func clear(onCompletion: @escaping () -> Void) {
         dependencies.removeAll()
         onCompletion()
     }

@@ -5,8 +5,14 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import com.mwaibanda.momentum.android.presentation.profie.ProfileViewModel.ProfileCard.*
+import com.mwaibanda.momentum.domain.controller.BillingAddressController
+import com.mwaibanda.momentum.domain.controller.UserController
+import com.mwaibanda.momentum.domain.models.User
 
-class ProfileViewModel: ViewModel() {
+class ProfileViewModel(
+    private val userController: UserController,
+    private val billingAddressController: BillingAddressController
+) : ViewModel() {
     enum class ProfileCard {
         CONTACT_INFO,
         BILLING_INFO,
@@ -15,12 +21,13 @@ class ProfileViewModel: ViewModel() {
         FEEDBACK,
         INFORMATION
     }
+
     /* Contact Information */
     var fullname by mutableStateOf("")
     var phone by mutableStateOf("")
     var email by mutableStateOf("")
     var password by mutableStateOf("")
-    var createdOn by mutableStateOf("")
+    var createdOn by mutableStateOf("Create an Account or Sign In")
 
     /* Billing Information */
     var streetAddress by mutableStateOf("")
@@ -29,15 +36,15 @@ class ProfileViewModel: ViewModel() {
     var zipCode by mutableStateOf("")
 
     /* Card State */
-    var isContactExpanded by  mutableStateOf(false)
-    var isBillingExpanded by  mutableStateOf(false)
+    var isContactExpanded by mutableStateOf(false)
+    var isBillingExpanded by mutableStateOf(false)
     var isManageAccExpanded by mutableStateOf(false)
     var isTechSupportExpanded by mutableStateOf(false)
     var isFeedbackExpanded by mutableStateOf(false)
     var isInformationExpanded by mutableStateOf(false)
 
     fun cardToggle(card: ProfileCard) {
-        when(card) {
+        when (card) {
             CONTACT_INFO -> {
                 isContactExpanded = isContactExpanded.not()
             }
@@ -58,9 +65,10 @@ class ProfileViewModel: ViewModel() {
             }
         }
     }
-    fun closeCards(vararg cards: ProfileCard){
+
+    fun closeCards(vararg cards: ProfileCard) {
         cards.forEach { card ->
-            when(card){
+            when (card) {
                 CONTACT_INFO -> {
                     isContactExpanded = false
                 }
@@ -79,6 +87,54 @@ class ProfileViewModel: ViewModel() {
                 INFORMATION -> {
                     isInformationExpanded = false
                 }
+            }
+        }
+    }
+
+    fun addUser(
+        fullname: String,
+        phone: String,
+        password: String,
+        email: String,
+        createdOn: String,
+        userId: String
+    ) {
+        userController.addMomentumUser(
+            fullname = fullname,
+            phone = phone,
+            password = password,
+            email = email,
+            createdOn = createdOn,
+            userId = userId
+        ) {
+            userController.postUser(
+                user = User(
+                    fullname = fullname,
+                    email = email,
+                    phone = phone,
+                    userId = userId,
+                    createdOn = createdOn
+                )
+            )
+            billingAddressController.addBillingAddress(
+                streetAddress = "",
+                apt = "",
+                city = "",
+                zipCode = "",
+                userId = userId
+            )
+        }
+    }
+
+    fun getContactInformation(userId: String, onCompletion: () -> Unit) {
+        userController.getMomentumUserById(userId = userId) { user ->
+            if (user != null) {
+                fullname = user.fullname
+                phone = user.phone
+                email = user.email
+                password = user.password
+                createdOn = user.created_on
+                onCompletion()
             }
         }
     }

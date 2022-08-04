@@ -38,8 +38,13 @@ final class PaymentViewModel : ObservableObject {
     
     func checkout(request: PaymentRequest, onCompletion: @escaping () -> Void = {}){
         paymentController.checkout(request: request) { response in
-            self.response = response
-            onCompletion()
+            if let response = response.data {
+                self.response = response
+                onCompletion()
+            } else if let error = response.message {
+                Log.d(tag: "Pay/Failure", message: error)
+            }
+            
         }
     }
     

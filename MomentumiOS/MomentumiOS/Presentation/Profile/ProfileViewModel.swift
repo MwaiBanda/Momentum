@@ -87,7 +87,7 @@ class ProfileViewModel: ObservableObject {
             userId: userId
         ) { [unowned self] in
             self.userController.postUser(
-                userRequest: UserRequest(
+                user: User(
                     fullname: fullname,
                     email: email,
                     phone: phone,

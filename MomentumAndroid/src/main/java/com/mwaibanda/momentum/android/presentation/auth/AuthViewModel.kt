@@ -6,8 +6,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import com.mwaibanda.momentum.domain.controller.AuthController
-import dev.gitlive.firebase.Firebase
-import dev.gitlive.firebase.auth.auth
+import com.mwaibanda.momentum.utils.Result.*
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 class AuthViewModel(
     private val authController: AuthController
@@ -20,13 +21,70 @@ class AuthViewModel(
 
     private fun checkAndSignIn() {
         authController.checkAuthAndSignAsGuest { res ->
-            user = User(
-                id = res.uid,
-                email = res.email,
-                isGuest = res.isAnonymous
-            )
-            Log.d("Auth", "User {id: ${res.uid}, isGuest: ${res.isAnonymous}}")
+            when(res) {
+                is Failure ->  {
+                    Log.d("Auth/Failure", res.message ?: "")
+                }
+                is Success -> {
+                        user = User(
+                            id = res.data?.uid ?: "",
+                            email = res.data?.email,
+                            isGuest = res.data?.isAnonymous ?: false
+                        )
+
+                }
+            }
+            Log.d("Auth", "User {id: ${res.data?.uid}, isGuest: ${res.data?.isAnonymous}}")
         }
+    }
+
+    fun signIn(email: String, password: String, onCompletion: () -> Unit){
+        authController.signInWithEmail(email = email, password = password) { res ->
+            when(res) {
+                is Failure ->  {
+                    Log.d("Auth/Failure", res.message ?: "")
+                }
+                is Success -> {
+
+                        user = User(
+                            id = res.data?.uid ?: "",
+                            email = res.data?.email,
+                            isGuest = res.data?.isAnonymous ?: false
+                        )
+
+                    onCompletion()
+                }
+            }
+        }
+    }
+
+    fun signUp(email: String, password: String, onCompletion: () -> Unit){
+        authController.signUpWithEmail(email =email, password = password) { res ->
+            when(res) {
+                is Failure ->  {
+                    Log.d("Auth/Failure", res.message ?: "")
+                }
+                is Success -> {
+                        user = User(
+                            id = res.data?.uid ?: "",
+                            email = res.data?.email,
+                            isGuest = res.data?.isAnonymous ?: false
+                        )
+
+                    onCompletion()
+                }
+            }
+            Log.d("Auth", "User {id: ${res.data?.uid}, isGuest: ${res.data?.isAnonymous}}")
+        }
+    }
+
+    fun signOut() {
+        authController.signOut()
+    }
+    fun getCurrentDate(): String {
+        val date = LocalDate.now()
+        val formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy")
+        return date.format(formatter)
     }
     data class User(
         val id: String,

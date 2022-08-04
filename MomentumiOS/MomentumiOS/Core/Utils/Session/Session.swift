@@ -12,7 +12,6 @@ import FirebaseAuth
 import Combine
 
 final class Session: ObservableObject {
-    @Inject private var auth: Auth
     @Inject private var authController: AuthController
     var didChange = PassthroughSubject<Session, Never>()
     var handle: AuthStateDidChangeListenerHandle?
@@ -20,17 +19,6 @@ final class Session: ObservableObject {
         didSet {
             didChange.send(self)
         }
-    }
-    func observerAuth() {
-        handle = auth.addStateDidChangeListener({ [weak self] auth, user in
-            if let user = user {
-                self?.currentUser = User(
-                    email: user.email ?? "",
-                    id: user.uid,
-                    isGuest: user.isAnonymous
-                )
-            }
-        })
     }
     
     func signIn(
@@ -42,12 +30,16 @@ final class Session: ObservableObject {
             email: email,
             password: password
         ) { [unowned self] res in
-            self.currentUser = User(
-                email: res.email ?? "",
-                id: res.uid,
-                isGuest: res.isAnonymous
-            )
-            onCompletion()
+            if let user = res.data {
+                self.currentUser = User(
+                    email: user.email ?? "",
+                    id: user.uid,
+                    isGuest: user.isAnonymous
+                )
+                onCompletion()
+            } else if let error = res.message {
+                Log.d(tag: "Auth", message: error)
+            }
         }
     }
     func signUp(
@@ -59,30 +51,43 @@ final class Session: ObservableObject {
             email: email,
             password: password
         ) { [unowned self] res in
-            self.currentUser = User(
-                email: res.email ?? "",
-                id: res.uid,
-                isGuest: res.isAnonymous
-            )
-            onCompletion()
+            if let user = res.data {
+                self.currentUser = User(
+                    email: user.email ?? "",
+                    id: user.uid,
+                    isGuest: user.isAnonymous
+                )
+                onCompletion()
+            } else if let error = res.message {
+                Log.d(tag: "Auth", message: error)
+            }
         }
     }
     func signInAsGuest() {
         authController.signInAsGuest { res in
-            self.currentUser = User(
-                email: res.email ?? "",
-                id: res.uid,
-                isGuest: res.isAnonymous
-            )
+            if let user = res.data {
+                self.currentUser = User(
+                    email: user.email ?? "",
+                    id: user.uid,
+                    isGuest: user.isAnonymous
+                )
+            } else if let error = res.message {
+                Log.d(tag: "Auth", message: error)
+            }
         }
     }
     func checkAndSignInAsGuest() {
         authController.checkAuthAndSignAsGuest(onCompletion: { res in
-            self.currentUser = User(
-                email: res.email ?? "",
-                id: res.uid,
-                isGuest: res.isAnonymous
-            )
+            if let user = res.data {
+                self.currentUser = User(
+                    email: user.email ?? "",
+                    id: user.uid,
+                    isGuest: user.isAnonymous
+                )
+                Log.d(tag: "Auth", message: user)
+            } else if let error = res.message {
+                Log.d(tag: "Auth", message: error)
+            }
         })
     }
     
@@ -96,11 +101,7 @@ final class Session: ObservableObject {
         onCompletion()
     }
     
-    func unbind() {
-        if let handle = handle {
-            auth.removeStateDidChangeListener(handle)
-        }
-    }
+
 
     struct User {
         var email: String
@@ -108,7 +109,5 @@ final class Session: ObservableObject {
         var isGuest: Bool
     }
     
-    deinit {
-        unbind()
-    }
+  
 }

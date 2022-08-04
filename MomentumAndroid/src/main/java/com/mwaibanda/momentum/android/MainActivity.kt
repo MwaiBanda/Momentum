@@ -21,12 +21,14 @@ import com.google.firebase.FirebaseApp
 import com.mwaibanda.momentum.android.core.utils.Constants
 import com.mwaibanda.momentum.android.core.utils.NavigationRoutes.*
 import com.mwaibanda.momentum.android.presentation.auth.AuthControllerScreen
+import com.mwaibanda.momentum.android.presentation.auth.AuthViewModel
 import com.mwaibanda.momentum.android.presentation.navigation.LaunchScreen
 import com.mwaibanda.momentum.android.presentation.offer.OfferScreen
 import com.mwaibanda.momentum.android.presentation.payment.PaymentFailureScreen
 import com.mwaibanda.momentum.android.presentation.payment.PaymentSuccessScreen
 import com.mwaibanda.momentum.android.presentation.payment.PaymentSummaryScreen
 import com.mwaibanda.momentum.android.presentation.profie.ProfileScreen
+import com.mwaibanda.momentum.android.presentation.profie.ProfileViewModel
 import com.mwaibanda.momentum.android.presentation.transaction.TransactionScreen
 import com.mwaibanda.momentum.utils.MultiplatformConstants
 import com.stripe.android.paymentsheet.PaymentSheet
@@ -39,6 +41,8 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         WindowCompat.setDecorFitsSystemWindows(window, false)
         setContent {
+            val  authViewModel: AuthViewModel = getViewModel()
+            val profileViewModel: ProfileViewModel = getViewModel()
             ProvideWindowInsets {
                 MomentumEntry { contentPadding, navController, bottomSheetNav ->
                     ModalBottomSheetLayout(bottomSheetNav) {
@@ -53,10 +57,10 @@ class MainActivity : BaseActivity() {
                                 )
                             }
                             composable(OfferScreen.route) {
-                                OfferScreen(navController = navController)
+                                OfferScreen(navController = navController, authViewModel = authViewModel)
                             }
                             composable(ProfileScreen.route) {
-                                ProfileScreen()
+                                ProfileScreen(authViewModel = authViewModel, profileViewModel = profileViewModel)
                             }
                             composable(PaymentSuccessScreen.route) {
                                 PaymentSuccessScreen(navController = navController)
@@ -106,7 +110,7 @@ class MainActivity : BaseActivity() {
                                 }
                             }
                             bottomSheet(AuthControllerScreen.route){
-                                AuthControllerScreen {
+                                AuthControllerScreen(authViewModel = authViewModel, profileViewModel = profileViewModel) {
                                     navController.popBackStack()
                                 }
                             }

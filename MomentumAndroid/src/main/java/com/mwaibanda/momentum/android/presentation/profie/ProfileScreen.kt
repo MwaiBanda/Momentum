@@ -10,6 +10,7 @@ import androidx.compose.material.icons.filled.*
 import androidx.compose.material.icons.outlined.Chat
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -19,17 +20,24 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.mwaibanda.momentum.android.core.utils.Constants
+import com.mwaibanda.momentum.android.presentation.auth.AuthViewModel
 import com.mwaibanda.momentum.android.presentation.components.BasePlainExpandableCard
 import com.mwaibanda.momentum.android.presentation.components.BottomSpacing
 import com.mwaibanda.momentum.android.presentation.components.LinkLabel
 import com.mwaibanda.momentum.android.presentation.components.TitleTextField
 import com.mwaibanda.momentum.android.presentation.profie.ProfileViewModel.ProfileCard.*
 import com.mwaibanda.momentum.utils.MultiplatformConstants
+import org.koin.androidx.compose.get
 import org.koin.androidx.compose.getViewModel
 
 @Composable
-fun ProfileScreen(profileViewModel: ProfileViewModel = getViewModel()) {
-    Box( ) {
+fun ProfileScreen(profileViewModel: ProfileViewModel, authViewModel: AuthViewModel) {
+    LaunchedEffect(key1 = Unit) {
+        profileViewModel.getContactInformation(userId = authViewModel.user?.id ?: "") {
+
+        }
+    }
+    Box {
         Column(
             Modifier
                 .fillMaxSize()
@@ -80,7 +88,7 @@ fun ProfileScreen(profileViewModel: ProfileViewModel = getViewModel()) {
                             contentAlignment = Alignment.Center
                         ) {
                             Text(
-                                text = "Mwai Banda"
+                                text = profileViewModel.fullname.ifEmpty { "Guest" }
                                     .split(" ")
                                     .map { it.first().toString() }
                                     .reduce { x, y -> x + y },
@@ -94,12 +102,12 @@ fun ProfileScreen(profileViewModel: ProfileViewModel = getViewModel()) {
                     Spacer(modifier = Modifier.width(10.dp))
                     Column {
                         Text(
-                            text = "Mwai Banda",
+                            text = profileViewModel.fullname.ifEmpty { "Guest" },
                             fontWeight = FontWeight.ExtraBold,
                             style = MaterialTheme.typography.h6,
                         )
                         Text(
-                            text = "07/29/2019",
+                            text = profileViewModel.createdOn,
                             style = MaterialTheme.typography.caption,
                             color = Color.Gray
                         )
@@ -480,7 +488,7 @@ fun ProfileScreen(profileViewModel: ProfileViewModel = getViewModel()) {
                     .background(Color.White), horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Button(
-                    onClick = { },
+                    onClick = { authViewModel.signOut() },
                     modifier = Modifier
                         .fillMaxWidth(0.9f)
                         .height(55.dp),
@@ -502,8 +510,3 @@ fun ProfileScreen(profileViewModel: ProfileViewModel = getViewModel()) {
 
 }
 
-@Preview
-@Composable
-fun ProfileScreenPreview() {
-    ProfileScreen(ProfileViewModel())
-}

@@ -14,6 +14,6 @@ val viewModelModule = module {
     viewModel { TransactionViewModel(get()) }
     viewModel { OfferViewModel() }
     viewModel { PaymentSummaryContentViewModel() }
-    viewModel { ProfileViewModel() }
+    viewModel { ProfileViewModel(userController = get(), billingAddressController = get()) }
     viewModel { AuthViewModel(authController = get()) }
 }
