@@ -25,7 +25,7 @@ import androidx.compose.ui.unit.dp
 import com.mwaibanda.momentum.android.core.utils.Constants
 
 @Composable
-fun TitleTextField(title: String, text: String, onTextChange: (String) -> Unit) {
+fun TitleTextField(title: String, text: String, onTextChange: (String) -> Unit, onCommit: () -> Unit) {
     val focusManager = LocalFocusManager.current
     var isTyping by remember {
         mutableStateOf(false)
@@ -78,6 +78,7 @@ fun TitleTextField(title: String, text: String, onTextChange: (String) -> Unit) 
                 keyboardActions = KeyboardActions(onDone = {
                     focusManager.clearFocus()
                     isTyping = false
+                    onCommit()
                 }),
                 keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Done)
             )
@@ -91,7 +92,7 @@ fun TitleTextField(title: String, text: String, onTextChange: (String) -> Unit) 
 @Composable
 fun TitleTextFieldPreview() {
     Column(Modifier.background(Color.White)) {
-        TitleTextField(title = "fullname", text = "") {
+        TitleTextField(title = "fullname", text = "", onTextChange = {}) {
 
         }
     }

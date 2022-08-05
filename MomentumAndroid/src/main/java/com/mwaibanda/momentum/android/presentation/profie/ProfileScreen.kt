@@ -17,8 +17,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.mwaibanda.momentum.android.core.utils.Constants
 import com.mwaibanda.momentum.android.presentation.auth.AuthViewModel
 import com.mwaibanda.momentum.android.presentation.components.BasePlainExpandableCard
@@ -27,14 +27,16 @@ import com.mwaibanda.momentum.android.presentation.components.LinkLabel
 import com.mwaibanda.momentum.android.presentation.components.TitleTextField
 import com.mwaibanda.momentum.android.presentation.profie.ProfileViewModel.ProfileCard.*
 import com.mwaibanda.momentum.utils.MultiplatformConstants
-import org.koin.androidx.compose.get
-import org.koin.androidx.compose.getViewModel
 
 @Composable
-fun ProfileScreen(profileViewModel: ProfileViewModel, authViewModel: AuthViewModel) {
+fun ProfileScreen(
+    navController: NavController,
+    profileViewModel: ProfileViewModel,
+    authViewModel: AuthViewModel
+) {
     LaunchedEffect(key1 = Unit) {
-        profileViewModel.getContactInformation(userId = authViewModel.user?.id ?: "") {
-
+        profileViewModel.getContactInformation(userId = authViewModel.currentUser?.id ?: "") {
+            profileViewModel.getBillingInformation(userId = authViewModel.currentUser?.id ?: "")
         }
     }
     Box {
@@ -155,20 +157,36 @@ fun ProfileScreen(profileViewModel: ProfileViewModel, authViewModel: AuthViewMod
 
                         }
                     ) {
-                        TitleTextField(title = MultiplatformConstants.FULLNAME, text = profileViewModel.fullname ){
-                            profileViewModel.fullname = it
+                        TitleTextField(
+                            title = MultiplatformConstants.FULLNAME,
+                            text = profileViewModel.fullname,
+                            onTextChange = { profileViewModel.fullname = it }
+                        ) {
+                            profileViewModel.updateFullname(userId =  authViewModel.currentUser?.id ?: "")
                         }
                         Divider()
-                        TitleTextField(title = MultiplatformConstants.PHONE, text = profileViewModel.phone ){
-                            profileViewModel.phone = it
+                        TitleTextField(
+                            title = MultiplatformConstants.PHONE,
+                            text = profileViewModel.phone,
+                            onTextChange = { profileViewModel.phone = it }
+                        ) {
+                            profileViewModel.updatePhone(userId = authViewModel.currentUser?.id ?: "")
                         }
                         Divider()
-                        TitleTextField(title = MultiplatformConstants.EMAIL, text = profileViewModel.email ){
-                            profileViewModel.email = it
+                        TitleTextField(
+                            title = MultiplatformConstants.EMAIL,
+                            text = profileViewModel.email,
+                            onTextChange = { profileViewModel.email = it }
+                        ) {
+                            profileViewModel.updateEmail(userId = authViewModel.currentUser?.id ?: "")
                         }
                         Divider()
-                        TitleTextField(title = MultiplatformConstants.PASSWORD, text = profileViewModel.password){
-                            profileViewModel.password = it
+                        TitleTextField(
+                            title = MultiplatformConstants.PASSWORD,
+                            text = profileViewModel.password,
+                            onTextChange = { profileViewModel.password = it }
+                        ) {
+                            profileViewModel.updatePassword(userId = authViewModel.currentUser?.id ?: "")
                         }
                     }
 
@@ -178,7 +196,8 @@ fun ProfileScreen(profileViewModel: ProfileViewModel, authViewModel: AuthViewMod
                         showCoverDivider = profileViewModel.isContactExpanded,
                         coverContent = {
                             Icon(
-                                imageVector = Icons.Default.Domain, contentDescription = "Expand Icon",
+                                imageVector = Icons.Default.Domain,
+                                contentDescription = "Expand Icon",
                                 tint = Color.Gray
                             )
                             Spacer(modifier = Modifier.width(10.dp))
@@ -210,20 +229,36 @@ fun ProfileScreen(profileViewModel: ProfileViewModel, authViewModel: AuthViewMod
 
                         }
                     ) {
-                        TitleTextField(title = MultiplatformConstants.STREET_ADDRESS, text = profileViewModel.streetAddress ){
-                            profileViewModel.streetAddress = it
+                        TitleTextField(
+                            title = MultiplatformConstants.STREET_ADDRESS,
+                            text = profileViewModel.streetAddress,
+                            onTextChange =  { profileViewModel.streetAddress = it }
+                        ){
+                            profileViewModel.updateStreetAddress(userId = authViewModel.currentUser?.id ?: "")
                         }
                         Divider()
-                        TitleTextField(title = MultiplatformConstants.APT, text = profileViewModel.apt ){
-                            profileViewModel.apt = it
+                        TitleTextField(
+                            title = MultiplatformConstants.APT,
+                            text = profileViewModel.apt,
+                            onTextChange = { profileViewModel.apt = it }
+                        ) {
+                            profileViewModel.updateApt(userId = authViewModel.currentUser?.id ?: "")
                         }
                         Divider()
-                        TitleTextField(title = MultiplatformConstants.CITY, text = profileViewModel.city ){
-                            profileViewModel.city = it
+                        TitleTextField(
+                            title = MultiplatformConstants.CITY,
+                            text = profileViewModel.city,
+                            onTextChange = { profileViewModel.city = it }
+                        ) {
+                            profileViewModel.updateCity(userId = authViewModel.currentUser?.id ?: "")
                         }
                         Divider()
-                        TitleTextField(title = MultiplatformConstants.ZIP_CODE, text = profileViewModel.zipCode){
-                            profileViewModel.zipCode = it
+                        TitleTextField(
+                            title = MultiplatformConstants.ZIP_CODE,
+                            text = profileViewModel.zipCode,
+                            onTextChange = { profileViewModel.zipCode = it }
+                        ) {
+                            profileViewModel.updateZipCode(userId = authViewModel.currentUser?.id ?: "")
                         }
                     }
                     BasePlainExpandableCard(
@@ -265,7 +300,10 @@ fun ProfileScreen(profileViewModel: ProfileViewModel, authViewModel: AuthViewMod
 
                         }
                     ) {
-                        Column(Modifier.padding(10.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+                        Column(
+                            Modifier.padding(10.dp),
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
                             Text(
                                 text = MultiplatformConstants.DELETE_ACCOUNT,
                                 style = MaterialTheme.typography.body1.copy(fontWeight = FontWeight.ExtraBold),
@@ -329,7 +367,10 @@ fun ProfileScreen(profileViewModel: ProfileViewModel, authViewModel: AuthViewMod
 
                         }
                     ) {
-                        Column(Modifier.padding(10.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+                        Column(
+                            Modifier.padding(10.dp),
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
                             Text(
                                 text = MultiplatformConstants.TECHNICAL_SUPPORT_PROMPT,
                                 color = Color.Gray,
@@ -337,10 +378,16 @@ fun ProfileScreen(profileViewModel: ProfileViewModel, authViewModel: AuthViewMod
                                 modifier = Modifier.fillMaxWidth()
                             )
                             Spacer(modifier = Modifier.height(10.dp))
-                            LinkLabel(title = MultiplatformConstants.TECHNICAL_SUPPORT, description = MultiplatformConstants.DEVELOPER_PHONE_TITLE) {
+                            LinkLabel(
+                                title = MultiplatformConstants.TECHNICAL_SUPPORT,
+                                description = MultiplatformConstants.DEVELOPER_PHONE_TITLE
+                            ) {
 
                             }
-                            LinkLabel(title = MultiplatformConstants.TECHNICAL_SUPPORT, description = MultiplatformConstants.DEVELOPER_EMAIL_TITLE) {
+                            LinkLabel(
+                                title = MultiplatformConstants.TECHNICAL_SUPPORT,
+                                description = MultiplatformConstants.DEVELOPER_EMAIL_TITLE
+                            ) {
 
                             }
                         }
@@ -351,7 +398,8 @@ fun ProfileScreen(profileViewModel: ProfileViewModel, authViewModel: AuthViewMod
                         showCoverDivider = profileViewModel.isTechSupportExpanded,
                         coverContent = {
                             Icon(
-                                imageVector = Icons.Outlined.Chat, contentDescription = "Expand Icon",
+                                imageVector = Icons.Outlined.Chat,
+                                contentDescription = "Expand Icon",
                                 tint = Color.Gray
                             )
                             Spacer(modifier = Modifier.width(10.dp))
@@ -382,7 +430,10 @@ fun ProfileScreen(profileViewModel: ProfileViewModel, authViewModel: AuthViewMod
                             )
                         }
                     ) {
-                        Column(Modifier.padding(10.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+                        Column(
+                            Modifier.padding(10.dp),
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
                             Text(
                                 text = MultiplatformConstants.FEEDBACK_PROMPT,
                                 color = Color.Gray,
@@ -437,7 +488,10 @@ fun ProfileScreen(profileViewModel: ProfileViewModel, authViewModel: AuthViewMod
 
                         }
                     ) {
-                        Column(Modifier.padding(10.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+                        Column(
+                            Modifier.padding(10.dp),
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
                             Text(
                                 text = MultiplatformConstants.ABOUT_CHURCH,
                                 color = Color.Gray,
@@ -481,14 +535,20 @@ fun ProfileScreen(profileViewModel: ProfileViewModel, authViewModel: AuthViewMod
         Column(
             Modifier
                 .fillMaxSize()
-                .offset(y = 4.dp), verticalArrangement = Arrangement.Bottom) {
+                .offset(y = 4.dp), verticalArrangement = Arrangement.Bottom
+        ) {
             Column(
                 Modifier
                     .fillMaxWidth()
                     .background(Color.White), horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Button(
-                    onClick = { authViewModel.signOut() },
+                    onClick = {
+                        authViewModel.signOut {
+                            authViewModel.signInAsGuest()
+                            navController.popBackStack()
+                        }
+                    },
                     modifier = Modifier
                         .fillMaxWidth(0.9f)
                         .height(55.dp),

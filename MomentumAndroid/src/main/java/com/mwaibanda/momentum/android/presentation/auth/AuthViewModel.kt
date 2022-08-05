@@ -12,65 +12,59 @@ import java.time.format.DateTimeFormatter
 
 class AuthViewModel(
     private val authController: AuthController
-): ViewModel() {
-    var user: User? by mutableStateOf(null)
+) : ViewModel() {
+    var currentUser: User? by mutableStateOf(null)
 
-    init {
-        checkAndSignIn()
-    }
+    init { checkAndSignIn() }
 
     private fun checkAndSignIn() {
         authController.checkAuthAndSignAsGuest { res ->
-            when(res) {
-                is Failure ->  {
+            when (res) {
+                is Failure -> {
                     Log.d("Auth/Failure", res.message ?: "")
                 }
                 is Success -> {
-                        user = User(
-                            id = res.data?.uid ?: "",
-                            email = res.data?.email,
-                            isGuest = res.data?.isAnonymous ?: false
-                        )
-
+                    currentUser = User(
+                        id = res.data?.uid ?: "",
+                        email = res.data?.email,
+                        isGuest = res.data?.isAnonymous ?: false
+                    )
                 }
             }
             Log.d("Auth", "User {id: ${res.data?.uid}, isGuest: ${res.data?.isAnonymous}}")
         }
     }
 
-    fun signIn(email: String, password: String, onCompletion: () -> Unit){
+    fun signIn(email: String, password: String, onCompletion: () -> Unit) {
         authController.signInWithEmail(email = email, password = password) { res ->
-            when(res) {
-                is Failure ->  {
+            when (res) {
+                is Failure -> {
                     Log.d("Auth/Failure", res.message ?: "")
                 }
                 is Success -> {
-
-                        user = User(
-                            id = res.data?.uid ?: "",
-                            email = res.data?.email,
-                            isGuest = res.data?.isAnonymous ?: false
-                        )
-
+                    currentUser = User(
+                        id = res.data?.uid ?: "",
+                        email = res.data?.email,
+                        isGuest = res.data?.isAnonymous ?: false
+                    )
                     onCompletion()
                 }
             }
         }
     }
 
-    fun signUp(email: String, password: String, onCompletion: () -> Unit){
-        authController.signUpWithEmail(email =email, password = password) { res ->
-            when(res) {
-                is Failure ->  {
+    fun signUp(email: String, password: String, onCompletion: () -> Unit) {
+        authController.signUpWithEmail(email = email, password = password) { res ->
+            when (res) {
+                is Failure -> {
                     Log.d("Auth/Failure", res.message ?: "")
                 }
                 is Success -> {
-                        user = User(
-                            id = res.data?.uid ?: "",
-                            email = res.data?.email,
-                            isGuest = res.data?.isAnonymous ?: false
-                        )
-
+                    currentUser = User(
+                        id = res.data?.uid ?: "",
+                        email = res.data?.email,
+                        isGuest = res.data?.isAnonymous ?: false
+                    )
                     onCompletion()
                 }
             }
@@ -78,14 +72,34 @@ class AuthViewModel(
         }
     }
 
-    fun signOut() {
-        authController.signOut()
+    fun signInAsGuest() {
+        authController.signInAsGuest { res ->
+            when (res) {
+                is Failure -> {
+                    Log.d("Auth/Failure", res.message ?: "")
+                }
+                is Success -> {
+                    currentUser = User(
+                        id = res.data?.uid ?: "",
+                        email = res.data?.email,
+                        isGuest = res.data?.isAnonymous ?: false
+                    )
+                }
+            }
+        }
     }
+
+    fun signOut(onCompletion: () -> Unit) {
+        authController.signOut()
+        onCompletion()
+    }
+
     fun getCurrentDate(): String {
         val date = LocalDate.now()
         val formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy")
         return date.format(formatter)
     }
+
     data class User(
         val id: String,
         val email: String?,

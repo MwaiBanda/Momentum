@@ -1,5 +1,6 @@
 package com.mwaibanda.momentum.android.presentation.profie
 
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -139,4 +140,78 @@ class ProfileViewModel(
         }
     }
 
+    fun getBillingInformation(userId: String) {
+        billingAddressController.getBillingAddressByUserId(userId = userId) { address ->
+            if (address != null) {
+                streetAddress = address.street_address
+                apt = address.apt ?: ""
+                city = address.city
+                zipCode = address.zip_code
+            }
+        }
+    }
+
+    fun updateFullname(userId: String) {
+        userController.updateMomentumUserFullnameByUserId(
+            userId = userId,
+            fullname = fullname
+        ) {
+            userController.updateUserFullname(userID = userId, fullname = fullname)
+        }
+    }
+
+    fun updatePhone(userId: String) {
+        userController.updateMomentumUserPhoneByUserId(
+            userId = userId,
+            phone = phone
+        ) {
+            userController.updatePhoneByUserId(userId = userId, phone = phone)
+        }
+    }
+
+    fun updateEmail(userId: String) {
+        userController.updateMomentumUserEmailByUserId(
+            userId = userId,
+            email = email
+        ) {
+            userController.updateUserEmail(userID = userId, email = email)
+        }
+    }
+
+    fun updatePassword(userId: String) {
+        userController.updateMomentumUserPasswordUserId(userId = userId, password = password) {
+            Log.d("Profile/Password", "Password Updated")
+        }
+    }
+
+    fun updateStreetAddress(userId: String) {
+        billingAddressController.updateBillingStreetByUserId(
+            userId = userId,
+            streetAddress = streetAddress
+        )
+    }
+
+    fun updateApt(userId: String) {
+        billingAddressController.updateBillingAptByUserId(userId = userId, apt = apt)
+    }
+
+    fun updateCity(userId: String) {
+        billingAddressController.updateBillingCityByUserId(userId = userId, city = city)
+    }
+
+    fun updateZipCode(userId: String) {
+        billingAddressController.updateBillingZipCodeByUserId(userId = userId, zipCode = zipCode)
+    }
+
+    fun deleteUser(userId: String, onCompletion: () -> Unit) {
+        userController.deleteMomentumUserByUserId(userId = userId) {
+            userController.deleteUser(userID = userId) {
+                onCompletion()
+            }
+        }
+    }
+
+    fun deleteBillingAddress(userId: String) {
+        billingAddressController.deleteBillingByUserId(userId = userId)
+    }
 }

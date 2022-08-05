@@ -1,6 +1,5 @@
 package com.mwaibanda.momentum.android.presentation.auth
 
-import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
@@ -8,7 +7,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.MailOutline
 import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material.icons.outlined.Phone
-import androidx.compose.material.icons.outlined.PhoneCallback
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -18,7 +16,6 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import com.mwaibanda.momentum.android.core.utils.Constants
-import com.mwaibanda.momentum.android.core.utils.NavigationRoutes
 import com.mwaibanda.momentum.android.presentation.components.IconTextfield
 import com.mwaibanda.momentum.android.presentation.components.PasswordTextField
 import com.mwaibanda.momentum.android.presentation.profie.ProfileViewModel
@@ -114,7 +111,7 @@ fun SignUpScreen(authViewModel: AuthViewModel, profileViewModel: ProfileViewMode
                                 password = password.text,
                                 email = email.text,
                                 createdOn = authViewModel.getCurrentDate(),
-                                userId =  authViewModel.user?.id ?: ""
+                                userId =  authViewModel.currentUser?.id ?: ""
                             )
                             onCloseModal()
                         }

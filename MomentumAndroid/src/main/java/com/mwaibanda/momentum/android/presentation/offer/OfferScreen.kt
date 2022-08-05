@@ -18,7 +18,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalLifecycleOwner
@@ -35,8 +34,8 @@ import org.koin.androidx.compose.getViewModel
 @Composable
 fun OfferScreen(
     navController: NavController,
-    offerViewModel: OfferViewModel = getViewModel(),
-    authViewModel: AuthViewModel
+    authViewModel: AuthViewModel,
+    offerViewModel: OfferViewModel = getViewModel()
 ){
    BlurredBackground {
         var number by remember {
@@ -92,7 +91,7 @@ fun OfferScreen(
                 Button(
                     onClick = {
                         Log.d("OFFER", "${offerViewModel.number.value?.toFloat()}" )
-                        if (authViewModel.user?.isGuest == true) {
+                        if (authViewModel.currentUser?.isGuest == true) {
                             navController.navigate(NavigationRoutes.AuthControllerScreen.route)
                         } else {
                             navController.navigate("pay/${offerViewModel.number.value?.toFloat()}")

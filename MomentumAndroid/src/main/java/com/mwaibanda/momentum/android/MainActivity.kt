@@ -41,8 +41,6 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         WindowCompat.setDecorFitsSystemWindows(window, false)
         setContent {
-            val  authViewModel: AuthViewModel = getViewModel()
-            val profileViewModel: ProfileViewModel = getViewModel()
             ProvideWindowInsets {
                 MomentumEntry { contentPadding, navController, bottomSheetNav ->
                     ModalBottomSheetLayout(bottomSheetNav) {
@@ -52,15 +50,20 @@ class MainActivity : BaseActivity() {
                             startDestination = LaunchScreen.route
                         ) {
                             composable(LaunchScreen.route) {
-                                LaunchScreen(
-                                    navController = navController
-                                )
+                                LaunchScreen(navController = navController)
                             }
                             composable(OfferScreen.route) {
-                                OfferScreen(navController = navController, authViewModel = authViewModel)
+                                OfferScreen(
+                                    navController = navController,
+                                    authViewModel = authViewModel
+                                )
                             }
                             composable(ProfileScreen.route) {
-                                ProfileScreen(authViewModel = authViewModel, profileViewModel = profileViewModel)
+                                ProfileScreen(
+                                    navController = navController,
+                                    authViewModel = authViewModel,
+                                    profileViewModel = profileViewModel
+                                )
                             }
                             composable(PaymentSuccessScreen.route) {
                                 PaymentSuccessScreen(navController = navController)
@@ -79,7 +82,9 @@ class MainActivity : BaseActivity() {
                                     transactionViewModel = transactionViewModel,
                                     amount = it.arguments?.getFloat("amount") ?: 0.0f,
                                     canInitiateTransaction = paymentViewModel.canInitiateTransaction,
-                                    onTransactionCanProcess = { paymentViewModel.canInitiateTransaction = it },
+                                    onTransactionCanProcess = {
+                                        paymentViewModel.canInitiateTransaction = it
+                                    },
                                     onHandlePaymentSheetResult = ::onHandlePaymentResult
                                 ) { request, launcher ->
                                     checkout(request) { customer, intent ->
@@ -104,13 +109,16 @@ class MainActivity : BaseActivity() {
                                     }
                                 }
                             }
-                            bottomSheet(TransactionsScreen.route){
+                            bottomSheet(TransactionsScreen.route) {
                                 TransactionScreen(transactionViewModel = transactionViewModel) {
                                     navController.popBackStack()
                                 }
                             }
-                            bottomSheet(AuthControllerScreen.route){
-                                AuthControllerScreen(authViewModel = authViewModel, profileViewModel = profileViewModel) {
+                            bottomSheet(AuthControllerScreen.route) {
+                                AuthControllerScreen(
+                                    authViewModel = authViewModel,
+                                    profileViewModel = profileViewModel
+                                ) {
                                     navController.popBackStack()
                                 }
                             }
