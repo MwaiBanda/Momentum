@@ -79,6 +79,8 @@ class MainActivity : BaseActivity() {
                             ) {
                                 PaymentSummaryScreen(
                                     navController = navController,
+                                    authViewModel = authViewModel,
+                                    profileViewModel = profileViewModel,
                                     transactionViewModel = transactionViewModel,
                                     amount = it.arguments?.getFloat("amount") ?: 0.0f,
                                     canInitiateTransaction = paymentViewModel.canInitiateTransaction,

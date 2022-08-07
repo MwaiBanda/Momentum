@@ -11,11 +11,13 @@ import MomentumSDK
 import Stripe
 
 struct PaymentSummaryView: View {
+    @EnvironmentObject var session: Session
     @ObservedObject var offerViewModel: OfferViewModel
     @StateObject private var paymentViewModel = PaymentViewModel()
     @StateObject private var contentViewModel = PaymentSummaryContentViewModel()
     @StateObject private var transactionViewModel = TransactionViewModel()
-
+    @StateObject private var profileViewModel = ProfileViewModel()
+    
     var body: some View {
         ZStack {
             VStack {
@@ -36,18 +38,25 @@ struct PaymentSummaryView: View {
                                 .frame(width: screenBounds.width - 30, height: 55)
                         }.buttonStyle(FilledButtonStyle())
                         Divider()
-
+                        
                     }
-                        .navigationTitle(paymentViewModel.isNavTitleHidden ? "" : "Payment Summary")
-                        .navigationBarBackButtonHidden(false)
+                    .navigationTitle(paymentViewModel.isNavTitleHidden ? "" : "Payment Summary")
+                    .navigationBarBackButtonHidden(false)
                 } else {
                     LoadingView()
                         .navigationBarBackButtonHidden(true)
                     
                 }
             }.onAppear {
-                paymentViewModel.checkout(request: PaymentRequest(amount: Int32((Double(offerViewModel.number) ?? 0.00) * 100))) {
-                    paymentViewModel.setUpPaymentSheet()
+                profileViewModel.getContactInformation(userId: session.currentUser?.id ?? "") {
+                    paymentViewModel.checkout(request: PaymentRequest(
+                        fullname: profileViewModel.fullname,
+                        email: profileViewModel.email,
+                        phone: profileViewModel.phone,
+                        amount: Int32((Double(offerViewModel.number) ?? 0.00) * 100)
+                    )) {
+                        paymentViewModel.setUpPaymentSheet()
+                    }
                 }
             }
             if let paymentResult = paymentViewModel.paymentResult {
@@ -72,9 +81,9 @@ struct PaymentSummaryView: View {
                 
             }
         }
-
+        
     }
-   
+    
 }
 
 struct PaymentSummaryView_Previews: PreviewProvider {

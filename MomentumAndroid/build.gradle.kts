@@ -12,7 +12,7 @@ android {
         minSdk = 21
         targetSdk = 31
         versionCode = 1
-        versionName = "1.0"
+        versionName = "1.0.0"
     }
     buildFeatures {
         compose = true
@@ -67,6 +67,7 @@ dependencies {
 
     // Stripe Android SDK
     implementation ("com.stripe:stripe-android:19.0.0")
+
     //Koin
     implementation("io.insert-koin:koin-android:3.2.0")
     implementation("io.insert-koin:koin-core:3.2.0")

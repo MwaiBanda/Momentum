@@ -17,7 +17,9 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.mwaibanda.momentum.android.core.utils.Constants
 import com.mwaibanda.momentum.android.core.utils.NavigationRoutes
+import com.mwaibanda.momentum.android.presentation.auth.AuthViewModel
 import com.mwaibanda.momentum.android.presentation.components.BottomSpacing
+import com.mwaibanda.momentum.android.presentation.profie.ProfileViewModel
 import com.mwaibanda.momentum.android.presentation.transaction.TransactionViewModel
 import com.mwaibanda.momentum.domain.models.PaymentRequest
 import com.stripe.android.paymentsheet.PaymentSheetContract
@@ -26,8 +28,10 @@ import org.koin.androidx.compose.getViewModel
 
 @Composable
 fun PaymentSummaryScreen(
-    contentViewModel: PaymentSummaryContentViewModel  = getViewModel(),
     navController: NavController,
+    contentViewModel: PaymentSummaryContentViewModel  = getViewModel(),
+    authViewModel: AuthViewModel,
+    profileViewModel: ProfileViewModel,
     transactionViewModel: TransactionViewModel,
     amount: Float,
     canInitiateTransaction: Boolean,
@@ -58,6 +62,7 @@ fun PaymentSummaryScreen(
             {
                 navController.navigate(NavigationRoutes.PaymentFailureScreen.route)
                 Log.d("PAY", it)
+                onTransactionCanProcess(true)
             }
         )
     }
@@ -119,9 +124,15 @@ fun PaymentSummaryScreen(
             Button(
                 enabled = canInitiateTransaction,
                 onClick = {
-                    onInitiateCheckout(PaymentRequest((amount * 100).toInt()), stripeLauncher)
-                    onTransactionCanProcess(false)
-
+                    profileViewModel.getContactInformation(authViewModel.currentUser?.id ?: "") {
+                        onInitiateCheckout(PaymentRequest(
+                            fullname = profileViewModel.fullname,
+                            email = profileViewModel.email,
+                            phone = profileViewModel.phone,
+                            amount = (amount * 100).toInt()
+                        ), stripeLauncher)
+                        onTransactionCanProcess(false)
+                    }
                 },
                 modifier = Modifier
                     .fillMaxWidth(0.9f)

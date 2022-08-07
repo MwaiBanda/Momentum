@@ -19,6 +19,7 @@ open class BaseActivity : ComponentActivity() {
     protected val profileViewModel: ProfileViewModel by inject()
     protected val transactionViewModel: TransactionViewModel by inject()
 
+
     protected fun checkout(
         paymentRequest: PaymentRequest,
         onSuccess: (customer: PaymentSheet.CustomerConfiguration?, intent: String) -> Unit
@@ -26,6 +27,7 @@ open class BaseActivity : ComponentActivity() {
         paymentViewModel.checkout(paymentRequest)
         paymentViewModel.paymentResponse.observe(this) { paymentResponse ->
             PaymentConfiguration.init(this, paymentResponse.publishableKey)
+
             val customerConfig = PaymentSheet.CustomerConfiguration(
                 paymentResponse.customer,
                 paymentResponse.ephemeralKey
@@ -50,7 +52,7 @@ open class BaseActivity : ComponentActivity() {
 
     companion object {
         val googlePayConfig = PaymentSheet.GooglePayConfiguration(
-            environment = PaymentSheet.GooglePayConfiguration.Environment.Test,
+            environment = PaymentSheet.GooglePayConfiguration.Environment.Production,
             countryCode = "US"
         )
     }

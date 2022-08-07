@@ -28,7 +28,6 @@ sealed class ScreenConfiguration(val screens: List<String>){
     object ScreensWithWhiteStatusBar: ScreenConfiguration (
         listOf(
             ProfileScreen.route,
-            PaymentSummaryScreen.route,
             PaymentSuccessScreen.route,
             PaymentFailureScreen.route,
         )
