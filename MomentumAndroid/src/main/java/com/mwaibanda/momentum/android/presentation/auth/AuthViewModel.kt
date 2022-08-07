@@ -89,6 +89,10 @@ class AuthViewModel(
         }
     }
 
+    fun deleteCurrentUser(onCompletion: () -> Unit){
+        authController.deleteUser()
+        onCompletion()
+    }
     fun signOut(onCompletion: () -> Unit) {
         authController.signOut()
         onCompletion()

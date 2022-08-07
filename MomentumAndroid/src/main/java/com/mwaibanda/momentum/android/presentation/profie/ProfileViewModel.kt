@@ -28,7 +28,7 @@ class ProfileViewModel(
     var phone by mutableStateOf("")
     var email by mutableStateOf("")
     var password by mutableStateOf("")
-    var createdOn by mutableStateOf("Create an Account or Sign In")
+    var createdOn by mutableStateOf("")
 
     /* Billing Information */
     var streetAddress by mutableStateOf("")

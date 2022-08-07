@@ -1,5 +1,7 @@
 package com.mwaibanda.momentum.android.presentation.profie
 
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
@@ -15,6 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -39,6 +42,22 @@ fun ProfileScreen(
             profileViewModel.getBillingInformation(userId = authViewModel.currentUser?.id ?: "")
         }
     }
+    val context = LocalContext.current
+    val mailTo: (email: String) -> Unit = { email ->
+        val intent = Intent().apply {
+            action = Intent.ACTION_SENDTO
+            data = Uri.parse("mailto:$email")
+        }
+        context.startActivity(intent)
+    }
+    val phone: (phone: String) -> Unit = { phone ->
+        val intent = Intent().apply {
+            action = Intent.ACTION_DIAL
+            data = Uri.parse("tel:$phone")
+        }
+        context.startActivity(intent)
+    }
+
     Box {
         Column(
             Modifier
@@ -109,7 +128,7 @@ fun ProfileScreen(
                             style = MaterialTheme.typography.h6,
                         )
                         Text(
-                            text = profileViewModel.createdOn,
+                            text = profileViewModel.createdOn.ifEmpty { "Create an Account or Sign In" },
                             style = MaterialTheme.typography.caption,
                             color = Color.Gray
                         )
@@ -119,6 +138,9 @@ fun ProfileScreen(
                 Column(
 
                 ) {
+                    /**
+                     * @Contact_Information
+                     */
                     BasePlainExpandableCard(
                         isExpanded = profileViewModel.isContactExpanded,
                         contentHeight = 315,
@@ -189,7 +211,9 @@ fun ProfileScreen(
                             profileViewModel.updatePassword(userId = authViewModel.currentUser?.id ?: "")
                         }
                     }
-
+                    /**
+                     * @Billing_Information
+                     */
                     BasePlainExpandableCard(
                         isExpanded = profileViewModel.isBillingExpanded,
                         contentHeight = 315,
@@ -261,6 +285,9 @@ fun ProfileScreen(
                             profileViewModel.updateZipCode(userId = authViewModel.currentUser?.id ?: "")
                         }
                     }
+                    /**
+                     * @Manage_Account
+                     */
                     BasePlainExpandableCard(
                         isExpanded = profileViewModel.isManageAccExpanded,
                         contentHeight = 230,
@@ -313,7 +340,14 @@ fun ProfileScreen(
                             Text(text = MultiplatformConstants.DELETION_WARNING, color = Color.Gray)
                             Spacer(modifier = Modifier.height(10.dp))
                             OutlinedButton(
-                                onClick = { /*TODO*/ },
+                                onClick = {
+                                       profileViewModel.deleteUser(userId = authViewModel.currentUser?.id ?: "")  {
+                                           authViewModel.deleteCurrentUser {
+                                               authViewModel.signInAsGuest()
+                                               navController.popBackStack()
+                                           }
+                                       }
+                                },
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .height(55.dp),
@@ -328,6 +362,9 @@ fun ProfileScreen(
                             }
                         }
                     }
+                    /**
+                     * @Technical_Support
+                     */
                     BasePlainExpandableCard(
                         isExpanded = profileViewModel.isTechSupportExpanded,
                         contentHeight = 260,
@@ -382,16 +419,19 @@ fun ProfileScreen(
                                 title = MultiplatformConstants.TECHNICAL_SUPPORT,
                                 description = MultiplatformConstants.DEVELOPER_PHONE_TITLE
                             ) {
-
+                                phone(MultiplatformConstants.DEVELOPER_PHONE)
                             }
                             LinkLabel(
                                 title = MultiplatformConstants.TECHNICAL_SUPPORT,
                                 description = MultiplatformConstants.DEVELOPER_EMAIL_TITLE
                             ) {
-
+                                mailTo(MultiplatformConstants.DEVELOPER_EMAIL)
                             }
                         }
                     }
+                    /**
+                     * @Feedback
+                     */
                     BasePlainExpandableCard(
                         isExpanded = profileViewModel.isFeedbackExpanded,
                         contentHeight = 190,
@@ -445,10 +485,13 @@ fun ProfileScreen(
                                 title = MultiplatformConstants.FEEDBACK,
                                 description = MultiplatformConstants.DEVELOPER
                             ) {
-
+                                mailTo(MultiplatformConstants.DEVELOPER_EMAIL)
                             }
                         }
                     }
+                    /**
+                     * @Information
+                     */
                     BasePlainExpandableCard(
                         isExpanded = profileViewModel.isInformationExpanded,
                         contentHeight = 445,
@@ -503,19 +546,19 @@ fun ProfileScreen(
                                 title = MultiplatformConstants.MOMENTUM_PHONE,
                                 description = MultiplatformConstants.CHURCH_PHONE_TITLE
                             ) {
-
+                                phone(MultiplatformConstants.CHURCH_PHONE)
                             }
                             LinkLabel(
                                 title = MultiplatformConstants.MOMENTUM_PHONE,
                                 description = MultiplatformConstants.CHURCH_EMERGENCY_PHONE_TITLE
                             ) {
-
+                                phone(MultiplatformConstants.CHURCH_EMERGENCY_PHONE)
                             }
                             LinkLabel(
                                 title = MultiplatformConstants.MOMENTUM_EMAIL,
                                 description = MultiplatformConstants.CHURCH_EMAIL_TITLE
                             ) {
-
+                                mailTo(MultiplatformConstants.CHURCH_EMAIL)
                             }
                             Spacer(modifier = Modifier.height(10.dp))
                             Text(
