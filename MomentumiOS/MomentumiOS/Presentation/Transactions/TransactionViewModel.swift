@@ -27,21 +27,25 @@ class TransactionViewModel: ObservableObject {
             isSeen: isSeen
         )
     }
+    
     func getAllTransactions() {
         controller.getAllTransactions { transactions in
             self.transactions = transactions
         }
     }
     
+    func deleteTransactionById(transactionId: Int) {
+        controller.deleteTransactionById(transactionId: Int32(transactionId))
+    }
+    
     func deleteAllTransactions() {
         controller.deleteAllTransactions()
     }
+    
     func getTransactionDate() -> String {
         let date = Date()
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MMMM d"
         return dateFormatter.string(from: date)
-        
     }
-
 }

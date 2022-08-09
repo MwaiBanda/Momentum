@@ -15,7 +15,6 @@ class BaseXCTestCase: XCTestCase {
         DiRegistry.shared.clear {
             DiRegistry.shared.injectTestDependencies()
         }
-        
     }
     
     override func tearDownWithError() throws {

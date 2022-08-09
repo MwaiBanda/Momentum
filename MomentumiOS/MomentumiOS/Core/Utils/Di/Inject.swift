@@ -26,5 +26,8 @@ struct Inject<T> {
     func release() {
         Resolver.release(wrappedValue)
     }
+    func release(named: String) {
+        Resolver.release(wrappedValue, named: named)
+    }
 }
 

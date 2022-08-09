@@ -10,8 +10,8 @@
 @testable import MomentumSDK
 import XCTest
 
-class PaymentsTest: BaseXCTestCase {
-    @Inject var sut: PaymentViewModel
+class PaymentViewModelTests: BaseXCTestCase {
+    @Inject private var sut: PaymentViewModel
     
     override func setUpWithError() throws {
         try super.setUpWithError()
@@ -23,10 +23,17 @@ class PaymentsTest: BaseXCTestCase {
     }
     
     func testCheckout() {
-        sut.checkout(request: PaymentRequest(amount: 10))
+        sut.checkout(
+            request: PaymentRequest(
+                fullname: "Mwai Banda",
+                email: "mwai.developer@gmail.com",
+                phone: "2190000000",
+                amount: 10
+            )
+        )
         XCTAssertNotNil(sut.response)
         guard let response = sut.response else { return assertionFailure("Nil response")}
         XCTAssertEqual(response.customer, "Mwai Banda")
-        XCTAssertEqual(response.ephemeralKey, "0007722")
+        XCTAssertEqual(response.ephemeralKey, "2190000000")
     }
 }

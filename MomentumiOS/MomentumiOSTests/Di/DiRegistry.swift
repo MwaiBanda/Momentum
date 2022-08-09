@@ -12,25 +12,45 @@
 extension DiRegistry {
     
     @Provides
-    func providePaymentViewModel(){
+    func providesPaymentViewModel(){
         PaymentViewModel()
+    }
+    
+    @Provides
+    func providesOfferViewModel() {
+        OfferViewModel()
+    }
+    
+    @Provides
+    func providesTransactionViewModel() {
+        TransactionViewModel()
     }
     
     func injectTestDependencies() {
         Resolver.register { resolver in
+            @Binds
+            var foo: FooProviding = {
+                Foo()
+            }()
             
             @Binds
             var paymentController: PaymentController = {
                 FakePaymentController()
             }()
             
-            
             @Binds
-            var foo: FooProviding = {
-                Foo()
+            var transactionController: TransactionController = {
+                FakeTransactionController()
             }()
             
-            providePaymentViewModel()
+            @Binds(named: TestConstants.contentViewModel)
+            var contentViewModel = {
+                PaymentSummaryContentViewModel()
+            }()
+            
+            providesPaymentViewModel()
+            providesOfferViewModel()
+            providesTransactionViewModel()
         }
     }
 }
