@@ -105,7 +105,10 @@ class ProfileViewModel: ObservableObject {
         }
     }
     
-    func getContactInformation(userId: String, onCompletion: @escaping () -> Void) {
+    func getContactInformation(
+        userId: String,
+        onCompletion: @escaping () -> Void = {}
+    ) {
         userController.getMomentumUserById(userId: userId) { [unowned self] user in
             if let user = user {
                 fullname = user.fullname

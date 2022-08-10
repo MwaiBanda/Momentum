@@ -8,10 +8,15 @@
 
 @testable import MomentumSDK
 
-class FakeTransactionController: TransactionController {
+class FakeTransactionControllerImpl: TransactionController {
     var transactions = [MomentumTransaction]()
-    func addTransaction(description: String, date: String, amount: Double, isSeen: Bool) {
-        transactions.append(MomentumTransaction(id: Int64(transactions.count), description: description, date: date, amount: amount, is_seen: isSeen))
+    func addTransaction(
+        description: String,
+        date: String,
+        amount: Double,
+        isSeen: Bool
+    ) {
+        transactions.append(MomentumTransaction(id: Int64(transactions.count + 1), description: description, date: date, amount: amount, is_seen: isSeen))
     }
     
     func deleteAllTransactions() {

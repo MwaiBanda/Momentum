@@ -24,7 +24,7 @@ final class Session: ObservableObject {
     func signIn(
         email: String,
         password: String,
-        onCompletion: @escaping () -> Void
+        onCompletion: @escaping () -> Void = {}
     ){
         authController.signInWithEmail(
             email: email,
@@ -45,7 +45,7 @@ final class Session: ObservableObject {
     func signUp(
         email: String,
         password: String,
-        onCompletion: @escaping () -> Void
+        onCompletion: @escaping () -> Void = {}
     ){
         authController.signUpWithEmail(
             email: email,
@@ -91,12 +91,13 @@ final class Session: ObservableObject {
         })
     }
     
-    func deleteCurrentUser(onCompletion: @escaping () -> Void){
+    func deleteCurrentUser(onCompletion: @escaping () -> Void = {}){
         authController.deleteUser()
         onCompletion()
     }
     
-    func signOut(onCompletion: @escaping () -> Void) {
+    func signOut(onCompletion: @escaping () -> Void = {}) {
+        currentUser = nil
         authController.signOut()
         onCompletion()
     }

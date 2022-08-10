@@ -26,6 +26,16 @@ extension DiRegistry {
         TransactionViewModel()
     }
     
+    @Provides
+    func providesProfileViewModel() {
+        ProfileViewModel()
+    }
+    
+    @Provides
+    func providesSession() {
+        Session()
+    }
+    
     func injectTestDependencies() {
         Resolver.register { resolver in
             @Binds
@@ -35,12 +45,27 @@ extension DiRegistry {
             
             @Binds
             var paymentController: PaymentController = {
-                FakePaymentController()
+                FakePaymentControllerImpl()
             }()
             
             @Binds
             var transactionController: TransactionController = {
-                FakeTransactionController()
+                FakeTransactionControllerImpl()
+            }()
+            
+            @Binds
+            var userController: UserController = {
+                FakeUserControllerImpl()
+            }()
+            
+            @Binds
+            var authController: AuthController = {
+                FakeAuthControllerImpl()
+            }()
+            
+            @Binds
+            var billingController: BillingAddressController = {
+                FakeBillingController()
             }()
             
             @Binds(named: TestConstants.contentViewModel)
@@ -51,6 +76,8 @@ extension DiRegistry {
             providesPaymentViewModel()
             providesOfferViewModel()
             providesTransactionViewModel()
+            providesProfileViewModel()
+            providesSession()
         }
     }
 }

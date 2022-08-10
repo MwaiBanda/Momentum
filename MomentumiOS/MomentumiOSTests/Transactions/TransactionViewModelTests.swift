@@ -29,7 +29,7 @@ class TransactionViewModelTests: BaseXCTestCase {
             isSeen: false
         )
         sut.getAllTransactions()
-        XCTAssertEqual(sut.transactions[0].id, 0)
+        XCTAssertEqual(sut.transactions[0].id, 1)
         XCTAssertEqual(sut.transactions[0].amount, 25.99)
         sut.addTransaction(
             description: "New transaction",
@@ -38,9 +38,51 @@ class TransactionViewModelTests: BaseXCTestCase {
             isSeen: false
         )
         sut.getAllTransactions()
-        XCTAssertEqual(sut.transactions[1].id, 1)
+        XCTAssertEqual(sut.transactions[1].id, 2)
         XCTAssertEqual(sut.transactions[1].amount, 55.99)
+    }
+    
+    func testDeleteAllTransactions() throws {
+        sut.addTransaction(
+            description: "New transaction",
+            date: "Aug 8",
+            amount: 25.99,
+            isSeen: false
+        )
+        sut.addTransaction(
+            description: "New transaction",
+            date: "Aug 8",
+            amount: 55.99,
+            isSeen: false
+        )
+        sut.getAllTransactions()
+        XCTAssertEqual(sut.transactions.count, 2)
+        sut.deleteAllTransactions()
+        sut.getAllTransactions()
+        XCTAssertTrue(sut.transactions.isEmpty)
 
     }
-
+    
+    func testDeleteTransactionById() throws {
+        sut.addTransaction(
+            description: "New transaction",
+            date: "Aug 8",
+            amount: 25.99,
+            isSeen: false
+        )
+        sut.addTransaction(
+            description: "New transaction",
+            date: "Aug 8",
+            amount: 55.99,
+            isSeen: false
+        )
+        sut.getAllTransactions()
+        XCTAssertEqual(sut.transactions.count, 2)
+        XCTAssertEqual(sut.transactions[0].id, 1)
+        XCTAssertEqual(sut.transactions[0].amount, 25.99)
+        sut.deleteTransactionById(transactionId: 1)
+        sut.getAllTransactions()
+        XCTAssertEqual(sut.transactions[0].id, 2)
+        XCTAssertEqual(sut.transactions[0].amount, 55.99)
+    }
 }
