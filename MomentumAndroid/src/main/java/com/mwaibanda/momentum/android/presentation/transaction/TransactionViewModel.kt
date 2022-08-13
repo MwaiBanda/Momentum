@@ -9,13 +9,16 @@ import org.koin.core.component.inject
 import org.koin.core.component.KoinComponent
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.getValue
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 
 class TransactionViewModel(
     private val transactionController: TransactionController
-): ViewModel(), KoinComponent {
+): ViewModel() {
 
-    private val _transactions: MutableLiveData<List<MomentumTransaction>> = MutableLiveData()
-    val transactions: LiveData<List<MomentumTransaction>> = _transactions
+    private val _transactions: MutableStateFlow<List<MomentumTransaction>> = MutableStateFlow(emptyList())
+    val transactions: StateFlow<List<MomentumTransaction>> = _transactions.asStateFlow()
 
     fun getAllTransactions() {
         transactionController.getAllTransactions { transactions ->
@@ -34,6 +37,9 @@ class TransactionViewModel(
 
     fun deleteAllTransactions() {
         transactionController.deleteAllTransactions()
+    }
+    fun deleteTransactionById(transactionId: Int) {
+        transactionController.deleteTransactionById(transactionId)
     }
 }
 

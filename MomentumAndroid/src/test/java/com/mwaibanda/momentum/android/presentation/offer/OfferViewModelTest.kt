@@ -1,7 +1,6 @@
 package com.mwaibanda.momentum.android.presentation.offer
 
 import app.cash.turbine.test
-import com.mwaibanda.momentum.android.util.TestDispatchers
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach

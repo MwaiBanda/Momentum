@@ -18,13 +18,8 @@ fun TransactionScreen(
     transactionViewModel: TransactionViewModel,
     onCloseModal: () -> Unit
 ) {
-    val transactions = remember {
-        mutableStateListOf<MomentumTransaction>()
-    }
-    transactionViewModel.transactions.observe(LocalLifecycleOwner.current) {
-        transactions.clear()
-        transactions.addAll(it)
-    }
+    val transactions by transactionViewModel.transactions.collectAsState()
+
     LaunchedEffect(key1 = Unit) {
         transactionViewModel.getAllTransactions()
     }
