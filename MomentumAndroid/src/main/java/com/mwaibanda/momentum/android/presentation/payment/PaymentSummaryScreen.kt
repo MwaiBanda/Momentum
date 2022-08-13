@@ -9,6 +9,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -24,6 +25,7 @@ import com.mwaibanda.momentum.android.presentation.transaction.TransactionViewMo
 import com.mwaibanda.momentum.domain.models.PaymentRequest
 import com.stripe.android.paymentsheet.PaymentSheetContract
 import com.stripe.android.paymentsheet.PaymentSheetResult
+import kotlinx.coroutines.CoroutineScope
 import org.koin.androidx.compose.getViewModel
 
 @Composable
@@ -37,7 +39,7 @@ fun PaymentSummaryScreen(
     canInitiateTransaction: Boolean,
     onTransactionCanProcess: (Boolean) -> Unit,
     onHandlePaymentSheetResult: (paymentResult: PaymentSheetResult, onPaymentSuccess: () -> Unit, onPaymentCancellation: () -> Unit, onPaymentFailure: (String) -> Unit) -> Unit,
-    onInitiateCheckout: (PaymentRequest, ManagedActivityResultLauncher<PaymentSheetContract.Args, PaymentSheetResult>) -> Unit
+    onInitiateCheckout:  (PaymentRequest, ManagedActivityResultLauncher<PaymentSheetContract.Args, PaymentSheetResult>) -> Unit
 ){
     val stripeLauncher = rememberLauncherForActivityResult(contract = PaymentSheetContract()){ result ->
         onHandlePaymentSheetResult(
@@ -125,13 +127,13 @@ fun PaymentSummaryScreen(
                 enabled = canInitiateTransaction,
                 onClick = {
                     profileViewModel.getContactInformation(authViewModel.currentUser?.id ?: "") {
-                        onInitiateCheckout(PaymentRequest(
+                        onInitiateCheckout(
+                            PaymentRequest(
                             fullname = profileViewModel.fullname,
                             email = profileViewModel.email,
                             phone = profileViewModel.phone,
                             amount = (amount * 100).toInt()
                         ), stripeLauncher)
-                        onTransactionCanProcess(false)
                     }
                 },
                 modifier = Modifier

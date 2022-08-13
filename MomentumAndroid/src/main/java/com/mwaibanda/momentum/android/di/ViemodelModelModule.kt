@@ -1,5 +1,6 @@
 package com.mwaibanda.momentum.android.di
 
+import com.mwaibanda.momentum.android.core.utils.DefaultDispatches
 import com.mwaibanda.momentum.android.presentation.auth.AuthViewModel
 import com.mwaibanda.momentum.android.presentation.offer.OfferViewModel
 import com.mwaibanda.momentum.android.presentation.payment.PaymentSummaryContentViewModel

@@ -10,6 +10,7 @@ import com.mwaibanda.momentum.domain.models.PaymentRequest
 import com.stripe.android.PaymentConfiguration
 import com.stripe.android.paymentsheet.PaymentSheet
 import com.stripe.android.paymentsheet.PaymentSheetResult
+import kotlinx.coroutines.flow.collectLatest
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 
@@ -20,20 +21,21 @@ open class BaseActivity : ComponentActivity() {
     protected val transactionViewModel: TransactionViewModel by inject()
 
 
-    protected fun checkout(
+    protected suspend fun checkout(
         paymentRequest: PaymentRequest,
         onSuccess: (customer: PaymentSheet.CustomerConfiguration?, intent: String) -> Unit
     ) {
         paymentViewModel.checkout(paymentRequest)
-        paymentViewModel.paymentResponse.observe(this) { paymentResponse ->
-            PaymentConfiguration.init(this, paymentResponse.publishableKey)
-
-            val customerConfig = PaymentSheet.CustomerConfiguration(
-                paymentResponse.customer,
-                paymentResponse.ephemeralKey
-            )
-            onSuccess(customerConfig, paymentResponse.paymentIntent)
-            paymentViewModel.paymentResponse.removeObservers(this)
+        paymentViewModel.paymentResponse.collectLatest { paymentResponse ->
+            if (paymentResponse != null && paymentViewModel.canInitiateTransaction) {
+                paymentViewModel.canInitiateTransaction = false
+                PaymentConfiguration.init(this, paymentResponse.publishableKey)
+                val customerConfig = PaymentSheet.CustomerConfiguration(
+                    paymentResponse.customer,
+                    paymentResponse.ephemeralKey
+                )
+                onSuccess(customerConfig, paymentResponse.paymentIntent)
+            }
         }
     }
 

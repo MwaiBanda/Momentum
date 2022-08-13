@@ -53,15 +53,15 @@ fun TranslucentBackground(modifier: Modifier, content: @Composable () -> Unit) {
                                 ), shape = RoundedCornerShape(15.dp)
                             )
                             .padding(2.dp)
-                    ) {
-                        Column {
-                            content()
-                        }
-                    }
+                    )
+
+
                 }
             }
         }
-
+        Column {
+            content()
+        }
     }
 }
 

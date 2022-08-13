@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.foundation.layout.padding
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.navigation.compose.NavHost
 import com.mwaibanda.momentum.android.presentation.MomentumEntry
 import androidx.compose.ui.Modifier
@@ -33,6 +34,7 @@ import com.mwaibanda.momentum.android.presentation.transaction.TransactionScreen
 import com.mwaibanda.momentum.utils.MultiplatformConstants
 import com.stripe.android.paymentsheet.PaymentSheet
 import com.stripe.android.paymentsheet.PaymentSheetContract
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 
 @ExperimentalMaterialNavigationApi
@@ -43,6 +45,7 @@ class MainActivity : BaseActivity() {
         setContent {
             ProvideWindowInsets {
                 MomentumEntry { contentPadding, navController, bottomSheetNav ->
+                    val coroutineScope = rememberCoroutineScope()
                     ModalBottomSheetLayout(bottomSheetNav) {
                         NavHost(
                             navController = navController,
@@ -89,25 +92,27 @@ class MainActivity : BaseActivity() {
                                     },
                                     onHandlePaymentSheetResult = ::onHandlePaymentResult
                                 ) { request, launcher ->
-                                    checkout(request) { customer, intent ->
-                                        val configuration = PaymentSheet.Configuration(
-                                            merchantDisplayName = MultiplatformConstants.MERCHANT_NAME,
-                                            customer = customer,
-                                            googlePay = googlePayConfig,
-                                            allowsDelayedPaymentMethods = false,
-                                            primaryButtonColor = ColorStateList.valueOf(
-                                                Color(
-                                                    Constants.MOMENTUM_ORANGE
-                                                ).hashCode()
+                                    coroutineScope.launch {
+                                        checkout(request) { customer, intent ->
+                                            val configuration = PaymentSheet.Configuration(
+                                                merchantDisplayName = MultiplatformConstants.MERCHANT_NAME,
+                                                customer = customer,
+                                                googlePay = googlePayConfig,
+                                                allowsDelayedPaymentMethods = false,
+                                                primaryButtonColor = ColorStateList.valueOf(
+                                                    Color(
+                                                        Constants.MOMENTUM_ORANGE
+                                                    ).hashCode()
+                                                )
                                             )
-                                        )
-                                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-                                        launcher.launch(
-                                            PaymentSheetContract.Args.createPaymentIntentArgs(
-                                                intent,
-                                                configuration
+                                            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                                            launcher.launch(
+                                                PaymentSheetContract.Args.createPaymentIntentArgs(
+                                                    intent,
+                                                    configuration
+                                                )
                                             )
-                                        )
+                                        }
                                     }
                                 }
                             }
