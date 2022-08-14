@@ -1,6 +1,7 @@
 package com.mwaibanda.momentum.android.presentation.payment
 
 import app.cash.turbine.test
+import com.mwaibanda.momentum.domain.controller.PaymentController
 import com.mwaibanda.momentum.domain.models.PaymentRequest
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Assertions.*
@@ -10,7 +11,7 @@ import org.junit.jupiter.api.Test
 
 internal class PaymentViewModelTest {
     private lateinit var sut: PaymentViewModel
-    private lateinit var paymentController: FakePaymentController
+    private lateinit var paymentController: PaymentController
 
     @BeforeEach
     fun setUp() {

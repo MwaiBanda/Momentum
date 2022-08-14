@@ -18,24 +18,20 @@ import com.google.accompanist.insets.ProvideWindowInsets
 import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
 import com.google.accompanist.navigation.material.ModalBottomSheetLayout
 import com.google.accompanist.navigation.material.bottomSheet
-import com.google.firebase.FirebaseApp
 import com.mwaibanda.momentum.android.core.utils.Constants
 import com.mwaibanda.momentum.android.core.utils.NavigationRoutes.*
 import com.mwaibanda.momentum.android.presentation.auth.AuthControllerScreen
-import com.mwaibanda.momentum.android.presentation.auth.AuthViewModel
 import com.mwaibanda.momentum.android.presentation.navigation.LaunchScreen
 import com.mwaibanda.momentum.android.presentation.offer.OfferScreen
 import com.mwaibanda.momentum.android.presentation.payment.PaymentFailureScreen
 import com.mwaibanda.momentum.android.presentation.payment.PaymentSuccessScreen
 import com.mwaibanda.momentum.android.presentation.payment.PaymentSummaryScreen
-import com.mwaibanda.momentum.android.presentation.profie.ProfileScreen
-import com.mwaibanda.momentum.android.presentation.profie.ProfileViewModel
+import com.mwaibanda.momentum.android.presentation.profile.ProfileScreen
 import com.mwaibanda.momentum.android.presentation.transaction.TransactionScreen
 import com.mwaibanda.momentum.utils.MultiplatformConstants
 import com.stripe.android.paymentsheet.PaymentSheet
 import com.stripe.android.paymentsheet.PaymentSheetContract
 import kotlinx.coroutines.launch
-import org.koin.androidx.viewmodel.ext.android.getViewModel
 
 @ExperimentalMaterialNavigationApi
 class MainActivity : BaseActivity() {

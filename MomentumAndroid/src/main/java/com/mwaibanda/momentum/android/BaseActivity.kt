@@ -3,16 +3,14 @@ package com.mwaibanda.momentum.android
 import androidx.activity.ComponentActivity
 import com.mwaibanda.momentum.android.presentation.auth.AuthViewModel
 import com.mwaibanda.momentum.android.presentation.payment.PaymentViewModel
-import com.mwaibanda.momentum.android.presentation.profie.ProfileViewModel
+import com.mwaibanda.momentum.android.presentation.profile.ProfileViewModel
 import com.mwaibanda.momentum.android.presentation.transaction.TransactionViewModel
-import com.mwaibanda.momentum.domain.controller.PaymentController
 import com.mwaibanda.momentum.domain.models.PaymentRequest
 import com.stripe.android.PaymentConfiguration
 import com.stripe.android.paymentsheet.PaymentSheet
 import com.stripe.android.paymentsheet.PaymentSheetResult
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.android.ext.android.inject
-import org.koin.androidx.viewmodel.ext.android.getViewModel
 
 open class BaseActivity : ComponentActivity() {
     protected val authViewModel: AuthViewModel by inject()
@@ -20,7 +18,9 @@ open class BaseActivity : ComponentActivity() {
     protected val profileViewModel: ProfileViewModel by inject()
     protected val transactionViewModel: TransactionViewModel by inject()
 
-
+    init {
+        authViewModel.checkAndSignIn()
+    }
     protected suspend fun checkout(
         paymentRequest: PaymentRequest,
         onSuccess: (customer: PaymentSheet.CustomerConfiguration?, intent: String) -> Unit

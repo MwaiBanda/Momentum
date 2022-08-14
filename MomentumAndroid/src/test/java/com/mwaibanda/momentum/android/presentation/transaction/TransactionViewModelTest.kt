@@ -2,6 +2,7 @@ package com.mwaibanda.momentum.android.presentation.transaction
 
 import app.cash.turbine.test
 import com.mwaibanda.momentum.data.db.MomentumTransaction
+import com.mwaibanda.momentum.domain.controller.TransactionController
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
@@ -13,7 +14,7 @@ import org.junit.jupiter.api.Test
 
 internal class TransactionViewModelTest {
     private lateinit var sut: TransactionViewModel
-    private lateinit var transactionController: FakeTransactionController
+    private lateinit var transactionController: TransactionController
 
     @BeforeEach
     fun setUp() {

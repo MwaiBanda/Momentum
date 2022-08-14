@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.dp
 import com.mwaibanda.momentum.android.core.utils.Constants
 import com.mwaibanda.momentum.android.presentation.components.IconTextfield
 import com.mwaibanda.momentum.android.presentation.components.PasswordTextField
-import com.mwaibanda.momentum.android.presentation.profie.ProfileViewModel
+import com.mwaibanda.momentum.android.presentation.profile.ProfileViewModel
 
 @Composable
 fun SignUpScreen(authViewModel: AuthViewModel, profileViewModel: ProfileViewModel, onCloseModal: () -> Unit) {

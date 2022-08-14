@@ -1,4 +1,4 @@
-package com.mwaibanda.momentum.android.presentation.profie
+package com.mwaibanda.momentum.android.presentation.profile
 
 import android.content.Intent
 import android.net.Uri
@@ -28,7 +28,7 @@ import com.mwaibanda.momentum.android.presentation.components.BasePlainExpandabl
 import com.mwaibanda.momentum.android.presentation.components.BottomSpacing
 import com.mwaibanda.momentum.android.presentation.components.LinkLabel
 import com.mwaibanda.momentum.android.presentation.components.TitleTextField
-import com.mwaibanda.momentum.android.presentation.profie.ProfileViewModel.ProfileCard.*
+import com.mwaibanda.momentum.android.presentation.profile.ProfileViewModel.ProfileCard.*
 import com.mwaibanda.momentum.utils.MultiplatformConstants
 
 @Composable

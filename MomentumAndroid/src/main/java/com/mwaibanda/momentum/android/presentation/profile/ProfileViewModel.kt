@@ -1,11 +1,11 @@
-package com.mwaibanda.momentum.android.presentation.profie
+package com.mwaibanda.momentum.android.presentation.profile
 
 import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
-import com.mwaibanda.momentum.android.presentation.profie.ProfileViewModel.ProfileCard.*
+import com.mwaibanda.momentum.android.presentation.profile.ProfileViewModel.ProfileCard.*
 import com.mwaibanda.momentum.domain.controller.BillingAddressController
 import com.mwaibanda.momentum.domain.controller.UserController
 import com.mwaibanda.momentum.domain.models.User
@@ -127,7 +127,7 @@ class ProfileViewModel(
         }
     }
 
-    fun getContactInformation(userId: String, onCompletion: () -> Unit) {
+    fun getContactInformation(userId: String, onCompletion: () -> Unit = {}) {
         userController.getMomentumUserById(userId = userId) { user ->
             if (user != null) {
                 fullname = user.fullname

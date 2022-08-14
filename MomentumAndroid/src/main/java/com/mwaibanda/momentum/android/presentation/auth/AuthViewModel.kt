@@ -15,9 +15,8 @@ class AuthViewModel(
 ) : ViewModel() {
     var currentUser: User? by mutableStateOf(null)
 
-    init { checkAndSignIn() }
 
-    private fun checkAndSignIn() {
+    fun checkAndSignIn() {
         authController.checkAuthAndSignAsGuest { res ->
             when (res) {
                 is Failure -> {
@@ -35,7 +34,7 @@ class AuthViewModel(
         }
     }
 
-    fun signIn(email: String, password: String, onCompletion: () -> Unit) {
+    fun signIn(email: String, password: String, onCompletion: () -> Unit = {}) {
         authController.signInWithEmail(email = email, password = password) { res ->
             when (res) {
                 is Failure -> {
@@ -53,7 +52,7 @@ class AuthViewModel(
         }
     }
 
-    fun signUp(email: String, password: String, onCompletion: () -> Unit) {
+    fun signUp(email: String, password: String, onCompletion: () -> Unit = {}) {
         authController.signUpWithEmail(email = email, password = password) { res ->
             when (res) {
                 is Failure -> {
@@ -88,12 +87,29 @@ class AuthViewModel(
             }
         }
     }
-
-    fun deleteCurrentUser(onCompletion: () -> Unit){
+    fun getCurrentUser() {
+        authController.getCurrentUser { res ->
+            when (res) {
+                is Failure -> {
+                    Log.d("Auth/Failure", res.message ?: "")
+                }
+                is Success -> {
+                    currentUser = User(
+                        id = res.data?.uid ?: "",
+                        email = res.data?.email,
+                        isGuest = res.data?.isAnonymous ?: false
+                    )
+                }
+            }
+        }
+    }
+    fun deleteCurrentUser(onCompletion: () -> Unit = {}){
+        currentUser = null
         authController.deleteUser()
         onCompletion()
     }
-    fun signOut(onCompletion: () -> Unit) {
+    fun signOut(onCompletion: () -> Unit = {}) {
+        currentUser = null
         authController.signOut()
         onCompletion()
     }

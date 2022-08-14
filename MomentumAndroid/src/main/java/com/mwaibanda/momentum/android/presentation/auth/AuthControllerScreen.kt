@@ -1,6 +1,5 @@
 package com.mwaibanda.momentum.android.presentation.auth
 
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.Crossfade
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.background
@@ -26,10 +25,8 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.mwaibanda.momentum.android.core.utils.Constants
 import com.mwaibanda.momentum.android.presentation.components.BlurredBackground
-import com.mwaibanda.momentum.android.presentation.components.BottomSpacing
 import com.mwaibanda.momentum.android.presentation.components.TranslucentBackground
-import com.mwaibanda.momentum.android.presentation.profie.ProfileViewModel
-import org.koin.androidx.compose.getViewModel
+import com.mwaibanda.momentum.android.presentation.profile.ProfileViewModel
 
 @Composable
 fun AuthControllerScreen(
