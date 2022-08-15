@@ -15,6 +15,7 @@ The app's are available for download on the app store & playstore for Android & 
 </table>
 
 ### Architecture
-![momentum (1)](https://user-images.githubusercontent.com/49708426/184585202-e3535ffb-5497-4d9f-9e48-7948175f1e23.png)
+The SDK is architected w/ `MVC` it contains all core business objects/logic.The apps are architected using `MVVM w/ Clean Architecture`. Each ViewModel depends on a controller(Interface), and with the Dependency Injection upon creation of a ViewModel a concrete implementation is passed to ViewModel that conforms to the corresponding controller.
+![momentum_architecture](https://user-images.githubusercontent.com/49708426/184673790-630a501f-9372-41bf-bf7a-a9ee99086c68.png)
 
 
