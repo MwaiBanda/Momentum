@@ -13,3 +13,8 @@ The app's are available for download on the app store & playstore for Android & 
     <td><a href="https://play.google.com/store/apps/details?id=com.mwaibanda.momentum.android"  target="_blank" rel="noopener noreferrer"><img src="https://user-images.githubusercontent.com/49708426/152633576-d28488c9-68e1-4d5e-9922-b502e74d5c00.png"  width=140 height=70></a></td>
   </tr>
 </table>
+
+### Architecture
+![momentum (1)](https://user-images.githubusercontent.com/49708426/184585202-e3535ffb-5497-4d9f-9e48-7948175f1e23.png)
+
+
