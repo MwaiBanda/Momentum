@@ -1,3 +1,12 @@
+# Momentum Church: Indiana (Android) 
+Payments App for Momentum Church in Indiana. Built in Kotlin Multiplatform Mobile(KMM) w/ Jetpack Compose, the app allows users to make payments to the church, edit & update account information. Persists data locally w/ SQLDelight and Remote w/ Firebase. The apps are architected to emphasize code sharing, so all core business logic written in the SDK, Android & iOS app only contain presentation logic and viewmodels.
+
+## Dependencies
+- Stripe
+- Firebase
+- Lottie Animations
+- Koin
+
 ## Android
 <table>
   <tr>
