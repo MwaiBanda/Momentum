@@ -13,4 +13,5 @@ val controllerModule = module {
     single<UserController> { UserControllerImpl(driverFactory = get()) }
     single<BillingAddressController>{ BillingAddressControllerImpl(driverFactory = get()) }
     single<AuthController> { AuthControllerImpl() }
+    single<LocalDefaultsController> { LocalDefaultsControllerImpl() }
 }

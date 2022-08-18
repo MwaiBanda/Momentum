@@ -53,6 +53,7 @@ struct PaymentSummaryView: View {
                         fullname: profileViewModel.fullname,
                         email: profileViewModel.email,
                         phone: profileViewModel.phone,
+                        description: contentViewModel.getTransactionDescription(),
                         amount: Int32((Double(offerViewModel.number) ?? 0.00) * 100)
                     )) {
                         paymentViewModel.setUpPaymentSheet()

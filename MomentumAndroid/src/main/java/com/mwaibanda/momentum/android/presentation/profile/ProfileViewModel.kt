@@ -7,12 +7,14 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import com.mwaibanda.momentum.android.presentation.profile.ProfileViewModel.ProfileCard.*
 import com.mwaibanda.momentum.domain.controller.BillingAddressController
+import com.mwaibanda.momentum.domain.controller.LocalDefaultsController
 import com.mwaibanda.momentum.domain.controller.UserController
 import com.mwaibanda.momentum.domain.models.User
 
 class ProfileViewModel(
     private val userController: UserController,
-    private val billingAddressController: BillingAddressController
+    private val billingAddressController: BillingAddressController,
+    private val localDefaultsController: LocalDefaultsController
 ) : ViewModel() {
     enum class ProfileCard {
         CONTACT_INFO,

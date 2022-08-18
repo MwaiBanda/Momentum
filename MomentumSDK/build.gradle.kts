@@ -49,9 +49,10 @@ kotlin {
                 implementation("dev.gitlive:firebase-auth:$firebase")
                 // Kotlin Firestore
                 implementation("dev.gitlive:firebase-firestore:$firebase")
+                // Kotlin Serialization
                 implementation ("org.jetbrains.kotlinx:kotlinx-serialization-json:$serialization")
-
-            }
+                // Multiplatform Preferences
+                implementation("com.russhwolf:multiplatform-settings-no-arg:0.9")            }
         }
         val commonTest by getting {
             dependencies {
@@ -99,6 +100,14 @@ kotlin {
 }
 
 android {
+    signingConfigs {
+        create("release") {
+            storeFile = file("/Users/mwaibanda/Repository/AndroidDevKeyStore.jdk")
+            storePassword = "Ngosa1978"
+            keyAlias = "dev"
+            keyPassword = "Ngosa1978"
+        }
+    }
     compileSdk = 32
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     defaultConfig {

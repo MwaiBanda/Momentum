@@ -1,5 +1,6 @@
 package com.mwaibanda.momentum.di
 
+import com.russhwolf.settings.Settings
 import dev.gitlive.firebase.Firebase
 import dev.gitlive.firebase.auth.auth
 import dev.gitlive.firebase.firestore.firestore
@@ -31,6 +32,7 @@ val singletonModule = module {
             }
         }
     }
+    single { Settings() }
     single { Firebase.auth }
     single { Firebase.firestore }
 }

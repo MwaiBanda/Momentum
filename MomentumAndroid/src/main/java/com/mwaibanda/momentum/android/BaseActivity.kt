@@ -1,5 +1,6 @@
 package com.mwaibanda.momentum.android
 
+import android.util.Log
 import androidx.activity.ComponentActivity
 import com.mwaibanda.momentum.android.presentation.auth.AuthViewModel
 import com.mwaibanda.momentum.android.presentation.payment.PaymentViewModel
@@ -11,6 +12,8 @@ import com.stripe.android.paymentsheet.PaymentSheet
 import com.stripe.android.paymentsheet.PaymentSheetResult
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.android.ext.android.inject
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 open class BaseActivity : ComponentActivity() {
     protected val authViewModel: AuthViewModel by inject()

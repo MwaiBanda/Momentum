@@ -25,6 +25,8 @@ import com.mwaibanda.momentum.domain.models.PaymentRequest
 import com.stripe.android.paymentsheet.PaymentSheetContract
 import com.stripe.android.paymentsheet.PaymentSheetResult
 import org.koin.androidx.compose.getViewModel
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 @Composable
 fun PaymentSummaryScreen(
@@ -45,9 +47,12 @@ fun PaymentSummaryScreen(
             {
                 Log.d("PAY", "Success")
                 navController.navigate(NavigationRoutes.PaymentSuccessScreen.route)
+                val currentDate = LocalDateTime.now()
+                val formatter = DateTimeFormatter.ofPattern("MMM d")
+                val currentDateString = formatter.format(currentDate)
                 transactionViewModel.addTransaction(
                     description = contentViewModel.getTransactionDescription(),
-                    date = "July 21",
+                    date = currentDateString,
                     amount = amount.toDouble(),
                     isSeen = false
                 )
@@ -127,11 +132,13 @@ fun PaymentSummaryScreen(
                     profileViewModel.getContactInformation(authViewModel.currentUser?.id ?: "") {
                         onInitiateCheckout(
                             PaymentRequest(
-                            fullname = profileViewModel.fullname,
-                            email = profileViewModel.email,
-                            phone = profileViewModel.phone,
-                            amount = (amount * 100).toInt()
-                        ), stripeLauncher)
+                                fullname = profileViewModel.fullname,
+                                email = profileViewModel.email,
+                                phone = profileViewModel.phone,
+                                description = contentViewModel.getTransactionDescription(),
+                                amount = (amount * 100).toInt()
+                            ), stripeLauncher
+                        )
                     }
                 },
                 modifier = Modifier

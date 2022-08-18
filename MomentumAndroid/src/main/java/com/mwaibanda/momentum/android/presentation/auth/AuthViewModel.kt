@@ -6,12 +6,14 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import com.mwaibanda.momentum.domain.controller.AuthController
+import com.mwaibanda.momentum.domain.controller.LocalDefaultsController
 import com.mwaibanda.momentum.utils.Result.*
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 class AuthViewModel(
-    private val authController: AuthController
+    private val authController: AuthController,
+    private val localDefaultsController: LocalDefaultsController
 ) : ViewModel() {
     var currentUser: User? by mutableStateOf(null)
 
@@ -118,6 +120,14 @@ class AuthViewModel(
         val date = LocalDate.now()
         val formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy")
         return date.format(formatter)
+    }
+
+    fun getString(key: String, onCompletion: (String) -> Unit) {
+        localDefaultsController.getString(key, onCompletion)
+    }
+
+    fun setString(key: String, value: String) {
+        localDefaultsController.setString(key, value)
     }
 
     data class User(

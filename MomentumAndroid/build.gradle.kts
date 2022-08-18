@@ -6,6 +6,20 @@ plugins {
 }
 
 android {
+    signingConfigs {
+        getByName("debug") {
+            storeFile = file("/Users/mwaibanda/Repository/AndroidDevKeyStore.jdk")
+            storePassword = "Ngosa1978"
+            keyAlias = "dev"
+            keyPassword = "Ngosa1978"
+        }
+        create("release") {
+            storeFile = file("/Users/mwaibanda/Repository/AndroidDevKeyStore.jdk")
+            storePassword = "Ngosa1978"
+            keyAlias = "dev"
+            keyPassword = "Ngosa1978"
+        }
+    }
     compileSdk = 32
     defaultConfig {
         applicationId = "com.mwaibanda.momentum.android"

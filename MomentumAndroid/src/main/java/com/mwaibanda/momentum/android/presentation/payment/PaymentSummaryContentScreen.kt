@@ -24,6 +24,7 @@ fun PaymentSummaryContentScreen(amount: Int, contentViewModel: PaymentSummaryCon
                     contentViewModel.selectedLabels.contains(OFFERING).not()
                 )
             },
+            showLabels = contentViewModel.selectedLabels.isNotEmpty(),
             onToggleClick = {
                 contentViewModel.offeringIsSelected = it.not()
                 contentViewModel.processToggle(isActive = contentViewModel.otherIsSelected, type = OFFERING)
@@ -45,6 +46,7 @@ fun PaymentSummaryContentScreen(amount: Int, contentViewModel: PaymentSummaryCon
                     contentViewModel.selectedLabels.contains(TITHE).not()
                 )
             },
+            showLabels = contentViewModel.selectedLabels.isNotEmpty(),
             onToggleClick = {
                 contentViewModel.titheIsSelected = it.not()
                 contentViewModel.processToggle(isActive = contentViewModel.titheIsSelected, type = TITHE)
@@ -66,6 +68,7 @@ fun PaymentSummaryContentScreen(amount: Int, contentViewModel: PaymentSummaryCon
                     contentViewModel.selectedLabels.contains(MISSIONS).not()
                 )
             },
+            showLabels = contentViewModel.selectedLabels.isNotEmpty(),
             onToggleClick = {
                 contentViewModel.missionsIsSelected = it.not()
                 contentViewModel.processToggle(isActive = contentViewModel.missionsIsSelected, type = MISSIONS)
@@ -88,6 +91,7 @@ fun PaymentSummaryContentScreen(amount: Int, contentViewModel: PaymentSummaryCon
                     contentViewModel.selectedLabels.contains(SPECIAL_SPEAKER).not()
                 )
             },
+            showLabels = contentViewModel.selectedLabels.isNotEmpty(),
             onToggleClick = {
                 contentViewModel.speakersIsSelected = it.not()
                 contentViewModel.processToggle(isActive = contentViewModel.speakersIsSelected, type = SPECIAL_SPEAKER)
@@ -109,6 +113,7 @@ fun PaymentSummaryContentScreen(amount: Int, contentViewModel: PaymentSummaryCon
                     contentViewModel.selectedLabels.contains(OTHER).not()
                 )
             },
+            showLabels = contentViewModel.selectedLabels.isNotEmpty(),
             onToggleClick = {
                 contentViewModel.otherIsSelected = it.not()
                 contentViewModel.processToggle(isActive = contentViewModel.otherIsSelected, type = OTHER)

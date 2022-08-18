@@ -7,5 +7,6 @@ data class PaymentRequest(
     val fullname: String,
     val email: String,
     val phone: String,
+    val description: String,
     val amount: Int
 )

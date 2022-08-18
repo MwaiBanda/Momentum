@@ -28,6 +28,7 @@ fun ToggleAmountLabel(
     amount: String,
     isSelected: Boolean,
     isDisabled:  () -> Boolean,
+    showLabels: Boolean,
     onToggleClick: (Boolean) -> Unit,
     onAmountChange: (String) -> Unit,
     onAmountCommit: (String) -> Unit
@@ -78,28 +79,31 @@ fun ToggleAmountLabel(
             )
 
         }
+
         Row {
-            Text(
-                text = "amount: ",
-                color = Color.Gray,
-                fontWeight = FontWeight.ExtraBold,
-                style = MaterialTheme.typography.subtitle2,
-            )
-            Text(
-                text = "$",
-                style = MaterialTheme.typography.subtitle2,
-            )
-            BasicTextField(
-                value = amount,
-                textStyle = MaterialTheme.typography.subtitle2,
-                onValueChange = onAmountChange,
-                modifier = Modifier.width(IntrinsicSize.Min),
-                keyboardActions = KeyboardActions(onDone = {
-                    focusManager.clearFocus()
-                    onAmountCommit(amount)
-                }),
-                keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Done)
-            )
+            if (showLabels) {
+                Text(
+                    text = "amount: ",
+                    color = Color.Gray,
+                    fontWeight = FontWeight.ExtraBold,
+                    style = MaterialTheme.typography.subtitle2,
+                )
+                Text(
+                    text = "$",
+                    style = MaterialTheme.typography.subtitle2,
+                )
+                BasicTextField(
+                    value = amount,
+                    textStyle = MaterialTheme.typography.subtitle2,
+                    onValueChange = onAmountChange,
+                    modifier = Modifier.width(IntrinsicSize.Min),
+                    keyboardActions = KeyboardActions(onDone = {
+                        focusManager.clearFocus()
+                        onAmountCommit(amount)
+                    }),
+                    keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Done)
+                )
+            }
         }
     }
 }
@@ -115,6 +119,7 @@ fun ToggleAmountLabelPreview() {
         amount = "$0",
         isSelected = isSelected,
         isDisabled = { true },
+        showLabels = true,
         onToggleClick = {isSelected = it.not()},
         onAmountChange = {}
     ) {

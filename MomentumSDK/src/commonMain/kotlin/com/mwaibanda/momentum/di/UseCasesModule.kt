@@ -1,6 +1,8 @@
 package com.mwaibanda.momentum.di
 
 import com.mwaibanda.momentum.domain.usecase.auth.*
+import com.mwaibanda.momentum.domain.usecase.localDefaults.GetStringUseCase
+import com.mwaibanda.momentum.domain.usecase.localDefaults.SetStringUseCase
 import com.mwaibanda.momentum.domain.usecase.payment.CheckoutUseCase
 import com.mwaibanda.momentum.domain.usecase.user.*
 import org.koin.dsl.module
@@ -29,4 +31,9 @@ val useCasesModule = module {
     single { UpdateUserFullnameUseCase(userRepository = get()) }
     single { UpdateUserPhoneUseCase(userRepository = get()) }
     single { DeleteRemoteUserUseCase(userRepository = get()) }
+    /**
+     * @LocalDefaults - Use-cases
+     */
+    single { SetStringUseCase(localDefaultsRepository = get()) }
+    single { GetStringUseCase(localDefaultsRepository = get()) }
 }

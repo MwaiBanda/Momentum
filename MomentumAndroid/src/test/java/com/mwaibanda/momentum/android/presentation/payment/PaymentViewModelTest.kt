@@ -26,6 +26,7 @@ internal class PaymentViewModelTest {
                 fullname = "Mwai Banda",
                 email = "mwai.developer@gmail.com",
                 phone = "2190000000",
+                description = "",
                 amount = 100
             )
         )

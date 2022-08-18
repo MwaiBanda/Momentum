@@ -33,6 +33,7 @@ fun OfferScreen(
     authViewModel: AuthViewModel,
     offerViewModel: OfferViewModel = getViewModel()
 ){
+
    BlurredBackground {
         val number by offerViewModel.displayNumber.collectAsState()
         Column(
