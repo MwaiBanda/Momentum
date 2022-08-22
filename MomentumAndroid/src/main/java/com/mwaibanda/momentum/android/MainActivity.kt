@@ -41,7 +41,6 @@ class MainActivity : BaseActivity() {
         setContent {
             ProvideWindowInsets {
                 MomentumEntry { contentPadding, navController, bottomSheetNav ->
-                    val coroutineScope = rememberCoroutineScope()
                     ModalBottomSheetLayout(bottomSheetNav) {
                         NavHost(
                             navController = navController,
@@ -88,7 +87,6 @@ class MainActivity : BaseActivity() {
                                     },
                                     onHandlePaymentSheetResult = ::onHandlePaymentResult
                                 ) { request, launcher ->
-                                    coroutineScope.launch {
                                         checkout(request) { customer, intent ->
                                             val configuration = PaymentSheet.Configuration(
                                                 merchantDisplayName = MultiplatformConstants.MERCHANT_NAME,
@@ -108,7 +106,7 @@ class MainActivity : BaseActivity() {
                                                     configuration
                                                 )
                                             )
-                                        }
+
                                     }
                                 }
                             }

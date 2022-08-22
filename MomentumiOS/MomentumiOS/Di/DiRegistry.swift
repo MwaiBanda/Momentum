@@ -41,6 +41,11 @@ final class DiRegistry {
             }()
             
             @Binds
+            var localDefaultsController: LocalDefaultsController = {
+                LocalDefaultsControllerImpl()
+            }()
+            
+            @Binds
             var userController: UserController = {
                 UserControllerImpl(
                     driverFactory: resolver.resolve()

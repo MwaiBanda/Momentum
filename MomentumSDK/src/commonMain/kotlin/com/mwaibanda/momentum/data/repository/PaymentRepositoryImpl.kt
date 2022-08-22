@@ -27,4 +27,17 @@ internal class PaymentRepositoryImpl(
         }
 
     }
+
+    override suspend fun postTransactionInfo(paymentRequest: PaymentRequest): Result<Int> {
+        return try {
+            val response = httpClient.post {
+                momentumHooks(WEB_HOOK_URL)
+                contentType(ContentType.Application.Json)
+                setBody(paymentRequest)
+            }.status
+            Result.Success(response.value)
+        } catch (e: Exception) {
+            Result.Failure(e.message.toString())
+        }
+    }
 }

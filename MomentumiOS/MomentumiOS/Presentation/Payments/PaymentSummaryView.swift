@@ -36,7 +36,8 @@ struct PaymentSummaryView: View {
                             Text("Confirm")
                                 .fontWeight(.heavy)
                                 .frame(width: screenBounds.width - 30, height: 55)
-                        }.buttonStyle(FilledButtonStyle())
+                        }
+                        .buttonStyle(FilledButtonStyle())
                         Divider()
                         
                     }
@@ -47,18 +48,6 @@ struct PaymentSummaryView: View {
                         .navigationBarBackButtonHidden(true)
                     
                 }
-            }.onAppear {
-                profileViewModel.getContactInformation(userId: session.currentUser?.id ?? "") {
-                    paymentViewModel.checkout(request: PaymentRequest(
-                        fullname: profileViewModel.fullname,
-                        email: profileViewModel.email,
-                        phone: profileViewModel.phone,
-                        description: contentViewModel.getTransactionDescription(),
-                        amount: Int32((Double(offerViewModel.number) ?? 0.00) * 100)
-                    )) {
-                        paymentViewModel.setUpPaymentSheet()
-                    }
-                }
             }
             if let paymentResult = paymentViewModel.paymentResult {
                 
@@ -67,12 +56,22 @@ struct PaymentSummaryView: View {
                     .onAppear {
                         switch paymentResult {
                         case .completed:
-                            transactionViewModel.addTransaction(
-                                description: contentViewModel.getTransactionDescription(),
-                                date: transactionViewModel.getTransactionDate(),
-                                amount: Double(offerViewModel.number) ?? 0.00,
-                                isSeen: false
+                            let request = PaymentRequest(
+                                fullname: profileViewModel.fullname,
+                                email: profileViewModel.email,
+                                phone: profileViewModel.phone,
+                                description: contentViewModel.getTransactionDescription()
+                                    .replacingOccurrences(of: ",", with: "<br>"),
+                                amount: Int32(Double(offerViewModel.number) ?? 0.00)
                             )
+                            transactionViewModel.postTransactionInfo(request: request) {
+                                transactionViewModel.addTransaction(
+                                    description: contentViewModel.getTransactionDescription(),
+                                    date: transactionViewModel.getTransactionDate(),
+                                    amount: Double(offerViewModel.number) ?? 0.00,
+                                    isSeen: false
+                                )
+                            }
                         case .canceled:
                             break
                         case .failed(let error):
@@ -82,9 +81,22 @@ struct PaymentSummaryView: View {
                 
             }
         }
-        
+        .onAppear {
+            profileViewModel.getContactInformation(userId: session.currentUser?.id ?? "") {
+                paymentViewModel.checkout(
+                    request: PaymentRequest(
+                        fullname: profileViewModel.fullname,
+                        email: profileViewModel.email,
+                        phone: profileViewModel.phone,
+                        description: "",
+                        amount: Int32((Double(offerViewModel.number) ?? 0.00) * 100)
+                    )
+                ) {
+                    paymentViewModel.setUpPaymentSheet()
+                }
+            }
+        }
     }
-    
 }
 
 struct PaymentSummaryView_Previews: PreviewProvider {

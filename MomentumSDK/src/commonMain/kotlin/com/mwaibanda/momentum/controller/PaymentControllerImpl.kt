@@ -4,6 +4,7 @@ import com.mwaibanda.momentum.domain.controller.PaymentController
 import com.mwaibanda.momentum.domain.models.PaymentRequest
 import com.mwaibanda.momentum.domain.models.PaymentResponse
 import com.mwaibanda.momentum.domain.usecase.payment.CheckoutUseCase
+import com.mwaibanda.momentum.domain.usecase.payment.PostTransactionInfoUseCase
 import com.mwaibanda.momentum.utils.Result
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch

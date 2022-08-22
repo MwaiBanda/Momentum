@@ -27,7 +27,18 @@ class TransactionViewModel: ObservableObject {
             isSeen: isSeen
         )
     }
-    
+    func postTransactionInfo(request: PaymentRequest, onCompletion: @escaping () -> Void = {}) {
+        controller.postTransactionInfo(paymentRequest: request) { response in
+            if let response = response.data {
+                if response == 200 {
+                    Log.d(tag: "Pay/Post/Status", message: response)
+                    onCompletion()
+                }
+            } else if let error = response.message {
+                Log.d(tag: "Pay/Failure", message: error)
+            }
+        }
+    }
     func getAllTransactions() {
         controller.getAllTransactions { transactions in
             self.transactions = transactions

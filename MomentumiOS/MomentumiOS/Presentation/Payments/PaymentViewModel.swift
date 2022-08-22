@@ -15,7 +15,7 @@ final class PaymentViewModel : ObservableObject {
     @Inject private var paymentController: PaymentController
     @Published private(set) var paymentSheet: PaymentSheet?
     @Published private(set) var paymentResult: PaymentSheetResult?
-    @Published var response: PaymentResponse? = nil
+    @Published var response: PaymentResponse?
     @Published var isNavTitleHidden = false
 
    
@@ -44,9 +44,10 @@ final class PaymentViewModel : ObservableObject {
             } else if let error = response.message {
                 Log.d(tag: "Pay/Failure", message: error)
             }
-            
         }
     }
+    
+    
     
     func setUpPaymentSheet() {
         guard let response = response else { return }

@@ -12,6 +12,7 @@ import MomentumSDK
 class ProfileViewModel: ObservableObject {
     @Inject private var userController: UserController
     @Inject private var billingAddressController: BillingAddressController
+    @Inject private var localDefaultsController: LocalDefaultsController
     
     /* Contact Information */
     @Published var fullname = ""
@@ -117,6 +118,28 @@ class ProfileViewModel: ObservableObject {
                 password = user.password
                 createdOn = user.created_on
                 onCompletion()
+            } else {
+                localDefaultsController.getString(
+                    key: MultiplatformConstants.shared.PASSWORD
+                ) { password in
+                    self.password = password
+                    self.userController.getUser(userId: userId) { user in
+                        self.fullname = user.fullname
+                        self.phone = user.phone
+                        self.email = user.email
+                        self.password = password
+                        self.createdOn = user.createdOn
+                        self.addUser(
+                            fullname: user.fullname,
+                            phone: user.phone,
+                            password: password,
+                            email: user.email,
+                            createdOn: user.createdOn,
+                            userId: userId
+                        )
+                        onCompletion()
+                    }
+                }
             }
         }
     }

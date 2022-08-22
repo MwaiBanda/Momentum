@@ -10,6 +10,7 @@ import com.mwaibanda.momentum.domain.models.PaymentRequest
 import com.stripe.android.PaymentConfiguration
 import com.stripe.android.paymentsheet.PaymentSheet
 import com.stripe.android.paymentsheet.PaymentSheetResult
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.android.ext.android.inject
 import java.time.LocalDateTime
@@ -20,19 +21,21 @@ open class BaseActivity : ComponentActivity() {
     protected val paymentViewModel: PaymentViewModel by inject()
     protected val profileViewModel: ProfileViewModel by inject()
     protected val transactionViewModel: TransactionViewModel by inject()
+    private val coroutineScope = MainScope()
 
     init {
         authViewModel.checkAndSignIn()
     }
-    protected suspend fun checkout(
+
+    protected fun checkout(
         paymentRequest: PaymentRequest,
         onSuccess: (customer: PaymentSheet.CustomerConfiguration?, intent: String) -> Unit
-    ) {
+    ) = coroutineScope.launch {
         paymentViewModel.checkout(paymentRequest)
         paymentViewModel.paymentResponse.collectLatest { paymentResponse ->
             if (paymentResponse != null && paymentViewModel.canInitiateTransaction) {
                 paymentViewModel.canInitiateTransaction = false
-                PaymentConfiguration.init(this, paymentResponse.publishableKey)
+                PaymentConfiguration.init(applicationContext, paymentResponse.publishableKey)
                 val customerConfig = PaymentSheet.CustomerConfiguration(
                     paymentResponse.customer,
                     paymentResponse.ephemeralKey
@@ -53,6 +56,11 @@ open class BaseActivity : ComponentActivity() {
             is PaymentSheetResult.Canceled -> onPaymentCancellation()
             is PaymentSheetResult.Failed -> onPaymentFailure(paymentResult.error.localizedMessage!!)
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        coroutineScope.cancel()
     }
 
     companion object {

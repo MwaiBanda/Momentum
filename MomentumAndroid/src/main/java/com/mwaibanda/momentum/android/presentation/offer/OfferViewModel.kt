@@ -1,14 +1,11 @@
 package com.mwaibanda.momentum.android.presentation.offer
 
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.mwaibanda.momentum.android.core.utils.DispatchersProvider
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.launch
 
 class OfferViewModel : ViewModel() {
     val offerKeypad = arrayOf(

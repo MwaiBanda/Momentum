@@ -6,27 +6,13 @@ plugins {
 }
 
 android {
-    signingConfigs {
-        getByName("debug") {
-            storeFile = file("/Users/mwaibanda/Repository/AndroidDevKeyStore.jdk")
-            storePassword = "Ngosa1978"
-            keyAlias = "dev"
-            keyPassword = "Ngosa1978"
-        }
-        create("release") {
-            storeFile = file("/Users/mwaibanda/Repository/AndroidDevKeyStore.jdk")
-            storePassword = "Ngosa1978"
-            keyAlias = "dev"
-            keyPassword = "Ngosa1978"
-        }
-    }
     compileSdk = 32
     defaultConfig {
         applicationId = "com.mwaibanda.momentum.android"
         minSdk = 21
         targetSdk = 31
-        versionCode = 3
-        versionName = "1.0.1"
+        versionCode = 5
+        versionName = "1.0.3"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
@@ -35,7 +21,7 @@ android {
         compose = true
     }
 
-// Set both the Java and Kotlin compilers to target Java 8.
+    // Set both the Java and Kotlin compilers to target Java 8.
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility  = JavaVersion.VERSION_1_8
@@ -92,17 +78,13 @@ dependencies {
     testImplementation ("app.cash.turbine:turbine:0.8.0")
     // Navigation
     implementation( "androidx.navigation:navigation-compose:2.5.1")
-    // Live Data
-    implementation ("androidx.compose.runtime:runtime-livedata:1.3.0-alpha02")
     // Icons exts
     implementation( "androidx.compose.material:material-icons-extended:1.2.0")
     // Status Bar
     implementation ("com.google.accompanist:accompanist-systemuicontroller:0.25.0")
     implementation ("com.google.accompanist:accompanist-insets:0.25.0")
-
     // Stripe Android SDK
     implementation ("com.stripe:stripe-android:19.0.0")
-
     //Koin
     implementation("io.insert-koin:koin-android:3.2.0")
     implementation("io.insert-koin:koin-core:3.2.0")
@@ -113,7 +95,7 @@ dependencies {
     implementation("com.airbnb.android:lottie-compose:4.0.0")
     // Bottom Sheet
     implementation("com.google.accompanist:accompanist-navigation-material:0.25.0")
-
+    // Firebase Auth Kotlin SDK
     implementation("dev.gitlive:firebase-auth:1.6.1")
 }
 

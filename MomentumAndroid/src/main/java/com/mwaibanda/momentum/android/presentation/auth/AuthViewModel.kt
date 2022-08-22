@@ -7,6 +7,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import com.mwaibanda.momentum.domain.controller.AuthController
 import com.mwaibanda.momentum.domain.controller.LocalDefaultsController
+import com.mwaibanda.momentum.utils.MultiplatformConstants
 import com.mwaibanda.momentum.utils.Result.*
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -47,6 +48,14 @@ class AuthViewModel(
                         id = res.data?.uid ?: "",
                         email = res.data?.email,
                         isGuest = res.data?.isAnonymous ?: false
+                    )
+                    localDefaultsController.setString(
+                        key = MultiplatformConstants.EMAIL,
+                        value = email
+                    )
+                    localDefaultsController.setString(
+                        key = MultiplatformConstants.PASSWORD,
+                        value = password
                     )
                     onCompletion()
                 }
@@ -89,6 +98,7 @@ class AuthViewModel(
             }
         }
     }
+
     fun getCurrentUser() {
         authController.getCurrentUser { res ->
             when (res) {
@@ -105,11 +115,13 @@ class AuthViewModel(
             }
         }
     }
-    fun deleteCurrentUser(onCompletion: () -> Unit = {}){
+
+    fun deleteCurrentUser(onCompletion: () -> Unit = {}) {
         currentUser = null
         authController.deleteUser()
         onCompletion()
     }
+
     fun signOut(onCompletion: () -> Unit = {}) {
         currentUser = null
         authController.signOut()
@@ -120,14 +132,6 @@ class AuthViewModel(
         val date = LocalDate.now()
         val formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy")
         return date.format(formatter)
-    }
-
-    fun getString(key: String, onCompletion: (String) -> Unit) {
-        localDefaultsController.getString(key, onCompletion)
-    }
-
-    fun setString(key: String, value: String) {
-        localDefaultsController.setString(key, value)
     }
 
     data class User(

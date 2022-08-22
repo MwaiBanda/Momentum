@@ -8,16 +8,17 @@ import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.IconButton
 import androidx.compose.material.Text
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.platform.LocalLifecycleOwner
-import androidx.compose.ui.text.font.FontWeight
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.mwaibanda.momentum.android.core.utils.Constants
@@ -81,19 +82,23 @@ fun OfferScreen(
                 }
                 Spacer(modifier = Modifier.height(20.dp))
                 Button(
+                    enabled = offerViewModel.number.value.toFloat() > 0.50f,
                     onClick = {
-                        Log.d("OFFER", "${offerViewModel.number.value?.toFloat()}" )
+                        Log.d("OFFER", "${offerViewModel.number.value.toFloat()}" )
                         if (authViewModel.currentUser?.isGuest == true) {
                             navController.navigate(NavigationRoutes.AuthControllerScreen.route)
                         } else {
-                            navController.navigate("pay/${offerViewModel.number.value?.toFloat()}")
+                            navController.navigate("pay/${offerViewModel.number.value.toFloat()}")
                         }
                     },
                     modifier = Modifier
                         .fillMaxWidth(0.9f)
                         .height(55.dp),
                     shape = RoundedCornerShape(10.dp),
-                    colors = ButtonDefaults.buttonColors(backgroundColor = Color(Constants.MOMENTUM_ORANGE))
+                    colors = ButtonDefaults.buttonColors(
+                        backgroundColor = Color(Constants.MOMENTUM_ORANGE),
+                        disabledBackgroundColor = Color(Constants.MOMENTUM_ORANGE).copy(alpha = 0.55f)
+                    )
                 ) {
                     Text(
                         text = "Offer",

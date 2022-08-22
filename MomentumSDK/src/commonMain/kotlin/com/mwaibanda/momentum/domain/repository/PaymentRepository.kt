@@ -6,4 +6,5 @@ import com.mwaibanda.momentum.utils.Result
 
 interface PaymentRepository {
     suspend fun prepareCheckout(paymentRequest: PaymentRequest): Result<PaymentResponse>
+    suspend fun postTransactionInfo(paymentRequest: PaymentRequest): Result<Int>
 }

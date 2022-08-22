@@ -50,12 +50,23 @@ fun PaymentSummaryScreen(
                 val currentDate = LocalDateTime.now()
                 val formatter = DateTimeFormatter.ofPattern("MMM d")
                 val currentDateString = formatter.format(currentDate)
-                transactionViewModel.addTransaction(
-                    description = contentViewModel.getTransactionDescription(),
-                    date = currentDateString,
-                    amount = amount.toDouble(),
-                    isSeen = false
-                )
+                transactionViewModel.postTransactionInfo(
+                    paymentRequest = PaymentRequest(
+                        fullname = profileViewModel.fullname,
+                        email = profileViewModel.email,
+                        phone = profileViewModel.phone,
+                        description = contentViewModel.getTransactionDescription()
+                            .replace(",","<br>"),
+                        amount = amount.toInt()
+                    )
+                ) {
+                    transactionViewModel.addTransaction(
+                        description = contentViewModel.getTransactionDescription(),
+                        date = currentDateString,
+                        amount = amount.toDouble(),
+                        isSeen = false
+                    )
+                }
                 onTransactionCanProcess(true)
 
             },
@@ -127,7 +138,7 @@ fun PaymentSummaryScreen(
             Divider()
             Spacer(modifier = Modifier.height(10.dp))
             Button(
-                enabled = canInitiateTransaction,
+                enabled = canInitiateTransaction && contentViewModel.selectedLabels.isNotEmpty(),
                 onClick = {
                     profileViewModel.getContactInformation(authViewModel.currentUser?.id ?: "") {
                         onInitiateCheckout(

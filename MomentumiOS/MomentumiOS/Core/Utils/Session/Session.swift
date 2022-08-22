@@ -13,6 +13,7 @@ import Combine
 
 final class Session: ObservableObject {
     @Inject private var authController: AuthController
+    @Inject private var localDefaultsController: LocalDefaultsController
     var didChange = PassthroughSubject<Session, Never>()
     var handle: AuthStateDidChangeListenerHandle?
     @Published var currentUser: User? {
@@ -35,6 +36,14 @@ final class Session: ObservableObject {
                     email: user.email ?? "",
                     id: user.uid,
                     isGuest: user.isAnonymous
+                )
+                localDefaultsController.setString(
+                    key: MultiplatformConstants.shared.EMAIL,
+                    value: email
+                )
+                localDefaultsController.setString(
+                    key: MultiplatformConstants.shared.PASSWORD,
+                    value: password
                 )
                 onCompletion()
             } else if let error = res.message {

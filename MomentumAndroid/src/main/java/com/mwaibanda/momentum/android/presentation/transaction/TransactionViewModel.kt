@@ -1,14 +1,11 @@
 package com.mwaibanda.momentum.android.presentation.transaction
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.mwaibanda.momentum.data.db.MomentumTransaction
 import com.mwaibanda.momentum.domain.controller.TransactionController
-import org.koin.core.component.inject
-import org.koin.core.component.KoinComponent
-import androidx.compose.runtime.setValue
-import androidx.compose.runtime.getValue
+import com.mwaibanda.momentum.domain.models.PaymentRequest
+import com.mwaibanda.momentum.utils.Result
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -26,6 +23,20 @@ class TransactionViewModel(
         }
     }
 
+    fun postTransactionInfo(paymentRequest: PaymentRequest, onCompletion: () -> Unit) {
+        transactionController.postTransactionInfo(paymentRequest = paymentRequest) { res ->
+            when (res) {
+                is Result.Failure -> {
+                    Log.d("Pay/PostFailure", res.message ?: "")
+                }
+                is Result.Success -> {
+                    onCompletion()
+                    Log.d("Pay/PostSuccess", res.message ?: "")
+                }
+            }
+        }
+
+    }
     fun addTransaction(
         description: String,
         date: String,

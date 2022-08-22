@@ -9,6 +9,10 @@
 @testable import MomentumSDK
 
 class FakeTransactionControllerImpl: TransactionController {
+    func postTransactionInfo(paymentRequest: PaymentRequest, onCompletion: @escaping (Result<KotlinInt>) -> Void) {
+        onCompletion(ResultSuccess(data: 1))
+    }
+    
     var transactions = [MomentumTransaction]()
     func addTransaction(
         description: String,
