@@ -1,5 +1,5 @@
 # Momentum
-Multiplatform payments apps(Android & iOS) for Momentum Church in Indiana. Built in Kotlin Multiplatform Mobile(KMM) w/ SwiftUI & Jetpack Compose, the apps allow users to make payments to the church, edit & update account information. Persists data locally w/ SQLDelight and Remote w/ Firebase. The apps are architected to emphasize code sharing between Android & iOS, so all core business logic written in the SDK, Android & iOS apps only contain presentation logic, viewmodels and tests.
+Multiplatform payments apps(Android & iOS) for Momentum Church in Indiana. Built in Kotlin Multiplatform Mobile(KMM) with SwiftUI & Jetpack Compose, the apps allow users to make payments to the church, edit & update account information. Persists data locally with SQLDelight and Remote with Firebase. The apps are architected to emphasize code sharing between Android & iOS, so all core business logic written in the SDK, Android & iOS apps only contain presentation logic, viewmodels and tests.
 
 ### Download Via AppStore or PlayStore
 The app's are available for download on the app store & playstore for Android & iPhone
@@ -89,7 +89,7 @@ The app's are available for download on the app store & playstore for Android & 
   </table>
 
 ### Architecture
-The project is architected w/ `Clean Architecture`, the SDK is architected w/ `MVC & Usecases` it contains all core business objects/logic. The apps are architected using `MVVM`. Each ViewModel depends on a controller(Interface/Protocol), and with the Dependency Injection upon creation of a ViewModel a concrete implementation is passed to ViewModel that conforms to the corresponding controller.
+The project is architected using `Clean Architecture`, the SDK is architected using `MVC & Usecases` it contains all core business objects/logic. The apps are architected using `MVVM`. Each ViewModel depends on a controller(Interface/Protocol), and with Dependency Injection upon creation of a ViewModel a concrete implementation is passed to ViewModel that conforms to the corresponding controller.
 ![momentum_architecture](https://user-images.githubusercontent.com/49708426/184673790-630a501f-9372-41bf-bf7a-a9ee99086c68.png)
 
 
