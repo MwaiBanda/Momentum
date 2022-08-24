@@ -81,7 +81,10 @@ The app's are available for download on the app store & playstore for Android & 
     <td>LottieAnimations </td>
      <td>LottieAnimations</td>
   </tr>
-    
+    <tr>
+    <td>StateFlow</td>
+     <td></td>
+  </tr>
    <tr>
     <td>Koin</td>
      <td></td>
