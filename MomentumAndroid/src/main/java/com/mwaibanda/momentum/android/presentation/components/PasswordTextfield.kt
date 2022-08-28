@@ -11,6 +11,7 @@ import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.*
 import androidx.compose.ui.unit.dp
@@ -21,12 +22,20 @@ fun PasswordTextField(
     text: TextFieldValue,
     placeholder: String,
     onTextChange: (TextFieldValue) -> Unit,
+    onFocusChange: (Boolean) -> Unit,
     onCommit: () -> Unit
 ) {
     var passwordVisibility by remember { mutableStateOf(false) }
 
     TextField(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier.fillMaxWidth()
+            .onFocusChanged {
+                if (it.isFocused) {
+                    onFocusChange(false)
+                } else {
+                    onFocusChange(true)
+                }
+            },
         value = text,
         onValueChange = onTextChange,
         shape = RoundedCornerShape(10.dp),

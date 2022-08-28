@@ -3,6 +3,7 @@ package com.mwaibanda.momentum.data.repository
 import com.mwaibanda.momentum.domain.models.User
 import com.mwaibanda.momentum.domain.repository.UserRepository
 import com.mwaibanda.momentum.utils.MultiplatformConstants
+import com.mwaibanda.momentum.utils.Result
 import dev.gitlive.firebase.firestore.FirebaseFirestore
 
 class UserRepositoryImpl(
@@ -18,11 +19,17 @@ class UserRepositoryImpl(
             .set(User.serializer(), user, encodeDefaults = true)
     }
 
-    override suspend fun getUser(userId: String): User {
-        return db.collection(MultiplatformConstants.USERS_COLLECTION)
-            .document(userId)
-            .get()
-            .data()
+    override suspend fun getUser(userId: String): Result<User> {
+        return try {
+            Result.Success(
+                db.collection(MultiplatformConstants.USERS_COLLECTION)
+                    .document(userId)
+                    .get()
+                    .data()
+            )
+        } catch (e: Exception) {
+            Result.Failure(e.message.toString())
+        }
     }
 
     override suspend fun updateUserEmail(userId: String, email: String) {

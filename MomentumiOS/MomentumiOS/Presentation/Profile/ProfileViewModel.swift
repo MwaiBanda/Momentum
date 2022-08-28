@@ -26,7 +26,7 @@ class ProfileViewModel: ObservableObject {
     @Published var apt = ""
     @Published var city = ""
     @Published var zipCode = ""
-
+    
     /* Card State */
     @Published var isContactInfoExpanded = false
     @Published var isBillingInfoExpanded = false
@@ -51,7 +51,7 @@ class ProfileViewModel: ObservableObject {
             isInformationExpanded.toggle()
         }
     }
-
+    
     func closeCards(cards: ProfileCard...) {
         cards.forEach { card in
             switch card {
@@ -123,21 +123,25 @@ class ProfileViewModel: ObservableObject {
                     key: MultiplatformConstants.shared.PASSWORD
                 ) { password in
                     self.password = password
-                    self.userController.getUser(userId: userId) { user in
-                        self.fullname = user.fullname
-                        self.phone = user.phone
-                        self.email = user.email
-                        self.password = password
-                        self.createdOn = user.createdOn
-                        self.addUser(
-                            fullname: user.fullname,
-                            phone: user.phone,
-                            password: password,
-                            email: user.email,
-                            createdOn: user.createdOn,
-                            userId: userId
-                        )
-                        onCompletion()
+                    self.userController.getUser(userId: userId) { res in
+                        if let user =  res.data {
+                            self.fullname = user.fullname
+                            self.phone = user.phone
+                            self.email = user.email
+                            self.password = password
+                            self.createdOn = user.createdOn
+                            self.addUser(
+                                fullname: user.fullname,
+                                phone: user.phone,
+                                password: password,
+                                email: user.email,
+                                createdOn: user.createdOn,
+                                userId: userId
+                            )
+                            onCompletion()
+                        } else if let error = res.message {
+                            Log.d(tag: "User", message: error)
+                        }
                     }
                 }
             }

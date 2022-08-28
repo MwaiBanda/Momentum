@@ -23,7 +23,11 @@ import com.mwaibanda.momentum.android.presentation.components.IconTextfield
 import com.mwaibanda.momentum.android.presentation.components.PasswordTextField
 
 @Composable
-fun SignInScreen(authViewModel: AuthViewModel, onCloseModal: () -> Unit) {
+fun SignInScreen(
+    authViewModel: AuthViewModel,
+    onFocusChange: (Boolean) -> Unit,
+    onCloseModal: () -> Unit
+) {
     val focusManager = LocalFocusManager.current
     var email by remember {
         mutableStateOf(TextFieldValue())
@@ -61,7 +65,8 @@ fun SignInScreen(authViewModel: AuthViewModel, onCloseModal: () -> Unit) {
         PasswordTextField(
             text = password,
             placeholder = "Password",
-            onTextChange = { password = it }
+            onTextChange = { password = it },
+            onFocusChange = onFocusChange
         ) {
             focusManager.clearFocus()
         }

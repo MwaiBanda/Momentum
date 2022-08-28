@@ -64,10 +64,10 @@ class FakeUserControllerImpl: UserController {
     
     func getUser(
         userId: String,
-        onCompletion: @escaping (User) -> Void
+        onCompletion: @escaping (Result<User>) -> Void
     ) {
         let index = remoteUsers.firstIndex(where: { $0.userId == userId })!
-        onCompletion(remoteUsers[index])
+        onCompletion(ResultSuccess(data: remoteUsers[index]))
     }
     
     func postUser(user: User) {

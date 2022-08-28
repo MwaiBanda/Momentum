@@ -100,14 +100,6 @@ kotlin {
 }
 
 android {
-    signingConfigs {
-        create("release") {
-            storeFile = file("/Users/mwaibanda/Repository/AndroidDevKeyStore.jdk")
-            storePassword = "Ngosa1978"
-            keyAlias = "dev"
-            keyPassword = "Ngosa1978"
-        }
-    }
     compileSdk = 32
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     defaultConfig {

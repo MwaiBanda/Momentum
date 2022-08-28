@@ -11,6 +11,7 @@ import com.mwaibanda.momentum.domain.controller.LocalDefaultsController
 import com.mwaibanda.momentum.domain.controller.UserController
 import com.mwaibanda.momentum.domain.models.User
 import com.mwaibanda.momentum.utils.MultiplatformConstants
+import com.mwaibanda.momentum.utils.Result
 
 class ProfileViewModel(
     private val userController: UserController,
@@ -142,20 +143,27 @@ class ProfileViewModel(
             } else {
                 localDefaultsController.getString(key = MultiplatformConstants.PASSWORD) { password ->
                     this.password = password
-                    userController.getUser(userId) { user ->
-                        fullname = user.fullname
-                        phone = user.phone
-                        email = user.email
-                        createdOn = user.createdOn
-                        addUser(
-                            fullname = fullname,
-                            phone = phone,
-                            password = password,
-                            email = email,
-                            createdOn = createdOn,
-                            userId = userId
-                        )
-                        onCompletion()
+                    userController.getUser(userId) { res ->
+                        when(res) {
+                            is Result.Success -> {
+                                fullname = res.data?.fullname ?: ""
+                                phone = res.data?.phone ?: ""
+                                email = res.data?.email ?: ""
+                                createdOn = res.data?.createdOn ?: ""
+                                addUser(
+                                    fullname = fullname,
+                                    phone = phone,
+                                    password = password,
+                                    email = email,
+                                    createdOn = createdOn,
+                                    userId = userId
+                                )
+                                onCompletion()
+                            }
+                            is Result.Failure -> {
+                                Log.d("Auth/Failure", res.message ?: "")
+                            }
+                        }
                     }
                 }
             }

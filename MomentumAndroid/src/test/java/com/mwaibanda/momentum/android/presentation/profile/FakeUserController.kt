@@ -3,6 +3,7 @@ package com.mwaibanda.momentum.android.presentation.profile
 import com.mwaibanda.momentum.data.db.MomentumUser
 import com.mwaibanda.momentum.domain.controller.UserController
 import com.mwaibanda.momentum.domain.models.User
+import com.mwaibanda.momentum.utils.Result
 
 class FakeUserController: UserController {
     private val remote = mutableListOf<User>()
@@ -39,9 +40,9 @@ class FakeUserController: UserController {
         onCompletion(local.first { it.user_id == userId })
     }
 
-    override fun getUser(userId: String, onCompletion: (User) -> Unit) {
+    override fun getUser(userId: String, onCompletion: (Result<User>) -> Unit) {
         val index = remote.indexOfFirst { it.userId == userId }
-        onCompletion(remote[index])
+        onCompletion(Result.Success(remote[index]))
     }
 
     override fun updateMomentumUserFullnameByUserId(

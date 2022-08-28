@@ -5,8 +5,10 @@ import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
@@ -39,9 +41,13 @@ fun AuthControllerScreen(
     var showSignUp by remember {
         mutableStateOf(true)
     }
-    val animatedSizeDp: Dp by animateDpAsState(
+    var isPasswordFocused by remember {
+        mutableStateOf(false)
+    }
+    val animateAuthSizeDp: Dp by animateDpAsState(
         targetValue = if (showSignUp) 430.dp else 260.dp
     )
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -72,30 +78,42 @@ fun AuthControllerScreen(
                 Column(
                     Modifier
                         .fillMaxHeight()
-                        .fillMaxWidth(),
+                        .fillMaxWidth()
+                        .verticalScroll(rememberScrollState()),
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.SpaceBetween
                 ) {
-                    Spacer(Modifier.height(10.dp))
-
+                    if (isPasswordFocused) {
+                        Spacer(Modifier.height(10.dp))
+                    }
                     TranslucentBackground(
-                        Modifier.size(
-                            height = animatedSizeDp,
+                        Modifier
+                            .size(
+                            height = animateAuthSizeDp,
                             width = screenWidth - 50.dp
                         )
                     ) {
                         Crossfade(targetState = showSignUp) { showSignUp ->
                             if (showSignUp) {
-                                SignUpScreen(authViewModel = authViewModel, profileViewModel = profileViewModel) {
+                                SignUpScreen(
+                                    authViewModel = authViewModel,
+                                    profileViewModel = profileViewModel,
+                                    onFocusChange = { isPasswordFocused = it }
+                                ) {
                                     onCloseModal()
                                 }
                             } else {
-                                SignInScreen(authViewModel = authViewModel) {
+                                SignInScreen(
+                                    authViewModel = authViewModel,
+                                    onFocusChange = { isPasswordFocused = it }
+                                ) {
                                     onCloseModal()
                                 }
                             }
                         }
                     }
+
+
                     Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
 
 

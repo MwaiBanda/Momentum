@@ -21,7 +21,12 @@ import com.mwaibanda.momentum.android.presentation.components.PasswordTextField
 import com.mwaibanda.momentum.android.presentation.profile.ProfileViewModel
 
 @Composable
-fun SignUpScreen(authViewModel: AuthViewModel, profileViewModel: ProfileViewModel, onCloseModal: () -> Unit) {
+fun SignUpScreen(
+    authViewModel: AuthViewModel,
+    profileViewModel: ProfileViewModel,
+    onFocusChange: (Boolean) -> Unit,
+    onCloseModal: () -> Unit
+) {
     val focusManager = LocalFocusManager.current
     var fullname by remember {
         mutableStateOf(TextFieldValue())
@@ -86,7 +91,8 @@ fun SignUpScreen(authViewModel: AuthViewModel, profileViewModel: ProfileViewMode
         PasswordTextField(
             text = password,
             placeholder = "Password",
-            onTextChange = { password = it }
+            onTextChange = { password = it },
+            onFocusChange = onFocusChange
         ) {
             focusManager.clearFocus()
         }
@@ -94,7 +100,8 @@ fun SignUpScreen(authViewModel: AuthViewModel, profileViewModel: ProfileViewMode
         PasswordTextField(
             text = confirmPassword,
             placeholder = "Confirm Password",
-            onTextChange = { confirmPassword = it }
+            onTextChange = { confirmPassword = it },
+            onFocusChange = onFocusChange
         ) {
             focusManager.clearFocus()
         }

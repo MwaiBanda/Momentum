@@ -6,6 +6,7 @@ import com.mwaibanda.momentum.data.db.MomentumUser
 import com.mwaibanda.momentum.domain.controller.UserController
 import com.mwaibanda.momentum.domain.models.User
 import com.mwaibanda.momentum.domain.usecase.user.*
+import com.mwaibanda.momentum.utils.Result
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
@@ -51,7 +52,7 @@ class UserControllerImpl(driverFactory: DatabaseDriverFactory): UserController, 
         onCompletion(database.getUserByUserId(userId = userId))
     }
 
-    override fun getUser(userId: String, onCompletion: (User) -> Unit) {
+    override fun getUser(userId: String, onCompletion: (Result<User>) -> Unit) {
         scope.launch {
             getUserUseCase(userId) {
                 onCompletion(it)
