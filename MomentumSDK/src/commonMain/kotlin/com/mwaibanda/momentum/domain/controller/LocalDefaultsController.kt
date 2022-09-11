@@ -5,4 +5,6 @@ interface LocalDefaultsController {
     fun getString(key: String, onRetrieval: (String) -> Unit)
     fun setInt(key: String, value: Int)
     fun getInt(key: String, onRetrieval: (Int) -> Unit)
+    fun setBoolean(key: String, value: Boolean)
+    fun getBoolean(key: String, onRetrieval: (Boolean) -> Unit)
 }

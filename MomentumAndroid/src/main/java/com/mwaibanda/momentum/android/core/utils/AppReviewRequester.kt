@@ -9,15 +9,21 @@ import com.google.android.play.core.review.model.ReviewErrorCode
 import com.mwaibanda.momentum.android.BuildConfig
 import com.mwaibanda.momentum.domain.controller.LocalDefaultsController
 
-class AppReviewRequester(private val localDefaultsController: LocalDefaultsController) {
+class AppReviewRequester(
+    private val localDefaultsController: LocalDefaultsController
+) {
     private var lastRun = 0
     private var version = ""
+    private var hasReviewed = false
     init {
         localDefaultsController.getInt(key = LAST_RUN) {
             lastRun = it
         }
         localDefaultsController.getString(key = VERSION) {
             version = it
+        }
+        localDefaultsController.getBoolean(key = HAS_REVIEWED) {
+            hasReviewed = it
         }
     }
 
@@ -30,29 +36,31 @@ class AppReviewRequester(private val localDefaultsController: LocalDefaultsContr
             if (lastRun >= THRESHOLD) {
                 request.addOnCompleteListener { task ->
                     if (task.isSuccessful) {
-                        // We got the ReviewInfo object
                         val reviewInfo = task.result
                         val flow = manager.launchReviewFlow(context, reviewInfo)
                         flow.addOnCompleteListener { _ ->
-                            localDefaultsController.setInt(key = LAST_RUN, value = lastRun)
-                            localDefaultsController.setString(key = VERSION, value = version)
+                            lastRun = 0
+                            localDefaultsController.setString(key = VERSION, value = currentVersion)
+                            localDefaultsController.setBoolean(key = HAS_REVIEWED, value = true)
                             Log.d("AppReview", "Requested $currentVersion")
-
                         }
                     } else {
-                        // There was some problem, log or handle the error code.
                         @ReviewErrorCode val reviewErrorCode = (task.getException())
                         Log.d("ReviewError", reviewErrorCode.toString())
                     }
                 }
             }
+            Log.d("NewVersion", "Version $currentVersion")
+            localDefaultsController.setBoolean(key = HAS_REVIEWED, value = false)
         }
+        localDefaultsController.setInt(key = LAST_RUN, value = if (hasReviewed) 0 else lastRun)
+        Log.d("THRESHOLD", "Last Run: $lastRun")
     }
 
     companion object {
-        const val THRESHOLD = 3
+        const val THRESHOLD = 8
         const val LAST_RUN = "lastRun"
         const val VERSION = "version"
-
+        const val HAS_REVIEWED = "hasReviewed"
     }
 }

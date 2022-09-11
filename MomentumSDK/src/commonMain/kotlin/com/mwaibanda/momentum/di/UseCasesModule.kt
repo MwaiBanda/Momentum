@@ -1,10 +1,7 @@
 package com.mwaibanda.momentum.di
 
 import com.mwaibanda.momentum.domain.usecase.auth.*
-import com.mwaibanda.momentum.domain.usecase.localDefaults.GetIntUseCase
-import com.mwaibanda.momentum.domain.usecase.localDefaults.GetStringUseCase
-import com.mwaibanda.momentum.domain.usecase.localDefaults.SetIntUseCase
-import com.mwaibanda.momentum.domain.usecase.localDefaults.SetStringUseCase
+import com.mwaibanda.momentum.domain.usecase.localDefaults.*
 import com.mwaibanda.momentum.domain.usecase.payment.CheckoutUseCase
 import com.mwaibanda.momentum.domain.usecase.payment.PostTransactionInfoUseCase
 import com.mwaibanda.momentum.domain.usecase.user.*
@@ -42,4 +39,6 @@ val useCasesModule = module {
     single { GetStringUseCase(localDefaultsRepository = get()) }
     single { SetIntUseCase(localDefaultsRepository = get()) }
     single { GetIntUseCase(localDefaultsRepository = get()) }
+    single { SetBooleanUseCase(localDefaultsRepository = get()) }
+    single { GetBooleanUseCase(localDefaultsRepository = get()) }
 }
