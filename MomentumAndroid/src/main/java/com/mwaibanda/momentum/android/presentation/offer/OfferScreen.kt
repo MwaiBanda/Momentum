@@ -1,6 +1,8 @@
 package com.mwaibanda.momentum.android.presentation.offer
 
 import android.util.Log
+import androidx.activity.ComponentActivity
+import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -9,31 +11,42 @@ import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.IconButton
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.mwaibanda.momentum.android.MainActivity
+import com.mwaibanda.momentum.android.core.utils.AppReviewRequester
 import com.mwaibanda.momentum.android.core.utils.Constants
 import com.mwaibanda.momentum.android.core.utils.NavigationRoutes
 import com.mwaibanda.momentum.android.presentation.auth.AuthViewModel
 import com.mwaibanda.momentum.android.presentation.components.BlurredBackground
 import com.mwaibanda.momentum.android.presentation.components.BottomSpacing
+import org.koin.androidx.compose.get
 import org.koin.androidx.compose.getViewModel
 
 @Composable
 fun OfferScreen(
     navController: NavController,
     authViewModel: AuthViewModel,
-    offerViewModel: OfferViewModel = getViewModel()
+    offerViewModel: OfferViewModel = getViewModel(),
+    appReviewRequester: AppReviewRequester = get()
 ){
+    val context = LocalContext.current
+
+    LaunchedEffect(key1 = Unit) {
+        appReviewRequester.request(context = context as ComponentActivity)
+    }
 
    BlurredBackground {
         val number by offerViewModel.displayNumber.collectAsState()

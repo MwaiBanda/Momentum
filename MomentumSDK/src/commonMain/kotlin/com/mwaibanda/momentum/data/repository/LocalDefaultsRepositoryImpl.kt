@@ -11,6 +11,14 @@ class LocalDefaultsRepositoryImpl(
     }
 
     override fun getString(key: String): String {
-        return settings.getString(key = key)
+        return settings.getStringOrNull(key = key) ?: ""
+    }
+
+    override fun setInt(key: String, value: Int) {
+       settings.putInt(key = key, value = value)
+    }
+
+    override fun getInt(key: String): Int {
+        return settings.getIntOrNull(key = key) ?: 0
     }
 }

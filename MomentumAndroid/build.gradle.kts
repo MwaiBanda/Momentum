@@ -97,6 +97,12 @@ dependencies {
     implementation("com.google.accompanist:accompanist-navigation-material:0.25.0")
     // Firebase Auth Kotlin SDK
     implementation("dev.gitlive:firebase-auth:1.6.1")
+    // This dependency is downloaded from the Google’s Maven repository.
+    // So, make sure you also include that repository in your project's build.gradle file.
+    implementation("com.google.android.play:review:2.0.0")
+
+    // For Kotlin users also add the Kotlin extensions library for Play In-App Review:
+    implementation("com.google.android.play:review-ktx:2.0.0")
 }
 
 
