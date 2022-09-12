@@ -43,7 +43,6 @@ fun OfferScreen(
     appReviewRequester: AppReviewRequester = get()
 ){
     val context = LocalContext.current
-
     LaunchedEffect(key1 = Unit) {
         appReviewRequester.request(context = context as ComponentActivity)
     }

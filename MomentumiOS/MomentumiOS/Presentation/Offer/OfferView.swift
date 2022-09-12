@@ -83,6 +83,9 @@ struct OfferView: View {
             })
         }
         .foregroundColor(.white)
+        .onAppear {
+            AppReviewRequest.RequestReviewWhenNeeeded()
+        }
         .sheet(isPresented: $showAuthSheet) {
             ContentWrapper(navConfiguration: .detailConfig) {
                 AuthControllerView()

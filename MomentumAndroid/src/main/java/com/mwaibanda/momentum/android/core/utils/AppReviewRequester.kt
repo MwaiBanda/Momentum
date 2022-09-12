@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.play.core.review.ReviewException
 import com.google.android.play.core.review.ReviewManagerFactory
 import com.google.android.play.core.review.model.ReviewErrorCode
 import com.mwaibanda.momentum.android.BuildConfig
@@ -42,15 +43,15 @@ class AppReviewRequester(
                             lastRun = 0
                             localDefaultsController.setString(key = VERSION, value = currentVersion)
                             localDefaultsController.setBoolean(key = HAS_REVIEWED, value = true)
-                            Log.d("AppReview", "Requested $currentVersion")
+                            Log.d("APP-REVIEW", "Requested $currentVersion")
                         }
                     } else {
-                        @ReviewErrorCode val reviewErrorCode = (task.getException())
-                        Log.d("ReviewError", reviewErrorCode.toString())
+                        @ReviewErrorCode val reviewErrorCode = (task.exception as ReviewException).errorCode
+                        Log.d("REVIEW-ERROR", reviewErrorCode.toString())
                     }
                 }
             }
-            Log.d("NewVersion", "Version $currentVersion")
+            Log.d("NEW-VERSION", "Version $currentVersion")
             localDefaultsController.setBoolean(key = HAS_REVIEWED, value = false)
         }
         localDefaultsController.setInt(key = LAST_RUN, value = if (hasReviewed) 0 else lastRun)

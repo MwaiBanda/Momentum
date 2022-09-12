@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		058557BB273AAA24004C7B11 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058557BA273AAA24004C7B11 /* Assets.xcassets */; };
 		058557D9273AAEEB004C7B11 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */; };
+		1CA5277328CED0DC00066605 /* AppReviewRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CA5277228CED0DC00066605 /* AppReviewRequester.swift */; };
 		2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2152FB032600AC8F00CF470E /* iOSApp.swift */; };
 		3703363E8055D813FEFB7DBA /* Pods_MomentumiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C018D438F8DF226DE8A725D /* Pods_MomentumiOS.framework */; };
 		7555FF83242A565900829871 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7555FF82242A565900829871 /* ContentView.swift */; };
@@ -103,6 +104,7 @@
 		058557BA273AAA24004C7B11 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		06D68FEC8ABE2B8A7159EAFB /* Pods-MomentumiOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MomentumiOS.release.xcconfig"; path = "Target Support Files/Pods-MomentumiOS/Pods-MomentumiOS.release.xcconfig"; sourceTree = "<group>"; };
+		1CA5277228CED0DC00066605 /* AppReviewRequester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppReviewRequester.swift; sourceTree = "<group>"; };
 		2152FB032600AC8F00CF470E /* iOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSApp.swift; sourceTree = "<group>"; };
 		7555FF7B242A565900829871 /* MomentumiOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MomentumiOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7555FF82242A565900829871 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -345,6 +347,7 @@
 				8142D164289189E4001C206A /* enums */,
 				8126AF7A286FE3C2007DBAB9 /* Constants.swift */,
 				819B7951287098FA0010B960 /* Log.swift */,
+				1CA5277228CED0DC00066605 /* AppReviewRequester.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -710,6 +713,7 @@
 				819B7952287098FA0010B960 /* Log.swift in Sources */,
 				8182E778288B91C500A9CF9D /* AuthControllerView.swift in Sources */,
 				819497FE288797240099B30B /* TransactionLabel.swift in Sources */,
+				1CA5277328CED0DC00066605 /* AppReviewRequester.swift in Sources */,
 				8126AF89286FF12F007DBAB9 /* MenuButton.swift in Sources */,
 				81826E28288A060400B22B6E /* Session.swift in Sources */,
 				81E8F8D428921F1300F4A87C /* SessionTime.swift in Sources */,
