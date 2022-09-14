@@ -31,7 +31,7 @@ import java.time.format.DateTimeFormatter
 @Composable
 fun PaymentSummaryScreen(
     navController: NavController,
-    contentViewModel: PaymentSummaryContentViewModel  = getViewModel(),
+    contentViewModel: PaymentSummaryContentViewModel = getViewModel(),
     authViewModel: AuthViewModel,
     profileViewModel: ProfileViewModel,
     transactionViewModel: TransactionViewModel,
@@ -55,8 +55,7 @@ fun PaymentSummaryScreen(
                         fullname = profileViewModel.fullname,
                         email = profileViewModel.email,
                         phone = profileViewModel.phone,
-                        description = contentViewModel.getTransactionDescription()
-                            .replace(",","<br>"),
+                        description = contentViewModel.getTransactionDescription(),
                         amount = amount.toInt()
                     )
                 ) {

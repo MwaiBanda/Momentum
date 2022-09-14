@@ -7,6 +7,8 @@ import com.mwaibanda.momentum.android.di.viewModelModule
 import com.mwaibanda.momentum.di.*
 import com.mwaibanda.momentum.di.initKoin
 import org.koin.android.ext.koin.androidContext
+import java.util.logging.Level
+import java.util.logging.Logger
 
 class MomentumApplication: Application() {
     override fun onCreate() {

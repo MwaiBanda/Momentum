@@ -60,8 +60,7 @@ struct PaymentSummaryView: View {
                                 fullname: profileViewModel.fullname,
                                 email: profileViewModel.email,
                                 phone: profileViewModel.phone,
-                                description: contentViewModel.getTransactionDescription()
-                                    .replacingOccurrences(of: ",", with: "<br>"),
+                                description: contentViewModel.getTransactionDescription(),
                                 amount: Int32(Double(offerViewModel.number) ?? 0.00)
                             )
                             transactionViewModel.postTransactionInfo(request: request) {
