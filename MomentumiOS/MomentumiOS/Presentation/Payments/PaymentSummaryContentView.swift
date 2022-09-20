@@ -19,7 +19,7 @@ struct PaymentSummaryContentView: View {
                 .font(.caption)
                 .foregroundColor(Color(hex: Constants.MOMENTUM_ORANGE))
                 .padding(.leading)
-            VStack {
+            ScrollView {
                 
                 ToggleAmountLabel(
                     title: MultiplatformConstants.shared.OFFERING,

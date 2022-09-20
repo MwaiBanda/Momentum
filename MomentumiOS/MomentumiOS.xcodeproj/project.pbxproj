@@ -9,6 +9,11 @@
 /* Begin PBXBuildFile section */
 		058557BB273AAA24004C7B11 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058557BA273AAA24004C7B11 /* Assets.xcassets */; };
 		058557D9273AAEEB004C7B11 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */; };
+		1C3CF16828D95D8100B46FC1 /* Algorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 1C3CF16728D95D8100B46FC1 /* Algorithms */; };
+		1C3CF16B28D95E3000B46FC1 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 1C3CF16A28D95E3000B46FC1 /* SDWebImageSwiftUI */; };
+		1C3CF16E28D984F400B46FC1 /* RoundedCorner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C3CF16D28D984F400B46FC1 /* RoundedCorner.swift */; };
+		1C3CF17028D98B1600B46FC1 /* Sermon+Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C3CF16F28D98B1600B46FC1 /* Sermon+Swift.swift */; };
+		1C3CF17228D993B500B46FC1 /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C3CF17128D993B500B46FC1 /* PlayerViewController.swift */; };
 		1CA5277328CED0DC00066605 /* AppReviewRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CA5277228CED0DC00066605 /* AppReviewRequester.swift */; };
 		1CE8F2B228D92AFB0077F2F0 /* SermonsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE8F2B128D92AFB0077F2F0 /* SermonsViewModel.swift */; };
 		1CE8F2B428D92B220077F2F0 /* SermonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE8F2B328D92B220077F2F0 /* SermonsView.swift */; };
@@ -106,6 +111,9 @@
 		058557BA273AAA24004C7B11 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		06D68FEC8ABE2B8A7159EAFB /* Pods-MomentumiOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MomentumiOS.release.xcconfig"; path = "Target Support Files/Pods-MomentumiOS/Pods-MomentumiOS.release.xcconfig"; sourceTree = "<group>"; };
+		1C3CF16D28D984F400B46FC1 /* RoundedCorner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedCorner.swift; sourceTree = "<group>"; };
+		1C3CF16F28D98B1600B46FC1 /* Sermon+Swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sermon+Swift.swift"; sourceTree = "<group>"; };
+		1C3CF17128D993B500B46FC1 /* PlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
 		1CA5277228CED0DC00066605 /* AppReviewRequester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppReviewRequester.swift; sourceTree = "<group>"; };
 		1CE8F2B128D92AFB0077F2F0 /* SermonsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SermonsViewModel.swift; sourceTree = "<group>"; };
 		1CE8F2B328D92B220077F2F0 /* SermonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SermonsView.swift; sourceTree = "<group>"; };
@@ -199,6 +207,8 @@
 				814525F528793F3300989B4C /* Lottie in Frameworks */,
 				81ABDEE72893AFC300C98645 /* Stripe in Frameworks */,
 				3703363E8055D813FEFB7DBA /* Pods_MomentumiOS.framework in Frameworks */,
+				1C3CF16B28D95E3000B46FC1 /* SDWebImageSwiftUI in Frameworks */,
+				1C3CF16828D95D8100B46FC1 /* Algorithms in Frameworks */,
 				818E26162893B51A00749888 /* FirebaseFirestore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -227,6 +237,14 @@
 				7C018D438F8DF226DE8A725D /* Pods_MomentumiOS.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		1C3CF16C28D984DD00B46FC1 /* Shape */ = {
+			isa = PBXGroup;
+			children = (
+				1C3CF16D28D984F400B46FC1 /* RoundedCorner.swift */,
+			);
+			path = Shape;
 			sourceTree = "<group>";
 		};
 		1CE8F2B028D92ACA0077F2F0 /* Sermons */ = {
@@ -349,6 +367,7 @@
 				8126AF74286FDB2F007DBAB9 /* View+Swift.swift */,
 				8126AF76286FE009007DBAB9 /* Color+Swift.swift */,
 				81770C212877A314008B88F6 /* UIColor+Swift.swift */,
+				1C3CF16F28D98B1600B46FC1 /* Sermon+Swift.swift */,
 			);
 			path = Exts;
 			sourceTree = "<group>";
@@ -380,6 +399,7 @@
 		8126AF87286FF11B007DBAB9 /* Component */ = {
 			isa = PBXGroup;
 			children = (
+				1C3CF16C28D984DD00B46FC1 /* Shape */,
 				81B802DF2877ED940008509D /* Styles */,
 				8182E77B288B9CC100A9CF9D /* PasswordTextfield.swift */,
 				8126AF88286FF12F007DBAB9 /* MenuButton.swift */,
@@ -392,6 +412,7 @@
 				818A2E98288DFE5E005D7449 /* BasePlainExpandableCard.swift */,
 				81E937CE288E5E2A00D74BD3 /* TitledTextField.swift */,
 				816CCDE0288F365600795B59 /* LinkLabel.swift */,
+				1C3CF17128D993B500B46FC1 /* PlayerViewController.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -574,6 +595,8 @@
 				818E26152893B51A00749888 /* FirebaseFirestore */,
 				8186F1ED2894E84E00FEA781 /* KeyboardToolbar */,
 				8186F1F02894EA0700FEA781 /* Introspect */,
+				1C3CF16728D95D8100B46FC1 /* Algorithms */,
+				1C3CF16A28D95E3000B46FC1 /* SDWebImageSwiftUI */,
 			);
 			productName = MomentumiOS;
 			productReference = 7555FF7B242A565900829871 /* MomentumiOS.app */;
@@ -632,6 +655,8 @@
 				818E26122893B51A00749888 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				8186F1EC2894E84D00FEA781 /* XCRemoteSwiftPackageReference "KeyboardToolbar" */,
 				8186F1EF2894EA0700FEA781 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */,
+				1C3CF16628D95D8100B46FC1 /* XCRemoteSwiftPackageReference "swift-algorithms" */,
+				1C3CF16928D95E3000B46FC1 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
 			);
 			productRefGroup = 7555FF7C242A565900829871 /* Products */;
 			projectDirPath = "";
@@ -698,6 +723,7 @@
 			files = (
 				811A3E7F287E16AF0052682B /* PaymentSummaryContentView.swift in Sources */,
 				81B802D82877E7C40008509D /* PaymentResultView.swift in Sources */,
+				1C3CF17028D98B1600B46FC1 /* Sermon+Swift.swift in Sources */,
 				81B802D62877E46A0008509D /* PaymentSummaryView.swift in Sources */,
 				818A2E99288DFE5E005D7449 /* BasePlainExpandableCard.swift in Sources */,
 				2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */,
@@ -712,6 +738,7 @@
 				814E5DE728778E470008BAC1 /* PaymentViewModel.swift in Sources */,
 				8126AF71286FD82D007DBAB9 /* OfferView.swift in Sources */,
 				81770C222877A314008B88F6 /* UIColor+Swift.swift in Sources */,
+				1C3CF17228D993B500B46FC1 /* PlayerViewController.swift in Sources */,
 				81B802D42877E4080008509D /* LoadingView.swift in Sources */,
 				818CA42F2890E553001A5D4D /* Binds.swift in Sources */,
 				1CE8F2B228D92AFB0077F2F0 /* SermonsViewModel.swift in Sources */,
@@ -744,6 +771,7 @@
 				8182E77C288B9CC100A9CF9D /* PasswordTextfield.swift in Sources */,
 				81888DF1288A0FDD00752590 /* Resolver.swift in Sources */,
 				817AD150288BB0B00046441D /* SignUpView.swift in Sources */,
+				1C3CF16E28D984F400B46FC1 /* RoundedCorner.swift in Sources */,
 				818CA42D2890E04B001A5D4D /* Resolving.swift in Sources */,
 				814525F728793F5000989B4C /* LottieView.swift in Sources */,
 				8126AF7B286FE3C2007DBAB9 /* Constants.swift in Sources */,
@@ -929,7 +957,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.4;
+				MARKETING_VERSION = 1.0.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mwaibanda.MomentumiOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -956,7 +984,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.4;
+				MARKETING_VERSION = 1.0.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mwaibanda.MomentumiOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -1054,6 +1082,22 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		1C3CF16628D95D8100B46FC1 /* XCRemoteSwiftPackageReference "swift-algorithms" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-algorithms.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+		1C3CF16928D95E3000B46FC1 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
 		814525F328793F3300989B4C /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/airbnb/lottie-ios.git";
@@ -1097,6 +1141,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		1C3CF16728D95D8100B46FC1 /* Algorithms */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1C3CF16628D95D8100B46FC1 /* XCRemoteSwiftPackageReference "swift-algorithms" */;
+			productName = Algorithms;
+		};
+		1C3CF16A28D95E3000B46FC1 /* SDWebImageSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1C3CF16928D95E3000B46FC1 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
+			productName = SDWebImageSwiftUI;
+		};
 		814525F428793F3300989B4C /* Lottie */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 814525F328793F3300989B4C /* XCRemoteSwiftPackageReference "lottie-ios" */;

@@ -11,8 +11,8 @@ struct BottomTabBar: View {
     init() {
         
         let itemAppearance = UITabBarItemAppearance()
-        itemAppearance.normal.iconColor = UIColor(Color(.lightGray))
-        itemAppearance.normal.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(Color(.lightGray))]
+        itemAppearance.normal.iconColor = UIColor(Color(.white))
+        itemAppearance.normal.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(Color(.white))]
         let appearance = UITabBarAppearance()
         appearance.shadowColor = UIColor(Color.black)
         appearance.backgroundColor = UIColor(Color(.clear))
@@ -46,9 +46,14 @@ struct BottomTabBar: View {
             .tag(0)
             .tabItem {
                 Image(systemName: "ticket")
+                
             }
         }
         .accentColor(Color(hex: Constants.MOMENTUM_ORANGE))
+        .onAppear {
+            UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
+            AppDelegate.orientationLock = .portrait 
+        }
     }
 }
 

@@ -42,6 +42,7 @@ struct PaymentSummaryView: View {
                         
                     }
                     .navigationTitle(paymentViewModel.isNavTitleHidden ? "" : "Payment Summary")
+                    .navigationBarTitleDisplayMode(.large)
                     .navigationBarBackButtonHidden(false)
                 } else {
                     LoadingView()

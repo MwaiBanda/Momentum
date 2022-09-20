@@ -64,9 +64,8 @@ struct OfferView: View {
                 }
             }
             NavigationLink {
-                ContentWrapper(navConfiguration: .detailConfig ,hasBlurredBackground: false) {
-                PaymentSummaryView(offerViewModel: offerViewModel)
-                }
+                    PaymentSummaryView(offerViewModel: offerViewModel)
+                
             } label: {
                 Text("Offer")
                     .fontWeight(.heavy)

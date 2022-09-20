@@ -1,4 +1,5 @@
 import SwiftUI
+import AVKit
 import MomentumSDK
 import FirebaseCore
 
@@ -13,12 +14,23 @@ struct iOSApp: App {
 }
 
 class AppDelegate : NSObject, UIApplicationDelegate {
+    static var orientationLock = UIInterfaceOrientationMask.all //By default you want all your views to rotate freely
+
+        func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
+            return AppDelegate.orientationLock
+        }
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         DependencyRegistryKt.doInitKoin()
         FirebaseApp.configure()
         DiRegistry.shared.inject()
         Thread.sleep(forTimeInterval: 1.5)
+        do {
+            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [])
+        }
+        catch {
+            print("Setting category to AVAudioSessionCategoryPlayback failed.")
+        }
         return true
     }
     
