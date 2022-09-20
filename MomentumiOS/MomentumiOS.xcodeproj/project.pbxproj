@@ -10,6 +10,8 @@
 		058557BB273AAA24004C7B11 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058557BA273AAA24004C7B11 /* Assets.xcassets */; };
 		058557D9273AAEEB004C7B11 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */; };
 		1CA5277328CED0DC00066605 /* AppReviewRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CA5277228CED0DC00066605 /* AppReviewRequester.swift */; };
+		1CE8F2B228D92AFB0077F2F0 /* SermonsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE8F2B128D92AFB0077F2F0 /* SermonsViewModel.swift */; };
+		1CE8F2B428D92B220077F2F0 /* SermonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE8F2B328D92B220077F2F0 /* SermonsView.swift */; };
 		2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2152FB032600AC8F00CF470E /* iOSApp.swift */; };
 		3703363E8055D813FEFB7DBA /* Pods_MomentumiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C018D438F8DF226DE8A725D /* Pods_MomentumiOS.framework */; };
 		7555FF83242A565900829871 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7555FF82242A565900829871 /* ContentView.swift */; };
@@ -105,6 +107,8 @@
 		058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		06D68FEC8ABE2B8A7159EAFB /* Pods-MomentumiOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MomentumiOS.release.xcconfig"; path = "Target Support Files/Pods-MomentumiOS/Pods-MomentumiOS.release.xcconfig"; sourceTree = "<group>"; };
 		1CA5277228CED0DC00066605 /* AppReviewRequester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppReviewRequester.swift; sourceTree = "<group>"; };
+		1CE8F2B128D92AFB0077F2F0 /* SermonsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SermonsViewModel.swift; sourceTree = "<group>"; };
+		1CE8F2B328D92B220077F2F0 /* SermonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SermonsView.swift; sourceTree = "<group>"; };
 		2152FB032600AC8F00CF470E /* iOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSApp.swift; sourceTree = "<group>"; };
 		7555FF7B242A565900829871 /* MomentumiOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MomentumiOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7555FF82242A565900829871 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -225,6 +229,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		1CE8F2B028D92ACA0077F2F0 /* Sermons */ = {
+			isa = PBXGroup;
+			children = (
+				1CE8F2B128D92AFB0077F2F0 /* SermonsViewModel.swift */,
+				1CE8F2B328D92B220077F2F0 /* SermonsView.swift */,
+			);
+			path = Sermons;
+			sourceTree = "<group>";
+		};
 		7555FF72242A565900829871 = {
 			isa = PBXGroup;
 			children = (
@@ -298,6 +311,7 @@
 		8126AF6E286FD7AF007DBAB9 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				1CE8F2B028D92ACA0077F2F0 /* Sermons */,
 				813E775C288DC5C700109C19 /* Profile */,
 				8182E776288B919700A9CF9D /* Auth */,
 				8126AF87286FF11B007DBAB9 /* Component */,
@@ -700,8 +714,10 @@
 				81770C222877A314008B88F6 /* UIColor+Swift.swift in Sources */,
 				81B802D42877E4080008509D /* LoadingView.swift in Sources */,
 				818CA42F2890E553001A5D4D /* Binds.swift in Sources */,
+				1CE8F2B228D92AFB0077F2F0 /* SermonsViewModel.swift in Sources */,
 				819E6161288654F0007BD761 /* TransactionView.swift in Sources */,
 				8126AF84286FEF39007DBAB9 /* NavBar.swift in Sources */,
+				1CE8F2B428D92B220077F2F0 /* SermonsView.swift in Sources */,
 				8126AF75286FDB2F007DBAB9 /* View+Swift.swift in Sources */,
 				8126AF77286FE009007DBAB9 /* Color+Swift.swift in Sources */,
 				81E937CF288E5E2A00D74BD3 /* TitledTextField.swift in Sources */,

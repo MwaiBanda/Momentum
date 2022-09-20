@@ -1,13 +1,9 @@
 package com.mwaibanda.momentum.di
 
+import com.mwaibanda.momentum.data.repository.*
 import com.mwaibanda.momentum.data.repository.AuthRepositoryImpl
-import com.mwaibanda.momentum.data.repository.LocalDefaultsRepositoryImpl
 import com.mwaibanda.momentum.data.repository.PaymentRepositoryImpl
-import com.mwaibanda.momentum.data.repository.UserRepositoryImpl
-import com.mwaibanda.momentum.domain.repository.AuthRepository
-import com.mwaibanda.momentum.domain.repository.LocalDefaultsRepository
-import com.mwaibanda.momentum.domain.repository.PaymentRepository
-import com.mwaibanda.momentum.domain.repository.UserRepository
+import com.mwaibanda.momentum.domain.repository.*
 import org.koin.dsl.module
 import kotlin.math.sin
 
@@ -16,4 +12,5 @@ val repositoryModule = module {
     single<AuthRepository>{ AuthRepositoryImpl(firebaseAuth = get()) }
     single<UserRepository> { UserRepositoryImpl(db = get()) }
     single<LocalDefaultsRepository> { LocalDefaultsRepositoryImpl(settings = get()) }
+    single<SermonRepository> { SermonRepositoryImpl(httpClient = get()) }
 }

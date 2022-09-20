@@ -4,6 +4,7 @@ import com.mwaibanda.momentum.domain.usecase.auth.*
 import com.mwaibanda.momentum.domain.usecase.localDefaults.*
 import com.mwaibanda.momentum.domain.usecase.payment.CheckoutUseCase
 import com.mwaibanda.momentum.domain.usecase.payment.PostTransactionInfoUseCase
+import com.mwaibanda.momentum.domain.usecase.sermon.GetSermonsUseCase
 import com.mwaibanda.momentum.domain.usecase.user.*
 import org.koin.dsl.module
 
@@ -41,4 +42,8 @@ val useCasesModule = module {
     single { GetIntUseCase(localDefaultsRepository = get()) }
     single { SetBooleanUseCase(localDefaultsRepository = get()) }
     single { GetBooleanUseCase(localDefaultsRepository = get()) }
+    /**
+     * @Sermon - Use-cases
+     */
+    single { GetSermonsUseCase(sermonRepository = get()) }
 }

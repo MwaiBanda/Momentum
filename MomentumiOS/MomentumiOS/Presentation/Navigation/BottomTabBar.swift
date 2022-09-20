@@ -37,7 +37,16 @@ struct BottomTabBar: View {
             .tabItem {
                 Image(systemName: "giftcard")
             }
-            
+            NavigationView {
+                ContentWrapper(navConfiguration: .detailConfig, hasBlurredBackground: false) {
+                    SermonsView()
+                }
+            }
+            .navigationViewStyle(StackNavigationViewStyle())
+            .tag(0)
+            .tabItem {
+                Image(systemName: "ticket")
+            }
         }
         .accentColor(Color(hex: Constants.MOMENTUM_ORANGE))
     }

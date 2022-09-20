@@ -17,7 +17,7 @@ internal class PaymentRepositoryImpl(
     override suspend fun prepareCheckout(paymentRequest: PaymentRequest): Result<PaymentResponse> {
         return try {
             val response: PaymentResponse = httpClient.post {
-                momentumAPI(PAYMENT_ENDPOINT)
+                momentumPayments(PAYMENT_ENDPOINT)
                 contentType(ContentType.Application.Json)
                 setBody(paymentRequest)
             }.body()
