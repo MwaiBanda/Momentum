@@ -20,10 +20,11 @@ struct SermonsView: View {
         GridItem(.flexible())
     ]
     var body: some View {
+        
         VStack {
             Divider()
             HStack {
-                Text("WATCH RECENT SERMONS")
+                Text("TAP TO WATCH RECENT SERMONS")
                     .font(.caption)
                     .foregroundColor(Color(hex: Constants.MOMENTUM_ORANGE))
                     .padding(.leading)
@@ -79,7 +80,7 @@ struct SermonsView: View {
                     }
                 }
                 .padding(.horizontal, 10)
-                .padding(.bottom)
+                .padding(.bottom, 50)
             }
         }
         .background(Color.clear)

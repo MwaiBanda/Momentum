@@ -1,5 +1,6 @@
 package com.mwaibanda.momentum.android.presentation.navigation
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
@@ -20,13 +21,14 @@ import com.mwaibanda.momentum.android.core.utils.ScreenConfiguration
 fun BottomBar(navController: NavController, currentRoute: String?) {
     val context = LocalContext.current
     val bottomTabs = listOf(
-        NavigationRoutes.OfferScreen
+        NavigationRoutes.OfferScreen,
+        NavigationRoutes.SermonScreen
     )
 
     Column {
         BottomNavigation(
             elevation = 0.dp,
-            backgroundColor = if (ScreenConfiguration.ScreensWithoutBackButton.screens.contains(currentRoute)) Color.Transparent else Color.White
+            backgroundColor = if (ScreenConfiguration.ScreensWithTransparentBottomBar.screens.contains(currentRoute)) Color.Transparent else Color.White
         ) {
             bottomTabs.forEach { bottomTab ->
                 BottomNavigationItem(
@@ -58,6 +60,7 @@ fun BottomBar(navController: NavController, currentRoute: String?) {
         }
         Spacer(
             Modifier
+                .background(if (ScreenConfiguration.ScreensWithTransparentBottomBar.screens.contains(currentRoute)) Color.Transparent else Color.White)
                 .windowInsetsBottomHeight(WindowInsets.navigationBars)
                 .fillMaxWidth()
         )

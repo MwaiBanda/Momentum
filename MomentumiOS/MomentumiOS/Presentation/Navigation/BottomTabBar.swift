@@ -8,28 +8,26 @@
 import SwiftUI
 
 struct BottomTabBar: View {
-    init() {
-        
-        let itemAppearance = UITabBarItemAppearance()
-        itemAppearance.normal.iconColor = UIColor(Color(.white))
-        itemAppearance.normal.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(Color(.white))]
-        let appearance = UITabBarAppearance()
-        appearance.shadowColor = UIColor(Color.black)
-        appearance.backgroundColor = UIColor(Color(.clear))
-        appearance.stackedLayoutAppearance = itemAppearance
-        appearance.inlineLayoutAppearance = itemAppearance
-        appearance.compactInlineLayoutAppearance = itemAppearance
+    let itemAppearance = UITabBarItemAppearance()
+    let appearance = UITabBarAppearance()
     
-        UITabBar.appearance().standardAppearance = appearance
-        
-        
-    }
-  
+    
     var body: some View {
         TabView {
             NavigationView {
                 ContentWrapper {
                     OfferView()
+                        .onAppear {
+                            itemAppearance.normal.iconColor = UIColor(Color(.white))
+                            itemAppearance.normal.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(Color(.white))]
+                            appearance.shadowColor = UIColor(Color.black)
+                            appearance.backgroundColor = UIColor(Color(.clear))
+                            appearance.stackedLayoutAppearance = itemAppearance
+                            appearance.inlineLayoutAppearance = itemAppearance
+                            appearance.compactInlineLayoutAppearance = itemAppearance
+                            
+                            UITabBar.appearance().standardAppearance = appearance
+                        }
                 }
             }
             .navigationViewStyle(StackNavigationViewStyle())
@@ -40,6 +38,17 @@ struct BottomTabBar: View {
             NavigationView {
                 ContentWrapper(navConfiguration: .detailConfig, hasBlurredBackground: false) {
                     SermonsView()
+                        .onAppear {
+                            itemAppearance.normal.iconColor = UIColor(Color(.black))
+                            itemAppearance.normal.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(Color(.black))]
+                            appearance.shadowColor = UIColor(Color.black)
+                            appearance.backgroundColor = UIColor(Color(.clear))
+                            appearance.stackedLayoutAppearance = itemAppearance
+                            appearance.inlineLayoutAppearance = itemAppearance
+                            appearance.compactInlineLayoutAppearance = itemAppearance
+                            
+                            UITabBar.appearance().standardAppearance = appearance
+                        }
                 }
             }
             .navigationViewStyle(StackNavigationViewStyle())
@@ -50,10 +59,7 @@ struct BottomTabBar: View {
             }
         }
         .accentColor(Color(hex: Constants.MOMENTUM_ORANGE))
-        .onAppear {
-            UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
-            AppDelegate.orientationLock = .portrait 
-        }
+        
     }
 }
 

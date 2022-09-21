@@ -9,20 +9,24 @@ sealed class ScreenConfiguration(val screens: List<String>){
             PaymentFailureScreen.route,
             OfferScreen.route,
             LaunchScreen.route,
-            TransactionsScreen.route
+            TransactionsScreen.route,
+            SermonScreen.route
         )
     )
+
     object ScreensWithTopBarIcons: ScreenConfiguration(
         listOf(
             TransactionsScreen.route,
-            AuthControllerScreen.route
+            AuthControllerScreen.route,
+            SermonScreen.route
         )
     )
     object ScreensWithoutNavigation: ScreenConfiguration(
         listOf(
             LaunchScreen.route,
             TransactionsScreen.route,
-            AuthControllerScreen.route
+            AuthControllerScreen.route,
+            PlayerScreen.route
         )
     )
     object ScreensWithWhiteStatusBar: ScreenConfiguration (
@@ -32,10 +36,18 @@ sealed class ScreenConfiguration(val screens: List<String>){
             PaymentFailureScreen.route,
         )
     )
+
+    object ScreensWithTransparentBottomBar: ScreenConfiguration (
+        listOf(
+            OfferScreen.route
+        )
+    )
     object ScreensWithLogo: ScreenConfiguration(
         listOf(
             OfferScreen.route
         )
     )
+
+
 
 }

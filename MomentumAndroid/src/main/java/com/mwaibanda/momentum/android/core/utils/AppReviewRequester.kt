@@ -46,8 +46,8 @@ class AppReviewRequester(
                             Log.d("APP-REVIEW", "Requested $currentVersion")
                         }
                     } else {
-                        @ReviewErrorCode val reviewErrorCode = (task.exception as ReviewException).errorCode
-                        Log.d("REVIEW-ERROR", reviewErrorCode.toString())
+                        val reviewErrorCode = task.exception?.message
+                        Log.e("REVIEW-ERROR", reviewErrorCode.toString())
                     }
                 }
             }

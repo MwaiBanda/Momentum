@@ -6,19 +6,19 @@ import FirebaseCore
 @main
 struct iOSApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
-	var body: some Scene {
-		WindowGroup {
-			ContentView()
-		}
-	}
+    var body: some Scene {
+        WindowGroup {
+            ContentView()
+        }
+    }
 }
 
 class AppDelegate : NSObject, UIApplicationDelegate {
-    static var orientationLock = UIInterfaceOrientationMask.all //By default you want all your views to rotate freely
-
-        func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
-            return AppDelegate.orientationLock
-        }
+    static var orientationLock = UIInterfaceOrientationMask.portrait 
+    
+    func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
+        return AppDelegate.orientationLock
+    }
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         DependencyRegistryKt.doInitKoin()

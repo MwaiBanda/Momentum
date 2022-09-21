@@ -2,4 +2,5 @@
 <resources>
     <string name="offer">Offer</string>
     <string name="app_label">Momentum</string>
+    <string name="sermon">Sermon</string>
 </resources>

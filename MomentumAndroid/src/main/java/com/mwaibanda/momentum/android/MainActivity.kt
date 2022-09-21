@@ -27,6 +27,8 @@ import com.mwaibanda.momentum.android.presentation.payment.PaymentFailureScreen
 import com.mwaibanda.momentum.android.presentation.payment.PaymentSuccessScreen
 import com.mwaibanda.momentum.android.presentation.payment.PaymentSummaryScreen
 import com.mwaibanda.momentum.android.presentation.profile.ProfileScreen
+import com.mwaibanda.momentum.android.presentation.sermon.PlayerScreen
+import com.mwaibanda.momentum.android.presentation.sermon.SermonScreen
 import com.mwaibanda.momentum.android.presentation.transaction.TransactionScreen
 import com.mwaibanda.momentum.utils.MultiplatformConstants
 import com.stripe.android.paymentsheet.PaymentSheet
@@ -55,6 +57,18 @@ class MainActivity : BaseActivity() {
                                     navController = navController,
                                     authViewModel = authViewModel
                                 )
+                            }
+
+                            composable(SermonScreen.route){
+                                SermonScreen(navController = navController)
+                            }
+                            composable(
+                                route = PlayerScreen.route,
+                                arguments = listOf(navArgument("videoURL") {
+                                    type = NavType.StringType
+                                })
+                            ) {
+                                PlayerScreen(videoURL = it.arguments?.getString("videoURL") ?: "")
                             }
                             composable(ProfileScreen.route) {
                                 ProfileScreen(

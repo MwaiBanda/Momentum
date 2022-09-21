@@ -11,8 +11,8 @@ android {
         applicationId = "com.mwaibanda.momentum.android"
         minSdk = 21
         targetSdk = 31
-        versionCode = 7
-        versionName = "1.0.5"
+        versionCode = 8
+        versionName = "1.0.6"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
@@ -103,6 +103,12 @@ dependencies {
 
     // For Kotlin users also add the Kotlin extensions library for Play In-App Review:
     implementation("com.google.android.play:review-ktx:2.0.0")
+    // Coil Image loading
+    implementation("io.coil-kt:coil-compose:2.2.1")
+    // Exoplayer
+    implementation("com.google.android.exoplayer:exoplayer:2.18.1")
+    implementation("com.google.android.exoplayer:exoplayer-ui:2.18.1")
+
 }
 
 
