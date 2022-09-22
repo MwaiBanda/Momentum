@@ -14,7 +14,7 @@ data class SermonContainerDTO(
     val last_page_url: String,
     @SerialName("links")
     val linkDTOS: List<LinkDTO>,
-    val next_page_url: String,
+    val next_page_url: String?,
     val path: String,
     val per_page: String,
     val prev_page_url: String?,

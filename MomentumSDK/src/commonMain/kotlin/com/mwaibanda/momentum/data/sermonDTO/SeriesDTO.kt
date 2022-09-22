@@ -6,6 +6,6 @@ import kotlinx.serialization.Serializable
 data class SeriesDTO(
     val description: String?,
     val image: String?,
-    val slug: String,
-    val title: String
+    val slug: String?,
+    val title: String?
 )

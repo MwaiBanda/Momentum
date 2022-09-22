@@ -1,6 +1,8 @@
 package com.mwaibanda.momentum.di
 
 import com.mwaibanda.momentum.domain.usecase.auth.*
+import com.mwaibanda.momentum.domain.usecase.cache.GetItemUseCase
+import com.mwaibanda.momentum.domain.usecase.cache.SetItemUseCase
 import com.mwaibanda.momentum.domain.usecase.localDefaults.*
 import com.mwaibanda.momentum.domain.usecase.payment.CheckoutUseCase
 import com.mwaibanda.momentum.domain.usecase.payment.PostTransactionInfoUseCase
@@ -46,4 +48,10 @@ val useCasesModule = module {
      * @Sermon - Use-cases
      */
     single { GetSermonsUseCase(sermonRepository = get()) }
+    /**
+     * @Cache - Use-cases
+     */
+    single { GetItemUseCase<Any>(cacheRepository = get()) }
+    single { SetItemUseCase<Any>(cacheRepository = get()) }
 }
+

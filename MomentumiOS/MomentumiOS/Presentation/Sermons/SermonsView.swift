@@ -80,7 +80,19 @@ struct SermonsView: View {
                     }
                 }
                 .padding(.horizontal, 10)
-                .padding(.bottom, 50)
+                .padding(.bottom, sermonViewmodel.canLoadMoreSermons ? 25 :  50)
+                if sermonViewmodel.canLoadMoreSermons && !sermonViewmodel.sermons.isEmpty {
+                    Button { sermonViewmodel.loadMoreSermons() } label: {
+                        Text("Load More")
+                            .padding(.horizontal, 22)
+                            .padding(.vertical, 10)
+                    }
+                    .buttonStyle(FilledButtonStyle())
+                    .padding(.bottom, 25)
+                    
+                    Divider()
+                        .padding(.bottom, 10)
+                }
             }
         }
         .background(Color.clear)
@@ -89,7 +101,7 @@ struct SermonsView: View {
             sermonViewmodel.fetchSermons()
         }
         .fullScreenCover(item: $sermon) { sermon in
-            PlayerViewController(playbackURL: sermon.videoURL)
+            PlayerView(playbackURL: sermon.videoURL)
                 .ignoresSafeArea(.all)
                 .onDisappear {
                     UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")

@@ -52,7 +52,10 @@ kotlin {
                 // Kotlin Serialization
                 implementation ("org.jetbrains.kotlinx:kotlinx-serialization-json:$serialization")
                 // Multiplatform Preferences
-                implementation("com.russhwolf:multiplatform-settings-no-arg:0.9")            }
+                implementation("com.russhwolf:multiplatform-settings-no-arg:0.9")
+                // Cache4K
+                implementation("io.github.reactivecircus.cache4k:cache4k:0.8.0")
+            }
         }
         val commonTest by getting {
             dependencies {

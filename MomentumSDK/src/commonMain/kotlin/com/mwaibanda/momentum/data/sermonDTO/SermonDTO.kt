@@ -6,7 +6,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class SermonDTO(
-    val categories: String?,
+    val categories: HashMap<String, String>?,
     @SerialName("date")
     val dateDTO: DateDTO,
     val detail_url: String,
@@ -29,7 +29,7 @@ data class SermonDTO(
 fun SermonDTO.toSermon(): Sermon {
     return Sermon(
         id = id,
-        series = seriesDTO.title,
+        series = seriesDTO.title?.replace("It&#039;s", "") ?: seriesDTO.title ?: "",
         title = title,
         preacher = preacher,
         videoThumbnail = mediaDTO.video_thumbnail,

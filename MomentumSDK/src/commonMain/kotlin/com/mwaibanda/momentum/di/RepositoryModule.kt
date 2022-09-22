@@ -8,9 +8,16 @@ import org.koin.dsl.module
 import kotlin.math.sin
 
 val repositoryModule = module {
-    single<PaymentRepository>{  PaymentRepositoryImpl(httpClient = get()) }
-    single<AuthRepository>{ AuthRepositoryImpl(firebaseAuth = get()) }
+    single<PaymentRepository> { PaymentRepositoryImpl(httpClient = get()) }
+    single<AuthRepository> { AuthRepositoryImpl(firebaseAuth = get()) }
     single<UserRepository> { UserRepositoryImpl(db = get()) }
     single<LocalDefaultsRepository> { LocalDefaultsRepositoryImpl(settings = get()) }
-    single<SermonRepository> { SermonRepositoryImpl(httpClient = get()) }
+    single<CacheRepository> { CacheRepositoryImpl(cache = get()) }
+    single<SermonRepository> {
+        SermonRepositoryImpl(
+            httpClient = get(),
+            getItemUseCase = get(),
+            setItemUseCase = get()
+        )
+    }
 }

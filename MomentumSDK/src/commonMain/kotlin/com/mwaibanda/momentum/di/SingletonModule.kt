@@ -4,6 +4,7 @@ import com.russhwolf.settings.Settings
 import dev.gitlive.firebase.Firebase
 import dev.gitlive.firebase.auth.auth
 import dev.gitlive.firebase.firestore.firestore
+import io.github.reactivecircus.cache4k.Cache
 import io.ktor.client.*
 import io.ktor.client.plugins.*
 import io.ktor.client.plugins.contentnegotiation.*
@@ -11,6 +12,7 @@ import io.ktor.client.plugins.logging.*
 import io.ktor.serialization.kotlinx.json.*
 import kotlinx.serialization.json.Json
 import org.koin.dsl.module
+import kotlin.time.Duration.Companion.hours
 
 val singletonModule = module {
     single {
@@ -35,4 +37,9 @@ val singletonModule = module {
     single { Settings() }
     single { Firebase.auth }
     single { Firebase.firestore }
+    single<Cache<String, Any>>{
+        Cache.Builder()
+            .expireAfterWrite(24.hours)
+            .build()
+    }
 }

@@ -4,8 +4,11 @@ import android.app.Activity
 import android.content.Context
 import android.content.ContextWrapper
 import android.content.pm.ActivityInfo
+import android.content.res.Configuration
 import android.media.AudioAttributes
+import android.util.Log
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -43,16 +46,24 @@ fun PlayerScreen(videoURL: String) {
             prepare()
         }
     }
-    LockScreenOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE)
+    LockScreenOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR)
     DisposableEffect(
-        AndroidView(modifier = Modifier
-            .background(Color.Black)
-            .fillMaxSize(), factory = { context ->
-            StyledPlayerView(context).apply {
-                player = exoPlayer
-                resizeMode = AspectRatioFrameLayout.RESIZE_MODE_FIT
-            }
-        })
+        AndroidView(
+            modifier = Modifier
+                .background(Color.Black)
+                .fillMaxSize()
+                .padding(if (context.resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) 30.dp else 0.dp),
+            factory = { context ->
+                StyledPlayerView(context).apply {
+                    player = exoPlayer
+                    resizeMode = AspectRatioFrameLayout.RESIZE_MODE_FIT
+
+                    setOnClickListener {
+
+
+                    }
+                }
+            })
     ) {
         exoPlayer.playWhenReady = true
         onDispose {
