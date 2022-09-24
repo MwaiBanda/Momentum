@@ -6,6 +6,7 @@ Shared SDK for Momentum Church in Indiana. Built in Kotlin Multiplatform Mobile(
 - Firebase Auth
 - Firebase Storage
 - Ktor Http Client
+- Cache4K
 - Koin
 - Multiplaform Settings	
 - Kotlin Serialization	
