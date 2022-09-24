@@ -4,6 +4,7 @@ Payments & Sermon Streaming App for Momentum Church in Indiana. Built in Kotlin 
 ## Dependencies
 - Stripe
 - Firebase
+- AVFoundation 
 - Lottie Animations
 
 ## iOS
