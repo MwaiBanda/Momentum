@@ -37,6 +37,10 @@ The app's are available for download on the app store & playstore for Android & 
     <td>Ktor Http Client</td>
     <td> </td>
   </tr>
+   <tr>
+    <td>Cache4K</td>
+    <td> </td>
+  </tr>
  <tr>
     <td>Koin</td>
     <td> </td>
@@ -82,6 +86,10 @@ The app's are available for download on the app store & playstore for Android & 
      <td>LottieAnimations</td>
   </tr>
     <tr>
+    <td>Exoplayer</td>
+     <td>AVFoundation</td>
+  </tr>
+  <tr>
     <td>StateFlow</td>
      <td></td>
   </tr>
@@ -121,11 +129,21 @@ The project is architected using `Clean Architecture`, the SDK is architected us
    <tr>
     <td>Profile Screen</td>
     <td>Transaction Screen</td>
-    <td></td>
+    <td>Sermons</td>
   </tr>
   <tr>
     <td><img src="https://user-images.githubusercontent.com/49708426/184931476-4b6388a7-59cc-4c4c-b241-8f310eb60dcf.png" width=320 height=500></td>
     <td> <img src="https://user-images.githubusercontent.com/49708426/184932926-3a666cc4-76d5-4674-a3ff-67bbd2d7d152.png" width=320 height=500></td>
+    <td><img src="https://user-images.githubusercontent.com/49708426/192076658-97b8e06d-35ef-41d6-8e23-1fd6029651dc.png" width=320 height=500></td>
+  </tr>
+   <tr>
+    <td>Sermon Player</td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><img src="https://user-images.githubusercontent.com/49708426/192076727-1cf65bb1-09db-4c53-a0e6-bfdf657b3b77.png" width=320 height=500></td>
+    <td></td>
     <td></td>
   </tr>
 </table>
@@ -162,4 +180,12 @@ The project is architected using `Clean Architecture`, the SDK is architected us
     <td> <img src="https://user-images.githubusercontent.com/49708426/184939575-4d18a52c-d1be-4105-8715-cfa668caa3a8.png" width=320 height=500></td>
     <td><img src="https://user-images.githubusercontent.com/49708426/184939742-db25468b-5ffd-4459-ab15-4143d20a417d.png" width=320 height=500></td>
   </tr>
+     <td>Sermons</td>
+    <td>Sermon Player</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><img src="https://user-images.githubusercontent.com/49708426/192076810-05ac724f-455b-4f69-bb4f-a5e2fd9cf73e.jpeg" width=320 height=500></td>
+    <td><img src="https://user-images.githubusercontent.com/49708426/192076850-c23e798d-04c1-4687-afb7-2be911696604.jpeg" width=320 height=500></td>
+    <td></td>
 </table>
