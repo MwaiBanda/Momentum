@@ -1,10 +1,11 @@
 # Momentum Church: Indiana (Android) 
-Payments App for Momentum Church in Indiana. Built in Kotlin Multiplatform Mobile(KMM) with Jetpack Compose, the app allows users to make payments to the church, edit & update account information. Persists data locally with SQLDelight and Remote with Firebase. The apps are architected to emphasize code sharing, so all core business logic written in the SDK, Android & iOS app only contain presentation logic, viewmodels and tests.
+Payments & Sermon Streaming App for Momentum Church in Indiana. Built in Kotlin Multiplatform Mobile(KMM) with Jetpack Compose, the app allows users to make payments to the church, Stream past sermons, edit & update account information. Persists data locally with SQLDelight and Remote with Firebase. The apps are architected to emphasize code sharing, so all core business logic written in the SDK, Android & iOS app only contain presentation logic, viewmodels and tests.
 
 ## Dependencies
 - Stripe
 - Firebase
 - Lottie Animations
+- Exoplayer
 - StateFlow
 - Koin
 
@@ -33,11 +34,22 @@ Payments App for Momentum Church in Indiana. Built in Kotlin Multiplatform Mobil
    <tr>
     <td>Profile Screen</td>
     <td>Transaction Screen</td>
-    <td></td>
+    <td>Sermons</td>
   </tr>
   <tr>
     <td><img src="https://user-images.githubusercontent.com/49708426/184931476-4b6388a7-59cc-4c4c-b241-8f310eb60dcf.png" width=320 height=500></td>
     <td> <img src="https://user-images.githubusercontent.com/49708426/184932926-3a666cc4-76d5-4674-a3ff-67bbd2d7d152.png" width=320 height=500></td>
+    <td><img src="https://user-images.githubusercontent.com/49708426/192076658-97b8e06d-35ef-41d6-8e23-1fd6029651dc.png" width=320 height=500></td>
+  </tr>
+   <tr>
+    <td>Sermon Player</td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><img src="https://user-images.githubusercontent.com/49708426/192076727-1cf65bb1-09db-4c53-a0e6-bfdf657b3b77.png" width=320 height=500></td>
+    <td></td>
     <td></td>
   </tr>
 </table>
+
