@@ -25,17 +25,12 @@ class SermonsViewModel: AVPlayer, ObservableObject  {
         self.controller = controller
         super.init()
         setupNotifications()
-        setupNowPlaying()
         setupRemoteTransportControls()
         
     }
     
     
-    private func changeMedia() {
-        let metaOutput = AVPlayerItemMetadataOutput(identifiers: nil)
-        metaOutput.setDelegate(self, queue: DispatchQueue.main)
-        self.player.currentItem?.add(metaOutput)
-    }
+   
     
     func fetchSermons() {
         currentPage = 1
@@ -52,13 +47,11 @@ class SermonsViewModel: AVPlayer, ObservableObject  {
     func pauseSermon() {
         player.pause()
         isPlaying = false
-        changeMedia()
     }
     
     func playSermon() {
         player.play()
         isPlaying = true
-        changeMedia()
     }
     
     func loadMoreSermons() {
@@ -79,7 +72,7 @@ class SermonsViewModel: AVPlayer, ObservableObject  {
         
         commandCenter.playCommand.addTarget { [unowned self] event in
             if !self.isPlaying {
-                play()
+                playSermon()
                 return .success
             }
             return .commandFailed
@@ -87,34 +80,29 @@ class SermonsViewModel: AVPlayer, ObservableObject  {
         
         commandCenter.pauseCommand.addTarget { [unowned self] event in
             if self.isPlaying {
-                pause()
+                pauseSermon()
                 return .success
             }
             return .commandFailed
         }
-    }
-    
-    
-    private func setupNowPlaying() {
-        var nowPlayingInfo = [String : Any]()
-
-        nowPlayingInfo[MPMediaItemPropertyTitle] =  "Tune In..."
-        
-        if let image = UIImage(named: "momentumLaunch") {
-            nowPlayingInfo[MPMediaItemPropertyArtwork] = MPMediaItemArtwork(boundsSize: image.size) { size in
-                return image
-            }
+        commandCenter.skipForwardCommand.addTarget { [unowned self] event in
+            let seconds15 = CMTime(seconds: player.currentTime().seconds.advanced(by: 10), preferredTimescale: 1)
+            player.seek(to: seconds15, toleranceBefore: .zero, toleranceAfter: .zero)
+            
+            return .success
         }
-        nowPlayingInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = player.currentTime
-        nowPlayingInfo[MPMediaItemPropertyPlaybackDuration] = player.currentItem?.duration
-        nowPlayingInfo[MPNowPlayingInfoPropertyPlaybackRate] = player.rate
-    
-        MPNowPlayingInfoCenter.default().nowPlayingInfo = nowPlayingInfo
+        commandCenter.skipBackwardCommand.addTarget { [unowned self] event in
+            let seconds15 = CMTime(seconds: player.currentTime().seconds.advanced(by: -10), preferredTimescale: 1)
+            player.seek(to: seconds15, toleranceBefore: .zero, toleranceAfter: .zero)
+
+            return .success
+        }
     }
     
     
+
     func updateNowPlaying(sermon: Sermon) {
-        var nowPlayingInfo = MPNowPlayingInfoCenter.default().nowPlayingInfo!
+        var nowPlayingInfo = [String: Any]()
         nowPlayingInfo[MPMediaItemPropertyArtist] = sermon.preacher
         nowPlayingInfo[MPMediaItemPropertyTitle] = sermon.title
         if let image = UIImage(named: "momentumLaunch") {
@@ -122,10 +110,13 @@ class SermonsViewModel: AVPlayer, ObservableObject  {
                 return image
             }
         }
-        nowPlayingInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = player.currentTime
-        nowPlayingInfo[MPNowPlayingInfoPropertyPlaybackRate] = isPlaying ? 1 : 0
-        
+        nowPlayingInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = player.currentItem?.currentTime()
+        nowPlayingInfo[MPMediaItemPropertyPlaybackDuration] = player.currentItem?.asset.duration.seconds
+        nowPlayingInfo[MPNowPlayingInfoPropertyPlaybackRate] = player.rate
+
+
         MPNowPlayingInfoCenter.default().nowPlayingInfo = nowPlayingInfo
+        
     }
     
     
@@ -201,20 +192,4 @@ class SermonsViewModel: AVPlayer, ObservableObject  {
     }
 }
 
-extension SermonsViewModel: AVPlayerItemMetadataOutputPushDelegate {
-    func metadataOutput(
-        _ output: AVPlayerItemMetadataOutput,
-        didOutputTimedMetadataGroups groups: [AVTimedMetadataGroup],
-        from track: AVPlayerItemTrack?
-    ) {
-        if  let item = groups.first?.items.last {
-            let sermon = item.value(forKeyPath: "value")!
-            DispatchQueue.main.async { [unowned self] in
-                self.currentSermonTitle = String(describing: sermon)
-                print(sermon)
-            }
-        } else {
-            print("MetaData Error")
-        }
-    }
-}
+

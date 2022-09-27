@@ -21,6 +21,7 @@ struct PlayerView: UIViewControllerRepresentable {
         if let contentURL = URL(string: playbackURL)  {
             player.replaceCurrentItem(with: AVPlayerItem(url: contentURL))
             avPlayerController.player = player
+            avPlayerController.updatesNowPlayingInfoCenter = false
             avPlayerController.player?.play()
         }
         return avPlayerController
@@ -38,9 +39,5 @@ struct PlayerView: UIViewControllerRepresentable {
         init(_ parent: PlayerView) {
             self.parent = parent
         }
-       
-        
-      
     }
-    
 }

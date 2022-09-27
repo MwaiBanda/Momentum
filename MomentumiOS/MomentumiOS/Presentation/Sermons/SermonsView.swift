@@ -11,6 +11,7 @@ import SDWebImageSwiftUI
 import MomentumSDK
 import AVFoundation
 import AVKit
+import MediaPlayer
 
 struct SermonsView: View {
     @StateObject private var sermonViewmodel = SermonsViewModel()
@@ -111,7 +112,9 @@ struct SermonsView: View {
                 .onAppear {
                     AppDelegate.orientationLock = .all
                     sermonViewmodel.currentSermon = sermon
-                    sermonViewmodel.updateNowPlaying(sermon: sermon)
+                        sermonViewmodel.updateNowPlaying(sermon: sermon)
+                        
+                    
                 }
         }
     }
