@@ -11,8 +11,7 @@ import AVKit
 
 
 struct PlayerView: UIViewControllerRepresentable {
-    
-
+    var player: AVPlayer
     var playbackURL: String
 
     typealias UIViewControllerType = AVPlayerViewController
@@ -20,7 +19,7 @@ struct PlayerView: UIViewControllerRepresentable {
     func makeUIViewController(context: Context) -> AVPlayerViewController {
         let avPlayerController = AVPlayerViewController()
         if let contentURL = URL(string: playbackURL)  {
-            let player = AVPlayer(url: contentURL)
+            player.replaceCurrentItem(with: AVPlayerItem(url: contentURL))
             avPlayerController.player = player
             avPlayerController.player?.play()
         }

@@ -37,7 +37,7 @@
 		813A97CE2889D82600377943 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 813A97CD2889D82600377943 /* GoogleService-Info.plist */; };
 		813E158F287F48F10069A6BB /* PaymentSummaryContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813E158E287F48F10069A6BB /* PaymentSummaryContentViewModel.swift */; };
 		813E775E288DC60500109C19 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813E775D288DC60500109C19 /* ProfileView.swift */; };
-		8142D16728918A24001C206A /* Provides.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8142D16628918A24001C206A /* Provides.swift */; };
+		8142D16728918A24001C206A /* Singleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8142D16628918A24001C206A /* Singleton.swift */; };
 		814525F528793F3300989B4C /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 814525F428793F3300989B4C /* Lottie */; };
 		814525F728793F5000989B4C /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 814525F628793F5000989B4C /* LottieView.swift */; };
 		814525F9287940DF00989B4C /* failed.json in Resources */ = {isa = PBXBuildFile; fileRef = 814525F8287940DF00989B4C /* failed.json */; };
@@ -140,7 +140,7 @@
 		813A97CD2889D82600377943 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		813E158E287F48F10069A6BB /* PaymentSummaryContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentSummaryContentViewModel.swift; sourceTree = "<group>"; };
 		813E775D288DC60500109C19 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
-		8142D16628918A24001C206A /* Provides.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Provides.swift; sourceTree = "<group>"; };
+		8142D16628918A24001C206A /* Singleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Singleton.swift; sourceTree = "<group>"; };
 		814525F628793F5000989B4C /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
 		814525F8287940DF00989B4C /* failed.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = failed.json; sourceTree = "<group>"; };
 		814525FA287940E900989B4C /* success.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = success.json; sourceTree = "<group>"; };
@@ -249,6 +249,7 @@
 			isa = PBXGroup;
 			children = (
 				1CE8F2B128D92AFB0077F2F0 /* SermonsViewModel.swift */,
+				1C3CF17128D993B500B46FC1 /* PlayerView.swift */,
 				1CE8F2B328D92B220077F2F0 /* SermonsView.swift */,
 			);
 			path = Sermons;
@@ -410,7 +411,6 @@
 				818A2E98288DFE5E005D7449 /* BasePlainExpandableCard.swift */,
 				81E937CE288E5E2A00D74BD3 /* TitledTextField.swift */,
 				816CCDE0288F365600795B59 /* LinkLabel.swift */,
-				1C3CF17128D993B500B46FC1 /* PlayerView.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -441,7 +441,7 @@
 				81888DF0288A0FDD00752590 /* Resolver.swift */,
 				81888DF2288A11EE00752590 /* Inject.swift */,
 				818CA42E2890E553001A5D4D /* Binds.swift */,
-				8142D16628918A24001C206A /* Provides.swift */,
+				8142D16628918A24001C206A /* Singleton.swift */,
 			);
 			path = Di;
 			sourceTree = "<group>";
@@ -761,7 +761,7 @@
 				8126AF86286FEF39007DBAB9 /* BottomTabBar.swift in Sources */,
 				81B802DA2877E7D80008509D /* PaymentSuccessView.swift in Sources */,
 				8126AF82286FEF39007DBAB9 /* ContentWrapper.swift in Sources */,
-				8142D16728918A24001C206A /* Provides.swift in Sources */,
+				8142D16728918A24001C206A /* Singleton.swift in Sources */,
 				81888DF6288A12F200752590 /* DiRegistry.swift in Sources */,
 				81B802DE2877ED7F0008509D /* FilledButtonStyle.swift in Sources */,
 				8182E77C288B9CC100A9CF9D /* PasswordTextfield.swift in Sources */,
@@ -942,7 +942,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = MomentumiOS/MomentumiOS.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"MomentumiOS/Preview Content\"";
 				DEVELOPMENT_TEAM = 2HB3YHCHVH;
 				ENABLE_BITCODE = NO;
@@ -968,7 +968,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = MomentumiOS/MomentumiOS.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"MomentumiOS/Preview Content\"";
 				DEVELOPMENT_TEAM = 2HB3YHCHVH;
 				ENABLE_BITCODE = NO;

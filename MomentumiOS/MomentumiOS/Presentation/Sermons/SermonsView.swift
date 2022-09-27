@@ -101,14 +101,17 @@ struct SermonsView: View {
             sermonViewmodel.fetchSermons()
         }
         .fullScreenCover(item: $sermon) { sermon in
-            PlayerView(playbackURL: sermon.videoURL)
+            PlayerView(player: sermonViewmodel.player, playbackURL: sermon.videoURL)
                 .ignoresSafeArea(.all)
                 .onDisappear {
                     UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
                     AppDelegate.orientationLock = .portrait
+                    sermonViewmodel.currentSermon = nil
                 }
                 .onAppear {
                     AppDelegate.orientationLock = .all
+                    sermonViewmodel.currentSermon = sermon
+                    sermonViewmodel.updateNowPlaying(sermon: sermon)
                 }
         }
     }

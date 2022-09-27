@@ -9,24 +9,30 @@
 import Foundation
 import FirebaseAuth
 import MomentumSDK
+import AVFoundation
 
 final class DiRegistry {
     
-    @Provides
+    @Singleton
     private func providesAuth() {
         Auth.auth()
     }
     
-    @Provides
+    @Singleton
     private func providesDBFactory() {
         DatabaseDriverFactory()
     }
     
+    @Singleton
+    private func providesPlayer() {
+        AVPlayer()
+    }
   
     func inject() {
         Resolver.register { resolver in
             providesAuth()
             providesDBFactory()
+            providesPlayer()
             
             @Binds
             var paymentController: PaymentController = {

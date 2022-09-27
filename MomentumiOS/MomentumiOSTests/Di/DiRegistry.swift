@@ -11,27 +11,27 @@
 
 extension DiRegistry {
     
-    @Provides
+    @Singleton
     func providesPaymentViewModel(){
         PaymentViewModel()
     }
     
-    @Provides
+    @Singleton
     func providesOfferViewModel() {
         OfferViewModel()
     }
     
-    @Provides
+    @Singleton
     func providesTransactionViewModel() {
         TransactionViewModel()
     }
     
-    @Provides
+    @Singleton
     func providesProfileViewModel() {
         ProfileViewModel()
     }
     
-    @Provides
+    @Singleton
     func providesSession() {
         Session()
     }

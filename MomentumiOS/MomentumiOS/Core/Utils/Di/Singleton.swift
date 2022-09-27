@@ -9,11 +9,11 @@
 import Foundation
 
 @resultBuilder
-struct Provides {
+struct Singleton {
     static var named: String = ""
     
     init(named: String = ""){
-        Provides.named = named
+        Singleton.named = named
     }
     
     static func buildBlock<T>(_ dependencies: T...) -> Void {

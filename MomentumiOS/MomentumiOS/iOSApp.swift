@@ -26,7 +26,8 @@ class AppDelegate : NSObject, UIApplicationDelegate {
         DiRegistry.shared.inject()
         Thread.sleep(forTimeInterval: 1.5)
         do {
-            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [])
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback, mode: AVAudioSession.Mode.default)
+            try AVAudioSession.sharedInstance().setActive(true)
         }
         catch {
             print("Setting category to AVAudioSessionCategoryPlayback failed.")
