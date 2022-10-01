@@ -13,9 +13,14 @@ import AVFoundation
 import AVKit
 import MediaPlayer
 
+struct PlayedSermon {
+    let id: String
+    let lastPlayedTime: Double
+}
 struct SermonsView: View {
     @StateObject private var sermonViewmodel = SermonsViewModel()
     @State private var sermon: Sermon? = nil
+    @State private var playedSermons = [PlayedSermon]()
     let columns = [
         GridItem(.flexible()),
         GridItem(.flexible())
@@ -102,20 +107,31 @@ struct SermonsView: View {
             sermonViewmodel.fetchSermons()
         }
         .fullScreenCover(item: $sermon) { sermon in
-            PlayerView(player: sermonViewmodel.player, playbackURL: sermon.videoURL)
-                .ignoresSafeArea(.all)
-                .onDisappear {
-                    UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
-                    AppDelegate.orientationLock = .portrait
-                    sermonViewmodel.currentSermon = nil
+            PlayerView(
+                player: sermonViewmodel.player,
+                playbackURL: sermon.videoURL,
+                lastPlayedTime: {
+                    let lastPlayedSermon = playedSermons.first(where: { $0.id == sermon.id })
+                    let myTime = CMTime(seconds: lastPlayedSermon?.lastPlayedTime ?? 0, preferredTimescale: 60000)
+                    return myTime
                 }
-                .onAppear {
-                    AppDelegate.orientationLock = .all
-                    sermonViewmodel.currentSermon = sermon
-                        sermonViewmodel.updateNowPlaying(sermon: sermon)
-                        
-                    
-                }
+            )
+            .ignoresSafeArea(.all)
+            .onDisappear {
+                UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
+                AppDelegate.orientationLock = .portrait
+                playedSermons.removeAll(where: { $0.id == sermonViewmodel.currentSermon?.id })
+                let currentTimeInSeconds: Double = sermonViewmodel.player.currentItem?.currentTime().seconds ?? 0
+                let currentTimeInSecondsRounded = round(currentTimeInSeconds * 100) / 100
+                playedSermons.append(PlayedSermon(id: sermonViewmodel.currentSermon?.id ?? "", lastPlayedTime: currentTimeInSecondsRounded))
+                sermonViewmodel.resetNowPlaying()
+            }
+            .onAppear {
+                AppDelegate.orientationLock = .all
+                sermonViewmodel.updateNowPlaying(sermon: sermon)
+                sermonViewmodel.currentSermon = sermon
+                
+            }
         }
     }
 }

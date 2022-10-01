@@ -10,14 +10,14 @@ import MomentumSDK
 import AVFoundation
 import MediaPlayer
 
-class SermonsViewModel: AVPlayer, ObservableObject  {
+class SermonsViewModel: NSObject, ObservableObject  {
     private var controller: SermonController
     @Published var sermons = [Sermon]()
+    @Published var currentSermon: Sermon? = nil
     @Published var canLoadMoreSermons = true
     @Published private var currentPage = 1
     @Published private var isPlaying = false
     @Published private var currentSermonTitle = ""
-    @Published var currentSermon: Sermon? = nil
 
     @Inject var player: AVPlayer
 
@@ -26,7 +26,6 @@ class SermonsViewModel: AVPlayer, ObservableObject  {
         super.init()
         setupNotifications()
         setupRemoteTransportControls()
-        
     }
     
     
@@ -97,9 +96,33 @@ class SermonsViewModel: AVPlayer, ObservableObject  {
 
             return .success
         }
+        commandCenter.seekForwardCommand.addTarget { [unowned self] event in
+            let interval = CMTime(seconds: event.timestamp, preferredTimescale: 1)
+            player.seek(to: interval, toleranceBefore: .zero, toleranceAfter: .zero)
+
+            return .success
+        }
+        commandCenter.seekBackwardCommand.addTarget { [unowned self] event in
+            let interval = CMTime(seconds: event.timestamp, preferredTimescale: 1)
+            player.seek(to: interval, toleranceBefore: .zero, toleranceAfter: .zero)
+
+            return .success
+        }
+        
     }
     
-    
+    func resetNowPlaying() {
+        var nowPlayingInfo = [String: Any]()
+        nowPlayingInfo[MPMediaItemPropertyArtist] = "Momentum Church"
+        nowPlayingInfo[MPMediaItemPropertyTitle] = "Watch Sermons"
+        if let image = UIImage(named: "momentumLaunch") {
+            nowPlayingInfo[MPMediaItemPropertyArtwork] = MPMediaItemArtwork(boundsSize: image.size) { size in
+                return image
+            }
+        }
+        MPNowPlayingInfoCenter.default().nowPlayingInfo = nowPlayingInfo
+        player.replaceCurrentItem(with: nil)
+    }
 
     func updateNowPlaying(sermon: Sermon) {
         var nowPlayingInfo = [String: Any]()
@@ -137,7 +160,7 @@ class SermonsViewModel: AVPlayer, ObservableObject  {
                 if options.contains(.shouldResume) {
                     // Interruption Ended - playback should resume
                     print("Interruption Ended - playback should resume")
-                    play()
+                    playSermon()
                 } else {
                     // Interruption Ended - playback should NOT resume
                     print("Interruption Ended - playback should NOT resume")
@@ -159,7 +182,7 @@ class SermonsViewModel: AVPlayer, ObservableObject  {
             for output in session.currentRoute.outputs where output.portType == AVAudioSession.Port.headphones {
                 print("headphones connected")
                 DispatchQueue.main.sync {
-                    play()
+                    playSermon()
                 }
                 break
             }
@@ -169,7 +192,7 @@ class SermonsViewModel: AVPlayer, ObservableObject  {
                 for output in previousRoute.outputs where output.portType == AVAudioSession.Port.headphones {
                     print("headphones disconnected")
                     DispatchQueue.main.sync {
-                        pause()
+                        pauseSermon()
                     }
                     break
                 }
@@ -181,14 +204,18 @@ class SermonsViewModel: AVPlayer, ObservableObject  {
     
     private func setupNotifications() {
         let notificationCenter = NotificationCenter.default
-        notificationCenter.addObserver(self,
-                                       selector: #selector(handleInterruption),
-                                       name: AVAudioSession.interruptionNotification,
-                                       object: nil)
-        notificationCenter.addObserver(self,
-                                       selector: #selector(handleRouteChange),
-                                       name: AVAudioSession.routeChangeNotification,
-                                       object: nil)
+        notificationCenter.addObserver(
+            self,
+            selector: #selector(handleInterruption),
+            name: AVAudioSession.interruptionNotification,
+            object: nil
+        )
+        notificationCenter.addObserver(
+            self,
+            selector: #selector(handleRouteChange),
+            name: AVAudioSession.routeChangeNotification,
+            object: nil
+        )
     }
 }
 

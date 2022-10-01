@@ -13,7 +13,8 @@ import AVKit
 struct PlayerView: UIViewControllerRepresentable {
     var player: AVPlayer
     var playbackURL: String
-
+    var lastPlayedTime: () -> CMTime
+    
     typealias UIViewControllerType = AVPlayerViewController
 
     func makeUIViewController(context: Context) -> AVPlayerViewController {
@@ -22,6 +23,7 @@ struct PlayerView: UIViewControllerRepresentable {
             player.replaceCurrentItem(with: AVPlayerItem(url: contentURL))
             avPlayerController.player = player
             avPlayerController.updatesNowPlayingInfoCenter = false
+            player.seek(to: lastPlayedTime(), toleranceBefore: .zero, toleranceAfter: .zero)
             avPlayerController.player?.play()
         }
         return avPlayerController
