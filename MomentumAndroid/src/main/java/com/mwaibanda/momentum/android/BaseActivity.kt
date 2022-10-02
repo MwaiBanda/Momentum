@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import com.mwaibanda.momentum.android.presentation.auth.AuthViewModel
 import com.mwaibanda.momentum.android.presentation.payment.PaymentViewModel
 import com.mwaibanda.momentum.android.presentation.profile.ProfileViewModel
+import com.mwaibanda.momentum.android.presentation.sermon.SermonViewModel
 import com.mwaibanda.momentum.android.presentation.transaction.TransactionViewModel
 import com.mwaibanda.momentum.domain.models.PaymentRequest
 import com.stripe.android.PaymentConfiguration
@@ -13,6 +14,7 @@ import com.stripe.android.paymentsheet.PaymentSheetResult
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.android.ext.android.inject
+import org.koin.androidx.compose.getViewModel
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
@@ -21,6 +23,8 @@ open class BaseActivity : ComponentActivity() {
     protected val paymentViewModel: PaymentViewModel by inject()
     protected val profileViewModel: ProfileViewModel by inject()
     protected val transactionViewModel: TransactionViewModel by inject()
+    protected val sermonViewModel: SermonViewModel by inject()
+
     private val coroutineScope = MainScope()
 
     init {

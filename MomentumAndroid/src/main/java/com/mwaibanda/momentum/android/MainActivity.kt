@@ -29,11 +29,13 @@ import com.mwaibanda.momentum.android.presentation.payment.PaymentSummaryScreen
 import com.mwaibanda.momentum.android.presentation.profile.ProfileScreen
 import com.mwaibanda.momentum.android.presentation.sermon.PlayerScreen
 import com.mwaibanda.momentum.android.presentation.sermon.SermonScreen
+import com.mwaibanda.momentum.android.presentation.sermon.SermonViewModel
 import com.mwaibanda.momentum.android.presentation.transaction.TransactionScreen
 import com.mwaibanda.momentum.utils.MultiplatformConstants
 import com.stripe.android.paymentsheet.PaymentSheet
 import com.stripe.android.paymentsheet.PaymentSheetContract
 import kotlinx.coroutines.launch
+import org.koin.androidx.compose.getViewModel
 
 @ExperimentalMaterialNavigationApi
 class MainActivity : BaseActivity() {
@@ -60,7 +62,7 @@ class MainActivity : BaseActivity() {
                             }
 
                             composable(SermonScreen.route){
-                                SermonScreen(navController = navController)
+                                SermonScreen(navController = navController, sermonViewModel = sermonViewModel)
                             }
                             composable(
                                 route = PlayerScreen.route,
@@ -68,7 +70,7 @@ class MainActivity : BaseActivity() {
                                     type = NavType.StringType
                                 })
                             ) {
-                                PlayerScreen(videoURL = it.arguments?.getString("videoURL") ?: "")
+                                PlayerScreen(videoURL = it.arguments?.getString("videoURL") ?: "", sermonViewModel = sermonViewModel)
                             }
                             composable(ProfileScreen.route) {
                                 ProfileScreen(

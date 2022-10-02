@@ -3,8 +3,13 @@ package com.mwaibanda.momentum.android.presentation.sermon
 import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import com.google.android.exoplayer2.ExoPlayer
+import com.google.android.exoplayer2.MediaItem
+import com.google.android.exoplayer2.source.ProgressiveMediaSource
+import com.google.android.exoplayer2.upstream.DefaultHttpDataSource
 import com.mwaibanda.momentum.domain.controller.SermonController
 import com.mwaibanda.momentum.domain.models.Sermon
 import com.mwaibanda.momentum.utils.Result
@@ -12,13 +17,17 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
 class SermonViewModel(
-    private val sermonController: SermonController
+    private val sermonController: SermonController,
 ): ViewModel() {
+
     private val  _sermons = MutableStateFlow(emptyList<Sermon>())
     val sermon = _sermons.asStateFlow()
     private var currentPage by mutableStateOf(1)
     private val  _canLoadMoreSermons = MutableStateFlow(true)
     val canLoadMoreSermons = _canLoadMoreSermons.asStateFlow()
+
+    var currentSermon by mutableStateOf<Sermon?>(null)
+    var watchedSermons by mutableStateOf<List<PlayedSermon>>(emptyList())
 
     fun fetchSermons() {
         currentPage = 1
@@ -33,6 +42,7 @@ class SermonViewModel(
             }
         }
     }
+
 
     fun loadMoreSermons() {
         currentPage++

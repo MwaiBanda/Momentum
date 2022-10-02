@@ -32,7 +32,7 @@ import java.nio.charset.StandardCharsets
 @Composable
 fun SermonScreen(
     navController: NavController,
-    sermonViewModel: SermonViewModel = getViewModel()
+    sermonViewModel: SermonViewModel
 ) {
     LaunchedEffect(key1 = Unit) {
         sermonViewModel.fetchSermons()
@@ -69,15 +69,16 @@ fun SermonScreen(
                         verticalArrangement = Arrangement.spacedBy(15.dp),
                         horizontalArrangement = Arrangement.spacedBy(15.dp)
                     ) {
-                        items(sermons) { item ->
+                        items(sermons) { sermon ->
                             Card(
                                 Modifier
                                     .clickable {
                                         val encodedUrl = URLEncoder.encode(
-                                            item.videoURL,
+                                            sermon.videoURL,
                                             StandardCharsets.UTF_8.toString()
                                         )
                                         navController.navigate("play/$encodedUrl")
+                                        sermonViewModel.currentSermon = sermon
                                     }
                                     .weight(0.4f)
                                     .defaultMinSize(minHeight = 175.dp),
@@ -89,7 +90,7 @@ fun SermonScreen(
                                 ) {
                                     AsyncImage(
                                         model = ImageRequest.Builder(LocalContext.current)
-                                            .data(item.videoThumbnail)
+                                            .data(sermon.videoThumbnail)
                                             .crossfade(true)
                                             .build(),
                                         contentDescription = "Sermon thumbnail",
@@ -97,24 +98,24 @@ fun SermonScreen(
                                         )
                                     Column(Modifier.padding(8.dp)) {
                                         Text(
-                                            text = item.series,
+                                            text = sermon.series,
                                             fontSize = 10.sp,
                                             maxLines = 1,
                                             overflow = TextOverflow.Ellipsis
                                         )
                                         Text(
-                                            text = item.title,
+                                            text = sermon.title,
                                             fontSize = 12.sp,
                                             fontWeight = FontWeight.Bold,
                                             maxLines = 1,
                                             overflow = TextOverflow.Ellipsis
                                         )
                                         Text(
-                                            text = item.preacher,
+                                            text = sermon.preacher,
                                             fontSize = 10.sp,
                                             color = Color.Gray
                                         )
-                                        Text(text = item.date, fontSize = 8.sp)
+                                        Text(text = sermon.date, fontSize = 8.sp)
                                     }
                                 }
                             }
