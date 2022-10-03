@@ -13,10 +13,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
+import androidx.lifecycle.DefaultLifecycleObserver
+import androidx.lifecycle.LifecycleOwner
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
+import com.google.android.exoplayer2.PercentageRating
 import com.google.android.exoplayer2.Player
 import com.google.android.exoplayer2.source.ProgressiveMediaSource
 import com.google.android.exoplayer2.ui.AspectRatioFrameLayout
@@ -27,7 +31,8 @@ import com.mwaibanda.momentum.android.presentation.components.LockScreenOrientat
 
 data class PlayedSermon(
     val id: String,
-    val lastPlayedTime: Long
+    val lastPlayedTime: Long,
+    val lastPlayedPercentage: Int
 )
 
 
@@ -37,6 +42,7 @@ fun PlayerScreen(
     videoURL: String
 ) {
     val context = LocalContext.current
+    val lifecycle = LocalLifecycleOwner.current.lifecycle
     val exoPlayer = remember(context) {
         ExoPlayer.Builder(context).build().apply {
             val dataSourceFactory = DefaultHttpDataSource.Factory()
@@ -51,7 +57,17 @@ fun PlayerScreen(
             playWhenReady = true
         }
     }
+    val playerView = remember(context) {
+        StyledPlayerView(context).apply {
+            player = exoPlayer
+            resizeMode = AspectRatioFrameLayout.RESIZE_MODE_FIT
+            setOnClickListener {
+                Log.d("Player", "Clicked!")
+            }
+        }
+    }
 
+    LockScreenOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR)
     LaunchedEffect(key1 = Unit) {
         val currentSermon = sermonViewModel.watchedSermons.firstOrNull {
             it.id == (sermonViewModel.currentSermon?.id ?: "")
@@ -61,43 +77,45 @@ fun PlayerScreen(
                 seekTo(it.lastPlayedTime)
                 playWhenReady = true
             }
-
         }
-        exoPlayer.addListener(object : Player.Listener {
+    }
+
+    DisposableEffect(key1 = Unit) {
+        val playerListener = object: Player.Listener {
             override fun onPlaybackStateChanged(playbackState: Int) {
                 when (playbackState) {
                     Player.STATE_READY -> {
                         Log.d("Player", "STATE READY")
-
                     }
 
                     Player.STATE_ENDED -> {}
 
                     Player.STATE_BUFFERING, Player.STATE_IDLE -> {}
+
                 }
             }
-        })
-    }
+        }
 
+        val lifecycleListener = object: DefaultLifecycleObserver {
+            override fun onCreate(owner: LifecycleOwner) {
+                super.onCreate(owner)
+                Log.d("Activity", "Create")
+            }
 
-    LockScreenOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR)
-    DisposableEffect(
-        AndroidView(
-            modifier = Modifier
-                .background(Color.Black)
-                .fillMaxSize()
-                .padding(if (context.resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) 30.dp else 0.dp),
-            factory = { context ->
-                StyledPlayerView(context).apply {
-                    player = exoPlayer
-                    resizeMode = AspectRatioFrameLayout.RESIZE_MODE_FIT
-                    setOnClickListener {
+            override fun onStart(owner: LifecycleOwner) {
+                super.onStart(owner)
+                playerView.onResume()
+                exoPlayer.playWhenReady = true
+            }
 
-
-                    }
-                }
-            })
-    ) {
+            override fun onStop(owner: LifecycleOwner) {
+                super.onStop(owner)
+                playerView.onPause()
+                exoPlayer.playWhenReady = false
+            }
+        }
+        lifecycle.addObserver(lifecycleListener)
+        exoPlayer.addListener(playerListener)
         onDispose {
             sermonViewModel.watchedSermons = buildList {
                 addAll(sermonViewModel.watchedSermons)
@@ -105,15 +123,25 @@ fun PlayerScreen(
                 add(
                     PlayedSermon(
                         id = sermonViewModel.currentSermon?.id ?: "",
-                        lastPlayedTime = exoPlayer.currentPosition
+                        lastPlayedTime = exoPlayer.currentPosition,
+                        lastPlayedPercentage = ((exoPlayer.currentPosition.toFloat() / exoPlayer.duration.toFloat()) * 100.0).toInt()
                     )
                 )
             }
+            Log.d("PlayPercentage", "Played ${(((exoPlayer.currentPosition.toFloat() / exoPlayer.duration.toFloat()) * 100.0).toInt())}% of the video")
+            lifecycle.removeObserver(lifecycleListener)
+            exoPlayer.removeListener(playerListener)
             exoPlayer.release()
         }
     }
 
-
+    AndroidView(
+        modifier = Modifier
+            .background(Color.Black)
+            .fillMaxSize()
+            .padding(if (context.resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) 30.dp else 0.dp),
+        factory = { playerView }
+    )
 }
 
 

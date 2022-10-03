@@ -16,6 +16,7 @@ import MediaPlayer
 struct PlayedSermon {
     let id: String
     let lastPlayedTime: Double
+    let lastPlayedPercentage: Double
 }
 struct SermonsView: View {
     @StateObject private var sermonViewmodel = SermonsViewModel()
@@ -41,14 +42,25 @@ struct SermonsView: View {
                     
                     ForEach(sermonViewmodel.sermons, id: \.id) { sermon in
                         
-                        VStack(alignment: .leading) {
-                            
+                        VStack(alignment: .leading, spacing: 0) {
+                        
                             WebImage(url: URL(string: sermon.videoThumbnail))
                                 .resizable()
                                 .aspectRatio(contentMode: .fill)
                                 .frame(width: screenBounds.width * 0.45)
                                 .cornerRadius(8, corners: [.topLeft, .topRight])
-                            
+                            VStack {
+                                if let playedsermon = playedSermons.first(where: { $0.id == sermon.id }) {
+                                    ProgressView(value: playedsermon.lastPlayedPercentage, total: 100)
+                                        .frame(width: screenBounds.width * 0.46)
+                                } else {
+                                    ProgressView(value: 0)
+                                        .frame(width: screenBounds.width * 0.46)
+                                }
+                            }
+                            .frame(width: screenBounds.width * 0.45)
+                            .clipped()
+
                             VStack(alignment: .leading) {
                                 
                                 Text(sermon.series)
@@ -74,7 +86,9 @@ struct SermonsView: View {
                                 Text(sermon.date)
                                     .font(.caption2)
                                     .multilineTextAlignment(.leading)
-                            }.padding(5).padding(.bottom, 5)
+                            }
+                            .padding(5)
+                            .padding(.bottom, 5)
                             
                         }
                         .background(Color(.systemGray6))
@@ -123,7 +137,12 @@ struct SermonsView: View {
                 playedSermons.removeAll(where: { $0.id == sermonViewmodel.currentSermon?.id })
                 let currentTimeInSeconds: Double = sermonViewmodel.player.currentItem?.currentTime().seconds ?? 0
                 let currentTimeInSecondsRounded = round(currentTimeInSeconds * 100) / 100
-                playedSermons.append(PlayedSermon(id: sermonViewmodel.currentSermon?.id ?? "", lastPlayedTime: currentTimeInSecondsRounded))
+                playedSermons.append(PlayedSermon(
+                    id: sermonViewmodel.currentSermon?.id ?? "",
+                    lastPlayedTime: currentTimeInSecondsRounded,
+                    lastPlayedPercentage: ((currentTimeInSecondsRounded / (round((sermonViewmodel.player.currentItem?.duration.seconds ?? 0) * 100) / 100)) * 100)
+                    )
+                )
                 sermonViewmodel.resetNowPlaying()
             }
             .onAppear {

@@ -60,9 +60,11 @@ class MainActivity : BaseActivity() {
                                     authViewModel = authViewModel
                                 )
                             }
-
-                            composable(SermonScreen.route){
-                                SermonScreen(navController = navController, sermonViewModel = sermonViewModel)
+                            composable(SermonScreen.route) {
+                                SermonScreen(
+                                    navController = navController,
+                                    sermonViewModel = sermonViewModel
+                                )
                             }
                             composable(
                                 route = PlayerScreen.route,
@@ -70,7 +72,10 @@ class MainActivity : BaseActivity() {
                                     type = NavType.StringType
                                 })
                             ) {
-                                PlayerScreen(videoURL = it.arguments?.getString("videoURL") ?: "", sermonViewModel = sermonViewModel)
+                                PlayerScreen(
+                                    videoURL = it.arguments?.getString("videoURL") ?: "",
+                                    sermonViewModel = sermonViewModel
+                                )
                             }
                             composable(ProfileScreen.route) {
                                 ProfileScreen(
@@ -103,25 +108,25 @@ class MainActivity : BaseActivity() {
                                     },
                                     onHandlePaymentSheetResult = ::onHandlePaymentResult
                                 ) { request, launcher ->
-                                        checkout(request) { customer, intent ->
-                                            val configuration = PaymentSheet.Configuration(
-                                                merchantDisplayName = MultiplatformConstants.MERCHANT_NAME,
-                                                customer = customer,
-                                                googlePay = googlePayConfig,
-                                                allowsDelayedPaymentMethods = false,
-                                                primaryButtonColor = ColorStateList.valueOf(
-                                                    Color(
-                                                        Constants.MOMENTUM_ORANGE
-                                                    ).hashCode()
-                                                )
+                                    checkout(request) { customer, intent ->
+                                        val configuration = PaymentSheet.Configuration(
+                                            merchantDisplayName = MultiplatformConstants.MERCHANT_NAME,
+                                            customer = customer,
+                                            googlePay = googlePayConfig,
+                                            allowsDelayedPaymentMethods = false,
+                                            primaryButtonColor = ColorStateList.valueOf(
+                                                Color(
+                                                    Constants.MOMENTUM_ORANGE
+                                                ).hashCode()
                                             )
-                                            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-                                            launcher.launch(
-                                                PaymentSheetContract.Args.createPaymentIntentArgs(
-                                                    intent,
-                                                    configuration
-                                                )
+                                        )
+                                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                                        launcher.launch(
+                                            PaymentSheetContract.Args.createPaymentIntentArgs(
+                                                intent,
+                                                configuration
                                             )
+                                        )
 
                                     }
                                 }
