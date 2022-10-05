@@ -11,8 +11,8 @@ android {
         applicationId = "com.mwaibanda.momentum.android"
         minSdk = 21
         targetSdk = 31
-        versionCode = 8
-        versionName = "1.0.6"
+        versionCode = 9
+        versionName = "1.0.7"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
@@ -51,7 +51,6 @@ dependencies {
     implementation ("androidx.core:core-ktx:1.8.0")
     implementation ("androidx.appcompat:appcompat:1.5.0")
     implementation ("com.google.android.material:material:1.6.1")
-
     // Integration with activities
     implementation( "androidx.activity:activity-compose:1.5.1")
     // Compose Material Design
@@ -100,7 +99,6 @@ dependencies {
     // This dependency is downloaded from the Google’s Maven repository.
     // So, make sure you also include that repository in your project's build.gradle file.
     implementation("com.google.android.play:review:2.0.0")
-
     // For Kotlin users also add the Kotlin extensions library for Play In-App Review:
     implementation("com.google.android.play:review-ktx:2.0.0")
     // Coil Image loading

@@ -13,55 +13,76 @@ struct AuthControllerView: View {
     @Environment(\.presentationMode) private var presentationMode
     @State private var showSignUp = true
     var body: some View {
-        VStack {
-            HStack {
-                Spacer()
-                Button { presentationMode.wrappedValue.dismiss() } label: {
-                    Image(systemName: "xmark.circle.fill")
-                        .imageScale(.large)
-                        .foregroundColor(.white)
+        GeometryReader { proxy in
+            VStack(alignment: .trailing) {
+                if DeviceType.deviceIsPad {
+                    Spacer()
                 }
+            
+                    
+                    Button { presentationMode.wrappedValue.dismiss() } label: {
+                        Image(systemName: "xmark.circle.fill")
+                            .imageScale(.large)
+                            .foregroundColor(.white)
+                    }
+                    .padding(.top)
+                    .offset(x: DeviceType.deviceIsPad ? 0 : 30)
+            
                 
-            }.padding()
-            Spacer()
-            BlurredBackground {
-                Group {
-                    if showSignUp {
-                        SignUpView(namespace: namespace) {
-                            presentationMode.wrappedValue.dismiss()
+                
+                Spacer()
+                BlurredBackground {
+                    Group {
+                        if showSignUp {
+                            SignUpView(
+                                namespace: namespace,
+                                width: DeviceType.deviceIsPad ? proxy.size.width - 250: screenBounds.width - 90
+                            ) {
+                                presentationMode.wrappedValue.dismiss()
+                            }
+                            .transition(AnyTransition.asymmetric(insertion: .opacity, removal: .opacity))
+                        } else {
+                            SignInView(
+                                namespace: namespace,
+                                width: DeviceType.deviceIsPad ? proxy.size.width - 250 : screenBounds.width - 90
+                            ) {
+                                presentationMode.wrappedValue.dismiss()
+                            }
+                            .transition(AnyTransition.asymmetric(insertion: .opacity, removal: .opacity))
                         }
-                        .transition(AnyTransition.asymmetric(insertion: .opacity, removal: .opacity))
-                    } else {
-                        SignInView(namespace: namespace) {
-                            presentationMode.wrappedValue.dismiss()
-                        }
-                        .transition(AnyTransition.asymmetric(insertion: .opacity, removal: .opacity))
                     }
                 }
-            }
-            .frame(maxWidth: screenBounds.width - 100, maxHeight: showSignUp ? 490 : 300)
-            Spacer()
-            Button {
-                withAnimation(.easeOut(duration: 0.35)){
-                    showSignUp.toggle()
+                .frame(
+                    maxWidth: DeviceType.deviceIsPad ? proxy.size.width - 250 : screenBounds.width - 90,
+                    maxHeight: showSignUp ? 490 : 300
+                )
+                Spacer()
+                Button {
+                    withAnimation(.easeOut(duration: 0.35)){
+                        showSignUp.toggle()
+                    }
+                } label: {
+                    BlurredBackground {
+                        HStack(alignment: .center) {
+                            Spacer()
+                            Text( "\(showSignUp ? "Already" : "Don't") have an account? ")
+                                .font(Font.subheadline.weight(.light)) +
+                            Text("\(showSignUp ? "Sign In" : "Sign Up") here")
+                                .fontWeight(.heavy)
+                                .foregroundColor(Color(hex: Constants.MOMENTUM_ORANGE))
+                            Image(systemName: "hand.tap")
+                                .font(Font.subheadline.weight(.light))
+                            Spacer()
+                        }
+                        .font(.caption)
+                        .foregroundColor(Color.white)
+                    }
+                    .frame(width: DeviceType.deviceIsPad ? proxy.size.width - 250 : screenBounds.width - 90, height: 45)
                 }
-            } label: {
-                BlurredBackground {
-                HStack(alignment: .center) {
-                    Spacer()
-                    Text( "\(showSignUp ? "Already" : "Don't") have an account? ")
-                        .font(Font.subheadline.weight(.light)) +
-                    Text("\(showSignUp ? "Sign In" : "Sign Up") here")
-                        .fontWeight(.heavy)
-                        .foregroundColor(Color(hex: Constants.MOMENTUM_ORANGE))
-                    Image(systemName: "hand.tap")
-                        .font(Font.subheadline.weight(.light))
+                if DeviceType.deviceIsPad {
                     Spacer()
                 }
-                .font(.caption)
-                .foregroundColor(Color.white)
-                }.frame(width:  screenBounds.width - 100, height: 45)
-            }
+            }.frame(maxWidth: proxy.size.width)
         }
     }
 }

@@ -10,6 +10,7 @@ import SwiftUI
 
 struct SignUpView: View {
     var namespace: Namespace.ID
+    var width: CGFloat
     var onSignUpCompletion: () -> Void
     @EnvironmentObject var session: Session
     @StateObject private var profileViewModel = ProfileViewModel()
@@ -159,7 +160,7 @@ struct SignUpView: View {
                 } label: {
                     Text("Confirm")
                         .fontWeight(.heavy)
-                        .frame(width: screenBounds.width - 120, height: 55)
+                        .frame(width: width - 20, height: 55)
                 }
                 .buttonStyle(FilledButtonStyle())
                 .padding(.bottom, 10)

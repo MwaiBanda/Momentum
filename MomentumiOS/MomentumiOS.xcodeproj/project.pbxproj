@@ -13,6 +13,8 @@
 		1C3CF16E28D984F400B46FC1 /* RoundedCorner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C3CF16D28D984F400B46FC1 /* RoundedCorner.swift */; };
 		1C3CF17028D98B1600B46FC1 /* Sermon+Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C3CF16F28D98B1600B46FC1 /* Sermon+Swift.swift */; };
 		1C3CF17228D993B500B46FC1 /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C3CF17128D993B500B46FC1 /* PlayerView.swift */; };
+		1C82C2A428ECB97900E19A30 /* DeviceSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C82C2A328ECB97900E19A30 /* DeviceSize.swift */; };
+		1C82C2A628ED277000E19A30 /* SermonCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C82C2A528ED277000E19A30 /* SermonCard.swift */; };
 		1CA5277328CED0DC00066605 /* AppReviewRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CA5277228CED0DC00066605 /* AppReviewRequester.swift */; };
 		1CE8F2B228D92AFB0077F2F0 /* SermonsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE8F2B128D92AFB0077F2F0 /* SermonsViewModel.swift */; };
 		1CE8F2B428D92B220077F2F0 /* SermonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE8F2B328D92B220077F2F0 /* SermonsView.swift */; };
@@ -113,6 +115,8 @@
 		1C3CF16D28D984F400B46FC1 /* RoundedCorner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedCorner.swift; sourceTree = "<group>"; };
 		1C3CF16F28D98B1600B46FC1 /* Sermon+Swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sermon+Swift.swift"; sourceTree = "<group>"; };
 		1C3CF17128D993B500B46FC1 /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
+		1C82C2A328ECB97900E19A30 /* DeviceSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceSize.swift; sourceTree = "<group>"; };
+		1C82C2A528ED277000E19A30 /* SermonCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SermonCard.swift; sourceTree = "<group>"; };
 		1CA5277228CED0DC00066605 /* AppReviewRequester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppReviewRequester.swift; sourceTree = "<group>"; };
 		1CE8F2B128D92AFB0077F2F0 /* SermonsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SermonsViewModel.swift; sourceTree = "<group>"; };
 		1CE8F2B328D92B220077F2F0 /* SermonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SermonsView.swift; sourceTree = "<group>"; };
@@ -374,6 +378,7 @@
 		8126AF78286FE38D007DBAB9 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				1C82C2A328ECB97900E19A30 /* DeviceSize.swift */,
 				81E8F8D228921EF800F4A87C /* Session */,
 				8142D165289189F7001C206A /* Di */,
 				8142D164289189E4001C206A /* enums */,
@@ -411,6 +416,7 @@
 				818A2E98288DFE5E005D7449 /* BasePlainExpandableCard.swift */,
 				81E937CE288E5E2A00D74BD3 /* TitledTextField.swift */,
 				816CCDE0288F365600795B59 /* LinkLabel.swift */,
+				1C82C2A528ED277000E19A30 /* SermonCard.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -742,6 +748,7 @@
 				8126AF84286FEF39007DBAB9 /* NavBar.swift in Sources */,
 				1CE8F2B428D92B220077F2F0 /* SermonsView.swift in Sources */,
 				8126AF75286FDB2F007DBAB9 /* View+Swift.swift in Sources */,
+				1C82C2A628ED277000E19A30 /* SermonCard.swift in Sources */,
 				8126AF77286FE009007DBAB9 /* Color+Swift.swift in Sources */,
 				81E937CF288E5E2A00D74BD3 /* TitledTextField.swift in Sources */,
 				8126AF85286FEF39007DBAB9 /* MenuView.swift in Sources */,
@@ -755,6 +762,7 @@
 				1CA5277328CED0DC00066605 /* AppReviewRequester.swift in Sources */,
 				8126AF89286FF12F007DBAB9 /* MenuButton.swift in Sources */,
 				81826E28288A060400B22B6E /* Session.swift in Sources */,
+				1C82C2A428ECB97900E19A30 /* DeviceSize.swift in Sources */,
 				81E8F8D428921F1300F4A87C /* SessionTime.swift in Sources */,
 				7555FF83242A565900829871 /* ContentView.swift in Sources */,
 				811A3E7D287E05D90052682B /* ToggleAmountLabel.swift in Sources */,
@@ -942,7 +950,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = MomentumiOS/MomentumiOS.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_ASSET_PATHS = "\"MomentumiOS/Preview Content\"";
 				DEVELOPMENT_TEAM = 2HB3YHCHVH;
 				ENABLE_BITCODE = NO;
@@ -956,8 +964,11 @@
 				MARKETING_VERSION = 1.0.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mwaibanda.MomentumiOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -968,7 +979,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = MomentumiOS/MomentumiOS.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_ASSET_PATHS = "\"MomentumiOS/Preview Content\"";
 				DEVELOPMENT_TEAM = 2HB3YHCHVH;
 				ENABLE_BITCODE = NO;
@@ -983,8 +994,11 @@
 				MARKETING_VERSION = 1.0.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mwaibanda.MomentumiOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

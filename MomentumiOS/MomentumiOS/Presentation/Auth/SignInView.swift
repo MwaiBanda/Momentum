@@ -13,6 +13,7 @@ struct SignInView: View {
     @State private var password = ""
     @EnvironmentObject var session: Session
     var namespace: Namespace.ID
+    var width: CGFloat
     var onSignInCompletion: () -> Void
 
     var body: some View {
@@ -52,6 +53,9 @@ struct SignInView: View {
                         .foregroundColor(Color.white)
                     
                 )
+                .textContentType(.emailAddress)
+                .disableAutocorrection(true)
+                .autocapitalization(.none)
                 .ignoresSafeArea(.keyboard, edges: .bottom)
                 .padding(.horizontal)
                 .matchedGeometryEffect(id: "email", in: namespace)
@@ -79,7 +83,7 @@ struct SignInView: View {
                 } label: {
                     Text("Confirm")
                         .fontWeight(.heavy)
-                        .frame(width: screenBounds.width - 120, height: 55)
+                        .frame(width: width - 20, height: 55)
                 }
                 .buttonStyle(FilledButtonStyle())
                 .padding(.bottom, 10)

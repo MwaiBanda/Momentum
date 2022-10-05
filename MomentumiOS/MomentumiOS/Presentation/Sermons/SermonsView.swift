@@ -39,86 +39,56 @@ struct SermonsView: View {
             }
             ScrollView {
                 LazyVGrid(columns: columns, spacing: 10) {
-                    
-                    ForEach(sermonViewmodel.sermons, id: \.id) { sermon in
-                        
-                        VStack(alignment: .leading, spacing: 0) {
-                        
-                            WebImage(url: URL(string: sermon.videoThumbnail))
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
-                                .frame(width: screenBounds.width * 0.45)
-                                .cornerRadius(8, corners: [.topLeft, .topRight])
-                            VStack {
-                                if let playedsermon = playedSermons.first(where: { $0.id == sermon.id }) {
-                                    ProgressView(value: playedsermon.lastPlayedPercentage, total: 100)
-                                        .frame(width: screenBounds.width * 0.46)
-                                } else {
-                                    ProgressView(value: 0)
-                                        .frame(width: screenBounds.width * 0.46)
-                                }
+                    if sermonViewmodel.sermons.isEmpty {
+                        ForEach(0..<12, id: \.self
+                        ) { _ in
+                            SermonCard(
+                                sermon: Sermon(
+                                    id: "\(Int.random(in: 1000..<9999))",
+                                    series: "14:7 Refresh - Part 1",
+                                    title: "Pre-Decide: Better Choices, Better Life",
+                                    preacher: "Charlie Arms",
+                                    videoThumbnail: "https://6a0037bf541aecc8a1de-c14fd83124cd2a87055253bd0f7faf70.ssl.cf2.rackcdn.com/video-thumb/1/0e14909937_1664818532_10-02-22-worship-servicetrim.jpg",
+                                    videoURL: "",
+                                    date: "Oct 2, 2022"
+                                ),
+                                playedSermons: playedSermons
+                            ) {
+                                self.sermon = $0
                             }
-                            .frame(width: screenBounds.width * 0.45)
-                            .clipped()
-
-                            VStack(alignment: .leading) {
-                                
-                                Text(sermon.series)
-                                    .font(.caption)
-                                    .lineLimit(1)
-                                    .multilineTextAlignment(.leading)
-                                
-                                
-                                Text(sermon.title)
-                                    .font(.subheadline)
-                                    .bold()
-                                    .lineLimit(1)
-                                    .multilineTextAlignment(.leading)
-                                
-                                
-                                Text(sermon.preacher)
-                                    .foregroundColor(.gray)
-                                    .font(.caption)
-                                    .lineLimit(1)
-                                    .multilineTextAlignment(.leading)
-                                
-                                
-                                Text(sermon.date)
-                                    .font(.caption2)
-                                    .multilineTextAlignment(.leading)
-                            }
-                            .padding(5)
-                            .padding(.bottom, 5)
-                            
                         }
-                        .background(Color(.systemGray6))
-                        .cornerRadius(8)
-                        .shadow(color: Color.black.opacity(0.15), radius: 20, x: 0, y: 10)
-                        .onTapGesture {
-                            self.sermon = sermon
+                    } else {
+                        ForEach(sermonViewmodel.sermons, id: \.id) { sermon in
+                            SermonCard(sermon: sermon, playedSermons: playedSermons) {
+                                self.sermon = $0
+                            }
                         }
                     }
                 }
                 .padding(.horizontal, 10)
                 .padding(.bottom, sermonViewmodel.canLoadMoreSermons ? 25 :  50)
-                if sermonViewmodel.canLoadMoreSermons && !sermonViewmodel.sermons.isEmpty {
-                    Button { sermonViewmodel.loadMoreSermons() } label: {
-                        Text("Load More")
-                            .padding(.horizontal, 22)
-                            .padding(.vertical, 10)
+                if !sermonViewmodel.sermons.isEmpty {
+                    if sermonViewmodel.canLoadMoreSermons {
+                        Button { sermonViewmodel.loadMoreSermons() } label: {
+                            Text("Load More")
+                                .padding(.horizontal, 22)
+                                .padding(.vertical, 10)
+                        }
+                        .buttonStyle(FilledButtonStyle())
+                        .padding(.bottom, 25)
                     }
-                    .buttonStyle(FilledButtonStyle())
-                    .padding(.bottom, 25)
-                    
                     Divider()
                         .padding(.bottom, 10)
                 }
             }
+            .redacted(reason: sermonViewmodel.sermons.isEmpty ? .placeholder : [])
         }
         .background(Color.clear)
         .navigationTitle("Sermons")
         .onAppear {
-            sermonViewmodel.fetchSermons()
+            DispatchQueue.main.async {
+                sermonViewmodel.fetchSermons()
+            }
         }
         .fullScreenCover(item: $sermon) { sermon in
             PlayerView(
@@ -141,7 +111,7 @@ struct SermonsView: View {
                     id: sermonViewmodel.currentSermon?.id ?? "",
                     lastPlayedTime: currentTimeInSecondsRounded,
                     lastPlayedPercentage: ((currentTimeInSecondsRounded / (round((sermonViewmodel.player.currentItem?.duration.seconds ?? 0) * 100) / 100)) * 100)
-                    )
+                )
                 )
                 sermonViewmodel.resetNowPlaying()
             }
