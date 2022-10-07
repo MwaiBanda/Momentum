@@ -27,14 +27,7 @@ import com.google.android.exoplayer2.ui.AspectRatioFrameLayout
 import com.google.android.exoplayer2.ui.StyledPlayerView
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSource
 import com.mwaibanda.momentum.android.presentation.components.LockScreenOrientation
-
-
-data class PlayedSermon(
-    val id: String,
-    val lastPlayedTime: Long,
-    val lastPlayedPercentage: Int
-)
-
+import com.mwaibanda.momentum.data.db.MomentumSermon
 
 @Composable
 fun PlayerScreen(
@@ -74,7 +67,7 @@ fun PlayerScreen(
         }
         currentSermon?.let {
             exoPlayer.apply {
-                seekTo(it.lastPlayedTime)
+                seekTo(it.last_played_time.toLong())
                 playWhenReady = true
             }
         }
@@ -117,16 +110,12 @@ fun PlayerScreen(
         lifecycle.addObserver(lifecycleListener)
         exoPlayer.addListener(playerListener)
         onDispose {
-            sermonViewModel.watchedSermons = buildList {
-                addAll(sermonViewModel.watchedSermons)
-                removeIf { it.id == (sermonViewModel.currentSermon?.id ?: "") }
-                add(
-                    PlayedSermon(
-                        id = sermonViewModel.currentSermon?.id ?: "",
-                        lastPlayedTime = exoPlayer.currentPosition,
-                        lastPlayedPercentage = ((exoPlayer.currentPosition.toFloat() / exoPlayer.duration.toFloat()) * 100.0).toInt()
-                    )
-                )
+            sermonViewModel.addSermon(MomentumSermon(
+                id = sermonViewModel.currentSermon?.id ?: "",
+                last_played_time = exoPlayer.currentPosition.toDouble(),
+                last_played_percentage = ((exoPlayer.currentPosition.toFloat() / exoPlayer.duration.toFloat()) * 100.0).toInt()
+            )) {
+                sermonViewModel.getWatchSermons()
             }
             Log.d("PlayPercentage", "Played ${(((exoPlayer.currentPosition.toFloat() / exoPlayer.duration.toFloat()) * 100.0).toInt())}% of the video")
             lifecycle.removeObserver(lifecycleListener)

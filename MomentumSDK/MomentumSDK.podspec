@@ -3,9 +3,13 @@ Pod::Spec.new do |spec|
     spec.version                  = '1.0.0'
     spec.homepage                 = 'https://momentumindiana.org'
     spec.source                   = { :http=> ''}
-    spec.authors                  = ''
-    spec.license                  = ''
-    spec.summary                  = 'Some description for the Shared Module'
+    spec.authors                  = 'Mwai Banda'
+    spec.license                  = 'MIT'
+    spec.summary                  = '
+        The Momentum Church SDK facilitates seamlessly integration with auth, networking,
+        database(local & cloud) & caching functionality for Android & iOS. 
+        Copyright © 2022 Momentum. All rights reserved.
+        '
     spec.vendored_frameworks      = 'build/cocoapods/framework/MomentumSDK.framework'
     spec.libraries                = 'c++'
     spec.ios.deployment_target = '14.1'
@@ -22,8 +26,8 @@ Pod::Spec.new do |spec|
             :execution_position => :before_compile,
             :shell_path => '/bin/sh',
             :script => <<-SCRIPT
-                if [ "YES" = "$COCOAPODS_SKIP_KOTLIN_BUILD" ]; then
-                  echo "Skipping Gradle build task invocation due to COCOAPODS_SKIP_KOTLIN_BUILD environment variable set to \"YES\""
+                if [ "YES" = "$OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED" ]; then
+                  echo "Skipping Gradle build task invocation due to OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED environment variable set to \"YES\""
                   exit 0
                 fi
                 set -ev

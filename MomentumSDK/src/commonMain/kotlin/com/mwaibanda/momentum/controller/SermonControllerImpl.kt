@@ -1,9 +1,10 @@
 package com.mwaibanda.momentum.controller
 
+import com.mwaibanda.momentum.data.db.Database
+import com.mwaibanda.momentum.data.db.DatabaseDriverFactory
+import com.mwaibanda.momentum.data.db.MomentumSermon
 import com.mwaibanda.momentum.domain.controller.SermonController
-import com.mwaibanda.momentum.domain.models.Sermon
 import com.mwaibanda.momentum.domain.models.SermonResponse
-import com.mwaibanda.momentum.domain.repository.CacheRepository
 import kotlinx.coroutines.launch
 
 import com.mwaibanda.momentum.domain.usecase.sermon.GetSermonsUseCase
@@ -12,8 +13,12 @@ import kotlinx.coroutines.MainScope
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
-class SermonControllerImpl: SermonController, KoinComponent {
+class SermonControllerImpl(
+    driverFactory: DatabaseDriverFactory
+): SermonController, KoinComponent {
+
     private val getSermonsUseCase: GetSermonsUseCase by inject()
+    private val database = Database(driverFactory)
     private val scope = MainScope()
 
     override fun getSermon(pageNumber: Int, onCompletion: (Result<SermonResponse>) -> Unit) {
@@ -22,5 +27,17 @@ class SermonControllerImpl: SermonController, KoinComponent {
                 onCompletion(it)
             }
         }
+    }
+
+    override fun addSermon(sermon: MomentumSermon) {
+        database.addSermon(
+            id = sermon.id,
+            lastPlayedTime = sermon.last_played_time,
+            lastPlayedPercentage = sermon.last_played_percentage
+        )
+    }
+
+    override fun getWatchedSermons(onCompletion: (List<MomentumSermon>) -> Unit) {
+        onCompletion(database.getWatchedSermons())
     }
 }

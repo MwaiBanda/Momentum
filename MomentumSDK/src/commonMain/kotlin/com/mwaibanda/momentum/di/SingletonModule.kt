@@ -1,5 +1,6 @@
 package com.mwaibanda.momentum.di
 
+import com.mwaibanda.momentum.data.db.DatabaseDriverFactory
 import com.russhwolf.settings.Settings
 import dev.gitlive.firebase.Firebase
 import dev.gitlive.firebase.auth.auth
@@ -11,6 +12,7 @@ import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.client.plugins.logging.*
 import io.ktor.serialization.kotlinx.json.*
 import kotlinx.serialization.json.Json
+import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
 import kotlin.time.Duration.Companion.hours
 

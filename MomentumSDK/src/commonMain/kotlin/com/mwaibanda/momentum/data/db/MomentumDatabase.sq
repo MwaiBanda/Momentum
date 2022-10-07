@@ -20,13 +20,20 @@ CREATE TABLE MomentumUser(
 );
 
 -- Table: MomentumBillingAddress
-CREATE TABLE MomentumBillingAddress(
+CREATE TABLE  MomentumBillingAddress(
     id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     street_address TEXT NOT NULL,
     apt TEXT,
     city TEXT NOT NULL,
     zip_code TEXT NOT NULL,
     user_id TEXT NOT NULL
+);
+
+-- Table: MomentumSermon
+CREATE TABLE IF NOT EXISTS MomentumSermon(
+    id TEXT NOT NULL PRIMARY KEY,
+    last_played_time REAL NOT NULL,
+    last_played_percentage INTEGER AS Int NOT NULL
 );
 
 -- CREATE
@@ -42,12 +49,19 @@ VALUES (:fullname, :phone, :password, :email, :createdOn, :userId);
 insertBillingAddress:
 INSERT OR REPLACE INTO MomentumBillingAddress(street_address, apt, city, zip_code, user_id)
 VALUES (:streetAddress, :apt, :city, :zipCode, :userId);
+-- CREATE
+-- insert (table: MomentumTransaction)
+insertSermon:
+INSERT OR REPLACE INTO MomentumSermon(id, last_played_time, last_played_percentage)
+VALUES (:id,:lastPlayedTime, :lastPlayedPercentage);
 
 -- READ: (table: MomentumTransaction)
 -- get all transactions (table: MomentumTransaction)
 getAllTransactions:
 SELECT *
 FROM MomentumTransaction;
+
+
 
 -- READ: (table: MomentumUser)
 -- get user by Id (table: MomentumUser)
@@ -62,6 +76,12 @@ getBillingAddressByUserId:
 SELECT *
 FROM MomentumBillingAddress
 WHERE user_id = :userId;
+
+-- READ: (table: MomentumSermon)
+-- get all sermons (table: MomentumSermon)
+getAllWatchedSermons:
+SELECT *
+FROM MomentumSermon;
 
 -- UPDATE:  (table: MomentumUser)
 -- update user(fullname) by Id (table: MomentumUser)

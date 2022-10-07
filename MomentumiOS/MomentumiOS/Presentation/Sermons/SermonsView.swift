@@ -7,21 +7,13 @@
 //
 
 import SwiftUI
-import SDWebImageSwiftUI
-import MomentumSDK
-import AVFoundation
 import AVKit
-import MediaPlayer
+import MomentumSDK
 
-struct PlayedSermon {
-    let id: String
-    let lastPlayedTime: Double
-    let lastPlayedPercentage: Double
-}
+
 struct SermonsView: View {
     @StateObject private var sermonViewmodel = SermonsViewModel()
     @State private var sermon: Sermon? = nil
-    @State private var playedSermons = [PlayedSermon]()
     let columns = [
         GridItem(.flexible()),
         GridItem(.flexible())
@@ -43,23 +35,24 @@ struct SermonsView: View {
                         ForEach(0..<12, id: \.self
                         ) { _ in
                             SermonCard(
+                                isRedacted: true,
                                 sermon: Sermon(
                                     id: "\(Int.random(in: 1000..<9999))",
                                     series: "14:7 Refresh - Part 1",
                                     title: "Pre-Decide: Better Choices, Better Life",
                                     preacher: "Charlie Arms",
-                                    videoThumbnail: "https://6a0037bf541aecc8a1de-c14fd83124cd2a87055253bd0f7faf70.ssl.cf2.rackcdn.com/video-thumb/1/0e14909937_1664818532_10-02-22-worship-servicetrim.jpg",
+                                    videoThumbnail: "thumbnail",
                                     videoURL: "",
                                     date: "Oct 2, 2022"
                                 ),
-                                playedSermons: playedSermons
+                                playedSermons: sermonViewmodel.watchedSermons
                             ) {
                                 self.sermon = $0
                             }
                         }
                     } else {
                         ForEach(sermonViewmodel.sermons, id: \.id) { sermon in
-                            SermonCard(sermon: sermon, playedSermons: playedSermons) {
+                            SermonCard(sermon: sermon, playedSermons: sermonViewmodel.watchedSermons) {
                                 self.sermon = $0
                             }
                         }
@@ -88,6 +81,7 @@ struct SermonsView: View {
         .onAppear {
             DispatchQueue.main.async {
                 sermonViewmodel.fetchSermons()
+                sermonViewmodel.getWatchedSermons()
             }
         }
         .fullScreenCover(item: $sermon) { sermon in
@@ -95,8 +89,8 @@ struct SermonsView: View {
                 player: sermonViewmodel.player,
                 playbackURL: sermon.videoURL,
                 lastPlayedTime: {
-                    let lastPlayedSermon = playedSermons.first(where: { $0.id == sermon.id })
-                    let myTime = CMTime(seconds: lastPlayedSermon?.lastPlayedTime ?? 0, preferredTimescale: 60000)
+                    let lastPlayedSermon = sermonViewmodel.watchedSermons.first(where: { $0.id == sermon.id })
+                    let myTime = CMTime(seconds: lastPlayedSermon?.last_played_time ?? 0, preferredTimescale: 60000)
                     return myTime
                 }
             )
@@ -104,15 +98,15 @@ struct SermonsView: View {
             .onDisappear {
                 UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
                 AppDelegate.orientationLock = .portrait
-                playedSermons.removeAll(where: { $0.id == sermonViewmodel.currentSermon?.id })
                 let currentTimeInSeconds: Double = sermonViewmodel.player.currentItem?.currentTime().seconds ?? 0
                 let currentTimeInSecondsRounded = round(currentTimeInSeconds * 100) / 100
-                playedSermons.append(PlayedSermon(
-                    id: sermonViewmodel.currentSermon?.id ?? "",
-                    lastPlayedTime: currentTimeInSecondsRounded,
-                    lastPlayedPercentage: ((currentTimeInSecondsRounded / (round((sermonViewmodel.player.currentItem?.duration.seconds ?? 0) * 100) / 100)) * 100)
-                )
-                )
+                sermonViewmodel.addSermon(
+                    sermon: MomentumSermon(
+                        id: sermonViewmodel.currentSermon?.id ?? "",
+                        last_played_time: currentTimeInSecondsRounded,
+                        last_played_percentage: Int32((currentTimeInSecondsRounded / (round((sermonViewmodel.player.currentItem?.duration.seconds ?? 0) * 100) / 100)) * 100)
+                    )
+                ) 
                 sermonViewmodel.resetNowPlaying()
             }
             .onAppear {

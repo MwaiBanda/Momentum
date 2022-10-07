@@ -41,9 +41,7 @@ final class DiRegistry {
             
             @Binds
             var transactionController: TransactionController = {
-                TransactionControllerImpl(
-                    driverFactory: resolver.resolve()
-                )
+                TransactionControllerImpl(driverFactory: resolver.resolve())
             }()
             
             @Binds
@@ -53,21 +51,22 @@ final class DiRegistry {
             
             @Binds
             var userController: UserController = {
-                UserControllerImpl(
-                    driverFactory: resolver.resolve()
-                )
+                UserControllerImpl(driverFactory: resolver.resolve())
             }()
             
             @Binds
             var billingAddressController: BillingAddressController = {
-                BillingAddressControllerImpl(
-                    driverFactory: resolver.resolve()
-                )
+                BillingAddressControllerImpl(driverFactory: resolver.resolve())
             }()
             
             @Binds
             var authController: AuthController = {
                 AuthControllerImpl()
+            }()
+            
+            @Binds
+            var sermonController: SermonController = {
+                SermonControllerImpl(driverFactory: resolver.resolve())
             }()
         }
     }

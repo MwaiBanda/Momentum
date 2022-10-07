@@ -9,7 +9,7 @@ EXTERNAL SOURCES:
     :path: "../MomentumSDK"
 
 SPEC CHECKSUMS:
-  MomentumSDK: 8da9bb6f8afcf3c9b6fa054caaee8ef4cb240a58
+  MomentumSDK: 667a24b579954316ecf3d8ff4c3f25f0a8528f67
 
 PODFILE CHECKSUM: c2e0e52538b12ddb98163dc5cb664394fdf32484
 

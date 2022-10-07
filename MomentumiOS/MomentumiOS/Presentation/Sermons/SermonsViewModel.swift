@@ -10,20 +10,20 @@ import MomentumSDK
 import AVFoundation
 import MediaPlayer
 
-class SermonsViewModel: NSObject, ObservableObject  {
-    private var controller: SermonController
+class SermonsViewModel: ObservableObject  {
+    @Inject private var controller: SermonController
+    @Inject var player: AVPlayer
+    
     @Published var sermons = [Sermon]()
     @Published var currentSermon: Sermon? = nil
     @Published var canLoadMoreSermons = true
     @Published private var currentPage = 1
     @Published private var isPlaying = false
     @Published private var currentSermonTitle = ""
+    
+    @Published var watchedSermons = [MomentumSermon]()
 
-    @Inject var player: AVPlayer
-
-    init(controller: SermonController = SermonControllerImpl()) {
-        self.controller = controller
-        super.init()
+    init() {
         setupNotifications()
         setupRemoteTransportControls()
     }
@@ -43,6 +43,17 @@ class SermonsViewModel: NSObject, ObservableObject  {
         }
     }
     
+    func getWatchedSermons() {
+        controller.getWatchedSermons { sermons in
+            self.watchedSermons = sermons
+        }
+    }
+    
+    func addSermon(sermon: MomentumSermon) {
+        controller.addSermon(sermon: sermon)
+        watchedSermons.removeAll(where: { $0.id == sermon.id })
+        watchedSermons.append(sermon)
+    }
     func pauseSermon() {
         player.pause()
         isPlaying = false

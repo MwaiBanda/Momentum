@@ -35,11 +35,12 @@ struct PlayerView: UIViewControllerRepresentable {
     func makeCoordinator() -> Coordinator {
        return Coordinator(self)
     }
-    class Coordinator: NSObject, UIViewControllerTransitioningDelegate {
+    class Coordinator: NSObject, AVPlayerPlaybackCoordinatorDelegate {
         let parent: PlayerView
 
         init(_ parent: PlayerView) {
             self.parent = parent
         }
+        
     }
 }

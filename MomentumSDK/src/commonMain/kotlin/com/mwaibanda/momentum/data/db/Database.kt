@@ -142,4 +142,20 @@ internal class Database(databaseDriverFactory: DatabaseDriverFactory) {
     internal fun deleteBillingByUserId(userId: String) {
         database.deleteBillingByUserId(userId = userId)
     }
+
+    internal fun addSermon(
+        id: String,
+        lastPlayedTime: Double,
+        lastPlayedPercentage: Int
+    ) {
+       database.insertSermon(
+           id = id,
+           lastPlayedTime = lastPlayedTime,
+           lastPlayedPercentage = lastPlayedPercentage
+       )
+    }
+
+    internal fun getWatchedSermons(): List<MomentumSermon> {
+        return database.getAllWatchedSermons().executeAsList()
+    }
 }

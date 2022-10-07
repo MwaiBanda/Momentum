@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    compileSdk = 32
+    compileSdk = 33
     defaultConfig {
         applicationId = "com.mwaibanda.momentum.android"
         minSdk = 21
@@ -32,7 +32,7 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.2.0"
+        kotlinCompilerExtensionVersion = "1.3.2"
     }
     testOptions {
         unitTests.isIncludeAndroidResources  = true
@@ -48,23 +48,23 @@ android {
 
 dependencies {
     implementation(project(":MomentumSDK"))
-    implementation ("androidx.core:core-ktx:1.8.0")
-    implementation ("androidx.appcompat:appcompat:1.5.0")
+    implementation ("androidx.core:core-ktx:1.9.0")
+    implementation ("androidx.appcompat:appcompat:1.5.1")
     implementation ("com.google.android.material:material:1.6.1")
     // Integration with activities
-    implementation( "androidx.activity:activity-compose:1.5.1")
+    implementation( "androidx.activity:activity-compose:1.6.0")
     // Compose Material Design
-    implementation( "androidx.compose.material:material:1.2.0")
+    implementation( "androidx.compose.material:material:1.2.1")
     // Animations
-    implementation("androidx.compose.animation:animation:1.2.0")
+    implementation("androidx.compose.animation:animation:1.2.1")
     // Tooling support (Previews, etc.)
-    implementation( "androidx.compose.ui:ui-tooling:1.2.0")
+    implementation( "androidx.compose.ui:ui-tooling:1.2.1")
     // Integration with ViewModels
     implementation( "androidx.lifecycle:lifecycle-viewmodel-compose:2.5.1")
-    implementation("com.google.firebase:firebase-auth:21.0.7")
+    implementation("com.google.firebase:firebase-auth:21.0.8")
     implementation("junit:junit:4.13.2")
     // UI Tests
-    androidTestImplementation("androidx.compose.ui:ui-test-junit4:1.2.0")
+    androidTestImplementation("androidx.compose.ui:ui-test-junit4:1.2.1")
     //Unit Testing
     testImplementation ("junit:junit:4.13.2")
     testImplementation("org.junit.jupiter:junit-jupiter:5.8.2")
@@ -76,9 +76,9 @@ dependencies {
     testImplementation ("org.mockito:mockito-core:4.6.1")
     testImplementation ("app.cash.turbine:turbine:0.8.0")
     // Navigation
-    implementation( "androidx.navigation:navigation-compose:2.5.1")
+    implementation( "androidx.navigation:navigation-compose:2.5.2")
     // Icons exts
-    implementation( "androidx.compose.material:material-icons-extended:1.2.0")
+    implementation( "androidx.compose.material:material-icons-extended:1.2.1")
     // Status Bar
     implementation ("com.google.accompanist:accompanist-systemuicontroller:0.25.0")
     implementation ("com.google.accompanist:accompanist-insets:0.25.0")

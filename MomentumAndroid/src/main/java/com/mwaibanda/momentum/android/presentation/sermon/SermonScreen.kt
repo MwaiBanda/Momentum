@@ -35,6 +35,7 @@ fun SermonScreen(
     sermonViewModel: SermonViewModel
 ) {
     LaunchedEffect(key1 = Unit) {
+        sermonViewModel.getWatchSermons()
         sermonViewModel.fetchSermons()
     }
 
@@ -100,7 +101,7 @@ fun SermonScreen(
                                         it.id == sermon.id
                                     }?.let {
                                         LinearProgressIndicator(
-                                            progress = it.lastPlayedPercentage.toFloat() / 100.0f,
+                                            progress = it.last_played_percentage.toFloat() / 100.0f,
                                             color = Color(Constants.MOMENTUM_ORANGE),
                                             modifier = Modifier.height(4.dp)
                                         )

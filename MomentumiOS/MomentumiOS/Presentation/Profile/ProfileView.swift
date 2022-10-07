@@ -196,7 +196,22 @@ struct ProfileView: View {
                                             .stroke(Color(hex: Constants.MOMENTUM_ORANGE), lineWidth: 2)
                                     )
                                 }
+                                .padding(.top)
+                                
+                                Button {
+                                    session.signOut {
+                                        presentationMode.wrappedValue.dismiss()
+                                        session.signInAsGuest()
+                                    }
+                                } label: {
+                                    Text("Sign Out")
+                                        .fontWeight(.heavy)
+                                        .frame(width: screenBounds.width - 30, height: 55)
+                                }
+                                .buttonStyle(FilledButtonStyle())
                                 .padding(.vertical)
+                                
+                                
                             }
                             .padding()
                         }, onCoverClick: {
@@ -374,7 +389,6 @@ struct ProfileView: View {
                                     Text(MultiplatformConstants.shared.COPYRIGHT)
                                         .font(.caption)
                                 }.padding()
-                                Divider()
                             }
                         }, onCoverClick: {
                             profileViewModel.cardToggle(card: .information)
@@ -388,24 +402,13 @@ struct ProfileView: View {
                             }
                         }
                     ).id(ProfileCard.information)
+                    
                 }
+                
             }
             Spacer()
-            HStack {
-                Spacer()
-                Button {
-                    session.signOut {
-                        presentationMode.wrappedValue.dismiss()
-                        session.signInAsGuest()
-                    }
-                } label: {
-                    Text("Sign Out")
-                        .fontWeight(.heavy)
-                        .frame(width: screenBounds.width - 30, height: 55)
-                }.buttonStyle(FilledButtonStyle())
-                Spacer()
-            }
             Divider()
+                .padding(.bottom)
         }
         .navigationBarHidden(false)
         .navigationTitle("Profile")

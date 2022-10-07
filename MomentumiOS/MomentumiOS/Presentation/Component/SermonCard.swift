@@ -12,20 +12,28 @@ import SDWebImageSwiftUI
 
 
 struct SermonCard: View {
+    var isRedacted = false
     var sermon: Sermon
-    var playedSermons: [PlayedSermon]
+    var playedSermons: [MomentumSermon]
     var onSermonClick: (Sermon) -> Void
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-        
-            WebImage(url: URL(string: sermon.videoThumbnail))
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-                .frame(width: screenBounds.width * 0.45)
-                .cornerRadius(8, corners: [.topLeft, .topRight])
+            if isRedacted {
+                Image(sermon.videoThumbnail)
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(maxWidth: screenBounds.width * 0.45)
+                    .cornerRadius(8, corners: [.topLeft, .topRight])
+            } else {
+                WebImage(url: URL(string: sermon.videoThumbnail))
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(maxWidth: screenBounds.width * 0.45)
+                    .cornerRadius(8, corners: [.topLeft, .topRight])
+            }
             VStack {
                 if let playedsermon = playedSermons.first(where: { $0.id == sermon.id }) {
-                    ProgressView(value: playedsermon.lastPlayedPercentage, total: 100)
+                    ProgressView(value: Double(playedsermon.last_played_percentage), total: 100)
                         .frame(width: screenBounds.width * 0.46)
                 } else {
                     ProgressView(value: 0)

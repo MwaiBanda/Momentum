@@ -16,12 +16,20 @@ kotlin {
     iosSimulatorArm64()
 
     cocoapods {
-        summary = "Some description for the Shared Module"
+        summary = """
+        The Momentum Church SDK facilitates seamlessly integration with auth, networking,
+        database(local & cloud) & caching functionality for Android, iOS & iPadOS. 
+        Copyright © 2022 Momentum. All rights reserved.
+        """
+        authors = "Mwai Banda"
+        license = "MIT"
         homepage = "https://momentumindiana.org"
         ios.deploymentTarget = "14.1"
         podfile = project.file("../MomentumiOS/Podfile")
         framework {
             baseName = "MomentumSDK"
+            isStatic = true
+
         }
     }
     

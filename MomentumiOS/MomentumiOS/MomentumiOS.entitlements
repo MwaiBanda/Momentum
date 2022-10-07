@@ -4,6 +4,8 @@
 <dict>
 	<key>aps-environment</key>
 	<string>development</string>
+	<key>com.apple.developer.group-session</key>
+	<true/>
 	<key>com.apple.developer.in-app-payments</key>
 	<array>
 		<string>merchant.mwaibanda.momentum</string>
