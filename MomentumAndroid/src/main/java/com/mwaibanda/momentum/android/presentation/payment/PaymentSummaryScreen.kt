@@ -21,7 +21,7 @@ import com.mwaibanda.momentum.android.presentation.auth.AuthViewModel
 import com.mwaibanda.momentum.android.presentation.components.BottomSpacing
 import com.mwaibanda.momentum.android.presentation.profile.ProfileViewModel
 import com.mwaibanda.momentum.android.presentation.transaction.TransactionViewModel
-import com.mwaibanda.momentum.domain.models.PaymentRequest
+import com.mwaibanda.momentum.domain.models.Transaction
 import com.stripe.android.paymentsheet.PaymentSheetContract
 import com.stripe.android.paymentsheet.PaymentSheetResult
 import org.koin.androidx.compose.getViewModel
@@ -39,7 +39,7 @@ fun PaymentSummaryScreen(
     canInitiateTransaction: Boolean,
     onTransactionCanProcess: (Boolean) -> Unit,
     onHandlePaymentSheetResult: (paymentResult: PaymentSheetResult, onPaymentSuccess: () -> Unit, onPaymentCancellation: () -> Unit, onPaymentFailure: (String) -> Unit) -> Unit,
-    onInitiateCheckout:  (PaymentRequest, ManagedActivityResultLauncher<PaymentSheetContract.Args, PaymentSheetResult>) -> Unit
+    onInitiateCheckout:  (Transaction, ManagedActivityResultLauncher<PaymentSheetContract.Args, PaymentSheetResult>) -> Unit
 ){
     val stripeLauncher = rememberLauncherForActivityResult(contract = PaymentSheetContract()){ result ->
         onHandlePaymentSheetResult(
@@ -51,12 +51,14 @@ fun PaymentSummaryScreen(
                 val formatter = DateTimeFormatter.ofPattern("MMM d")
                 val currentDateString = formatter.format(currentDate)
                 transactionViewModel.postTransactionInfo(
-                    paymentRequest = PaymentRequest(
+                    transaction = Transaction(
                         fullname = profileViewModel.fullname,
                         email = profileViewModel.email,
                         phone = profileViewModel.phone,
+                        date = currentDateString,
                         description = contentViewModel.getTransactionDescription(),
-                        amount = amount.toInt()
+                        amount = amount.toInt(),
+                        userId = authViewModel.currentUser?.id ?: ""
                     )
                 ) {
                     transactionViewModel.addTransaction(
@@ -141,7 +143,7 @@ fun PaymentSummaryScreen(
                 onClick = {
                     profileViewModel.getContactInformation(authViewModel.currentUser?.id ?: "") {
                         onInitiateCheckout(
-                            PaymentRequest(
+                            Transaction(
                                 fullname = profileViewModel.fullname,
                                 email = profileViewModel.email,
                                 phone = profileViewModel.phone,

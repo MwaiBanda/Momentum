@@ -414,8 +414,10 @@ struct ProfileView: View {
         .navigationTitle("Profile")
         .navigationBarTitleDisplayMode(.large)
         .onAppear {
-            profileViewModel.getContactInformation(userId: session.currentUser?.id ?? "") {
-                profileViewModel.getBillingInformation(userId: session.currentUser?.id ?? "")
+            if !(session.currentUser?.isGuest ?? true) {
+                profileViewModel.getContactInformation(userId: session.currentUser?.id ?? "") {
+                    profileViewModel.getBillingInformation(userId: session.currentUser?.id ?? "")
+                }
             }
         }
     }

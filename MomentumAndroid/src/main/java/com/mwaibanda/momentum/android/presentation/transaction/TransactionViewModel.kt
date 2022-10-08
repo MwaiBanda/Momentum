@@ -4,7 +4,8 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.mwaibanda.momentum.data.db.MomentumTransaction
 import com.mwaibanda.momentum.domain.controller.TransactionController
-import com.mwaibanda.momentum.domain.models.PaymentRequest
+import com.mwaibanda.momentum.domain.models.Transaction
+import com.mwaibanda.momentum.domain.models.toMomentumTransaction
 import com.mwaibanda.momentum.utils.Result
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -17,14 +18,34 @@ class TransactionViewModel(
     private val _transactions: MutableStateFlow<List<MomentumTransaction>> = MutableStateFlow(emptyList())
     val transactions: StateFlow<List<MomentumTransaction>> = _transactions.asStateFlow()
 
-    fun getAllTransactions() {
-        transactionController.getAllTransactions { transactions ->
+
+    private fun getTransactions(userId: String) {
+        transactionController.getTransactions(userId = userId) { res ->
+            when (res) {
+                is Result.Failure -> {
+                    Log.d("Transaction/GetFailure", res.message ?: "")
+                }
+                is Result.Success -> {
+                    _transactions.value = res.data?.map { it.toMomentumTransaction() } ?: emptyList()
+                    if (_transactions.value.isNotEmpty()) {
+                        addTransactions(transactions = _transactions.value)
+                    }
+                    Log.d("Transaction/GetSuccess", "${_transactions.value}")
+                }
+            }
+        }
+    }
+    fun getMomentumTransactions(userId: String) {
+        transactionController.getMomentumTransactions { transactions ->
             _transactions.value = transactions
+            if (transactions.isEmpty()) {
+                getTransactions(userId = userId)
+            }
         }
     }
 
-    fun postTransactionInfo(paymentRequest: PaymentRequest, onCompletion: () -> Unit) {
-        transactionController.postTransactionInfo(paymentRequest = paymentRequest) { res ->
+    fun postTransactionInfo(transaction: Transaction, onCompletion: () -> Unit) {
+        transactionController.postTransactionInfo(transaction = transaction) { res ->
             when (res) {
                 is Result.Failure -> {
                     Log.d("Pay/PostFailure", res.message ?: "")
@@ -37,6 +58,7 @@ class TransactionViewModel(
         }
 
     }
+
     fun addTransaction(
         description: String,
         date: String,
@@ -46,9 +68,14 @@ class TransactionViewModel(
         transactionController.addTransaction(description, date, amount, isSeen)
     }
 
+    private fun addTransactions(transactions: List<MomentumTransaction>) {
+        transactionController.addTransactions(transactions = transactions)
+    }
+
     fun deleteAllTransactions() {
         transactionController.deleteAllTransactions()
     }
+
     fun deleteTransactionById(transactionId: Int) {
         transactionController.deleteTransactionById(transactionId)
     }

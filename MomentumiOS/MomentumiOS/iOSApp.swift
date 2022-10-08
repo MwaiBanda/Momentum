@@ -2,6 +2,7 @@ import SwiftUI
 import AVKit
 import MomentumSDK
 import FirebaseCore
+import FirebaseFirestore
 
 @main
 struct iOSApp: App {
@@ -22,7 +23,11 @@ class AppDelegate : NSObject, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         DependencyRegistryKt.doInitKoin()
+       
         FirebaseApp.configure()
+        let settings = FirestoreSettings()
+        settings.isPersistenceEnabled = false
+        Firestore.firestore().settings = settings
         DiRegistry.shared.inject()
         Thread.sleep(forTimeInterval: 1.5)
         do {

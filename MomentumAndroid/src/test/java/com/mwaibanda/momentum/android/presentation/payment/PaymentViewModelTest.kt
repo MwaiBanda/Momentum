@@ -2,7 +2,7 @@ package com.mwaibanda.momentum.android.presentation.payment
 
 import app.cash.turbine.test
 import com.mwaibanda.momentum.domain.controller.PaymentController
-import com.mwaibanda.momentum.domain.models.PaymentRequest
+import com.mwaibanda.momentum.domain.models.Transaction
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Assertions.*
 
@@ -22,7 +22,7 @@ internal class PaymentViewModelTest {
     @Test
     fun `test checkout`() = runBlocking {
         sut.checkout(
-            PaymentRequest(
+            Transaction(
                 fullname = "Mwai Banda",
                 email = "mwai.developer@gmail.com",
                 phone = "2190000000",

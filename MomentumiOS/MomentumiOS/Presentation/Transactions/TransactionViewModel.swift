@@ -27,8 +27,25 @@ class TransactionViewModel: ObservableObject {
             isSeen: isSeen
         )
     }
-    func postTransactionInfo(request: PaymentRequest, onCompletion: @escaping () -> Void = {}) {
-        controller.postTransactionInfo(paymentRequest: request) { response in
+    
+    private func addTransactions(transactions: [MomentumTransaction]) {
+        controller.addTransactions(transactions: transactions)
+    }
+    
+    private func getTransactions(userId: String) {
+        controller.getTransactions(userId: userId) { [self] res in
+            if let res = res.data {
+                transactions = (res as! [Transaction]).map({ $0.toMomentumTransaction() })
+                if !transactions.isEmpty {
+                    addTransactions(transactions: transactions)
+                }
+            }
+        }
+    }
+    
+     
+    func postTransactionInfo(transaction: Transaction, onCompletion: @escaping () -> Void = {}) {
+        controller.postTransactionInfo(transaction: transaction) { response in
             if let response = response.data {
                 if response == 200 {
                     Log.d(tag: "Pay/Post/Status", message: response)
@@ -39,9 +56,12 @@ class TransactionViewModel: ObservableObject {
             }
         }
     }
-    func getAllTransactions() {
-        controller.getAllTransactions { transactions in
+    func getMomemtumTransactions(userId: String) {
+        controller.getMomentumTransactions { [unowned self] transactions in
             self.transactions = transactions
+            if transactions.isEmpty {
+                getTransactions(userId: userId)
+            }
         }
     }
     

@@ -7,7 +7,7 @@
   },
   "authors": "Mwai Banda",
   "license": "MIT",
-  "summary": "The Momentum Church SDK facilitates seamlessly integration with auth, networking,\ndatabase(local & cloud) & caching functionality for Android & iOS. \nCopyright © 2022 Momentum. All rights reserved.",
+  "summary": "The Momentum SDK facilitates seamlessly integration with auth, networking,\ndatabase(local & cloud) & caching functionality for Android, iOS & iPadOS. \nCopyright © 2022 Momentum. All rights reserved.",
   "vendored_frameworks": "build/cocoapods/framework/MomentumSDK.framework",
   "libraries": "c++",
   "platforms": {

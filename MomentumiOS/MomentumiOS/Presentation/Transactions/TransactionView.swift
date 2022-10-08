@@ -10,6 +10,7 @@ import SwiftUI
 import MomentumSDK
 
 struct TransactionView: View {
+    @EnvironmentObject var session: Session
     @StateObject private var transactionViewModel = TransactionViewModel()
     @Environment(\.presentationMode) private var presentationMode
     var body: some View {
@@ -42,8 +43,9 @@ struct TransactionView: View {
             Spacer()
         }
         .onAppear {
-            transactionViewModel.getAllTransactions()
-//            transactionViewModel.addTransaction(description: "$10: Offering, $20: Tithe", date: "July 19", amount: 30.99, isSeen: false)
+            if !(session.currentUser?.isGuest ?? true) {
+                transactionViewModel.getMomemtumTransactions(userId: session.currentUser?.id ?? "")
+            }
         }
     }
 }

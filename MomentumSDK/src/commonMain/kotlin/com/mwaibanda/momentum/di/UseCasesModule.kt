@@ -5,8 +5,9 @@ import com.mwaibanda.momentum.domain.usecase.cache.GetItemUseCase
 import com.mwaibanda.momentum.domain.usecase.cache.SetItemUseCase
 import com.mwaibanda.momentum.domain.usecase.localDefaults.*
 import com.mwaibanda.momentum.domain.usecase.payment.CheckoutUseCase
-import com.mwaibanda.momentum.domain.usecase.payment.PostTransactionInfoUseCase
+import com.mwaibanda.momentum.domain.usecase.transaction.PostTransactionUseCase
 import com.mwaibanda.momentum.domain.usecase.sermon.GetSermonsUseCase
+import com.mwaibanda.momentum.domain.usecase.transaction.GetTransactionsUseCase
 import com.mwaibanda.momentum.domain.usecase.user.*
 import org.koin.dsl.module
 
@@ -15,7 +16,11 @@ val useCasesModule = module {
      * @Payment - Use-cases
      */
     single { CheckoutUseCase(paymentRepository = get()) }
-    single { PostTransactionInfoUseCase(paymentRepository = get()) }
+    /**
+     * @Transactions - Use-cases
+     */
+    single { PostTransactionUseCase(transactionRepository = get()) }
+    single { GetTransactionsUseCase(transactionRepository = get()) }
     /**
      * @Auth - Use-cases
      */

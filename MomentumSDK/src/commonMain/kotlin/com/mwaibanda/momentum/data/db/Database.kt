@@ -1,5 +1,8 @@
 package com.mwaibanda.momentum.data.db
 
+import com.squareup.sqldelight.logs.LogSqliteDriver
+import kotlin.math.log
+
 internal class Database(databaseDriverFactory: DatabaseDriverFactory) {
     private val database = MomentumDatabase(
         driver = databaseDriverFactory.createDriver()
@@ -20,6 +23,20 @@ internal class Database(databaseDriverFactory: DatabaseDriverFactory) {
             amount = amount,
             seen = isSeen,
         )
+    }
+
+    internal fun insertTransactions(transactions: List<MomentumTransaction>) {
+        database.transaction {
+            afterCommit { println("${transactions.size} transactions were inserted.") }
+            transactions.forEach {
+                database.insertTransaction(
+                    description = it.description,
+                    date = it.date,
+                    amount = it.amount,
+                    seen = it.is_seen
+                )
+            }
+        }
     }
 
     internal fun getAllTransactions() : List<MomentumTransaction> {
@@ -142,11 +159,13 @@ internal class Database(databaseDriverFactory: DatabaseDriverFactory) {
     internal fun deleteBillingByUserId(userId: String) {
         database.deleteBillingByUserId(userId = userId)
     }
-
+    /**
+     * Sermon Queries
+     */
     internal fun addSermon(
         id: String,
         lastPlayedTime: Double,
-        lastPlayedPercentage: Int
+        lastPlayedPercentage: Int,
     ) {
        database.insertSermon(
            id = id,

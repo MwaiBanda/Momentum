@@ -57,14 +57,16 @@ struct PaymentSummaryView: View {
                     .onAppear {
                         switch paymentResult {
                         case .completed:
-                            let request = PaymentRequest(
+                            let transaction = Transaction(
                                 fullname: profileViewModel.fullname,
                                 email: profileViewModel.email,
                                 phone: profileViewModel.phone,
                                 description: contentViewModel.getTransactionDescription(),
-                                amount: Int32(Double(offerViewModel.number) ?? 0.00)
+                                amount: Int32(Double(offerViewModel.number) ?? 0.00),
+                                date: transactionViewModel.getTransactionDate(),
+                                userId: session.currentUser?.id ?? ""
                             )
-                            transactionViewModel.postTransactionInfo(request: request) {
+                            transactionViewModel.postTransactionInfo(transaction: transaction) {
                                 transactionViewModel.addTransaction(
                                     description: contentViewModel.getTransactionDescription(),
                                     date: transactionViewModel.getTransactionDate(),
@@ -84,12 +86,14 @@ struct PaymentSummaryView: View {
         .onAppear {
             profileViewModel.getContactInformation(userId: session.currentUser?.id ?? "") {
                 paymentViewModel.checkout(
-                    request: PaymentRequest(
+                    transaction: Transaction(
                         fullname: profileViewModel.fullname,
                         email: profileViewModel.email,
                         phone: profileViewModel.phone,
                         description: "",
-                        amount: Int32((Double(offerViewModel.number) ?? 0.00) * 100)
+                        amount: Int32((Double(offerViewModel.number) ?? 0.00) * 100),
+                        date: transactionViewModel.getTransactionDate(),
+                        userId: session.currentUser?.id ?? ""
                     )
                 ) {
                     paymentViewModel.setUpPaymentSheet()

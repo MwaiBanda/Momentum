@@ -1,22 +1,18 @@
 package com.mwaibanda.momentum.android
 
-import android.util.Log
 import androidx.activity.ComponentActivity
 import com.mwaibanda.momentum.android.presentation.auth.AuthViewModel
 import com.mwaibanda.momentum.android.presentation.payment.PaymentViewModel
 import com.mwaibanda.momentum.android.presentation.profile.ProfileViewModel
 import com.mwaibanda.momentum.android.presentation.sermon.SermonViewModel
 import com.mwaibanda.momentum.android.presentation.transaction.TransactionViewModel
-import com.mwaibanda.momentum.domain.models.PaymentRequest
+import com.mwaibanda.momentum.domain.models.Transaction
 import com.stripe.android.PaymentConfiguration
 import com.stripe.android.paymentsheet.PaymentSheet
 import com.stripe.android.paymentsheet.PaymentSheetResult
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.android.ext.android.inject
-import org.koin.androidx.compose.getViewModel
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 
 open class BaseActivity : ComponentActivity() {
     protected val authViewModel: AuthViewModel by inject()
@@ -32,10 +28,10 @@ open class BaseActivity : ComponentActivity() {
     }
 
     protected fun checkout(
-        paymentRequest: PaymentRequest,
+        transaction: Transaction,
         onSuccess: (customer: PaymentSheet.CustomerConfiguration?, intent: String) -> Unit
     ) = coroutineScope.launch {
-        paymentViewModel.checkout(paymentRequest)
+        paymentViewModel.checkout(transaction)
         paymentViewModel.paymentResponse.collectLatest { paymentResponse ->
             if (paymentResponse != null && paymentViewModel.canInitiateTransaction) {
                 paymentViewModel.canInitiateTransaction = false

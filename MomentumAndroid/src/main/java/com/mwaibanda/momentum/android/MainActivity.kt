@@ -132,7 +132,10 @@ class MainActivity : BaseActivity() {
                                 }
                             }
                             bottomSheet(TransactionsScreen.route) {
-                                TransactionScreen(transactionViewModel = transactionViewModel) {
+                                TransactionScreen(
+                                    authViewModel = authViewModel,
+                                    transactionViewModel = transactionViewModel
+                                ) {
                                     navController.popBackStack()
                                 }
                             }

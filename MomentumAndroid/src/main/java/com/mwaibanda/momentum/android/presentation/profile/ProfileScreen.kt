@@ -38,8 +38,10 @@ fun ProfileScreen(
     authViewModel: AuthViewModel
 ) {
     LaunchedEffect(key1 = Unit) {
-        profileViewModel.getContactInformation(userId = authViewModel.currentUser?.id ?: "") {
-            profileViewModel.getBillingInformation(userId = authViewModel.currentUser?.id ?: "")
+        if (authViewModel.currentUser?.isGuest?.not() == true) {
+            profileViewModel.getContactInformation(userId = authViewModel.currentUser?.id ?: "") {
+                profileViewModel.getBillingInformation(userId = authViewModel.currentUser?.id ?: "")
+            }
         }
     }
     val context = LocalContext.current

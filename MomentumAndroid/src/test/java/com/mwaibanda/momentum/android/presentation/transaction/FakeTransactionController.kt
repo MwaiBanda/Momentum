@@ -22,7 +22,7 @@ class FakeTransactionController: TransactionController {
         )
     }
 
-    override fun getAllTransactions(onCompletion: (List<MomentumTransaction>) -> Unit) {
+    override fun getMomentumTransactions(onCompletion: (List<MomentumTransaction>) -> Unit) {
         onCompletion(transactions)
     }
 

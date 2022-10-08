@@ -32,8 +32,8 @@ CREATE TABLE  MomentumBillingAddress(
 -- Table: MomentumSermon
 CREATE TABLE IF NOT EXISTS MomentumSermon(
     id TEXT NOT NULL PRIMARY KEY,
-    last_played_time REAL NOT NULL,
-    last_played_percentage INTEGER AS Int NOT NULL
+    last_played_time REAL DEFAULT 0 NOT NULL,
+    last_played_percentage INTEGER AS Int DEFAULT 0 NOT NULL
 );
 
 -- CREATE

@@ -36,8 +36,8 @@ final class PaymentViewModel : ObservableObject {
         }
     }
     
-    func checkout(request: PaymentRequest, onCompletion: @escaping () -> Void = {}){
-        paymentController.checkout(request: request) { response in
+    func checkout(transaction: Transaction, onCompletion: @escaping () -> Void = {}){
+        paymentController.checkout(request: transaction) { response in
             if let response = response.data {
                 self.response = response
                 onCompletion()

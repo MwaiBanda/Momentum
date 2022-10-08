@@ -17,7 +17,7 @@ kotlin {
 
     cocoapods {
         summary = """
-        The Momentum Church SDK facilitates seamlessly integration with auth, networking,
+        The Momentum SDK facilitates seamlessly integration with auth, networking,
         database(local & cloud) & caching functionality for Android, iOS & iPadOS. 
         Copyright © 2022 Momentum. All rights reserved.
         """
@@ -36,7 +36,7 @@ kotlin {
     sourceSets {
         val ktorVersion = "2.0.2"
         val serialization = "1.3.2"
-        val firebase = "1.6.1"
+        val firebase = "1.6.2"
         val sqlDelight = "1.5.3"
         val commonMain by getting {
             dependencies {

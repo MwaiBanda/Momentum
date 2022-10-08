@@ -6,8 +6,8 @@ Pod::Spec.new do |spec|
     spec.authors                  = 'Mwai Banda'
     spec.license                  = 'MIT'
     spec.summary                  = '
-        The Momentum Church SDK facilitates seamlessly integration with auth, networking,
-        database(local & cloud) & caching functionality for Android & iOS. 
+        The Momentum SDK facilitates seamlessly integration with auth, networking,
+        database(local & cloud) & caching functionality for Android, iOS & iPadOS. 
         Copyright © 2022 Momentum. All rights reserved.
         '
     spec.vendored_frameworks      = 'build/cocoapods/framework/MomentumSDK.framework'

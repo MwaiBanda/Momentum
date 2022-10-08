@@ -1,5 +1,7 @@
 package com.mwaibanda.momentum.di
 
+import dev.gitlive.firebase.Firebase
+import dev.gitlive.firebase.firestore.firestore
 import org.koin.core.context.startKoin
 import org.koin.dsl.KoinAppDeclaration
 
