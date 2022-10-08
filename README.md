@@ -1,11 +1,11 @@
 # Momentum
-Multiplatform payments & sermon streaming apps(Android & iOS) for Momentum Church in Indiana. Built in Kotlin Multiplatform Mobile(KMM) with SwiftUI & Jetpack Compose, the apps allow users to make payments to the church, stream past sermons, edit & update account information. Persists data locally with SQLDelight and Remote with Firebase. The apps are architected to emphasize code sharing between Android & iOS, so all core business logic written in the SDK, Android & iOS apps only contain presentation logic, viewmodels and tests.
+Multiplatform payments & sermon streaming apps(Android, iOS & iPadOS) for Momentum Church in Indiana. Built in Kotlin Multiplatform Mobile(KMM) with SwiftUI & Jetpack Compose, the apps allow users to make payments to the church, stream past sermons, edit & update account information. Persists data locally with SQLDelight and Remote with Firebase. The apps are architected to emphasize code sharing between Android, iOS & iPadOS, so all core business logic written in the SDK, Android, iOS & iPadOS only contain presentation logic, viewmodels and tests.
 
 ### Download Via AppStore or PlayStore
 The app's are available for download on the app store & playstore for Android & iPhone
 <table>
   <tr>
-    <th colspan="2"> <b>Momentum Church: Indiana - Payments(Android & iOS)</b> </th>
+    <th colspan="2"> <b>Momentum Church: Indiana - Payments & Streaming(Android, iOS & iPadOS)</b> </th>
     
   </tr>
   <tr>   
@@ -23,7 +23,7 @@ The app's are available for download on the app store & playstore for Android & 
   </tr>
   <tr>
     <td>Kotlin MultiPlatform Mobile</td>
-    <td>Android & iOS</td>
+    <td>Android, iOS & iPadOS</td>
   </tr>
     <tr>
     <td><b>Momentum SDK</b>(MultiPlatform)</td>
@@ -67,7 +67,7 @@ The app's are available for download on the app store & playstore for Android & 
   </tr>
   <tr>
     <td><b>Android</b></td>
-    <td><b>iOS</b></td>
+    <td><b>iOS & iPadOS</b></td>
   </tr>
    <tr>
     <td>Jetpack Compose</td>
