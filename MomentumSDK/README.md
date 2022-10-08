@@ -1,5 +1,5 @@
 # Momentum Church: Indiana (SDK) 
-Shared SDK for Momentum Church in Indiana. Built in Kotlin Multiplatform Mobile(KMM), the SDK allows users to make payments to the church, edit & update account information. Persists data locally w/ SQLDelight and Remote w/ Firebase. The SDK is architected to emphasize code sharing, so all core business logic is contained here, Android & iOS apps only contain presentation logic, viewmodels and tests.
+Shared SDK for Momentum Church in Indiana. Built in Kotlin Multiplatform Mobile(KMM), the SDK allows users to make payments to the church, edit & update account information. Persists data locally w/ SQLDelight and Remote w/ Firebase. The SDK is architected to emphasize code sharing, so all core business logic is contained here. Android, iOS & iPadOS apps only contain presentation logic, viewmodels and tests.
 
 ## Dependencies
 - SQLDelight
