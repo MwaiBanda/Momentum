@@ -1,11 +1,13 @@
 package com.mwaibanda.momentum.android.presentation.sermon
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -15,17 +17,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import coil.compose.AsyncImage
-import coil.request.ImageRequest
 import com.mwaibanda.momentum.android.core.utils.Constants
 import com.mwaibanda.momentum.android.presentation.components.BottomSpacing
-import org.koin.androidx.compose.getViewModel
+import com.mwaibanda.momentum.android.presentation.components.SermonCard
+import com.mwaibanda.momentum.domain.models.Sermon
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
 
@@ -64,103 +62,110 @@ fun SermonScreen(
                     color = Color(Constants.MOMENTUM_ORANGE)
                 )
                 Spacer(modifier = Modifier.height(10.dp))
-                LazyVerticalGrid(
-                    modifier = Modifier.padding(horizontal = 10.dp),
-                    columns = GridCells.Fixed(2),
-                    verticalArrangement = Arrangement.spacedBy(15.dp),
-                    horizontalArrangement = Arrangement.spacedBy(15.dp)
-                ) {
-                    items(sermons) { sermon ->
-                        Card(
-                            Modifier
-                                .clickable {
-                                    val encodedUrl = URLEncoder.encode(
-                                        sermon.videoURL,
-                                        StandardCharsets.UTF_8.toString()
-                                    )
-                                    navController.navigate("play/$encodedUrl")
-                                    sermonViewModel.currentSermon = sermon
-                                }
-                                .weight(0.4f)
-                                .defaultMinSize(minHeight = 175.dp),
-                            elevation = 2.dp
+                Box(contentAlignment = Alignment.TopCenter) {
+                    Column {
+
+
+                        LazyVerticalGrid(
+                            modifier = Modifier.padding(horizontal = 10.dp),
+                            columns = GridCells.Fixed(2),
+                            verticalArrangement = Arrangement.spacedBy(15.dp),
+                            horizontalArrangement = Arrangement.spacedBy(15.dp)
                         ) {
-                            Column(
-                                Modifier.fillMaxHeight(),
-                                verticalArrangement = Arrangement.Top
-                            ) {
-                                AsyncImage(
-                                    model = ImageRequest.Builder(LocalContext.current)
-                                        .data(sermon.videoThumbnail)
-                                        .crossfade(true)
-                                        .build(),
-                                    contentDescription = "Sermon thumbnail",
-                                )
-                                sermonViewModel.watchedSermons
-                                    .firstOrNull {
-                                        it.id == sermon.id
-                                    }?.let {
-                                        LinearProgressIndicator(
-                                            progress = it.last_played_percentage.toFloat() / 100.0f,
-                                            color = Color(Constants.MOMENTUM_ORANGE),
-                                            modifier = Modifier.height(4.dp)
+
+                            if (sermons.isEmpty()) {
+                                items(MutableList(12) {
+                                    Sermon(
+                                        id = "10001",
+                                        series = "Pre-Decide: Better Choices, Better Life",
+                                        title = "The Quality of Your Decisions Determines the Quality of Your Life",
+                                        preacher = "Charlie Arms",
+                                        videoThumbnail = "https://6a0037bf541aecc8a1de-c14fd83124cd2a87055253bd0f7faf70.ssl.cf2.rackcdn.com/video-thumb/1/0e14909937_1664818532_10-02-22-worship-servicetrim.jpg",
+                                        videoURL = "",
+                                        date = "Oct 2, 2022"
+                                    )
+                                }
+                                ) {
+                                    SermonCard(
+                                        isPlaceholder = true,
+                                        sermon = it,
+                                        watchedSermons = sermonViewModel.watchedSermons,
+                                        modifier = Modifier
+                                            .weight(0.4f)
+                                            .defaultMinSize(minHeight = 175.dp)
+                                    )
+                                }
+                            } else {
+                                items(sermons) { sermon ->
+                                    SermonCard(
+                                        sermon = sermon,
+                                        watchedSermons = sermonViewModel.watchedSermons,
+                                        modifier = Modifier
+                                            .clickable {
+                                                val encodedUrl = URLEncoder.encode(
+                                                    sermon.videoURL,
+                                                    StandardCharsets.UTF_8.toString()
+                                                )
+                                                navController.navigate("play/$encodedUrl")
+                                                sermonViewModel.currentSermon = sermon
+                                            }
+                                            .weight(0.4f)
+                                            .defaultMinSize(minHeight = 175.dp)
+                                    )
+                                }
+                            }
+
+                            item {
+                                if (sermons.isNotEmpty() && canLoadMoreSermons) {
+                                    val offset = LocalConfiguration.current.screenWidthDp * 0.25
+                                    Button(
+                                        modifier = Modifier.offset(x = offset.dp),
+                                        colors = ButtonDefaults.buttonColors(
+                                            backgroundColor = Color(
+                                                Constants.MOMENTUM_ORANGE
+                                            )
+                                        ),
+                                        onClick = { sermonViewModel.loadMoreSermons() }) {
+                                        Text(text = "Load More", color = Color.White)
+                                    }
+                                }
+                            }
+                            item {
+                                Column {
+                                    Spacer(modifier = Modifier.height(if (canLoadMoreSermons) 55.dp else 20.dp))
+                                    BottomSpacing()
+                                }
+                            }
+                        }
+                    }
+                    Column {
+                        AnimatedVisibility(visible = sermons.isEmpty()) {
+                            Column(Modifier.size(30.dp)) {
+                                Surface(
+                                    elevation = 4.dp,
+                                    shape = CircleShape
+                                ) {
+                                    Box(
+                                        Modifier
+                                            .padding(5.dp)
+                                            .size(25.dp)
+                                            .background(
+                                                color = Color.White,
+                                                shape = CircleShape
+                                            ),
+                                        contentAlignment = Alignment.Center
+                                    ) {
+                                        CircularProgressIndicator(
+                                            color = Color.Black,
+                                            modifier = Modifier
+                                                .size(25.dp)
                                         )
-                                    } ?: kotlin.run {
-                                    LinearProgressIndicator(
-                                        progress = 0f,
-                                        color = Color.Gray,
-                                        modifier = Modifier.height(4.dp)
-                                    )
-                                }
-                                Column(Modifier.padding(8.dp)) {
-
-                                    Text(
-                                        text = sermon.series,
-                                        fontSize = 10.sp,
-                                        maxLines = 1,
-                                        overflow = TextOverflow.Ellipsis
-                                    )
-                                    Text(
-                                        text = sermon.title,
-                                        fontSize = 12.sp,
-                                        fontWeight = FontWeight.Bold,
-                                        maxLines = 1,
-                                        overflow = TextOverflow.Ellipsis
-                                    )
-                                    Text(
-                                        text = sermon.preacher,
-                                        fontSize = 10.sp,
-                                        color = Color.Gray
-                                    )
-                                    Text(text = sermon.date, fontSize = 8.sp)
+                                    }
                                 }
                             }
-                        }
-                    }
-
-                    item {
-                        if (sermons.isNotEmpty() && canLoadMoreSermons) {
-                            val offset = LocalConfiguration.current.screenWidthDp * 0.25
-                            Button(
-                                modifier = Modifier.offset(x = offset.dp),
-                                colors = ButtonDefaults.buttonColors(
-                                    backgroundColor = Color(
-                                        Constants.MOMENTUM_ORANGE
-                                    )
-                                ),
-                                onClick = { sermonViewModel.loadMoreSermons() }) {
-                                Text(text = "Load More", color = Color.White)
-                            }
-                        }
-                    }
-                    item {
-                        Column {
-                            Spacer(modifier = Modifier.height(if (canLoadMoreSermons) 55.dp else 20.dp))
-                            BottomSpacing()
                         }
                     }
                 }
-
             }
         }
     }

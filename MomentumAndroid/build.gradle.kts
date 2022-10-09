@@ -82,6 +82,8 @@ dependencies {
     // Status Bar
     implementation ("com.google.accompanist:accompanist-systemuicontroller:0.25.0")
     implementation ("com.google.accompanist:accompanist-insets:0.25.0")
+    //Placeholder
+    implementation("com.google.accompanist:accompanist-placeholder-material:0.26.5-rc")
     // Stripe Android SDK
     implementation ("com.stripe:stripe-android:19.0.0")
     //Koin

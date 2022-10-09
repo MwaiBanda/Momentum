@@ -128,7 +128,7 @@ fun PlayerScreen(
         modifier = Modifier
             .background(Color.Black)
             .fillMaxSize()
-            .padding(if (context.resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) 30.dp else 0.dp),
+            .padding(if (context.resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) 35.dp else 0.dp),
         factory = { playerView }
     )
 }
