@@ -1,5 +1,5 @@
-# Momentum Church: Indiana (iOS) 
-Payments & Sermon Streaming App for Momentum Church in Indiana. Built in Kotlin Multiplatform Mobile(KMM) with SwiftUI, the app allows users to make payments to the church, stream past sermons, edit & update account information. Persists data locally with SQLDelight and Remote with Firebase. The apps are architected to emphasize code sharing, so all core business logic written in the SDK, Android & iOS app only contain presentation logic, viewmodels and tests.
+# Momentum Church: Indiana (iOS & iPadOS) 
+Payments & Sermon Streaming App for Momentum Church in Indiana. Built in Kotlin Multiplatform Mobile(KMM) with SwiftUI, the app allows users to make payments to the church, stream past sermons, edit & update account information. Persists data locally with SQLDelight and Remote with Firebase. The apps are architected to emphasize code sharing, so all core business logic written in the SDK. Android, iOS & iPadOS apps only contain presentation logic, viewmodels and tests.
 
 ## Dependencies
 - Stripe
