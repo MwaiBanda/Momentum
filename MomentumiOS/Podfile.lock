@@ -1,5 +1,5 @@
 PODS:
-  - MomentumSDK (1.0.0)
+  - MomentumSDK (1.0.1)
 
 DEPENDENCIES:
   - MomentumSDK (from `../MomentumSDK`)
@@ -9,7 +9,7 @@ EXTERNAL SOURCES:
     :path: "../MomentumSDK"
 
 SPEC CHECKSUMS:
-  MomentumSDK: b14b258333c927cf6ed12b4d73605b6a695b332c
+  MomentumSDK: ea715da606772098b5b89720e67a9eff399b07fd
 
 PODFILE CHECKSUM: c2e0e52538b12ddb98163dc5cb664394fdf32484
 

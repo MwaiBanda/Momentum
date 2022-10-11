@@ -80,12 +80,12 @@ fun SermonScreen(
                                         series = "Pre-Decide: Better Choices, Better Life",
                                         title = "The Quality of Your Decisions Determines the Quality of Your Life",
                                         preacher = "Charlie Arms",
-                                        videoThumbnail = "https://6a0037bf541aecc8a1de-c14fd83124cd2a87055253bd0f7faf70.ssl.cf2.rackcdn.com/video-thumb/1/0e14909937_1664818532_10-02-22-worship-servicetrim.jpg",
+                                        videoThumbnail = "thumbnail",
                                         videoURL = "",
                                         date = "Oct 2, 2022"
                                     )
                                 }
-                                ) {
+                                ) { 
                                     SermonCard(
                                         isPlaceholder = true,
                                         sermon = it,

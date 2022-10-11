@@ -11,8 +11,8 @@ android {
         applicationId = "com.mwaibanda.momentum.android"
         minSdk = 21
         targetSdk = 31
-        versionCode = 9
-        versionName = "1.0.7"
+        versionCode = 13
+        versionName = "1.1.1"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
@@ -80,8 +80,8 @@ dependencies {
     // Icons exts
     implementation( "androidx.compose.material:material-icons-extended:1.2.1")
     // Status Bar
-    implementation ("com.google.accompanist:accompanist-systemuicontroller:0.25.0")
-    implementation ("com.google.accompanist:accompanist-insets:0.25.0")
+    implementation ("com.google.accompanist:accompanist-systemuicontroller:0.26.5-rc")
+    implementation ("com.google.accompanist:accompanist-insets:0.26.5-rc")
     //Placeholder
     implementation("com.google.accompanist:accompanist-placeholder-material:0.26.5-rc")
     // Stripe Android SDK

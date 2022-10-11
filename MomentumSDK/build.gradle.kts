@@ -124,5 +124,6 @@ sqldelight {
         packageName = "com.mwaibanda.momentum.data.db"
         sourceFolders = listOf("kotlin")
         linkSqlite = true
+        version = "1.0.1"
     }
 }

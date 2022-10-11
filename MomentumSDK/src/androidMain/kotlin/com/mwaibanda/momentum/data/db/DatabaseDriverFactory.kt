@@ -6,6 +6,6 @@ import com.squareup.sqldelight.db.SqlDriver
 
 actual class DatabaseDriverFactory(private val context:  Context) {
     actual fun createDriver(): SqlDriver {
-        return AndroidSqliteDriver(MomentumDatabase.Schema, context, "momentumTest.db")
+        return AndroidSqliteDriver(MomentumDatabase.Schema, context, "momentumDatabase.db")
     }
 }

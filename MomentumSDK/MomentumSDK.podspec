@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
     spec.name                     = 'MomentumSDK'
-    spec.version                  = '1.0.0'
+    spec.version                  = '1.0.1'
     spec.homepage                 = 'https://momentumindiana.org'
     spec.source                   = { :http=> ''}
     spec.authors                  = 'Mwai Banda'
