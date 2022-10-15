@@ -22,7 +22,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.mwaibanda.momentum.android.core.utils.Constants
+import com.mwaibanda.momentum.android.core.utils.C
 import com.mwaibanda.momentum.android.presentation.auth.AuthViewModel
 import com.mwaibanda.momentum.android.presentation.components.BasePlainExpandableCard
 import com.mwaibanda.momentum.android.presentation.components.BottomSpacing
@@ -83,7 +83,7 @@ fun ProfileScreen(
                         text = MultiplatformConstants.PROFILE_SUBHEADING.uppercase(),
                         style = MaterialTheme.typography.caption,
                         modifier = Modifier.padding(horizontal = 10.dp),
-                        color = Color(Constants.MOMENTUM_ORANGE)
+                        color = Color(C.MOMENTUM_ORANGE)
                     )
                 }
                 Row(
@@ -97,7 +97,7 @@ fun ProfileScreen(
                             .size(70.dp)
                             .border(
                                 5.dp,
-                                Color(Constants.MOMENTUM_ORANGE),
+                                Color(C.MOMENTUM_ORANGE),
                                 CircleShape
                             ),
                         contentAlignment = Alignment.Center
@@ -106,7 +106,7 @@ fun ProfileScreen(
                             Modifier
                                 .clip(CircleShape)
                                 .size(50.dp)
-                                .background(Color(Constants.MOMENTUM_ORANGE))
+                                .background(Color(C.MOMENTUM_ORANGE))
                                 .padding(5.dp),
                             contentAlignment = Alignment.Center
                         ) {
@@ -354,12 +354,12 @@ fun ProfileScreen(
                                     .fillMaxWidth()
                                     .height(55.dp),
                                 shape = RoundedCornerShape(10.dp),
-                                border = BorderStroke(2.dp, Color(Constants.MOMENTUM_ORANGE))
+                                border = BorderStroke(2.dp, Color(C.MOMENTUM_ORANGE))
                             ) {
                                 Text(
                                     text = MultiplatformConstants.DELETE_ACCOUNT,
                                     fontWeight = FontWeight.Medium,
-                                    color = Color(Constants.MOMENTUM_ORANGE)
+                                    color = Color(C.MOMENTUM_ORANGE)
                                 )
                             }
                         }

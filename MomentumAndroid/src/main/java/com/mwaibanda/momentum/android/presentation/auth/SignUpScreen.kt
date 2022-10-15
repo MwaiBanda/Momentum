@@ -15,7 +15,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
-import com.mwaibanda.momentum.android.core.utils.Constants
+import com.mwaibanda.momentum.android.core.utils.C
 import com.mwaibanda.momentum.android.presentation.components.IconTextfield
 import com.mwaibanda.momentum.android.presentation.components.PasswordTextField
 import com.mwaibanda.momentum.android.presentation.profile.ProfileViewModel
@@ -128,7 +128,7 @@ fun SignUpScreen(
                     .fillMaxWidth(0.9f)
                     .height(55.dp),
                 shape = RoundedCornerShape(10.dp),
-                colors = ButtonDefaults.buttonColors(backgroundColor = Color(Constants.MOMENTUM_ORANGE))
+                colors = ButtonDefaults.buttonColors(backgroundColor = Color(C.MOMENTUM_ORANGE))
             ) {
                 Text(
                     text = "Sign Up",

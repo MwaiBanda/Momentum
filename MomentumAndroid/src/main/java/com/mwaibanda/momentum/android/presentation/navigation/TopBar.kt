@@ -19,7 +19,7 @@ import androidx.navigation.NavController
 import com.google.accompanist.insets.LocalWindowInsets
 import com.google.accompanist.insets.rememberInsetsPaddingValues
 import com.mwaibanda.momentum.android.R
-import com.mwaibanda.momentum.android.core.utils.Constants
+import com.mwaibanda.momentum.android.core.utils.C
 import com.mwaibanda.momentum.android.core.utils.NavigationRoutes
 import com.mwaibanda.momentum.android.core.utils.ScreenConfiguration
 
@@ -53,9 +53,9 @@ fun TopBar(navController: NavController, currentRoute: String?) {
                         Icon(
                             Icons.Filled.ArrowBackIosNew,
                             "",
-                            tint = Color(Constants.MOMENTUM_ORANGE)
+                            tint = Color(C.MOMENTUM_ORANGE)
                         )
-                        Text(text = "Back", color = Color(Constants.MOMENTUM_ORANGE))
+                        Text(text = "Back", color = Color(C.MOMENTUM_ORANGE))
                     }
                 }
             if (ScreenConfiguration.ScreensWithTopBarIcons.screens.contains(currentRoute).not())

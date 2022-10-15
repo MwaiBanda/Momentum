@@ -17,7 +17,7 @@ import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.mwaibanda.momentum.android.R
-import com.mwaibanda.momentum.android.core.utils.Constants
+import com.mwaibanda.momentum.android.core.utils.C
 import com.mwaibanda.momentum.android.core.utils.NavigationRoutes
 import com.mwaibanda.momentum.android.presentation.components.BottomSpacing
 
@@ -52,7 +52,7 @@ fun PaymentFailureScreen(navController: NavController) {
             Text(
                 text = "Payment Failed",
                 fontWeight = FontWeight.ExtraBold,
-                color = Color(Constants.MOMENTUM_ORANGE),
+                color = Color(C.MOMENTUM_ORANGE),
                 style = MaterialTheme.typography.h5,
                 modifier = Modifier.padding(10.dp)
             )
@@ -76,7 +76,7 @@ fun PaymentFailureScreen(navController: NavController) {
                     .fillMaxWidth(0.9f)
                     .height(55.dp),
                 shape = RoundedCornerShape(10.dp),
-                colors = ButtonDefaults.buttonColors(backgroundColor = Color(Constants.MOMENTUM_ORANGE))
+                colors = ButtonDefaults.buttonColors(backgroundColor = Color(C.MOMENTUM_ORANGE))
             ) {
                 Text(
                     text = "Back",

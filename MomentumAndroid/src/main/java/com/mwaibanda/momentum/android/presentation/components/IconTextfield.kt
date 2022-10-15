@@ -16,7 +16,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
-import com.mwaibanda.momentum.android.core.utils.Constants
+import com.mwaibanda.momentum.android.core.utils.C
 
 @Composable
 fun IconTextfield(
@@ -33,7 +33,7 @@ fun IconTextfield(
         onValueChange = onTextChange,
         colors = TextFieldDefaults.textFieldColors(
             backgroundColor = Color.Transparent,
-            cursorColor = Color(Constants.MOMENTUM_ORANGE),
+            cursorColor = Color(C.MOMENTUM_ORANGE),
             disabledLabelColor = Color.White,
             focusedIndicatorColor = Color.Transparent,
             focusedLabelColor = Color.Transparent,

@@ -13,7 +13,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.mwaibanda.momentum.android.core.utils.Constants
+import com.mwaibanda.momentum.android.core.utils.C
 import com.mwaibanda.momentum.android.core.utils.NavigationRoutes
 import com.mwaibanda.momentum.android.core.utils.ScreenConfiguration
 
@@ -40,7 +40,7 @@ fun BottomBar(navController: NavController, currentRoute: String?) {
                             )
                         )
                     },
-                    selectedContentColor = Color(Constants.MOMENTUM_ORANGE),
+                    selectedContentColor = Color(C.MOMENTUM_ORANGE),
                     alwaysShowLabel = false,
                     selected = currentRoute == bottomTab.route,
                     onClick = {

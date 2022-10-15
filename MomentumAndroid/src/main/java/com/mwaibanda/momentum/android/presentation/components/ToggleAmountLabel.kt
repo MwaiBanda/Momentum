@@ -20,7 +20,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.mwaibanda.momentum.android.core.utils.Constants
+import com.mwaibanda.momentum.android.core.utils.C
 
 @Composable
 fun ToggleAmountLabel(
@@ -57,7 +57,7 @@ fun ToggleAmountLabel(
                     }
                     .border(
                         2.dp,
-                        if (isSelected) Color(Constants.MOMENTUM_ORANGE) else Color.Gray,
+                        if (isSelected) Color(C.MOMENTUM_ORANGE) else Color.Gray,
                         CircleShape
                     ),
                 contentAlignment = Alignment.Center
@@ -66,7 +66,7 @@ fun ToggleAmountLabel(
                     Modifier
                         .clip(CircleShape)
                         .size(15.dp)
-                        .background(if (isSelected) Color(Constants.MOMENTUM_ORANGE) else Color.Gray)
+                        .background(if (isSelected) Color(C.MOMENTUM_ORANGE) else Color.Gray)
                         .padding(5.dp)
                 )
 

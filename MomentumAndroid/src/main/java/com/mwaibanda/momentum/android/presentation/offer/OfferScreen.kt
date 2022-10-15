@@ -2,7 +2,6 @@ package com.mwaibanda.momentum.android.presentation.offer
 
 import android.util.Log
 import androidx.activity.ComponentActivity
-import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -25,9 +24,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.mwaibanda.momentum.android.MainActivity
 import com.mwaibanda.momentum.android.core.utils.AppReviewRequester
-import com.mwaibanda.momentum.android.core.utils.Constants
+import com.mwaibanda.momentum.android.core.utils.C
 import com.mwaibanda.momentum.android.core.utils.NavigationRoutes
 import com.mwaibanda.momentum.android.presentation.auth.AuthViewModel
 import com.mwaibanda.momentum.android.presentation.components.BlurredBackground
@@ -108,8 +106,8 @@ fun OfferScreen(
                         .height(55.dp),
                     shape = RoundedCornerShape(10.dp),
                     colors = ButtonDefaults.buttonColors(
-                        backgroundColor = Color(Constants.MOMENTUM_ORANGE),
-                        disabledBackgroundColor = Color(Constants.MOMENTUM_ORANGE).copy(alpha = 0.55f)
+                        backgroundColor = Color(C.MOMENTUM_ORANGE),
+                        disabledBackgroundColor = Color(C.MOMENTUM_ORANGE).copy(alpha = 0.55f)
                     )
                 ) {
                     Text(

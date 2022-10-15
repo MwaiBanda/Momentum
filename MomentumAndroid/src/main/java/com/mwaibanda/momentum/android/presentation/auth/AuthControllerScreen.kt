@@ -25,7 +25,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.mwaibanda.momentum.android.core.utils.Constants
+import com.mwaibanda.momentum.android.core.utils.C
 import com.mwaibanda.momentum.android.presentation.components.BlurredBackground
 import com.mwaibanda.momentum.android.presentation.components.TranslucentBackground
 import com.mwaibanda.momentum.android.presentation.profile.ProfileViewModel
@@ -138,7 +138,7 @@ fun AuthControllerScreen(
                                            append("${ if (showSignUp) "Already" else "Don't" } have an account? ")
                                            withStyle(
                                                style = SpanStyle(
-                                                   color = Color(Constants.MOMENTUM_ORANGE),
+                                                   color = Color(C.MOMENTUM_ORANGE),
                                                    fontWeight = FontWeight.Bold
                                                )
                                            ) {

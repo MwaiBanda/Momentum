@@ -7,15 +7,13 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.blur
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.mwaibanda.momentum.android.core.utils.Constants
+import com.mwaibanda.momentum.android.core.utils.C
 
 @Composable
 fun TranslucentBackground(modifier: Modifier, content: @Composable () -> Unit) {
@@ -44,8 +42,8 @@ fun TranslucentBackground(modifier: Modifier, content: @Composable () -> Unit) {
                             .border(
                                 width = 3.dp, brush = Brush.linearGradient(
                                     listOf(
-                                        Color(Constants.MOMENTUM_ORANGE).copy(alpha = 0.5f),
-                                        Color(Constants.MOMENTUM_ORANGE).copy(alpha = 0.3f),
+                                        Color(C.MOMENTUM_ORANGE).copy(alpha = 0.5f),
+                                        Color(C.MOMENTUM_ORANGE).copy(alpha = 0.3f),
                                         Color.White.copy(alpha = 0.2f),
                                         Color.Transparent,
                                         Color.White.copy(alpha = 0.2f)

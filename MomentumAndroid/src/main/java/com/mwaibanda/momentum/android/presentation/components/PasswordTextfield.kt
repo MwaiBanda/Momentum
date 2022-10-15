@@ -15,7 +15,7 @@ import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.*
 import androidx.compose.ui.unit.dp
-import com.mwaibanda.momentum.android.core.utils.Constants
+import com.mwaibanda.momentum.android.core.utils.C
 
 @Composable
 fun PasswordTextField(
@@ -41,7 +41,7 @@ fun PasswordTextField(
         shape = RoundedCornerShape(10.dp),
         colors = TextFieldDefaults.textFieldColors(
             backgroundColor = Color.Transparent,
-            cursorColor = Color(Constants.MOMENTUM_ORANGE),
+            cursorColor = Color(C.MOMENTUM_ORANGE),
             disabledLabelColor = Color.White,
             focusedIndicatorColor = Color.Transparent,
             focusedLabelColor = Color.Transparent,

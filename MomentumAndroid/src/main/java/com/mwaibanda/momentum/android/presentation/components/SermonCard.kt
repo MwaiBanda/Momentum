@@ -1,14 +1,16 @@
 package com.mwaibanda.momentum.android.presentation.components
 
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Card
-import androidx.compose.material.LinearProgressIndicator
-import androidx.compose.material.Text
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -21,7 +23,8 @@ import coil.request.ImageRequest
 import com.google.accompanist.placeholder.PlaceholderHighlight
 import com.google.accompanist.placeholder.placeholder
 import com.google.accompanist.placeholder.shimmer
-import com.mwaibanda.momentum.android.core.utils.Constants
+import com.mwaibanda.momentum.android.R
+import com.mwaibanda.momentum.android.core.utils.C
 import com.mwaibanda.momentum.data.db.MomentumSermon
 import com.mwaibanda.momentum.domain.models.Sermon
 
@@ -42,26 +45,22 @@ fun SermonCard(
         ) {
             Box {
 
-                    Image(
-                        painter = painterResource(id = com.mwaibanda.momentum.android.R.drawable.thumbnail),
-                        contentDescription = "Video thumbnail placeholder",
-                        modifier = Modifier
-                            .placeholder(
-                                visible = true,
-                                color = Color.Gray,
-                                shape = RoundedCornerShape(4.dp),
-                                highlight = PlaceholderHighlight.shimmer(
-                                    highlightColor = Color.White,
-                                ),
-                            )
-                    )
+                Image(
+                    painter = painterResource(id = com.mwaibanda.momentum.android.R.drawable.thumbnail),
+                    contentDescription = "Video thumbnail placeholder",
+                    modifier = Modifier
+                        .placeholder(
+                            visible = true,
+                            color = Color.Gray,
+                            shape = RoundedCornerShape(4.dp),
+                            highlight = PlaceholderHighlight.shimmer(
+                                highlightColor = Color.White,
+                            ),
+                        )
+                )
                 if (isPlaceholder.not()) {
-                    AsyncImage(
-                        model = ImageRequest.Builder(LocalContext.current)
-                            .data(sermon.videoThumbnail)
-                            .crossfade(true)
-                            .build(),
-                        contentDescription = "Sermon thumbnail",
+                    Box(
+                        contentAlignment = Alignment.TopEnd,
                         modifier = Modifier
                             .placeholder(
                                 visible = isPlaceholder,
@@ -71,7 +70,34 @@ fun SermonCard(
                                     highlightColor = Color.White,
                                 ),
                             )
-                    )
+                    ) {
+                        AsyncImage(
+                            model = ImageRequest.Builder(LocalContext.current)
+                                .data(sermon.videoThumbnail)
+                                .crossfade(true)
+                                .build(),
+                            contentDescription = "Sermon thumbnail"
+                        )
+                        IconButton(
+                            onClick = { /*TODO*/ },
+                            modifier = Modifier.offset(y = -(7).dp, x = 5.dp)
+                        ) {
+                            Box(contentAlignment = Alignment.Center) {
+                                Box(
+                                    modifier = Modifier
+                                        .size(25.dp)
+                                        .clip(CircleShape)
+                                        .background(Color.White)
+                                )
+                                Icon(
+                                    painter = painterResource(id = R.drawable.cards_heart),
+                                    contentDescription = "",
+                                    tint = Color.Gray,
+                                    modifier = Modifier.size(15.dp)
+                                )
+                            }
+                        }
+                    }
                 }
             }
             watchedSermons
@@ -80,7 +106,7 @@ fun SermonCard(
                 }?.let {
                     LinearProgressIndicator(
                         progress = it.last_played_percentage.toFloat() / 100.0f,
-                        color = Color(Constants.MOMENTUM_ORANGE),
+                        color = Color(C.MOMENTUM_ORANGE),
                         modifier = Modifier.height(4.dp)
                     )
                 } ?: kotlin.run {

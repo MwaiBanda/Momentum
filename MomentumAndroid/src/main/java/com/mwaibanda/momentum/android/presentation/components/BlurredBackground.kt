@@ -15,7 +15,7 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.mwaibanda.momentum.android.core.utils.Constants
+import com.mwaibanda.momentum.android.core.utils.C
 
 @Composable
 fun BlurredBackground(hasHeaderPadding: Boolean = true, content: @Composable () -> Unit){
@@ -26,7 +26,7 @@ fun BlurredBackground(hasHeaderPadding: Boolean = true, content: @Composable () 
                 .background(
                     Brush.linearGradient(
                         colors = listOf(
-                            Color(Constants.MOMENTUM_ORANGE),
+                            Color(C.MOMENTUM_ORANGE),
                             Color.LightGray
                         )
                     )
@@ -42,7 +42,7 @@ fun BlurredBackground(hasHeaderPadding: Boolean = true, content: @Composable () 
                     drawCircle(
                         brush = Brush.radialGradient(
                             colors = listOf(
-                                Color(Constants.MOMENTUM_ORANGE),
+                                Color(C.MOMENTUM_ORANGE),
                                 Color.Transparent,
                             ),
                             center = Offset(x = 0.4f, y = 0.2f),
@@ -67,7 +67,7 @@ fun BlurredBackground(hasHeaderPadding: Boolean = true, content: @Composable () 
                     drawCircle(
                         brush = Brush.radialGradient(
                             colors = listOf(
-                                Color(Constants.MOMENTUM_ORANGE),
+                                Color(C.MOMENTUM_ORANGE),
                                 Color.Transparent,
                             ),
                             center = Offset(x = 0.4f, y = size.height),
@@ -90,7 +90,7 @@ fun BlurredBackground(hasHeaderPadding: Boolean = true, content: @Composable () 
                     drawCircle(
                         brush = Brush.radialGradient(
                             colors = listOf(
-                                Color(Constants.MOMENTUM_ORANGE),
+                                Color(C.MOMENTUM_ORANGE),
                                 Color.Transparent,
                             ),
                             center = Offset(x = size.width - 0.8f, y = size.height),

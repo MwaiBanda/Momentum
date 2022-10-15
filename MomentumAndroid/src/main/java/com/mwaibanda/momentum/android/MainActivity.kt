@@ -5,7 +5,6 @@ import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.foundation.layout.padding
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.navigation.compose.NavHost
 import com.mwaibanda.momentum.android.presentation.MomentumEntry
 import androidx.compose.ui.Modifier
@@ -18,7 +17,7 @@ import com.google.accompanist.insets.ProvideWindowInsets
 import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
 import com.google.accompanist.navigation.material.ModalBottomSheetLayout
 import com.google.accompanist.navigation.material.bottomSheet
-import com.mwaibanda.momentum.android.core.utils.Constants
+import com.mwaibanda.momentum.android.core.utils.C
 import com.mwaibanda.momentum.android.core.utils.NavigationRoutes.*
 import com.mwaibanda.momentum.android.presentation.auth.AuthControllerScreen
 import com.mwaibanda.momentum.android.presentation.navigation.LaunchScreen
@@ -29,13 +28,10 @@ import com.mwaibanda.momentum.android.presentation.payment.PaymentSummaryScreen
 import com.mwaibanda.momentum.android.presentation.profile.ProfileScreen
 import com.mwaibanda.momentum.android.presentation.sermon.PlayerScreen
 import com.mwaibanda.momentum.android.presentation.sermon.SermonScreen
-import com.mwaibanda.momentum.android.presentation.sermon.SermonViewModel
 import com.mwaibanda.momentum.android.presentation.transaction.TransactionScreen
 import com.mwaibanda.momentum.utils.MultiplatformConstants
 import com.stripe.android.paymentsheet.PaymentSheet
 import com.stripe.android.paymentsheet.PaymentSheetContract
-import kotlinx.coroutines.launch
-import org.koin.androidx.compose.getViewModel
 
 @ExperimentalMaterialNavigationApi
 class MainActivity : BaseActivity() {
@@ -116,7 +112,7 @@ class MainActivity : BaseActivity() {
                                             allowsDelayedPaymentMethods = false,
                                             primaryButtonColor = ColorStateList.valueOf(
                                                 Color(
-                                                    Constants.MOMENTUM_ORANGE
+                                                    C.MOMENTUM_ORANGE
                                                 ).hashCode()
                                             )
                                         )

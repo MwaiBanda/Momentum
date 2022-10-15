@@ -1,6 +1,7 @@
 package com.mwaibanda.momentum.android.presentation.sermon
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -8,21 +9,26 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.mwaibanda.momentum.android.core.utils.Constants
-import com.mwaibanda.momentum.android.presentation.components.BottomSpacing
-import com.mwaibanda.momentum.android.presentation.components.SermonCard
+import com.mwaibanda.momentum.android.core.utils.C
+import com.mwaibanda.momentum.android.presentation.components.*
 import com.mwaibanda.momentum.domain.models.Sermon
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
@@ -37,8 +43,15 @@ fun SermonScreen(
         sermonViewModel.fetchSermons()
     }
 
-    val sermons by sermonViewModel.sermon.collectAsState()
+    val sermons by sermonViewModel.filteredSermons.collectAsState()
+    val searchTerm by sermonViewModel.searchTerm.collectAsState()
     val canLoadMoreSermons by sermonViewModel.canLoadMoreSermons.collectAsState()
+    var showSearchBar by remember { mutableStateOf(false) }
+    val searchOptionsHeight by animateDpAsState(targetValue = if (showSearchBar) 57.dp else 0.dp)
+    var showFilterBar by remember { mutableStateOf(false) }
+    val filterOptionsHeight by animateDpAsState(targetValue = if (showFilterBar) 145.dp else 0.dp)
+    val optionsHeight by animateDpAsState(targetValue = if (showFilterBar) filterOptionsHeight else searchOptionsHeight)
+    val focusManager = LocalFocusManager.current
 
     Column(
         Modifier.fillMaxSize(),
@@ -48,19 +61,110 @@ fun SermonScreen(
         Column {
             Column {
                 Spacer(modifier = Modifier.height(65.dp))
-                Text(
-                    text = "Sermons",
-                    fontWeight = FontWeight.ExtraBold,
-                    style = MaterialTheme.typography.h5,
-                    modifier = Modifier.padding(10.dp)
-                )
+                Row(Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        text = "Sermons",
+                        fontWeight = FontWeight.ExtraBold,
+                        style = MaterialTheme.typography.h5,
+                        modifier = Modifier.padding(10.dp)
+                    )
+                    Row {
+                        IconButton(
+                            onClick = {
+                                showSearchBar = showSearchBar.not()
+                                showFilterBar = false
+                            },
+                            modifier = Modifier.offset(x = 16.dp)
+                        ) {
+                            if (showSearchBar) {
+                                Icon(
+                                    imageVector = Icons.Default.Close,
+                                    contentDescription = "Search Close"
+                                )
+                            } else {
+                                Icon(
+                                    imageVector = Icons.Default.Search,
+                                    contentDescription = "Search Icon"
+                                )
+                            }
+                        }
+                        IconButton(onClick = {
+                            showFilterBar = showFilterBar.not()
+                            showSearchBar = false
+                        }) {
+                            if (showFilterBar) {
+                                Icon(
+                                    imageVector = Icons.Default.Close,
+                                    contentDescription = "Filter Close"
+                                )
+                            } else {
+                                Icon(
+                                    imageVector = Icons.Default.Menu,
+                                    contentDescription = "Filter Icon"
+                                )
+                            }
+                        }
+                    }
+                }
                 Divider()
-                Text(
-                    text = "Tap to watch recent sermons".uppercase(),
-                    modifier = Modifier.padding(horizontal = 10.dp),
-                    style = MaterialTheme.typography.caption,
-                    color = Color(Constants.MOMENTUM_ORANGE)
-                )
+                if (showSearchBar || showFilterBar) {
+                    Column(
+                        Modifier
+                            .fillMaxWidth()
+                            .height(optionsHeight)
+                    ) {
+                        if (showSearchBar) {
+                            TextField(
+                                value = searchTerm,
+                                onValueChange = sermonViewModel::onSearchTermChanged,
+                                label = { Text(text = "Search for sermons") },
+                                modifier = Modifier.fillMaxWidth(),
+                                colors = TextFieldDefaults.textFieldColors(
+                                    cursorColor = Color(C.MOMENTUM_ORANGE),
+                                    focusedIndicatorColor = Color.Transparent,
+                                    unfocusedIndicatorColor = Color.Transparent,
+                                    placeholderColor = Color(C.MOMENTUM_ORANGE),
+                                    backgroundColor = Color.White,
+                                    focusedLabelColor = Color(C.MOMENTUM_ORANGE),
+
+                                    ),
+                                keyboardOptions = KeyboardOptions(
+                                    capitalization = KeyboardCapitalization.Words,
+                                    imeAction = ImeAction.Done,
+                                ),
+                                keyboardActions = KeyboardActions(onDone = {
+                                    focusManager.clearFocus()
+                                })
+                            )
+                        } else {
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                Checkbox(checked = false, onCheckedChange = {})
+                                Text(text = "Favourites")
+                            }
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                Checkbox(checked = false, onCheckedChange = {})
+                                Text(text = "Newest")
+                            }
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                Checkbox(checked = false, onCheckedChange = {})
+                                Text(text = "Oldest")
+                            }
+                        }
+                        Divider()
+                    }
+                } else {
+                    Text(
+                        text = "Tap to watch recent sermons".uppercase(),
+                        modifier = Modifier.padding(horizontal = 10.dp),
+                        style = MaterialTheme.typography.caption,
+                        color = Color(C.MOMENTUM_ORANGE)
+                    )
+                }
+
+
                 Spacer(modifier = Modifier.height(10.dp))
                 Box(contentAlignment = Alignment.TopCenter) {
                     Column {
@@ -73,7 +177,7 @@ fun SermonScreen(
                             horizontalArrangement = Arrangement.spacedBy(15.dp)
                         ) {
 
-                            if (sermons.isEmpty()) {
+                            if (sermons.isEmpty() && searchTerm.isEmpty()) {
                                 items(MutableList(12) {
                                     Sermon(
                                         id = "10001",
@@ -85,7 +189,7 @@ fun SermonScreen(
                                         date = "Oct 2, 2022"
                                     )
                                 }
-                                ) { 
+                                ) {
                                     SermonCard(
                                         isPlaceholder = true,
                                         sermon = it,
@@ -115,14 +219,15 @@ fun SermonScreen(
                                 }
                             }
 
+
                             item {
-                                if (sermons.isNotEmpty() && canLoadMoreSermons) {
+                                if (sermons.isNotEmpty() && canLoadMoreSermons && searchTerm.isEmpty()) {
                                     val offset = LocalConfiguration.current.screenWidthDp * 0.25
                                     Button(
                                         modifier = Modifier.offset(x = offset.dp),
                                         colors = ButtonDefaults.buttonColors(
                                             backgroundColor = Color(
-                                                Constants.MOMENTUM_ORANGE
+                                                C.MOMENTUM_ORANGE
                                             )
                                         ),
                                         onClick = { sermonViewModel.loadMoreSermons() }) {
@@ -139,7 +244,7 @@ fun SermonScreen(
                         }
                     }
                     Column {
-                        AnimatedVisibility(visible = sermons.isEmpty()) {
+                        AnimatedVisibility(visible = sermons.isEmpty() && searchTerm.isEmpty()) {
                             Column(Modifier.size(30.dp)) {
                                 Surface(
                                     elevation = 4.dp,

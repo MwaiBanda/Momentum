@@ -9,7 +9,6 @@ import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.EditNote
 import androidx.compose.material.icons.filled.Keyboard
 import androidx.compose.runtime.*
@@ -22,7 +21,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.mwaibanda.momentum.android.core.utils.Constants
+import com.mwaibanda.momentum.android.core.utils.C
 
 @Composable
 fun TitleTextField(title: String, text: String, onTextChange: (String) -> Unit, onCommit: () -> Unit) {
@@ -54,7 +53,7 @@ fun TitleTextField(title: String, text: String, onTextChange: (String) -> Unit, 
                 Icon(
                     imageVector = if (isTyping) Icons.Default.Keyboard else Icons.Default.EditNote,
                     contentDescription = "",
-                    tint = Color(Constants.MOMENTUM_ORANGE)
+                    tint = Color(C.MOMENTUM_ORANGE)
                 )
             }
             BasicTextField(
