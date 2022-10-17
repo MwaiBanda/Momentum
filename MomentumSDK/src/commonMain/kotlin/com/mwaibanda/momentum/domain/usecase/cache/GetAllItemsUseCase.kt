@@ -2,10 +2,10 @@ package com.mwaibanda.momentum.domain.usecase.cache
 
 import com.mwaibanda.momentum.domain.repository.CacheRepository
 
-class GetItemUseCase<out T: Any> (
+class GetAllItemsUseCase<out T: Any> (
     private val cacheRepository: CacheRepository
 ){
-    operator fun invoke(key: String): T? {
-        return cacheRepository.getItem(key = key)
+    operator fun invoke(): List<T> {
+        return cacheRepository.getAllItems()
     }
 }

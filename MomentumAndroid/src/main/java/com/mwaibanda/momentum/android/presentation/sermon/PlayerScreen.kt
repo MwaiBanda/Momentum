@@ -62,9 +62,7 @@ fun PlayerScreen(
 
     LockScreenOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR)
     LaunchedEffect(key1 = Unit) {
-        val currentSermon = sermonViewModel.watchedSermons.firstOrNull {
-            it.id == (sermonViewModel.currentSermon?.id ?: "")
-        }
+        val currentSermon = sermonViewModel.getCurrentSermon(id = sermonViewModel.currentSermon?.id ?: "")
         currentSermon?.let {
             exoPlayer.apply {
                 seekTo(it.last_played_time.toLong())

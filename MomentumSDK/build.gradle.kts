@@ -59,6 +59,8 @@ kotlin {
                 implementation("dev.gitlive:firebase-firestore:$firebase")
                 // Kotlin Serialization
                 implementation ("org.jetbrains.kotlinx:kotlinx-serialization-json:$serialization")
+                // Kotlin datetime
+                implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
                 // Multiplatform Preferences
                 implementation("com.russhwolf:multiplatform-settings-no-arg:0.9")
                 // Cache4K
@@ -124,6 +126,6 @@ sqldelight {
         packageName = "com.mwaibanda.momentum.data.db"
         sourceFolders = listOf("kotlin")
         linkSqlite = true
-        version = "1.0.1"
+        version = "1.0.2"
     }
 }

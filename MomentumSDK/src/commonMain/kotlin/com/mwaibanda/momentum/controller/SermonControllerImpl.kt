@@ -3,6 +3,7 @@ package com.mwaibanda.momentum.controller
 import com.mwaibanda.momentum.data.db.Database
 import com.mwaibanda.momentum.data.db.DatabaseDriverFactory
 import com.mwaibanda.momentum.data.db.MomentumSermon
+import com.mwaibanda.momentum.data.db.SermonFavourite
 import com.mwaibanda.momentum.domain.controller.SermonController
 import com.mwaibanda.momentum.domain.models.SermonResponse
 import kotlinx.coroutines.launch
@@ -39,5 +40,17 @@ class SermonControllerImpl(
 
     override fun getWatchedSermons(onCompletion: (List<MomentumSermon>) -> Unit) {
         onCompletion(database.getWatchedSermons())
+    }
+
+    override fun addFavouriteSermon(id: String) {
+        database.addFavouriteSermon(id = id)
+    }
+
+    override fun removeFavouriteSermon(id: String) {
+        database.deleteFavouriteSermon(id = id)
+    }
+
+    override fun getFavouriteSermons(onCompletion: (List<SermonFavourite>) -> Unit) {
+        onCompletion(database.getFavouriteSermons())
     }
 }

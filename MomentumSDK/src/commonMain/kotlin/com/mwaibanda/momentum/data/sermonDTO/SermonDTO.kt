@@ -1,6 +1,7 @@
 package com.mwaibanda.momentum.data.sermonDTO
 
 import com.mwaibanda.momentum.domain.models.Sermon
+import kotlinx.datetime.toInstant
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -17,7 +18,7 @@ data class SermonDTO(
     @SerialName("media")
     val mediaDTO: MediaDTO,
     val passages: List<String?>,
-    val preacher: String,
+    val preacher: String?,
     @SerialName("series")
     val seriesDTO: SeriesDTO,
     val slug: String?,
@@ -29,11 +30,12 @@ data class SermonDTO(
 fun SermonDTO.toSermon(): Sermon {
     return Sermon(
         id = id,
-        series = seriesDTO.title?.replace("It&#039;s", "") ?: seriesDTO.title ?: "",
-        title = title,
-        preacher = preacher,
+        series = seriesDTO.title ?: "Momentum Church",
+        title = title.replace("&#039;","'"),
+        preacher = preacher ?: "Unknown",
         videoThumbnail = mediaDTO.video_thumbnail,
         videoURL = mediaDTO.video,
-        date = dateDTO.date
+        date = dateDTO.date,
+        dateMillis = dateDTO.carbon.toInstant().toEpochMilliseconds()
     )
 }

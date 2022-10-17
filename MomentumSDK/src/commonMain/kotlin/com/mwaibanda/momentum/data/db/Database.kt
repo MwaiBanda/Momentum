@@ -177,4 +177,15 @@ internal class Database(databaseDriverFactory: DatabaseDriverFactory) {
     internal fun getWatchedSermons(): List<MomentumSermon> {
         return database.getAllWatchedSermons().executeAsList()
     }
+    internal fun getFavouriteSermons(): List<SermonFavourite> {
+        return database.getAllFavouriteSermons().executeAsList()
+    }
+
+        internal fun addFavouriteSermon(id: String) {
+        database.insertSermonFavourite(id = id)
+    }
+
+    internal fun deleteFavouriteSermon(id: String) {
+        database.deleteFavouriteSermon(id = id)
+    }
 }

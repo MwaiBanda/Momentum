@@ -39,18 +39,29 @@ fun SermonScreen(
     sermonViewModel: SermonViewModel
 ) {
     LaunchedEffect(key1 = Unit) {
-        sermonViewModel.getWatchSermons()
         sermonViewModel.fetchSermons()
+        sermonViewModel.getFavouriteSermons()
+        sermonViewModel.getWatchSermons {
+        }
+
     }
 
     val sermons by sermonViewModel.filteredSermons.collectAsState()
+    val watchedSermons by sermonViewModel.watchedSermons.collectAsState()
+    val favouriteSermons by sermonViewModel.favouriteSermons.collectAsState()
     val searchTerm by sermonViewModel.searchTerm.collectAsState()
     val canLoadMoreSermons by sermonViewModel.canLoadMoreSermons.collectAsState()
+
+    val filterFavourites by sermonViewModel.filterFavourites.collectAsState()
+    val filterOldest by sermonViewModel.filterOldest.collectAsState()
+    val filterNewest by sermonViewModel.filterNewest.collectAsState()
+
     var showSearchBar by remember { mutableStateOf(false) }
     val searchOptionsHeight by animateDpAsState(targetValue = if (showSearchBar) 57.dp else 0.dp)
     var showFilterBar by remember { mutableStateOf(false) }
     val filterOptionsHeight by animateDpAsState(targetValue = if (showFilterBar) 145.dp else 0.dp)
     val optionsHeight by animateDpAsState(targetValue = if (showFilterBar) filterOptionsHeight else searchOptionsHeight)
+
     val focusManager = LocalFocusManager.current
 
     Column(
@@ -61,7 +72,8 @@ fun SermonScreen(
         Column {
             Column {
                 Spacer(modifier = Modifier.height(65.dp))
-                Row(Modifier.fillMaxWidth(),
+                Row(
+                    Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
@@ -141,15 +153,33 @@ fun SermonScreen(
                             )
                         } else {
                             Row(verticalAlignment = Alignment.CenterVertically) {
-                                Checkbox(checked = false, onCheckedChange = {})
+                                Checkbox(
+                                    checked = filterFavourites,
+                                    onCheckedChange = sermonViewModel::setFilterFavourites,
+                                    colors = CheckboxDefaults.colors(
+                                        checkedColor = Color(C.MOMENTUM_ORANGE)
+                                    )
+                                )
                                 Text(text = "Favourites")
                             }
                             Row(verticalAlignment = Alignment.CenterVertically) {
-                                Checkbox(checked = false, onCheckedChange = {})
+                                Checkbox(
+                                    checked = filterNewest,
+                                    onCheckedChange = sermonViewModel::setFilterNewest,
+                                    colors = CheckboxDefaults.colors(
+                                        checkedColor = Color(C.MOMENTUM_ORANGE)
+                                    )
+                                )
                                 Text(text = "Newest")
                             }
                             Row(verticalAlignment = Alignment.CenterVertically) {
-                                Checkbox(checked = false, onCheckedChange = {})
+                                Checkbox(
+                                    checked = filterOldest,
+                                    onCheckedChange = sermonViewModel::setFilterOldest,
+                                    colors = CheckboxDefaults.colors(
+                                        checkedColor = Color(C.MOMENTUM_ORANGE)
+                                    )
+                                )
                                 Text(text = "Oldest")
                             }
                         }
@@ -186,14 +216,14 @@ fun SermonScreen(
                                         preacher = "Charlie Arms",
                                         videoThumbnail = "thumbnail",
                                         videoURL = "",
-                                        date = "Oct 2, 2022"
+                                        date = "Oct 2, 2022",
+                                        dateMillis = 0L
                                     )
                                 }
                                 ) {
                                     SermonCard(
                                         isPlaceholder = true,
                                         sermon = it,
-                                        watchedSermons = sermonViewModel.watchedSermons,
                                         modifier = Modifier
                                             .weight(0.4f)
                                             .defaultMinSize(minHeight = 175.dp)
@@ -203,7 +233,11 @@ fun SermonScreen(
                                 items(sermons) { sermon ->
                                     SermonCard(
                                         sermon = sermon,
-                                        watchedSermons = sermonViewModel.watchedSermons,
+                                        watchedSermons = watchedSermons,
+                                        favouriteSermons = favouriteSermons,
+                                        filterOldest = filterOldest,
+                                        filterNewest = filterNewest,
+                                        searchTerm = searchTerm,
                                         modifier = Modifier
                                             .clickable {
                                                 val encodedUrl = URLEncoder.encode(
@@ -215,7 +249,13 @@ fun SermonScreen(
                                             }
                                             .weight(0.4f)
                                             .defaultMinSize(minHeight = 175.dp)
-                                    )
+                                    ) { isFavourite ->
+                                        if (isFavourite) {
+                                            sermonViewModel.addFavourite(id = sermon.id)
+                                        } else {
+                                            sermonViewModel.removeFavourite(id = sermon.id)
+                                        }
+                                    }
                                 }
                             }
 

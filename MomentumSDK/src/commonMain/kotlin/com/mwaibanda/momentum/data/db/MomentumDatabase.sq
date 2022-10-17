@@ -36,24 +36,39 @@ CREATE TABLE MomentumSermon(
     last_played_percentage INTEGER AS Int DEFAULT 0 NOT NULL
 );
 
+-- Table: SermonFavourite
+CREATE TABLE IF NOT EXISTS SermonFavourite(
+    id TEXT NOT NULL PRIMARY KEY,
+    name TEXT
+);
+
 -- CREATE
 -- insert (table: MomentumTransaction)
 insertTransaction:
 INSERT OR REPLACE INTO MomentumTransaction(description, date, amount, is_seen)
 VALUES (:description,:date, :amount, :seen);
+
 -- insert (table: MomentumUser)
 insertUser:
 INSERT OR REPLACE  INTO MomentumUser(fullname, phone, password, email, created_on, user_id)
 VALUES (:fullname, :phone, :password, :email, :createdOn, :userId);
+
 -- insert (table: MomentumBillingAddress)
 insertBillingAddress:
 INSERT OR REPLACE INTO MomentumBillingAddress(street_address, apt, city, zip_code, user_id)
 VALUES (:streetAddress, :apt, :city, :zipCode, :userId);
+
 -- CREATE
 -- insert (table: MomentumTransaction)
 insertSermon:
 INSERT OR REPLACE INTO MomentumSermon(id, last_played_time, last_played_percentage)
 VALUES (:id,:lastPlayedTime, :lastPlayedPercentage);
+
+-- CREATE
+-- insert (table: SermonFavourite)
+insertSermonFavourite:
+INSERT OR REPLACE INTO SermonFavourite(id)
+VALUES (:id);
 
 -- READ: (table: MomentumTransaction)
 -- get all transactions (table: MomentumTransaction)
@@ -61,7 +76,11 @@ getAllTransactions:
 SELECT *
 FROM MomentumTransaction;
 
-
+-- READ: (table: SermonFavourite)
+-- get all sermon favourites (table: SermonFavourite)
+getAllFavouriteSermons:
+SELECT *
+FROM SermonFavourite;
 
 -- READ: (table: MomentumUser)
 -- get user by Id (table: MomentumUser)
@@ -89,16 +108,19 @@ updateUserFullnameByUserId:
 UPDATE MomentumUser
 SET fullname = :fullname
 WHERE user_id = :userId;
+
 -- update user(phon) by Id (table: MomentumUser)
 updateUserPhoneByUserId:
 UPDATE MomentumUser
 SET phone = :phone
 WHERE user_id = :userId;
+
 -- update user(email) by Id (table: MomentumUser)
 updateUserEmailByUserId:
 UPDATE MomentumUser
 SET email = :email
 WHERE user_id = :userId;
+
 -- update user(password) by Id (table: MomentumUser)
 updateUserPasswordUserId:
 UPDATE MomentumUser
@@ -111,16 +133,19 @@ updateBillingStreetByUserId:
 UPDATE MomentumBillingAddress
 SET street_address = :streetAddress
 WHERE user_id = :userId;
+
 -- update address(apt) by Id (table: MomentumBillingAddress)
 updateBillingAptByUserId:
 UPDATE MomentumBillingAddress
 SET apt = :apt
 WHERE user_id = :userId;
+
 -- update address(city) by Id (table: MomentumBillingAddress)
 updateBillingCityByUserId:
 UPDATE MomentumBillingAddress
 SET city = :city
 WHERE user_id = :userId;
+
 -- update address(zipCode) by Id (table: MomentumBillingAddress)
 updateBillingZipCodeByUserId:
 UPDATE MomentumBillingAddress
@@ -132,6 +157,7 @@ WHERE user_id = :userId;
 deleteAllTransactions:
 DELETE
 FROM MomentumTransaction;
+
 -- delete transactions by Id (table: MomentumTransaction)
 deleteTransactionById:
 DELETE
@@ -151,3 +177,11 @@ deleteBillingByUserId:
 DELETE
 FROM MomentumBillingAddress
 WHERE user_id = :userId;
+
+
+-- DELETE: (table: SermonFavourite)
+-- delete sermon favourites (table: SermonFavourite)
+deleteFavouriteSermon:
+DELETE
+FROM SermonFavourite
+WHERE id = :id;

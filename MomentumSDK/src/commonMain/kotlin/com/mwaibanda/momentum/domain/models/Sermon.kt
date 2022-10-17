@@ -11,4 +11,5 @@ data class Sermon(
     val videoThumbnail: String,
     val videoURL: String,
     val date: String,
+    val dateMillis: Long
 )

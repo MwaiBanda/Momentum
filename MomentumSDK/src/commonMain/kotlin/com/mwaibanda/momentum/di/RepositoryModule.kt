@@ -18,7 +18,8 @@ val repositoryModule = module {
         SermonRepositoryImpl(
             httpClient = get(),
             getItemUseCase = get(),
-            setItemUseCase = get()
+            setItemUseCase = get(),
+            getAllItemsUseCase = get()
         )
     }
 }

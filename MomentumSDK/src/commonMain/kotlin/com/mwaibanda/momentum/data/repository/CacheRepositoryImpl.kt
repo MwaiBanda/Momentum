@@ -13,4 +13,8 @@ class CacheRepositoryImpl(
     override fun <T: Any> setItem(key: String, value: T) {
         cache.put(key = key, value = value)
     }
+
+    override fun <T: Any> getAllItems(): List<T> {
+        return cache.asMap().map { it.value as T }
+    }
 }

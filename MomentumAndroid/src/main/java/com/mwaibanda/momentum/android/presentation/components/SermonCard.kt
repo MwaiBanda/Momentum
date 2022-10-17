@@ -1,5 +1,6 @@
 package com.mwaibanda.momentum.android.presentation.components
 
+import android.icu.text.StringSearch
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -7,7 +8,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -26,15 +27,48 @@ import com.google.accompanist.placeholder.shimmer
 import com.mwaibanda.momentum.android.R
 import com.mwaibanda.momentum.android.core.utils.C
 import com.mwaibanda.momentum.data.db.MomentumSermon
+import com.mwaibanda.momentum.data.db.SermonFavourite
 import com.mwaibanda.momentum.domain.models.Sermon
 
 @Composable
 fun SermonCard(
     isPlaceholder: Boolean = false,
     sermon: Sermon,
-    watchedSermons: List<MomentumSermon>,
-    modifier: Modifier = Modifier
+    watchedSermons: List<MomentumSermon> = emptyList(),
+    favouriteSermons: List<SermonFavourite> = emptyList(),
+    searchTerm: String = "",
+    filterOldest: Boolean = false,
+    filterNewest: Boolean = false,
+    modifier: Modifier = Modifier,
+    onFavouriteChange: (Boolean) -> Unit = {}
 ) {
+    var isFavourite by remember {
+        mutableStateOf(false)
+    }
+    var thumbnailHasLoaded by remember {
+        mutableStateOf(false)
+    }
+    LaunchedEffect(key1 = favouriteSermons, key2 = filterOldest, key3 = filterNewest) {
+        favouriteSermons
+            .firstOrNull {
+                it.id == sermon.id
+            }?.let {
+                isFavourite = true
+            } ?: kotlin.run {
+                isFavourite = false
+        }
+    }
+
+    LaunchedEffect(key1 = searchTerm) {
+        favouriteSermons
+            .firstOrNull {
+                it.id == sermon.id
+            }?.let {
+                isFavourite = true
+            } ?: kotlin.run {
+            isFavourite = false
+        }
+    }
     Card(
         modifier = modifier,
         elevation = 2.dp
@@ -76,25 +110,34 @@ fun SermonCard(
                                 .data(sermon.videoThumbnail)
                                 .crossfade(true)
                                 .build(),
-                            contentDescription = "Sermon thumbnail"
+                            contentDescription = "Sermon thumbnail",
+                            onSuccess = { thumbnailHasLoaded = true},
                         )
-                        IconButton(
-                            onClick = { /*TODO*/ },
-                            modifier = Modifier.offset(y = -(7).dp, x = 5.dp)
-                        ) {
-                            Box(contentAlignment = Alignment.Center) {
-                                Box(
-                                    modifier = Modifier
-                                        .size(25.dp)
-                                        .clip(CircleShape)
-                                        .background(Color.White)
-                                )
-                                Icon(
-                                    painter = painterResource(id = R.drawable.cards_heart),
-                                    contentDescription = "",
-                                    tint = Color.Gray,
-                                    modifier = Modifier.size(15.dp)
-                                )
+                        if (thumbnailHasLoaded) {
+                            IconButton(
+                                onClick = {
+                                    isFavourite = isFavourite.not()
+                                    onFavouriteChange(isFavourite)
+                                },
+                                modifier = Modifier.offset(y = -(7).dp, x = 5.dp)
+                            ) {
+                                Box(contentAlignment = Alignment.Center) {
+                                    Box(
+                                        modifier = Modifier
+                                            .size(26.dp)
+                                            .clip(CircleShape)
+                                            .background(Color.LightGray.copy(0.75f))
+                                    )
+
+                                    Icon(
+                                        painter = painterResource(id = R.drawable.cards_heart),
+                                        contentDescription = "",
+                                        tint = if (isFavourite) Color.Red else Color.DarkGray,
+                                        modifier = Modifier.size(15.dp)
+                                    )
+
+
+                                }
                             }
                         }
                     }

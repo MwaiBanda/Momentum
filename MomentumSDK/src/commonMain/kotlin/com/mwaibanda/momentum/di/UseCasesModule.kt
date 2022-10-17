@@ -1,6 +1,7 @@
 package com.mwaibanda.momentum.di
 
 import com.mwaibanda.momentum.domain.usecase.auth.*
+import com.mwaibanda.momentum.domain.usecase.cache.GetAllItemsUseCase
 import com.mwaibanda.momentum.domain.usecase.cache.GetItemUseCase
 import com.mwaibanda.momentum.domain.usecase.cache.SetItemUseCase
 import com.mwaibanda.momentum.domain.usecase.localDefaults.*
@@ -58,5 +59,6 @@ val useCasesModule = module {
      */
     single { GetItemUseCase<Any>(cacheRepository = get()) }
     single { SetItemUseCase<Any>(cacheRepository = get()) }
+    single { GetAllItemsUseCase<Any>(cacheRepository = get()) }
 }
 
