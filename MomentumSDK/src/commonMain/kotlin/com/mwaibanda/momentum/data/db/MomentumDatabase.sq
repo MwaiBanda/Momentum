@@ -37,7 +37,7 @@ CREATE TABLE MomentumSermon(
 );
 
 -- Table: SermonFavourite
-CREATE TABLE IF NOT EXISTS SermonFavourite(
+CREATE TABLE SermonFavourite(
     id TEXT NOT NULL PRIMARY KEY,
     name TEXT
 );
