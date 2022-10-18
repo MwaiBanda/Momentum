@@ -9,26 +9,113 @@
 import SwiftUI
 import AVKit
 import MomentumSDK
-
+import Combine
 
 struct SermonsView: View {
     @StateObject private var sermonViewmodel = SermonsViewModel()
     @State private var sermon: Sermon? = nil
+    @State private var showSearch = false
+    @State private var showFilter = false
+    @State private var filtered = [Sermon]()
+    @State private var disposables = Set<AnyCancellable>()
     let columns = [
         GridItem(.flexible()),
         GridItem(.flexible())
     ]
     var body: some View {
         
-        VStack {
+        VStack(spacing: 0){
+            
             Divider()
-            HStack {
-                Text("TAP TO WATCH RECENT SERMONS")
-                    .font(.caption)
-                    .foregroundColor(Color(hex: Constants.MOMENTUM_ORANGE))
-                    .padding(.leading)
-                Spacer()
+            if !showSearch && !showFilter {
+                HStack {
+                    Text("TAP TO WATCH RECENT SERMONS")
+                        .font(.caption)
+                        .foregroundColor(Color(hex: Constants.MOMENTUM_ORANGE))
+                        .padding(.leading)
+                        .padding(.leading, 5)
+                    
+                    Spacer()
+                }
+                .padding(.vertical, 5)
+            } else if showFilter {
+                HStack {
+                    Text("FILTER SERMONS")
+                        .font(.caption)
+                        .foregroundColor(Color(hex: Constants.MOMENTUM_ORANGE))
+                        .padding(.leading)
+                        .padding(.leading, 5)
+                    
+                    Spacer()
+                }
+                .padding(.top, 5)
             }
+            VStack(alignment: .leading) {
+                VStack(alignment: .leading) {
+                    
+                    if showSearch {
+                        TextField("Search For Sermons", text: $sermonViewmodel.searchTerm)
+                            .padding(.top, 5)
+
+                    }
+                    if showFilter {
+                        
+                        Button{
+                            sermonViewmodel.filterFavourites = !sermonViewmodel.filterFavourites
+                            sermonViewmodel.filterOldest = false
+                            sermonViewmodel.filterNewest = false
+                        } label: {
+                            HStack {
+                                Image(systemName:  sermonViewmodel.filterFavourites ? "checkmark.square.fill" : "square")
+                                    .imageScale(.medium)
+                                    .foregroundColor(sermonViewmodel.filterFavourites ? .init(hex: Constants.MOMENTUM_ORANGE) : .black)
+                                Text("Favourites")
+                                    .foregroundColor(.black)
+                            }
+                        }.contentShape(Rectangle())
+                        
+                        Button{
+                            sermonViewmodel.filterNewest = !sermonViewmodel.filterNewest
+                            sermonViewmodel.filterOldest = false
+                            sermonViewmodel.filterFavourites = false
+                        } label: {
+                            HStack {
+                                Image(systemName:  sermonViewmodel.filterNewest ? "checkmark.square.fill" : "square")
+                                    .imageScale(.medium)
+                                    .foregroundColor(sermonViewmodel.filterNewest ? .init(hex: Constants.MOMENTUM_ORANGE) : .black)
+                                Text("Newest")
+                                    .foregroundColor(.black)
+                            }
+                        }.contentShape(Rectangle())
+                        
+                        
+                        Button{
+                            sermonViewmodel.filterOldest = !sermonViewmodel.filterOldest
+                            sermonViewmodel.filterNewest = false
+                            sermonViewmodel.filterFavourites = false
+                        } label: {
+                            HStack {
+                                Image(systemName:  sermonViewmodel.filterOldest ? "checkmark.square.fill" : "square")
+                                    .imageScale(.medium)
+                                    .foregroundColor(sermonViewmodel.filterOldest ? .init(hex: Constants.MOMENTUM_ORANGE) : .black)
+                                Text("Oldest")
+                                    .foregroundColor(.black)
+                            }
+                        }.contentShape(Rectangle())
+                    }
+                }
+                .font(.title3)
+                .padding(.horizontal)
+                .padding(.horizontal, 5)
+                if showSearch || showFilter {
+                    Divider()
+                        .padding(.top, 5)
+                }
+            }
+            .frame(height: showSearch ? 50 : showFilter ? 130 : 0)
+            .padding(.bottom, 5)
+            
+            
             ScrollView {
                 LazyVGrid(columns: columns, spacing: 10) {
                     if sermonViewmodel.sermons.isEmpty {
@@ -43,16 +130,26 @@ struct SermonsView: View {
                                     preacher: "Charlie Arms",
                                     videoThumbnail: "thumbnail",
                                     videoURL: "",
-                                    date: "Oct 2, 2022"
+                                    date: "Oct 2, 2022",
+                                    dateMillis: Int64(0)
                                 ),
                                 playedSermons: sermonViewmodel.watchedSermons
-                            ) {
-                                self.sermon = $0
-                            }
+                            )
                         }
                     } else {
-                        ForEach(sermonViewmodel.sermons, id: \.id) { sermon in
-                            SermonCard(sermon: sermon, playedSermons: sermonViewmodel.watchedSermons) {
+                        ForEach(filtered, id: \.id) { sermon in
+                            SermonCard(
+                                sermon: sermon,
+                                playedSermons: sermonViewmodel.watchedSermons,
+                                favourite: sermonViewmodel.favourites.first(where: { $0.id == sermon.id }) != nil,
+                                onFavouriteClick: { isFavourite in
+                                    if isFavourite {
+                                        sermonViewmodel.addFavouriteSermon(id: sermon.id)
+                                    } else {
+                                        sermonViewmodel.removeFavouriteSermon(id: sermon.id)
+                                    }
+                                }
+                            ) {
                                 self.sermon = $0
                             }
                         }
@@ -70,18 +167,59 @@ struct SermonsView: View {
                         .buttonStyle(FilledButtonStyle())
                         .padding(.bottom, 25)
                     }
-                    Divider()
-                        .padding(.bottom, 10)
                 }
             }
+            .frame(height: screenBounds.height - 200)
             .redacted(reason: sermonViewmodel.sermons.isEmpty ? .placeholder : [])
         }
-        .background(Color.clear)
-        .navigationTitle("Sermons")
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar(content: {
+            
+            ToolbarItemGroup(placement: .navigationBarLeading) {
+                Text("Sermons")
+                    .font(.largeTitle)
+                    .bold()
+            }
+            
+            ToolbarItemGroup(placement: .navigationBarTrailing) {
+                HStack {
+                    Button {
+                        withAnimation(.easeInOut(duration: 0.35)) {
+                            showSearch.toggle()
+                            showFilter = false
+                            
+                        }
+                        
+                    } label: {
+                        Image(systemName: showSearch ? "xmark" : "magnifyingglass")
+                    }
+                    Button {
+                        withAnimation(.easeInOut(duration: 0.35)) {
+                            showFilter.toggle()
+                            showSearch = false
+                        }
+                    } label: {
+                        Image(systemName: showFilter ? "xmark" : "line.3.horizontal")
+                    }
+                }
+            }
+        })
         .onAppear {
             DispatchQueue.main.async {
                 sermonViewmodel.fetchSermons()
-                sermonViewmodel.getWatchedSermons()
+                sermonViewmodel.getWatchedSermons {
+                    sermonViewmodel.getFavouriteSermons()
+                }
+                sermonViewmodel.filteredSermons.sink { sermons in
+                    if !sermonViewmodel.filterNewest || !sermonViewmodel.filterOldest {
+                        filtered = sermons
+                    }
+                }.store(in: &disposables)
+                sermonViewmodel.sortedSermons.sink { sermons in
+                    if sermonViewmodel.filterNewest || sermonViewmodel.filterOldest {
+                        filtered = sermons
+                    }
+                }.store(in: &disposables)
             }
         }
         .fullScreenCover(item: $sermon) { sermon in
@@ -106,7 +244,7 @@ struct SermonsView: View {
                         last_played_time: currentTimeInSecondsRounded,
                         last_played_percentage: Int32((currentTimeInSecondsRounded / (round((sermonViewmodel.player.currentItem?.duration.seconds ?? 0) * 100) / 100)) * 100)
                     )
-                ) 
+                )
                 sermonViewmodel.resetNowPlaying()
             }
             .onAppear {

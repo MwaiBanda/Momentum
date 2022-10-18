@@ -9,19 +9,70 @@
 import MomentumSDK
 import AVFoundation
 import MediaPlayer
+import Combine
 
 class SermonsViewModel: ObservableObject  {
     @Inject private var controller: SermonController
     @Inject var player: AVPlayer
     
     @Published var sermons = [Sermon]()
+    @Published var filtered = [Sermon]()
+    @Published var watchedSermons = [MomentumSermon]()
+
     @Published var currentSermon: Sermon? = nil
     @Published var canLoadMoreSermons = true
     @Published private var currentPage = 1
-    @Published private var isPlaying = false
-    @Published private var currentSermonTitle = ""
     
-    @Published var watchedSermons = [MomentumSermon]()
+    @Published private var isPlaying = false
+    
+    @Published var filterFavourites = false
+    @Published var filterNewest = false
+    @Published var filterOldest = false
+    
+    @Published var favourites = [SermonFavourite]()
+
+
+    @Published private var currentSermonTitle = ""
+    @Published var searchTerm = ""
+
+    var filteredSermons: AnyPublisher<[Sermon], Never> {
+        Publishers
+            .CombineLatest4($sermons, $searchTerm, $favourites, $filterFavourites)
+            .map { sermons, searchTerm, favourites, filterFavourites in
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [unowned self] in
+                    if canLoadMoreSermons && !searchTerm.isEmpty {
+                        loadMoreSermons()
+                    }
+                }
+                return sermons.filter({
+                    $0.series.lowercased().contains(searchTerm.lowercased()) ||
+                    $0.title.lowercased().contains(searchTerm.lowercased()) ||
+                    $0.date.lowercased().contains(searchTerm.lowercased()) ||
+                    $0.preacher.lowercased().contains(searchTerm.lowercased()) ||
+                    searchTerm.isEmpty
+                }).filter({ sermon in
+                    filterFavourites  && (favourites.first(where: { $0.id == sermon.id }) != nil) ||
+                    favourites.isEmpty ||
+                    !favourites.isEmpty && !filterFavourites
+                })
+            }
+            .eraseToAnyPublisher()
+    }
+    
+    var sortedSermons: AnyPublisher<[Sermon], Never> {
+        Publishers
+            .CombineLatest3(filteredSermons, $filterNewest, $filterOldest)
+            .map { sermons, filterNewest, filterOldest in
+                var res = sermons
+                if filterOldest {
+                    res = sermons.sorted(by: { $0.dateMillis < $1.dateMillis })
+                } else {
+                    res = sermons.sorted(by: { $0.dateMillis > $1.dateMillis })
+                }
+                return res
+            }.eraseToAnyPublisher()
+    }
+
 
     init() {
         setupNotifications()
@@ -37,22 +88,40 @@ class SermonsViewModel: ObservableObject  {
             if let sermonsResponse = res.data {
                 self.sermons = sermonsResponse.sermons
                 self.canLoadMoreSermons = sermonsResponse.canLoadMoreSermons
+                self.currentPage = Int(sermonsResponse.pageNumber)
             } else if let error = res.message {
                 Log.d(tag: "Sermon", message: error)
+                self.canLoadMoreSermons = false
             }
         }
     }
     
-    func getWatchedSermons() {
+    func getWatchedSermons(onCompletion: @escaping () -> Void) {
         controller.getWatchedSermons { sermons in
             self.watchedSermons = sermons
         }
+        onCompletion()
+    }
+    
+    func getFavouriteSermons() {
+        controller.getFavouriteSermons { sermons in
+            self.favourites = sermons
+        }
+    }
+    func addFavouriteSermon(id: String) {
+        controller.addFavouriteSermon(id: id)
+        favourites.append(SermonFavourite(id: id, name: ""))
     }
     
     func addSermon(sermon: MomentumSermon) {
         controller.addSermon(sermon: sermon)
         watchedSermons.removeAll(where: { $0.id == sermon.id })
         watchedSermons.append(sermon)
+    }
+    
+    func removeFavouriteSermon(id: String) {
+        controller.removeFavouriteSermon(id: id)
+        favourites.removeAll(where: { $0.id == id })
     }
     func pauseSermon() {
         player.pause()
@@ -70,6 +139,7 @@ class SermonsViewModel: ObservableObject  {
             if let sermonsResponse = res.data {
                 self.sermons += sermonsResponse.sermons
                 self.canLoadMoreSermons = sermonsResponse.canLoadMoreSermons
+                self.currentPage = Int(sermonsResponse.pageNumber)
             } else if let error = res.message {
                 Log.d(tag: "Sermon", message: error)
                 self.canLoadMoreSermons = false

@@ -15,7 +15,12 @@ struct SermonCard: View {
     var isRedacted = false
     var sermon: Sermon
     var playedSermons: [MomentumSermon]
-    var onSermonClick: (Sermon) -> Void
+    var favourite: Bool = false
+    var onFavouriteClick: (Bool) -> Void = {_ in }
+    var onSermonClick: (Sermon) -> Void = {_ in }
+
+    @State private var isFavourite = false
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             if isRedacted {
@@ -25,11 +30,31 @@ struct SermonCard: View {
                     .frame(maxWidth: screenBounds.width * 0.45)
                     .cornerRadius(8, corners: [.topLeft, .topRight])
             } else {
-                WebImage(url: URL(string: sermon.videoThumbnail))
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(maxWidth: screenBounds.width * 0.45)
-                    .cornerRadius(8, corners: [.topLeft, .topRight])
+                ZStack(alignment: .topTrailing){
+                    WebImage(url: URL(string: sermon.videoThumbnail))
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        
+                
+                    Button {
+                        isFavourite.toggle()
+                        onFavouriteClick(isFavourite)
+                    } label: {
+                            ZStack(alignment: .center) {
+                                Color(.white).opacity(0.75)
+                                Image(systemName: "suit.heart.fill")
+                                    .imageScale(.small)
+                                    .foregroundColor(isFavourite ?  Color(.red) : Color(.darkGray))
+                                    .frame(width: 5, height: 5)
+                            }
+                            .frame(width: 26, height: 26)
+                            .clipShape(Circle())
+                        }
+                        .padding(5)
+                    
+                }
+                .frame(maxWidth: screenBounds.width * 0.45)
+                .cornerRadius(8, corners: [.topLeft, .topRight])
             }
             VStack {
                 if let playedsermon = playedSermons.first(where: { $0.id == sermon.id }) {
@@ -77,6 +102,9 @@ struct SermonCard: View {
         .background(Color(.systemGray6))
         .cornerRadius(8)
         .shadow(color: Color.black.opacity(0.15), radius: 20, x: 0, y: 10)
+        .onAppear {
+            isFavourite = favourite
+        }
         .onTapGesture {
            onSermonClick(sermon)
         }
