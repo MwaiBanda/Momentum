@@ -1,7 +1,9 @@
 package com.mwaibanda.momentum.android
 
 import android.content.res.ColorStateList
+import android.content.res.Configuration
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.foundation.layout.padding
@@ -69,8 +71,9 @@ class MainActivity : BaseActivity() {
                                 })
                             ) {
                                 PlayerScreen(
+                                    navController = navController,
+                                    sermonViewModel = sermonViewModel,
                                     videoURL = it.arguments?.getString("videoURL") ?: "",
-                                    sermonViewModel = sermonViewModel
                                 )
                             }
                             composable(ProfileScreen.route) {
@@ -148,5 +151,11 @@ class MainActivity : BaseActivity() {
                 }
             }
         }
+    }
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        sermonViewModel.setLandscape(newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE)
+        Log.d("Config" , "Layout is landscape: ${newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE}")
     }
 }

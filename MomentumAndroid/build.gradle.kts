@@ -11,8 +11,8 @@ android {
         applicationId = "com.mwaibanda.momentum.android"
         minSdk = 21
         targetSdk = 31
-        versionCode = 13
-        versionName = "1.1.1"
+        versionCode = 14
+        versionName = "1.1.2"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
@@ -44,6 +44,7 @@ android {
             isMinifyEnabled = false
         }
     }
+    namespace = "com.mwaibanda.momentum.android"
 }
 
 dependencies {
@@ -61,8 +62,6 @@ dependencies {
     implementation( "androidx.compose.ui:ui-tooling:1.2.1")
     // Integration with ViewModels
     implementation( "androidx.lifecycle:lifecycle-viewmodel-compose:2.5.1")
-    implementation("com.google.firebase:firebase-auth:21.0.8")
-    implementation("junit:junit:4.13.2")
     // UI Tests
     androidTestImplementation("androidx.compose.ui:ui-test-junit4:1.2.1")
     //Unit Testing

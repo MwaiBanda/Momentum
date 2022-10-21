@@ -13,6 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -70,17 +71,17 @@ fun SermonCard(
         }
     }
     Card(
-        modifier = modifier,
+        modifier = modifier.fillMaxWidth(),
         elevation = 2.dp
     ) {
         Column(
-            modifier = Modifier.fillMaxHeight(),
+            modifier = Modifier.fillMaxWidth().fillMaxHeight(),
             verticalArrangement = Arrangement.Top
         ) {
-            Box {
+            Box (Modifier.fillMaxWidth()){
 
                 Image(
-                    painter = painterResource(id = com.mwaibanda.momentum.android.R.drawable.thumbnail),
+                    painter = painterResource(id = R.drawable.thumbnail),
                     contentDescription = "Video thumbnail placeholder",
                     modifier = Modifier
                         .placeholder(
@@ -111,6 +112,7 @@ fun SermonCard(
                                 .crossfade(true)
                                 .build(),
                             contentDescription = "Sermon thumbnail",
+                            contentScale = ContentScale.FillWidth,
                             onSuccess = { thumbnailHasLoaded = true},
                         )
                         if (thumbnailHasLoaded) {

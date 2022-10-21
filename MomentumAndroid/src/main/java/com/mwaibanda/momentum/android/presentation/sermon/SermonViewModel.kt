@@ -40,6 +40,13 @@ class SermonViewModel(
     private val _watchedSermons = MutableStateFlow(emptyList<MomentumSermon>())
     var watchedSermons = _watchedSermons.asStateFlow()
 
+    private val _isLandscape = MutableStateFlow(false)
+    var isLandscape = _isLandscape.asStateFlow()
+
+    fun setLandscape(value: Boolean) {
+        _isLandscape.value = value
+    }
+
     val filteredSermons = combine(
         sermons,
         searchTerm,
