@@ -1,6 +1,10 @@
 package com.mwaibanda.momentum.android
 
+import android.graphics.Rect
 import androidx.activity.ComponentActivity
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import com.mwaibanda.momentum.android.presentation.auth.AuthViewModel
 import com.mwaibanda.momentum.android.presentation.payment.PaymentViewModel
 import com.mwaibanda.momentum.android.presentation.profile.ProfileViewModel
@@ -20,6 +24,8 @@ open class BaseActivity : ComponentActivity() {
     protected val profileViewModel: ProfileViewModel by inject()
     protected val transactionViewModel: TransactionViewModel by inject()
     protected val sermonViewModel: SermonViewModel by inject()
+    protected var videoBounds = Rect()
+    protected var showControls by mutableStateOf(true)
 
     private val coroutineScope = MainScope()
 

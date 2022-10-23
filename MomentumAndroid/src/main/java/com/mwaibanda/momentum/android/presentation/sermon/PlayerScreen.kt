@@ -47,7 +47,9 @@ import kotlinx.coroutines.launch
 fun PlayerScreen(
     navController: NavController,
     sermonViewModel: SermonViewModel,
+    showControls: Boolean,
     videoURL: String,
+    onShowControls: (Boolean) -> Unit,
     onBounds: (Rect) -> Unit
 ) {
     val context = LocalContext.current
@@ -99,19 +101,31 @@ fun PlayerScreen(
         }
     }
 
-    Player(exoPlayer = exoPlayer, isLandscape = isLandscape, onBounds = onBounds) {
+    Player(
+        exoPlayer = exoPlayer,
+        showControls = showControls,
+        isLandscape = isLandscape,
+        onShowControls = onShowControls,
+        onBounds = onBounds
+    ) {
         navController.popBackStack()
     }
 }
 
 
 @Composable
-fun Player(exoPlayer: ExoPlayer, isLandscape: Boolean, onBounds: (Rect) -> Unit, onClosePlayer: () -> Unit) {
+fun Player(
+    exoPlayer: ExoPlayer,
+    showControls: Boolean,
+    isLandscape: Boolean,
+    onShowControls: (Boolean) -> Unit,
+    onBounds: (Rect) -> Unit,
+    onClosePlayer: () -> Unit
+) {
     val context = LocalContext.current
     var totalDuration by remember { mutableStateOf(0L) }
     var currentTime by remember { mutableStateOf(0L) }
     var bufferedPercentage by remember { mutableStateOf(0) }
-    var showControls by remember { mutableStateOf(true) }
     var addDelay by remember { mutableStateOf(false) }
     var isPlaying by remember { mutableStateOf(true) }
     var count by remember { mutableStateOf(0L) }
@@ -124,7 +138,7 @@ fun Player(exoPlayer: ExoPlayer, isLandscape: Boolean, onBounds: (Rect) -> Unit,
                 delay(4000)
                 addDelay = false
             }
-            showControls = false
+            onShowControls(false)
         }
         launch {
             if (isPlaying) {
@@ -156,7 +170,7 @@ fun Player(exoPlayer: ExoPlayer, isLandscape: Boolean, onBounds: (Rect) -> Unit,
             setShowSubtitleButton(true)
             useController = false
             setOnClickListener {
-                showControls = true
+                onShowControls(true)
             }
         }
     }
@@ -169,7 +183,11 @@ fun Player(exoPlayer: ExoPlayer, isLandscape: Boolean, onBounds: (Rect) -> Unit,
         modifier = Modifier
             .fillMaxWidth()
             .onGloballyPositioned {
-                onBounds(it.boundsInWindow().toAndroidRect())
+                onBounds(
+                    it
+                        .boundsInWindow()
+                        .toAndroidRect()
+                )
             }
             .background(Color.Black),
         contentAlignment = Alignment.Center
@@ -184,9 +202,14 @@ fun Player(exoPlayer: ExoPlayer, isLandscape: Boolean, onBounds: (Rect) -> Unit,
 
                 override fun onStart(owner: LifecycleOwner) {
                     super.onStart(owner)
-                    playerView.onResume()
                     exoPlayer.playWhenReady = true
                 }
+
+                override fun onResume(owner: LifecycleOwner) {
+                    super.onResume(owner)
+                    playerView.onResume()
+                }
+
 
                 override fun onStop(owner: LifecycleOwner) {
                     super.onStop(owner)
@@ -380,7 +403,8 @@ fun BottomControls(
     Column(
         Modifier
             .fillMaxWidth()
-            .padding(bottom = 45.dp)) {
+            .padding(bottom = 45.dp)
+    ) {
         Row(
             Modifier
                 .fillMaxWidth()

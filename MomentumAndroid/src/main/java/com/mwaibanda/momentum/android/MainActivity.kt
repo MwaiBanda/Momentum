@@ -11,6 +11,10 @@ import android.util.Rational
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.foundation.layout.padding
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.navigation.compose.NavHost
 import com.mwaibanda.momentum.android.presentation.MomentumEntry
 import androidx.compose.ui.Modifier
@@ -41,7 +45,6 @@ import com.stripe.android.paymentsheet.PaymentSheetContract
 
 @ExperimentalMaterialNavigationApi
 class MainActivity : BaseActivity() {
-    private var videoBounds = Rect()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         WindowCompat.setDecorFitsSystemWindows(window, false)
@@ -78,7 +81,9 @@ class MainActivity : BaseActivity() {
                                 PlayerScreen(
                                     navController = navController,
                                     sermonViewModel = sermonViewModel,
+                                    showControls = showControls,
                                     videoURL = it.arguments?.getString("videoURL") ?: "",
+                                    onShowControls =  { show -> showControls = show }
                                 ){ bounds ->
                                     videoBounds = bounds
                                 }
@@ -175,6 +180,7 @@ class MainActivity : BaseActivity() {
                 .setAspectRatio(Rational(16, 9))
                 .build()
             )
+            showControls = false
         }
     }
 }
