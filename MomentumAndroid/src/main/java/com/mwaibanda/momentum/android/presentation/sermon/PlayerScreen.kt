@@ -1,9 +1,8 @@
 package com.mwaibanda.momentum.android.presentation.sermon
 
 import android.content.pm.ActivityInfo
-import android.content.res.Configuration
+import android.graphics.Rect
 import android.util.Log
-import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.compose.animation.AnimatedVisibility
@@ -13,10 +12,12 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.*
-import androidx.compose.runtime.R
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toAndroidRect
+import androidx.compose.ui.layout.boundsInWindow
+import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.painterResource
@@ -35,6 +36,7 @@ import com.google.android.exoplayer2.ui.AspectRatioFrameLayout
 import com.google.android.exoplayer2.ui.StyledPlayerView
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSource
 import com.mwaibanda.momentum.android.core.exts.formatMinSec
+import com.mwaibanda.momentum.android.core.utils.C
 import com.mwaibanda.momentum.android.core.utils.PlayerControl
 import com.mwaibanda.momentum.android.presentation.components.LockScreenOrientation
 import com.mwaibanda.momentum.data.db.MomentumSermon
@@ -45,7 +47,8 @@ import kotlinx.coroutines.launch
 fun PlayerScreen(
     navController: NavController,
     sermonViewModel: SermonViewModel,
-    videoURL: String
+    videoURL: String,
+    onBounds: (Rect) -> Unit
 ) {
     val context = LocalContext.current
     val isLandscape by sermonViewModel.isLandscape.collectAsState()
@@ -96,14 +99,14 @@ fun PlayerScreen(
         }
     }
 
-    Player(exoPlayer = exoPlayer, isLandscape = isLandscape) {
+    Player(exoPlayer = exoPlayer, isLandscape = isLandscape, onBounds = onBounds) {
         navController.popBackStack()
     }
 }
 
 
 @Composable
-fun Player(exoPlayer: ExoPlayer, isLandscape: Boolean, onClosePlayer: () -> Unit) {
+fun Player(exoPlayer: ExoPlayer, isLandscape: Boolean, onBounds: (Rect) -> Unit, onClosePlayer: () -> Unit) {
     val context = LocalContext.current
     var totalDuration by remember { mutableStateOf(0L) }
     var currentTime by remember { mutableStateOf(0L) }
@@ -164,7 +167,10 @@ fun Player(exoPlayer: ExoPlayer, isLandscape: Boolean, onClosePlayer: () -> Unit
 
     Box(
         modifier = Modifier
-            .fillMaxSize()
+            .fillMaxWidth()
+            .onGloballyPositioned {
+                onBounds(it.boundsInWindow().toAndroidRect())
+            }
             .background(Color.Black),
         contentAlignment = Alignment.Center
     ) {
@@ -406,7 +412,7 @@ fun BottomControls(
                         onValueChange = onSeekChanged,
                         colors = SliderDefaults.colors(
                             thumbColor = Color.White,
-                            activeTrackColor = Color.White,
+                            activeTrackColor = Color(C.MOMENTUM_ORANGE),
                             inactiveTrackColor = Color.White.copy(0.5f)
                         )
                     )

@@ -1,9 +1,13 @@
 package com.mwaibanda.momentum.android
 
+import android.app.PictureInPictureParams
+import android.content.pm.PackageManager
 import android.content.res.ColorStateList
 import android.content.res.Configuration
+import android.graphics.Rect
 import android.os.Bundle
 import android.util.Log
+import android.util.Rational
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.foundation.layout.padding
@@ -37,6 +41,7 @@ import com.stripe.android.paymentsheet.PaymentSheetContract
 
 @ExperimentalMaterialNavigationApi
 class MainActivity : BaseActivity() {
+    private var videoBounds = Rect()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         WindowCompat.setDecorFitsSystemWindows(window, false)
@@ -74,7 +79,9 @@ class MainActivity : BaseActivity() {
                                     navController = navController,
                                     sermonViewModel = sermonViewModel,
                                     videoURL = it.arguments?.getString("videoURL") ?: "",
-                                )
+                                ){ bounds ->
+                                    videoBounds = bounds
+                                }
                             }
                             composable(ProfileScreen.route) {
                                 ProfileScreen(
@@ -157,5 +164,17 @@ class MainActivity : BaseActivity() {
         super.onConfigurationChanged(newConfig)
         sermonViewModel.setLandscape(newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE)
         Log.d("Config" , "Layout is landscape: ${newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE}")
+    }
+
+    override fun onUserLeaveHint() {
+        super.onUserLeaveHint()
+        if (packageManager.hasSystemFeature(PackageManager.FEATURE_PICTURE_IN_PICTURE)) {
+            enterPictureInPictureMode(
+                PictureInPictureParams.Builder()
+                .setSourceRectHint(videoBounds)
+                .setAspectRatio(Rational(16, 9))
+                .build()
+            )
+        }
     }
 }
