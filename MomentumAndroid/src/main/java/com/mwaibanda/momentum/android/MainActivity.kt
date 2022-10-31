@@ -4,31 +4,28 @@ import android.app.PictureInPictureParams
 import android.content.pm.PackageManager
 import android.content.res.ColorStateList
 import android.content.res.Configuration
-import android.graphics.Rect
 import android.os.Bundle
 import android.util.Log
 import android.util.Rational
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.foundation.layout.padding
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
-import androidx.navigation.compose.NavHost
-import com.mwaibanda.momentum.android.presentation.MomentumEntry
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.core.view.WindowCompat
 import androidx.navigation.NavType
+import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.google.accompanist.insets.ProvideWindowInsets
 import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
 import com.google.accompanist.navigation.material.ModalBottomSheetLayout
 import com.google.accompanist.navigation.material.bottomSheet
+import com.google.android.gms.cast.framework.CastContext
+import com.google.android.gms.dynamite.DynamiteModule
 import com.mwaibanda.momentum.android.core.utils.C
 import com.mwaibanda.momentum.android.core.utils.NavigationRoutes.*
+import com.mwaibanda.momentum.android.presentation.MomentumEntry
 import com.mwaibanda.momentum.android.presentation.auth.AuthControllerScreen
 import com.mwaibanda.momentum.android.presentation.navigation.LaunchScreen
 import com.mwaibanda.momentum.android.presentation.offer.OfferScreen
@@ -39,14 +36,30 @@ import com.mwaibanda.momentum.android.presentation.profile.ProfileScreen
 import com.mwaibanda.momentum.android.presentation.sermon.PlayerScreen
 import com.mwaibanda.momentum.android.presentation.sermon.SermonScreen
 import com.mwaibanda.momentum.android.presentation.transaction.TransactionScreen
+import com.mwaibanda.momentum.domain.models.Sermon
 import com.mwaibanda.momentum.utils.MultiplatformConstants
 import com.stripe.android.paymentsheet.PaymentSheet
 import com.stripe.android.paymentsheet.PaymentSheetContract
 
 @ExperimentalMaterialNavigationApi
 class MainActivity : BaseActivity() {
+    private lateinit var castContext: CastContext
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        try {
+            castContext = CastContext.getSharedInstance(this)
+        } catch (e: RuntimeException) {
+            var cause = e.cause
+            while (cause != null) {
+                if (cause is DynamiteModule.LoadingException) {
+                    Log.e("CAST", "falied")
+                    return
+                }
+                cause = cause.cause
+            }
+            throw e
+        }
         WindowCompat.setDecorFitsSystemWindows(window, false)
         setContent {
             ProvideWindowInsets {
@@ -73,19 +86,19 @@ class MainActivity : BaseActivity() {
                                 )
                             }
                             composable(
-                                route = PlayerScreen.route,
-                                arguments = listOf(navArgument("videoURL") {
-                                    type = NavType.StringType
-                                })
+                                route = PlayerScreen.route
                             ) {
-                                PlayerScreen(
-                                    navController = navController,
-                                    sermonViewModel = sermonViewModel,
-                                    showControls = showControls,
-                                    videoURL = it.arguments?.getString("videoURL") ?: "",
-                                    onShowControls =  { show -> showControls = show }
-                                ){ bounds ->
-                                    videoBounds = bounds
+                                navController.previousBackStackEntry?.arguments?.getParcelable<Sermon>("sermon")?.let { sermon ->
+                                    PlayerScreen(
+                                        castContext = castContext,
+                                        navController = navController,
+                                        sermonViewModel = sermonViewModel,
+                                        showControls = showControls,
+                                        sermon = sermon,
+                                        onShowControls = { show -> showControls = show }
+                                    ) { bounds ->
+                                        videoBounds = bounds
+                                    }
                                 }
                             }
                             composable(ProfileScreen.route) {

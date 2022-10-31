@@ -3,6 +3,7 @@ plugins {
     kotlin("native.cocoapods")
     id("com.android.library")
     id( "com.squareup.sqldelight")
+    id("kotlin-parcelize")
     kotlin("plugin.serialization") version "1.7.0"
 }
 

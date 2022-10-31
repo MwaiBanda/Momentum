@@ -3,6 +3,7 @@ plugins {
     kotlin("android")
     kotlin("plugin.serialization") version "1.7.0"
     id("com.google.gms.google-services")
+    id("kotlin-parcelize")
 }
 
 android {
@@ -11,8 +12,8 @@ android {
         applicationId = "com.mwaibanda.momentum.android"
         minSdk = 21
         targetSdk = 31
-        versionCode = 15
-        versionName = "1.1.3"
+        versionCode = 16
+        versionName = "1.1.4"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
@@ -100,14 +101,23 @@ dependencies {
     implementation("dev.gitlive:firebase-firestore:1.6.2")
     // This dependency is downloaded from the Google’s Maven repository.
     // So, make sure you also include that repository in your project's build.gradle file.
-    implementation("com.google.android.play:review:2.0.0")
+    implementation("com.google.android.play:review:2.0.1")
     // For Kotlin users also add the Kotlin extensions library for Play In-App Review:
     implementation("com.google.android.play:review-ktx:2.0.0")
     // Coil Image loading
     implementation("io.coil-kt:coil-compose:2.2.1")
     // Exoplayer
-    implementation("com.google.android.exoplayer:exoplayer:2.18.1")
-    implementation("com.google.android.exoplayer:exoplayer-ui:2.18.1")
+    implementation("androidx.media3:media3-exoplayer:1.0.0-alpha03")
+    implementation("androidx.media3:media3-common:1.0.0-alpha03")
+    implementation("androidx.media3:media3-ui:1.0.0-alpha03")
+    implementation("androidx.media3:media3-cast:1.0.0-alpha03")
+
+//    implementation("com.google.android.exoplayer:exoplayer:2.18.1")
+//    implementation("com.google.android.exoplayer:exoplayer-ui:2.18.1")
+//    implementation("com.google.android.exoplayer:extension-cast:2.18.1")
+
+    // Kotlin serialization
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1")
 
 }
 

@@ -30,6 +30,8 @@ import androidx.navigation.NavController
 import com.mwaibanda.momentum.android.core.utils.C
 import com.mwaibanda.momentum.android.presentation.components.*
 import com.mwaibanda.momentum.domain.models.Sermon
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
 
@@ -240,11 +242,8 @@ fun SermonScreen(
                                         searchTerm = searchTerm,
                                         modifier = Modifier
                                             .clickable {
-                                                val encodedUrl = URLEncoder.encode(
-                                                    sermon.videoURL,
-                                                    StandardCharsets.UTF_8.toString()
-                                                )
-                                                navController.navigate("play/$encodedUrl")
+                                                navController.currentBackStackEntry?.arguments?.putParcelable("sermon", sermon)
+                                                navController.navigate("play/{sermon}")
                                                 sermonViewModel.currentSermon = sermon
                                             }
                                             .weight(0.4f)
@@ -315,3 +314,4 @@ fun SermonScreen(
         }
     }
 }
+

@@ -7,3 +7,4 @@ sealed class Result<T>(
     class Success<T>(data: T): Result<T>(data)
     class Failure<T>(message: String, data:  T? = null): Result<T>(data, message)
 }
+

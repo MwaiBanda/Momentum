@@ -2,6 +2,7 @@ package com.mwaibanda.momentum.android
 
 import android.graphics.Rect
 import androidx.activity.ComponentActivity
+import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -18,7 +19,7 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.android.ext.android.inject
 
-open class BaseActivity : ComponentActivity() {
+open class BaseActivity : AppCompatActivity() {
     protected val authViewModel: AuthViewModel by inject()
     protected val paymentViewModel: PaymentViewModel by inject()
     protected val profileViewModel: ProfileViewModel by inject()

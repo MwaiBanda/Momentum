@@ -2,6 +2,7 @@ package com.mwaibanda.momentum.android.presentation.sermon
 
 import android.content.pm.ActivityInfo
 import android.graphics.Rect
+import android.net.Uri
 import android.util.Log
 import android.view.ViewGroup
 import android.widget.FrameLayout
@@ -9,6 +10,7 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.*
@@ -16,39 +18,57 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toAndroidRect
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.layout.boundsInWindow
 import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
+import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
+import androidx.media3.cast.CastPlayer
+import androidx.media3.cast.DefaultMediaItemConverter
+import androidx.media3.cast.SessionAvailabilityListener
+import androidx.media3.common.MediaItem
+import androidx.media3.common.MimeTypes
+import androidx.media3.common.Player
+import androidx.media3.datasource.DefaultHttpDataSource
+import androidx.media3.exoplayer.ExoPlayer
+import androidx.media3.exoplayer.source.ProgressiveMediaSource
+import androidx.media3.ui.AspectRatioFrameLayout
+import androidx.media3.ui.PlayerControlView
+import androidx.media3.ui.PlayerView
+import androidx.mediarouter.app.MediaRouteButton
 import androidx.navigation.NavController
-import com.google.android.exoplayer2.ExoPlayer
-import com.google.android.exoplayer2.MediaItem
-import com.google.android.exoplayer2.PercentageRating
-import com.google.android.exoplayer2.Player
-import com.google.android.exoplayer2.source.ProgressiveMediaSource
-import com.google.android.exoplayer2.ui.AspectRatioFrameLayout
-import com.google.android.exoplayer2.ui.StyledPlayerView
-import com.google.android.exoplayer2.upstream.DefaultHttpDataSource
+import com.google.android.gms.cast.*
+import com.google.android.gms.cast.framework.CastButtonFactory
+import com.google.android.gms.cast.framework.CastContext
+import com.google.android.gms.cast.framework.CastState
+import com.google.android.gms.common.images.WebImage
+import com.mwaibanda.momentum.android.R
 import com.mwaibanda.momentum.android.core.exts.formatMinSec
 import com.mwaibanda.momentum.android.core.utils.C
 import com.mwaibanda.momentum.android.core.utils.PlayerControl
 import com.mwaibanda.momentum.android.presentation.components.LockScreenOrientation
 import com.mwaibanda.momentum.data.db.MomentumSermon
+import com.mwaibanda.momentum.domain.models.Sermon
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
+
 @Composable
+@androidx.annotation.OptIn(androidx.media3.common.util.UnstableApi::class)
 fun PlayerScreen(
+    castContext: CastContext,
     navController: NavController,
     sermonViewModel: SermonViewModel,
     showControls: Boolean,
-    videoURL: String,
+    sermon: Sermon,
     onShowControls: (Boolean) -> Unit,
     onBounds: (Rect) -> Unit
 ) {
@@ -58,16 +78,65 @@ fun PlayerScreen(
         ExoPlayer.Builder(context).build().apply {
             val dataSourceFactory = DefaultHttpDataSource.Factory()
             val media = MediaItem.Builder()
-                .setUri(videoURL)
+                .setUri(sermon.videoURL)
                 .build()
             val source = ProgressiveMediaSource.Factory(dataSourceFactory)
                 .createMediaSource(media)
 
             setMediaSource(source)
             prepare()
+            playWhenReady = false
+        }
+    }
+
+
+    val castPlayer = remember(context) {
+        CastPlayer(castContext).apply {
+            val mediaItem = MediaItem.Builder()
+                .setUri("https://storage.googleapis.com/wvmedia/clear/h264/tears/tears.mpd")
+                .setMediaMetadata(
+                    androidx.media3.common.MediaMetadata.Builder().setTitle("Clear DASH: Tears")
+                        .build()
+                )
+                .setMimeType(MimeTypes.APPLICATION_MPD)
+                .build()
+            addMediaItem(mediaItem)
+            prepare()
             playWhenReady = true
         }
     }
+    var showCast by remember {
+        mutableStateOf(false)
+    }
+    var currentPlayer: Player? by remember {
+        mutableStateOf(null)
+    }
+
+
+    castPlayer.setSessionAvailabilityListener(object : SessionAvailabilityListener {
+        override fun onCastSessionAvailable() {
+            showCast = true
+            currentPlayer = castPlayer
+            exoPlayer.release()
+            val movieMetadata = MediaMetadata(MediaMetadata.MEDIA_TYPE_MOVIE)
+            movieMetadata.putString(MediaMetadata.KEY_TITLE, sermon.title)
+            movieMetadata.putString(MediaMetadata.KEY_ALBUM_ARTIST, sermon.preacher)
+            movieMetadata.putString(MediaMetadata.KEY_SERIES_TITLE, sermon.series)
+            movieMetadata.addImage(WebImage(Uri.parse(sermon.videoThumbnail)))
+            val mediaInfo: MediaInfo = MediaInfo.Builder(sermon.videoURL)
+                .setStreamType(MediaInfo.STREAM_TYPE_BUFFERED)
+                .setContentType(MimeTypes.VIDEO_UNKNOWN)
+                .setMetadata(movieMetadata).build()
+            val mediaQueueItem = MediaQueueItem.Builder(mediaInfo).build()
+            castContext.sessionManager.currentCastSession?.remoteMediaClient?.load(
+                MediaLoadRequestData.fromJson(mediaQueueItem.toJson())
+            )
+        }
+
+        override fun onCastSessionUnavailable() {
+            currentPlayer = exoPlayer
+        }
+    })
 
 
     LockScreenOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR)
@@ -77,9 +146,10 @@ fun PlayerScreen(
         currentSermon?.let {
             exoPlayer.apply {
                 seekTo(it.last_played_time.toLong())
-                playWhenReady = true
+                playWhenReady = true // Turn back to true
             }
         }
+
     }
 
     DisposableEffect(key1 = Unit) {
@@ -102,7 +172,8 @@ fun PlayerScreen(
     }
 
     Player(
-        exoPlayer = exoPlayer,
+        Modifier.clickable { onShowControls(true) },
+        exoPlayer = currentPlayer ?: exoPlayer,
         showControls = showControls,
         isLandscape = isLandscape,
         onShowControls = onShowControls,
@@ -115,7 +186,8 @@ fun PlayerScreen(
 
 @Composable
 fun Player(
-    exoPlayer: ExoPlayer,
+    modifier: Modifier = Modifier,
+    exoPlayer: Player,
     showControls: Boolean,
     isLandscape: Boolean,
     onShowControls: (Boolean) -> Unit,
@@ -160,7 +232,7 @@ fun Player(
 
 
     val playerView = remember(context) {
-        StyledPlayerView(context).apply {
+        PlayerView(context).apply {
             player = exoPlayer
             resizeMode = AspectRatioFrameLayout.RESIZE_MODE_FIT
             layoutParams = FrameLayout.LayoutParams(
@@ -169,18 +241,14 @@ fun Player(
             )
             setShowSubtitleButton(true)
             useController = false
-            setOnClickListener {
-                onShowControls(true)
-            }
         }
     }
 
-    LaunchedEffect(key1 = Unit) {
-        playerView.requestFocus()
-    }
+
+
 
     Box(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .onGloballyPositioned {
                 onBounds(
@@ -202,7 +270,7 @@ fun Player(
 
                 override fun onStart(owner: LifecycleOwner) {
                     super.onStart(owner)
-                    exoPlayer.playWhenReady = true
+//                    exoPlayer.playWhenReady = true TODO("If not cast play when ready")
                 }
 
                 override fun onResume(owner: LifecycleOwner) {
@@ -234,12 +302,15 @@ fun Player(
                 exoPlayer.release()
             }
         }
-
-        AndroidView(
-            modifier = Modifier
-                .fillMaxSize(),
-            factory = { playerView }
-        )
+        if (exoPlayer == CastPlayer::class.java) {
+            Text(text = "Casting")
+        } else {
+            AndroidView(
+                modifier = Modifier
+                    .fillMaxSize(),
+                factory = { playerView }
+            )
+        }
 
         AnimatedVisibility(
             visible = showControls,
@@ -342,6 +413,15 @@ fun TopControls(
                 tint = Color.White
             )
         }
+        AndroidView(factory = { context ->
+            MediaRouteButton(context).apply {
+                CastButtonFactory.setUpMediaRouteButton(context, this)
+                setBackgroundColor(Color.White.toArgb())
+                dialogFactory.apply {
+
+                }
+            }
+        })
     }
 }
 
