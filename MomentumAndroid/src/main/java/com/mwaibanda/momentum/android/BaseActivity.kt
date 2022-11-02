@@ -27,6 +27,7 @@ open class BaseActivity : AppCompatActivity() {
     protected val sermonViewModel: SermonViewModel by inject()
     protected var videoBounds = Rect()
     protected var showControls by mutableStateOf(true)
+    protected var canEnterPictureInPicture by mutableStateOf(false)
 
     private val coroutineScope = MainScope()
 
