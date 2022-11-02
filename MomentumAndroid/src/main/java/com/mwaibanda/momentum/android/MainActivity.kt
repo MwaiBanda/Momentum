@@ -95,7 +95,8 @@ class MainActivity : BaseActivity() {
                                         sermonViewModel = sermonViewModel,
                                         showControls = showControls,
                                         sermon = sermon,
-                                        onShowControls = { show -> showControls = show }
+                                        onShowControls = { show -> showControls = show },
+                                        canEnterPictureInPicture = { canEnterPictureInPicture = it }
                                     ) { bounds ->
                                         videoBounds = bounds
                                     }
@@ -186,7 +187,7 @@ class MainActivity : BaseActivity() {
 
     override fun onUserLeaveHint() {
         super.onUserLeaveHint()
-        if (packageManager.hasSystemFeature(PackageManager.FEATURE_PICTURE_IN_PICTURE)) {
+        if (packageManager.hasSystemFeature(PackageManager.FEATURE_PICTURE_IN_PICTURE) && canEnterPictureInPicture) {
             enterPictureInPictureMode(
                 PictureInPictureParams.Builder()
                 .setSourceRectHint(videoBounds)

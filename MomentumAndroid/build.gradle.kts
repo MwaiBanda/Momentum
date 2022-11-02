@@ -12,8 +12,8 @@ android {
         applicationId = "com.mwaibanda.momentum.android"
         minSdk = 21
         targetSdk = 31
-        versionCode = 16
-        versionName = "1.1.4"
+        versionCode = 17
+        versionName = "1.1.5"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
@@ -107,14 +107,14 @@ dependencies {
     // Coil Image loading
     implementation("io.coil-kt:coil-compose:2.2.1")
     // Exoplayer
-    implementation("androidx.media3:media3-exoplayer:1.0.0-alpha03")
-    implementation("androidx.media3:media3-common:1.0.0-alpha03")
-    implementation("androidx.media3:media3-ui:1.0.0-alpha03")
-    implementation("androidx.media3:media3-cast:1.0.0-alpha03")
+//    implementation("androidx.media3:media3-exoplayer:1.0.0-beta01")
+//    implementation("androidx.media3:media3-common:1.0.0-beta01")
+//    implementation("androidx.media3:media3-ui:1.0.0-beta01")
+//    implementation("androidx.media3:media3-cast:1.0.0-beta01")
 
-//    implementation("com.google.android.exoplayer:exoplayer:2.18.1")
-//    implementation("com.google.android.exoplayer:exoplayer-ui:2.18.1")
-//    implementation("com.google.android.exoplayer:extension-cast:2.18.1")
+    implementation("com.google.android.exoplayer:exoplayer:2.18.0")
+    implementation("com.google.android.exoplayer:exoplayer-ui:2.18.0")
+    implementation("com.google.android.exoplayer:extension-cast:2.18.0")
 
     // Kotlin serialization
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1")

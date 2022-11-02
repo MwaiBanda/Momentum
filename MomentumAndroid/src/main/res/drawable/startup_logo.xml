@@ -1,0 +1,15 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" android:opacity="opaque">
+    <!-- The background color, preferably the same as normal theme -->
+    <item android:drawable="@android:color/white"/>
+    <!-- Product logo - 144dp color version of App icon -->
+
+    <item
+            android:width="150dp"
+            android:height="150dp"
+            android:drawable="@drawable/momentum_circle"
+            android:gravity="center">
+
+    </item>
+
+
+</layer-list>
