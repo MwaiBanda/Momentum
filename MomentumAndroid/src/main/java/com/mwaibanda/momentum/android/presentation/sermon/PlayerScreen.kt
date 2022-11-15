@@ -47,9 +47,7 @@ import com.google.android.exoplayer2.ui.StyledPlayerView
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSource
 import com.google.android.exoplayer2.util.MimeTypes
 import com.google.android.gms.cast.*
-import com.google.android.gms.cast.framework.CastButtonFactory
-import com.google.android.gms.cast.framework.CastContext
-import com.google.android.gms.cast.framework.CastState
+import com.google.android.gms.cast.framework.*
 import com.google.android.gms.common.images.WebImage
 import com.mwaibanda.momentum.android.R
 import com.mwaibanda.momentum.android.core.exts.formatMinSec
@@ -177,6 +175,44 @@ fun PlayerScreen(
 
                 }
             }
+        })
+        castContext.sessionManager.addSessionManagerListener(object: SessionManagerListener<Session> {
+            override fun onSessionEnded(p0: Session, p1: Int) {
+                TODO("Not yet implemented")
+            }
+
+            override fun onSessionEnding(p0: Session) {
+                TODO("Not yet implemented")
+            }
+
+            override fun onSessionResumeFailed(p0: Session, p1: Int) {
+                TODO("Not yet implemented")
+            }
+
+            override fun onSessionResumed(p0: Session, p1: Boolean) {
+                TODO("Not yet implemented")
+            }
+
+            override fun onSessionResuming(p0: Session, p1: String) {
+                TODO("Not yet implemented")
+            }
+
+            override fun onSessionStartFailed(p0: Session, p1: Int) {
+                TODO("Not yet implemented")
+            }
+
+            override fun onSessionStarted(p0: Session, p1: String) {
+                TODO("Not yet implemented")
+            }
+
+            override fun onSessionStarting(p0: Session) {
+                TODO("Not yet implemented")
+            }
+
+            override fun onSessionSuspended(p0: Session, p1: Int) {
+                TODO("Not yet implemented")
+            }
+
         })
         onDispose {
             canEnterPictureInPicture(false)

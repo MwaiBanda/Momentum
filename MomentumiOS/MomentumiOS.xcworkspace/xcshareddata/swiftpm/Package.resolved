@@ -161,6 +161,15 @@
         "branch" : "master",
         "revision" : "7ef0df639079491ee1aaf6b83b6fd4d08df80393"
       }
+    },
+    {
+      "identity" : "tinydi",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/MwaiBanda/TinyDi",
+      "state" : {
+        "branch" : "main",
+        "revision" : "61d33e5d2bd11142a5b4c271774a6c64b5cb6e90"
+      }
     }
   ],
   "version" : 2

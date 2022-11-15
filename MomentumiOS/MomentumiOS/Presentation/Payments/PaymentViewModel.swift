@@ -10,6 +10,8 @@ import Foundation
 import MomentumSDK
 import Stripe
 import UIKit
+import TinyDi
+
 
 final class PaymentViewModel : ObservableObject {
     @Inject private var paymentController: PaymentController

@@ -8,6 +8,7 @@
 
 import Foundation
 import MomentumSDK
+import TinyDi
 
 class TransactionViewModel: ObservableObject {
     @Inject private var controller: TransactionController

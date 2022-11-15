@@ -10,6 +10,7 @@ import Foundation
 import MomentumSDK
 import FirebaseAuth
 import Combine
+import TinyDi
 
 final class Session: ObservableObject {
     @Inject private var authController: AuthController

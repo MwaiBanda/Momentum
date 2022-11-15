@@ -3,13 +3,24 @@ import AVKit
 import MomentumSDK
 import FirebaseCore
 import FirebaseFirestore
+import TinyDi
 
 @main
 struct iOSApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
+   
     var body: some Scene {
         WindowGroup {
             ContentView()
+        }
+    }
+}
+
+extension DependencyRegistry {
+    func inject() {
+        TDi.inject { resolver in
+            singletonModule()
+            controllerModule(resolver: resolver)
         }
     }
 }
@@ -28,7 +39,7 @@ class AppDelegate : NSObject, UIApplicationDelegate {
         let settings = FirestoreSettings()
         settings.isPersistenceEnabled = false
         Firestore.firestore().settings = settings
-        DiRegistry.shared.inject()
+        DependencyRegistry.shared.inject()
         Thread.sleep(forTimeInterval: 1.5)
         do {
             try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback, mode: AVAudioSession.Mode.default)

@@ -8,6 +8,8 @@
 
 import Foundation
 import MomentumSDK
+import TinyDi
+
 
 class ProfileViewModel: ObservableObject {
     @Inject private var userController: UserController
