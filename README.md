@@ -90,11 +90,11 @@ The app's are available for download on the app store & playstore for Android & 
      <td>AVFoundation</td>
   </tr>
   <tr>
-    <td>StateFlow</td>
-     <td></td>
+    <td>Koin</td>
+     <td>TinyDi</td>
   </tr>
    <tr>
-    <td>Koin</td>
+    <td>StateFlow</td>
      <td></td>
   </tr>
   </table>
