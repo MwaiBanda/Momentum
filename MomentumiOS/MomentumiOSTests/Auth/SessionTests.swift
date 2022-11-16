@@ -5,6 +5,7 @@
 //  Created by Mwai Banda on 8/9/22.
 //  Copyright © 2022 Momentum. All rights reserved.
 //
+@testable import TinyDi
 @testable import MomentumiOS
 import XCTest
 

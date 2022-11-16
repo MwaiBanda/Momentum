@@ -8,12 +8,13 @@
 
 import XCTest
 @testable import MomentumiOS
+@testable import TinyDi
 
 class BaseXCTestCase: XCTestCase {
     override func setUpWithError() throws {
         try super.setUpWithError()
-        DiRegistry.shared.clear {
-            DiRegistry.shared.injectTestDependencies()
+        DependencyRegistry.shared.clear {
+            DependencyRegistry.shared.injectTestDependencies()
         }
     }
     

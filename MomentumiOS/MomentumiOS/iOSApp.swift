@@ -21,6 +21,10 @@ extension DependencyRegistry {
         TDi.inject { resolver in
             singletonModule()
             controllerModule(resolver: resolver)
+            
+            @Binds var authController: AuthController = {
+                AuthControllerImpl()
+            }()
         }
     }
 }

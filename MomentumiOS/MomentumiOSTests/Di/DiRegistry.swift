@@ -8,8 +8,9 @@
 
 @testable import MomentumiOS
 @testable import MomentumSDK
+@testable import TinyDi
 
-extension DiRegistry {
+extension DependencyRegistry {
     
     @Singleton
     func providesPaymentViewModel(){
@@ -37,7 +38,7 @@ extension DiRegistry {
     }
     
     func injectTestDependencies() {
-        Resolver.register { resolver in
+        TDi.inject { resolver in
             @Binds
             var foo: FooProviding = {
                 Foo()

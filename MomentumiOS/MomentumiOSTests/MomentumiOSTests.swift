@@ -8,6 +8,7 @@
 
 import XCTest
 @testable import MomentumiOS
+@testable import TinyDi
 
 class MomentumiOSTests: BaseXCTestCase {
     @Inject private var foo: FooProviding
