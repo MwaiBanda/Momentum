@@ -22,9 +22,6 @@ extension DependencyRegistry {
             singletonModule()
             controllerModule(resolver: resolver)
             
-            @Binds var authController: AuthController = {
-                AuthControllerImpl()
-            }()
         }
     }
 }

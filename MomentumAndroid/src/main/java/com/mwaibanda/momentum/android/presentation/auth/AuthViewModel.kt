@@ -8,7 +8,7 @@ import androidx.lifecycle.ViewModel
 import com.mwaibanda.momentum.domain.controller.AuthController
 import com.mwaibanda.momentum.domain.controller.LocalDefaultsController
 import com.mwaibanda.momentum.utils.MultiplatformConstants
-import com.mwaibanda.momentum.utils.Result.*
+import io.github.mwaibanda.authentication.utils.AuthResult.*
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 

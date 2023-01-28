@@ -3,8 +3,9 @@ package com.mwaibanda.momentum.di
 import com.mwaibanda.momentum.data.db.DatabaseDriverFactory
 import com.russhwolf.settings.Settings
 import dev.gitlive.firebase.Firebase
-import dev.gitlive.firebase.auth.auth
 import dev.gitlive.firebase.firestore.firestore
+import io.github.mwaibanda.authentication.di.Authentication
+import io.github.mwaibanda.authentication.domain.controller.AuthenticationController
 import io.github.reactivecircus.cache4k.Cache
 import io.ktor.client.*
 import io.ktor.client.plugins.*
@@ -37,8 +38,8 @@ val singletonModule = module {
         }
     }
     single { Settings() }
-    single { Firebase.auth }
     single { Firebase.firestore }
+    single { Authentication.controller }
     single<Cache<String, Any>>{
         Cache.Builder()
             .expireAfterWrite(24.hours)

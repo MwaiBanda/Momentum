@@ -1,6 +1,5 @@
 package com.mwaibanda.momentum.di
 
-import com.mwaibanda.momentum.domain.usecase.auth.*
 import com.mwaibanda.momentum.domain.usecase.cache.GetAllItemsUseCase
 import com.mwaibanda.momentum.domain.usecase.cache.GetItemUseCase
 import com.mwaibanda.momentum.domain.usecase.cache.SetItemUseCase
@@ -22,16 +21,7 @@ val useCasesModule = module {
      */
     single { PostTransactionUseCase(transactionRepository = get()) }
     single { GetTransactionsUseCase(transactionRepository = get()) }
-    /**
-     * @Auth - Use-cases
-     */
-    single { SignInWithEmailUseCase(authRepository = get()) }
-    single { SignUpWithEmailUseCase(authRepository = get()) }
-    single { SignInAsGuestUseCase(authRepository = get()) }
-    single { IsUserSignedInUseCase(authRepository = get()) }
-    single { GetCurrentUserUseCase(authRepository = get()) }
-    single { DeleteUserUseCase(authRepository = get()) }
-    single { SignOutUseCase(authRepository = get()) }
+
     /**
      * @User - Use-cases
      */

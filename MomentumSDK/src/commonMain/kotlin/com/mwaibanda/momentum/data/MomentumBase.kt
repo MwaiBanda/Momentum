@@ -19,6 +19,7 @@ open class MomentumBase {
         const val SERMONS_ENDPOINT = "momentum-church-1/sermons"
 
         fun HttpRequestBuilder.momentumPayments(path: String) {
+
             url {
                 takeFrom(PAYMENTS_BASE_URL)
                 encodedPath = path

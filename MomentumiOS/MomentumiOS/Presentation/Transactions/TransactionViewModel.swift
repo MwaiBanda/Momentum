@@ -11,7 +11,7 @@ import MomentumSDK
 import TinyDi
 
 class TransactionViewModel: ObservableObject {
-    @Inject(named: "transactionControl") private var controller: TransactionController
+    @Inject private var controller: TransactionController
     @Published var transactions = [MomentumTransaction]()
     
   

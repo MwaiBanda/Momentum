@@ -9,7 +9,7 @@ val controllerModule = module {
     single<TransactionController> { TransactionControllerImpl(driverFactory = get()) }
     single<UserController> { UserControllerImpl(driverFactory = get()) }
     single<BillingAddressController>{ BillingAddressControllerImpl(driverFactory = get()) }
-    single<AuthController> { AuthControllerImpl() }
+    single<AuthController> { AuthControllerImpl(controller = get()) }
     single<LocalDefaultsController> { LocalDefaultsControllerImpl() }
     single<SermonController> { SermonControllerImpl(driverFactory = get()) }
 }

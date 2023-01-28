@@ -4,7 +4,7 @@ plugins {
     id("com.android.library")
     id( "com.squareup.sqldelight")
     id("kotlin-parcelize")
-    kotlin("plugin.serialization") version "1.7.0"
+    kotlin("plugin.serialization") version "1.7.21"
 }
 
 
@@ -54,8 +54,6 @@ kotlin {
                 implementation("io.insert-koin:koin-core:3.2.0")
                 // SQLDelight
                 implementation("com.squareup.sqldelight:runtime:$sqlDelight")
-                // Kotlin FirebaseAuth
-                implementation("dev.gitlive:firebase-auth:$firebase")
                 // Kotlin Firestore
                 implementation("dev.gitlive:firebase-firestore:$firebase")
                 // Kotlin Serialization
@@ -66,6 +64,8 @@ kotlin {
                 implementation("com.russhwolf:multiplatform-settings-no-arg:0.9")
                 // Cache4K
                 implementation("io.github.reactivecircus.cache4k:cache4k:0.8.0")
+                implementation("io.github.mwaibanda:authentication:1.0.0")
+
             }
         }
         val commonTest by getting {
@@ -77,7 +77,6 @@ kotlin {
             dependencies {
                 implementation("io.ktor:ktor-client-okhttp:$ktorVersion")
                 implementation("com.squareup.sqldelight:android-driver:$sqlDelight")
-                implementation("dev.gitlive:firebase-auth:$firebase")
             }
         }
         val androidTest by getting
