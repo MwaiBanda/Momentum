@@ -3,6 +3,7 @@ package com.mwaibanda.momentum.data.repository
 import com.mwaibanda.momentum.domain.repository.CacheRepository
 import io.github.reactivecircus.cache4k.Cache
 
+@Suppress("UNCHECKED_CAST")
 class CacheRepositoryImpl(
     private val cache: Cache<String, Any>
 ): CacheRepository {
@@ -15,6 +16,8 @@ class CacheRepositoryImpl(
     }
 
     override fun <T: Any> getAllItems(): List<T> {
-        return cache.asMap().map { it.value as T }
+        return cache.asMap()
+            .filter { it.key.toString().startsWith("page") }
+            .map { it.value as T }
     }
 }
