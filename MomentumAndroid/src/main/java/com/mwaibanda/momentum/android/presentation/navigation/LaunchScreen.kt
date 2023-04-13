@@ -61,7 +61,7 @@ fun LaunchScreen(navController: NavController) {
         Column (
             horizontalAlignment = Alignment.CenterHorizontally
         ){
-            Text(text = "Copyright © 2022 Momentum. All rights reserved.", modifier = Modifier.padding(bottom = 15.dp))
+            Text(text = "Copyright © 2023 Momentum. All rights reserved.", modifier = Modifier.padding(bottom = 15.dp))
             Spacer(
                 Modifier
                     .windowInsetsBottomHeight(WindowInsets.navigationBars)

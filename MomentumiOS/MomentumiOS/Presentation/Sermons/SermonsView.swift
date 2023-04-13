@@ -54,7 +54,7 @@ struct SermonsView: View {
                 VStack(alignment: .leading) {
                     
                     if showSearch {
-                        TextField("Search For Sermons", text: $sermonViewmodel.searchTerm)
+                        TextField("Search \(sermonViewmodel.searchTag)", text: $sermonViewmodel.searchTerm)
                             .padding(.top, 5)
 
                     }
@@ -215,6 +215,16 @@ struct SermonsView: View {
                         filtered = sermons
                     }
                 }.store(in: &disposables)
+                Timer.publish(every: 2.5, on: .main, in: .common)
+                    .autoconnect()
+                    .prepend(Date())
+                    .map { _ in }
+                    .sink(receiveValue: { _ in
+                        withAnimation {
+                            sermonViewmodel.shiftSearchTag()
+                        }
+                    })
+                    .store(in: &disposables)
                 sermonViewmodel.sortedSermons.sink { sermons in
                     if sermonViewmodel.filterNewest || sermonViewmodel.filterOldest {
                         filtered = sermons

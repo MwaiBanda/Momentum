@@ -22,15 +22,15 @@ class AuthViewModel(
     fun checkAndSignIn() {
         authController.checkAuthAndSignAsGuest { res ->
             when (res) {
-                is Failure -> {
-                    Log.d("Auth/Failure", res.message ?: "")
-                }
                 is Success -> {
                     currentUser = User(
                         id = res.data?.uid ?: "",
                         email = res.data?.email,
                         isGuest = res.data?.isAnonymous ?: false
                     )
+                }
+                is Failure -> {
+                    Log.d("Auth/Failure", res.message ?: "")
                 }
             }
             Log.d("Auth", "User {id: ${res.data?.uid}, isGuest: ${res.data?.isAnonymous}}")

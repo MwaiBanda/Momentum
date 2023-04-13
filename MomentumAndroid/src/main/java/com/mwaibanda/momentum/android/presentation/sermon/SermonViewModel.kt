@@ -11,8 +11,10 @@ import com.mwaibanda.momentum.data.db.SermonFavourite
 import com.mwaibanda.momentum.domain.controller.SermonController
 import com.mwaibanda.momentum.domain.models.Sermon
 import com.mwaibanda.momentum.utils.Result
+import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 
 
@@ -42,6 +44,7 @@ class SermonViewModel(
 
     private val _isLandscape = MutableStateFlow(false)
     var isLandscape = _isLandscape.asStateFlow()
+
 
     fun setLandscape(value: Boolean) {
         _isLandscape.value = value
@@ -78,6 +81,7 @@ class SermonViewModel(
 
     var currentSermon by mutableStateOf<Sermon?>(null)
 
+
     fun onSearchTermChanged(searchTerm: String) {
         viewModelScope.launch {
             launch {
@@ -89,7 +93,13 @@ class SermonViewModel(
             }
         }
     }
-
+    fun searchTag(): Flow<String> = flow {
+        while (currentCoroutineContext().isActive) {
+            delay(2500)
+            searchTags.add(searchTags.removeFirst())
+            emit(searchTags.first())
+        }
+    }
     fun fetchSermons() {
         currentPage = 1
         sermonController.getSermon(currentPage) {
@@ -176,5 +186,13 @@ class SermonViewModel(
             _watchedSermons.value = sermons
         }
         onCompletion()
+    }
+    companion object {
+        val searchTags = mutableListOf(
+            "by sermon",
+            "for preachers",
+            "by series name",
+            "by date"
+        )
     }
 }

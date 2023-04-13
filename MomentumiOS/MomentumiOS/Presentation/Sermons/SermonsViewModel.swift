@@ -16,6 +16,7 @@ class SermonsViewModel: ObservableObject  {
     @Inject private var controller: SermonController
     @Inject var player: AVPlayer
     
+    
     @Published var sermons = [Sermon]()
     @Published var filtered = [Sermon]()
     @Published var watchedSermons = [MomentumSermon]()
@@ -35,6 +36,7 @@ class SermonsViewModel: ObservableObject  {
 
     @Published private var currentSermonTitle = ""
     @Published var searchTerm = ""
+    @Published var searchTag = ""
 
     var filteredSermons: AnyPublisher<[Sermon], Never> {
         Publishers
@@ -72,6 +74,11 @@ class SermonsViewModel: ObservableObject  {
                 }
                 return res
             }.eraseToAnyPublisher()
+    }
+    
+    func shiftSearchTag() {
+        SermonsViewModel.searchTags.append(SermonsViewModel.searchTags.removeFirst())
+        searchTag = SermonsViewModel.searchTags.first ?? ""
     }
 
 
@@ -299,6 +306,13 @@ class SermonsViewModel: ObservableObject  {
             object: nil
         )
     }
+    
+    static var searchTags = [
+        "For Sermons",
+        "By Series Name",
+        "For Preachers",
+        "By Date"
+    ]
 }
 
 

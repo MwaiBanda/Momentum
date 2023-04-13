@@ -30,10 +30,6 @@ import androidx.navigation.NavController
 import com.mwaibanda.momentum.android.core.utils.C
 import com.mwaibanda.momentum.android.presentation.components.*
 import com.mwaibanda.momentum.domain.models.Sermon
-import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
-import java.net.URLEncoder
-import java.nio.charset.StandardCharsets
 
 @Composable
 fun SermonScreen(
@@ -52,6 +48,7 @@ fun SermonScreen(
     val watchedSermons by sermonViewModel.watchedSermons.collectAsState()
     val favouriteSermons by sermonViewModel.favouriteSermons.collectAsState()
     val searchTerm by sermonViewModel.searchTerm.collectAsState()
+    val searchTag by sermonViewModel.searchTag().collectAsState(initial = "by sermon")
     val canLoadMoreSermons by sermonViewModel.canLoadMoreSermons.collectAsState()
 
     val filterFavourites by sermonViewModel.filterFavourites.collectAsState()
@@ -134,7 +131,12 @@ fun SermonScreen(
                             TextField(
                                 value = searchTerm,
                                 onValueChange = sermonViewModel::onSearchTermChanged,
-                                label = { Text(text = "Search for sermons") },
+                                label = {
+                                    Column {
+                                        AnimatedVisibility(visible = searchTag.isNotEmpty()) {
+                                            Text(text = "Search $searchTag")
+                                        }
+                                    }},
                                 modifier = Modifier.fillMaxWidth(),
                                 colors = TextFieldDefaults.textFieldColors(
                                     cursorColor = Color(C.MOMENTUM_ORANGE),
@@ -242,7 +244,9 @@ fun SermonScreen(
                                         searchTerm = searchTerm,
                                         modifier = Modifier
                                             .clickable {
-                                                navController.currentBackStackEntry?.arguments?.putParcelable("sermon", sermon)
+                                                navController.currentBackStackEntry?.arguments?.putParcelable(
+                                                    "sermon",
+                                                    sermon)
                                                 navController.navigate("play/{sermon}")
                                                 sermonViewModel.currentSermon = sermon
                                             }

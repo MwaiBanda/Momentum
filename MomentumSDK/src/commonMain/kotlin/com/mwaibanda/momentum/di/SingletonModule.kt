@@ -39,6 +39,7 @@ val singletonModule = module {
     }
     single { Settings() }
     single { Firebase.firestore }
+    single { Authentication }
     single { Authentication.controller }
     single<Cache<String, Any>>{
         Cache.Builder()
