@@ -13,12 +13,21 @@
 		1C3CF16E28D984F400B46FC1 /* RoundedCorner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C3CF16D28D984F400B46FC1 /* RoundedCorner.swift */; };
 		1C3CF17028D98B1600B46FC1 /* Sermon+Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C3CF16F28D98B1600B46FC1 /* Sermon+Swift.swift */; };
 		1C3CF17228D993B500B46FC1 /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C3CF17128D993B500B46FC1 /* PlayerView.swift */; };
+		1C46D1312A8072EB00E5FB25 /* MealsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C46D1302A8072EB00E5FB25 /* MealsView.swift */; };
+		1C46D13F2A80A4A500E5FB25 /* Stripe in Frameworks */ = {isa = PBXBuildFile; productRef = 1C46D13E2A80A4A500E5FB25 /* Stripe */; };
+		1C46D1412A80A4A500E5FB25 /* StripeApplePay in Frameworks */ = {isa = PBXBuildFile; productRef = 1C46D1402A80A4A500E5FB25 /* StripeApplePay */; };
+		1C46D1432A80A4A500E5FB25 /* StripeCardScan in Frameworks */ = {isa = PBXBuildFile; productRef = 1C46D1422A80A4A500E5FB25 /* StripeCardScan */; };
+		1C46D1452A80A4A500E5FB25 /* StripePaymentSheet in Frameworks */ = {isa = PBXBuildFile; productRef = 1C46D1442A80A4A500E5FB25 /* StripePaymentSheet */; };
+		1C46D1472A80A4A500E5FB25 /* StripePayments in Frameworks */ = {isa = PBXBuildFile; productRef = 1C46D1462A80A4A500E5FB25 /* StripePayments */; };
+		1C46D1492A80A4A500E5FB25 /* StripePaymentsUI in Frameworks */ = {isa = PBXBuildFile; productRef = 1C46D1482A80A4A500E5FB25 /* StripePaymentsUI */; };
 		1C82C2A428ECB97900E19A30 /* DeviceSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C82C2A328ECB97900E19A30 /* DeviceSize.swift */; };
 		1C82C2A628ED277000E19A30 /* SermonCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C82C2A528ED277000E19A30 /* SermonCard.swift */; };
 		1C8BACBA2923174D00731617 /* TinyDi in Frameworks */ = {isa = PBXBuildFile; productRef = 1C8BACB92923174D00731617 /* TinyDi */; };
 		1C8BACBC292317AE00731617 /* SingletonModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8BACBB292317AE00731617 /* SingletonModule.swift */; };
 		1C8BACBE2923191B00731617 /* ControllerModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8BACBD2923191B00731617 /* ControllerModule.swift */; };
 		1CA5277328CED0DC00066605 /* AppReviewRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CA5277228CED0DC00066605 /* AppReviewRequester.swift */; };
+		1CE5BEAF2A80C939008F7BD8 /* MultiDatePicker in Frameworks */ = {isa = PBXBuildFile; productRef = 1CE5BEAE2A80C939008F7BD8 /* MultiDatePicker */; };
+		1CE5BEB12A80D74D008F7BD8 /* postSuccess.json in Resources */ = {isa = PBXBuildFile; fileRef = 1CE5BEB02A80D74D008F7BD8 /* postSuccess.json */; };
 		1CE8F2B228D92AFB0077F2F0 /* SermonsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE8F2B128D92AFB0077F2F0 /* SermonsViewModel.swift */; };
 		1CE8F2B428D92B220077F2F0 /* SermonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE8F2B328D92B220077F2F0 /* SermonsView.swift */; };
 		2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2152FB032600AC8F00CF470E /* iOSApp.swift */; };
@@ -71,9 +80,6 @@
 		819B7952287098FA0010B960 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819B7951287098FA0010B960 /* Log.swift */; };
 		819E6161288654F0007BD761 /* TransactionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819E6160288654F0007BD761 /* TransactionView.swift */; };
 		819E616328865523007BD761 /* TransactionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819E616228865523007BD761 /* TransactionViewModel.swift */; };
-		81ABDEE72893AFC300C98645 /* Stripe in Frameworks */ = {isa = PBXBuildFile; productRef = 81ABDEE62893AFC300C98645 /* Stripe */; };
-		81ABDEE92893AFC300C98645 /* StripeApplePay in Frameworks */ = {isa = PBXBuildFile; productRef = 81ABDEE82893AFC300C98645 /* StripeApplePay */; };
-		81ABDEEB2893AFC300C98645 /* StripeCardScan in Frameworks */ = {isa = PBXBuildFile; productRef = 81ABDEEA2893AFC300C98645 /* StripeCardScan */; };
 		81ACD6412897A888002862D2 /* DiRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81ACD6402897A888002862D2 /* DiRegistry.swift */; };
 		81B802D42877E4080008509D /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B802D32877E4080008509D /* LoadingView.swift */; };
 		81B802D62877E46A0008509D /* PaymentSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B802D52877E46A0008509D /* PaymentSummaryView.swift */; };
@@ -112,11 +118,13 @@
 		1C3CF16D28D984F400B46FC1 /* RoundedCorner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedCorner.swift; sourceTree = "<group>"; };
 		1C3CF16F28D98B1600B46FC1 /* Sermon+Swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sermon+Swift.swift"; sourceTree = "<group>"; };
 		1C3CF17128D993B500B46FC1 /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
+		1C46D1302A8072EB00E5FB25 /* MealsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealsView.swift; sourceTree = "<group>"; };
 		1C82C2A328ECB97900E19A30 /* DeviceSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceSize.swift; sourceTree = "<group>"; };
 		1C82C2A528ED277000E19A30 /* SermonCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SermonCard.swift; sourceTree = "<group>"; };
 		1C8BACBB292317AE00731617 /* SingletonModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingletonModule.swift; sourceTree = "<group>"; };
 		1C8BACBD2923191B00731617 /* ControllerModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControllerModule.swift; sourceTree = "<group>"; };
 		1CA5277228CED0DC00066605 /* AppReviewRequester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppReviewRequester.swift; sourceTree = "<group>"; };
+		1CE5BEB02A80D74D008F7BD8 /* postSuccess.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = postSuccess.json; sourceTree = "<group>"; };
 		1CE8F2B128D92AFB0077F2F0 /* SermonsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SermonsViewModel.swift; sourceTree = "<group>"; };
 		1CE8F2B328D92B220077F2F0 /* SermonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SermonsView.swift; sourceTree = "<group>"; };
 		2152FB032600AC8F00CF470E /* iOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSApp.swift; sourceTree = "<group>"; };
@@ -195,17 +203,21 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				81ABDEEB2893AFC300C98645 /* StripeCardScan in Frameworks */,
+				1C46D1432A80A4A500E5FB25 /* StripeCardScan in Frameworks */,
+				1C46D1452A80A4A500E5FB25 /* StripePaymentSheet in Frameworks */,
 				8186F1F12894EA0700FEA781 /* Introspect in Frameworks */,
+				1C46D1492A80A4A500E5FB25 /* StripePaymentsUI in Frameworks */,
+				1C46D1412A80A4A500E5FB25 /* StripeApplePay in Frameworks */,
 				1C8BACBA2923174D00731617 /* TinyDi in Frameworks */,
 				818E26142893B51A00749888 /* FirebaseAuth in Frameworks */,
-				81ABDEE92893AFC300C98645 /* StripeApplePay in Frameworks */,
 				8186F1EE2894E84E00FEA781 /* KeyboardToolbar in Frameworks */,
 				814525F528793F3300989B4C /* Lottie in Frameworks */,
-				81ABDEE72893AFC300C98645 /* Stripe in Frameworks */,
+				1C46D13F2A80A4A500E5FB25 /* Stripe in Frameworks */,
 				3703363E8055D813FEFB7DBA /* Pods_MomentumiOS.framework in Frameworks */,
 				1C3CF16B28D95E3000B46FC1 /* SDWebImageSwiftUI in Frameworks */,
+				1C46D1472A80A4A500E5FB25 /* StripePayments in Frameworks */,
 				818E26162893B51A00749888 /* FirebaseFirestore in Frameworks */,
+				1CE5BEAF2A80C939008F7BD8 /* MultiDatePicker in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -241,6 +253,14 @@
 				1C3CF16D28D984F400B46FC1 /* RoundedCorner.swift */,
 			);
 			path = Shape;
+			sourceTree = "<group>";
+		};
+		1C46D12F2A8072CA00E5FB25 /* Meals */ = {
+			isa = PBXGroup;
+			children = (
+				1C46D1302A8072EB00E5FB25 /* MealsView.swift */,
+			);
+			path = Meals;
 			sourceTree = "<group>";
 		};
 		1CE8F2B028D92ACA0077F2F0 /* Sermons */ = {
@@ -326,6 +346,7 @@
 		8126AF6E286FD7AF007DBAB9 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				1C46D12F2A8072CA00E5FB25 /* Meals */,
 				1CE8F2B028D92ACA0077F2F0 /* Sermons */,
 				813E775C288DC5C700109C19 /* Profile */,
 				8182E776288B919700A9CF9D /* Auth */,
@@ -436,6 +457,7 @@
 		814525F228793A6900989B4C /* Animations */ = {
 			isa = PBXGroup;
 			children = (
+				1CE5BEB02A80D74D008F7BD8 /* postSuccess.json */,
 				814525FA287940E900989B4C /* success.json */,
 				814525F8287940DF00989B4C /* failed.json */,
 			);
@@ -574,15 +596,19 @@
 			name = MomentumiOS;
 			packageProductDependencies = (
 				814525F428793F3300989B4C /* Lottie */,
-				81ABDEE62893AFC300C98645 /* Stripe */,
-				81ABDEE82893AFC300C98645 /* StripeApplePay */,
-				81ABDEEA2893AFC300C98645 /* StripeCardScan */,
 				818E26132893B51A00749888 /* FirebaseAuth */,
 				818E26152893B51A00749888 /* FirebaseFirestore */,
 				8186F1ED2894E84E00FEA781 /* KeyboardToolbar */,
 				8186F1F02894EA0700FEA781 /* Introspect */,
 				1C3CF16A28D95E3000B46FC1 /* SDWebImageSwiftUI */,
 				1C8BACB92923174D00731617 /* TinyDi */,
+				1C46D13E2A80A4A500E5FB25 /* Stripe */,
+				1C46D1402A80A4A500E5FB25 /* StripeApplePay */,
+				1C46D1422A80A4A500E5FB25 /* StripeCardScan */,
+				1C46D1442A80A4A500E5FB25 /* StripePaymentSheet */,
+				1C46D1462A80A4A500E5FB25 /* StripePayments */,
+				1C46D1482A80A4A500E5FB25 /* StripePaymentsUI */,
+				1CE5BEAE2A80C939008F7BD8 /* MultiDatePicker */,
 			);
 			productName = MomentumiOS;
 			productReference = 7555FF7B242A565900829871 /* MomentumiOS.app */;
@@ -637,12 +663,13 @@
 			mainGroup = 7555FF72242A565900829871;
 			packageReferences = (
 				814525F328793F3300989B4C /* XCRemoteSwiftPackageReference "lottie-ios" */,
-				81ABDEE52893AFC300C98645 /* XCRemoteSwiftPackageReference "stripe-ios" */,
 				818E26122893B51A00749888 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				8186F1EC2894E84D00FEA781 /* XCRemoteSwiftPackageReference "KeyboardToolbar" */,
 				8186F1EF2894EA0700FEA781 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */,
 				1C3CF16928D95E3000B46FC1 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
 				1C8BACB82923174D00731617 /* XCRemoteSwiftPackageReference "TinyDi" */,
+				1C46D13D2A80A4A500E5FB25 /* XCRemoteSwiftPackageReference "stripe-ios-spm" */,
+				1CE5BEAD2A80C939008F7BD8 /* XCRemoteSwiftPackageReference "MultiDatePicker" */,
 			);
 			productRefGroup = 7555FF7C242A565900829871 /* Products */;
 			projectDirPath = "";
@@ -661,6 +688,7 @@
 			files = (
 				058557D9273AAEEB004C7B11 /* Preview Assets.xcassets in Resources */,
 				814525FB287940E900989B4C /* success.json in Resources */,
+				1CE5BEB12A80D74D008F7BD8 /* postSuccess.json in Resources */,
 				814525F9287940DF00989B4C /* failed.json in Resources */,
 				81841AF82884C81200C42204 /* LaunchScreen.storyboard in Resources */,
 				058557BB273AAA24004C7B11 /* Assets.xcassets in Resources */,
@@ -716,6 +744,7 @@
 				813E775E288DC60500109C19 /* ProfileView.swift in Sources */,
 				81E937CD288E4F2400D74BD3 /* ProfileViewModel.swift in Sources */,
 				819498002887B2460099B30B /* ToggleLabel.swift in Sources */,
+				1C46D1312A8072EB00E5FB25 /* MealsView.swift in Sources */,
 				816CCDE1288F365600795B59 /* LinkLabel.swift in Sources */,
 				816CCDE328903C8C00795B59 /* SignInView.swift in Sources */,
 				81E8F8D12892144400F4A87C /* ProfileCards.swift in Sources */,
@@ -1078,9 +1107,25 @@
 				version = 2.2.2;
 			};
 		};
+		1C46D13D2A80A4A500E5FB25 /* XCRemoteSwiftPackageReference "stripe-ios-spm" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/stripe/stripe-ios-spm";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 23.0.0;
+			};
+		};
 		1C8BACB82923174D00731617 /* XCRemoteSwiftPackageReference "TinyDi" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/MwaiBanda/TinyDi";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		1CE5BEAD2A80C939008F7BD8 /* XCRemoteSwiftPackageReference "MultiDatePicker" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/MwaiBanda/MultiDatePicker";
 			requirement = {
 				branch = main;
 				kind = branch;
@@ -1118,14 +1163,6 @@
 				kind = branch;
 			};
 		};
-		81ABDEE52893AFC300C98645 /* XCRemoteSwiftPackageReference "stripe-ios" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/stripe/stripe-ios";
-			requirement = {
-				branch = master;
-				kind = branch;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1134,10 +1171,45 @@
 			package = 1C3CF16928D95E3000B46FC1 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
 			productName = SDWebImageSwiftUI;
 		};
+		1C46D13E2A80A4A500E5FB25 /* Stripe */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1C46D13D2A80A4A500E5FB25 /* XCRemoteSwiftPackageReference "stripe-ios-spm" */;
+			productName = Stripe;
+		};
+		1C46D1402A80A4A500E5FB25 /* StripeApplePay */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1C46D13D2A80A4A500E5FB25 /* XCRemoteSwiftPackageReference "stripe-ios-spm" */;
+			productName = StripeApplePay;
+		};
+		1C46D1422A80A4A500E5FB25 /* StripeCardScan */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1C46D13D2A80A4A500E5FB25 /* XCRemoteSwiftPackageReference "stripe-ios-spm" */;
+			productName = StripeCardScan;
+		};
+		1C46D1442A80A4A500E5FB25 /* StripePaymentSheet */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1C46D13D2A80A4A500E5FB25 /* XCRemoteSwiftPackageReference "stripe-ios-spm" */;
+			productName = StripePaymentSheet;
+		};
+		1C46D1462A80A4A500E5FB25 /* StripePayments */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1C46D13D2A80A4A500E5FB25 /* XCRemoteSwiftPackageReference "stripe-ios-spm" */;
+			productName = StripePayments;
+		};
+		1C46D1482A80A4A500E5FB25 /* StripePaymentsUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1C46D13D2A80A4A500E5FB25 /* XCRemoteSwiftPackageReference "stripe-ios-spm" */;
+			productName = StripePaymentsUI;
+		};
 		1C8BACB92923174D00731617 /* TinyDi */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 1C8BACB82923174D00731617 /* XCRemoteSwiftPackageReference "TinyDi" */;
 			productName = TinyDi;
+		};
+		1CE5BEAE2A80C939008F7BD8 /* MultiDatePicker */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1CE5BEAD2A80C939008F7BD8 /* XCRemoteSwiftPackageReference "MultiDatePicker" */;
+			productName = MultiDatePicker;
 		};
 		814525F428793F3300989B4C /* Lottie */ = {
 			isa = XCSwiftPackageProductDependency;
@@ -1163,21 +1235,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 818E26122893B51A00749888 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseFirestore;
-		};
-		81ABDEE62893AFC300C98645 /* Stripe */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 81ABDEE52893AFC300C98645 /* XCRemoteSwiftPackageReference "stripe-ios" */;
-			productName = Stripe;
-		};
-		81ABDEE82893AFC300C98645 /* StripeApplePay */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 81ABDEE52893AFC300C98645 /* XCRemoteSwiftPackageReference "stripe-ios" */;
-			productName = StripeApplePay;
-		};
-		81ABDEEA2893AFC300C98645 /* StripeCardScan */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 81ABDEE52893AFC300C98645 /* XCRemoteSwiftPackageReference "stripe-ios" */;
-			productName = StripeCardScan;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

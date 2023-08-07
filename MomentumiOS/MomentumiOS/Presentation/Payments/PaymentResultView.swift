@@ -8,6 +8,7 @@
 
 import SwiftUI
 import Stripe
+import StripePaymentSheet
 
 struct PaymentResultView: View {
     let result: PaymentSheetResult

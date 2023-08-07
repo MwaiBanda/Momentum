@@ -34,10 +34,9 @@ class SermonRepositoryImpl(
 
         try {
             val sermonDTO: SermonContainerDTO = httpClient.get {
-                momentumSermons(
+                momentumAPI(
                     SERMONS_ENDPOINT,
                     params = hashMapOf(
-                        "howmany" to "12",
                         "page" to "$pageNumber"
                     )
                 )

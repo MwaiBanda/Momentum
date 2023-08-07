@@ -9,6 +9,7 @@
 import Foundation
 import MomentumSDK
 import Stripe
+import StripePaymentSheet
 import UIKit
 import TinyDi
 

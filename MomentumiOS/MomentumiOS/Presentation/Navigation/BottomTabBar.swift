@@ -15,6 +15,28 @@ struct BottomTabBar: View {
     var body: some View {
         TabView {
             NavigationView {
+                ContentWrapper(navConfiguration: .detailConfig, hasBlurredBackground: false) {
+                    MealsView()
+                        .onAppear {
+                            itemAppearance.normal.iconColor = UIColor(Color(.black))
+                            itemAppearance.normal.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(Color(.black))]
+                            appearance.shadowColor = UIColor(Color.black)
+                            appearance.backgroundColor = UIColor(Color(.clear))
+                            appearance.stackedLayoutAppearance = itemAppearance
+                            appearance.inlineLayoutAppearance = itemAppearance
+                            appearance.compactInlineLayoutAppearance = itemAppearance
+                            
+                            UITabBar.appearance().standardAppearance = appearance
+                        }
+                }
+            }
+            .navigationViewStyle(StackNavigationViewStyle())
+            .tag(0)
+            .tabItem {
+                Image(systemName: "takeoutbag.and.cup.and.straw")
+                
+            }
+            NavigationView {
                 ContentWrapper {
                     OfferView()
                         .onAppear {

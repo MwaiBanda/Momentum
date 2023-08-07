@@ -14,6 +14,8 @@ import Combine
 struct SermonsView: View {
     @StateObject private var sermonViewmodel = SermonsViewModel()
     @State private var sermon: Sermon? = nil
+    @State private var showSermon = false
+
     @State private var showSearch = false
     @State private var showFilter = false
     @State private var filtered = [Sermon]()
@@ -151,6 +153,8 @@ struct SermonsView: View {
                                 }
                             ) {
                                 self.sermon = $0
+                                showSermon = true
+                                print("clicked")
                             }
                         }
                     }
@@ -232,37 +236,47 @@ struct SermonsView: View {
                 }.store(in: &disposables)
             }
         }
-        .fullScreenCover(item: $sermon) { sermon in
-            PlayerView(
-                player: sermonViewmodel.player,
-                playbackURL: sermon.videoURL,
-                lastPlayedTime: {
-                    let lastPlayedSermon = sermonViewmodel.watchedSermons.first(where: { $0.id == sermon.id })
-                    let myTime = CMTime(seconds: lastPlayedSermon?.last_played_time ?? 0, preferredTimescale: 60000)
-                    return myTime
-                }
-            )
-            .ignoresSafeArea(.all)
-            .onDisappear {
-                UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
-                AppDelegate.orientationLock = .portrait
-                let currentTimeInSeconds: Double = sermonViewmodel.player.currentItem?.currentTime().seconds ?? 0
-                let currentTimeInSecondsRounded = round(currentTimeInSeconds * 100) / 100
-                sermonViewmodel.addSermon(
-                    sermon: MomentumSermon(
-                        id: sermonViewmodel.currentSermon?.id ?? "",
-                        last_played_time: currentTimeInSecondsRounded,
-                        last_played_percentage: Int32((currentTimeInSecondsRounded / (round((sermonViewmodel.player.currentItem?.duration.seconds ?? 0) * 100) / 100)) * 100)
+        .fullScreenCover(isPresented: $showSermon) {
+            ZStack {
+                Color.black.ignoresSafeArea(.all)
+                ProgressView()
+                    .progressViewStyle(CircularProgressViewStyle())
+                    .accentColor(.white)
+                if let sermon {
+                    PlayerView(
+                        player: sermonViewmodel.player,
+                        playbackURL: sermon.videoURL,
+                        lastPlayedTime: {
+                            let lastPlayedSermon = sermonViewmodel.watchedSermons.first(where: { $0.id == sermon.id })
+                            let myTime = CMTime(seconds: lastPlayedSermon?.last_played_time ?? 0, preferredTimescale: 60000)
+                            return myTime
+                        }
                     )
-                )
-                sermonViewmodel.resetNowPlaying()
+                    .ignoresSafeArea(.all)
+                    .onDisappear {
+                        showSermon = false
+                        UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
+                        AppDelegate.orientationLock = .portrait
+                        let currentTimeInSeconds: Double = sermonViewmodel.player.currentItem?.currentTime().seconds ?? 0
+                        let currentTimeInSecondsRounded = round(currentTimeInSeconds * 100) / 100
+                        sermonViewmodel.addSermon(
+                            sermon: MomentumSermon(
+                                id: sermonViewmodel.currentSermon?.id ?? "",
+                                last_played_time: currentTimeInSecondsRounded,
+                                last_played_percentage: Int32((currentTimeInSecondsRounded / (round((sermonViewmodel.player.currentItem?.duration.seconds ?? 0) * 100) / 100)) * 100)
+                            )
+                        )
+                        sermonViewmodel.resetNowPlaying()
+                    }
+                    .onAppear {
+                        AppDelegate.orientationLock = .all
+                        sermonViewmodel.updateNowPlaying(sermon: sermon)
+                        sermonViewmodel.currentSermon = sermon
+                        
+                    }
+                }
             }
-            .onAppear {
-                AppDelegate.orientationLock = .all
-                sermonViewmodel.updateNowPlaying(sermon: sermon)
-                sermonViewmodel.currentSermon = sermon
-                
-            }
+           
         }
     }
 }
