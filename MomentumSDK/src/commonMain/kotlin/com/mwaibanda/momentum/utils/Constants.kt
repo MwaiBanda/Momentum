@@ -32,6 +32,7 @@ object MultiplatformConstants {
     const val ZIP_CODE = "zip code"
     const val PROFILE = "Profile"
     const val PROFILE_SUBHEADING = "Edit personal information & manage account"
+    const val MEALS_SUBHEADING = "View meals available & volunteer"
     const val CONTACT_INFORMATION = "Contact Information"
     const val BILLING_INFORMATION = "Billing Information"
     const val MANAGE_ACCOUNT = "Manage Account"

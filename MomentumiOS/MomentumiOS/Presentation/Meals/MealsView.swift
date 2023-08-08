@@ -8,42 +8,99 @@
 
 import SwiftUI
 import MultiDatePicker
+import MomentumSDK
 
-struct Meal  {
+struct Meal: Identifiable  {
+    let id: String = UUID().uuidString
     let receipient: String
-    let receipientEmail: String
+    let reason: String
+    let email: String
+    let phone: String
+    let city: String
+    let street: String
+    let preferredTime: String
+    let meals: [MealPlan]
+    let participants: [String]
+    let updates: [Update]
+    let favourites: String
+    let leastFavourites: String
+    let allergies: String
+    let instructions: String
+    let creatorId: String
+}
+
+struct Update  {
+    let userId: String
+    let message: String
+}
+
+struct MealPlan {
+    let date: String
+    let meal: String
+    let notes: String
 }
 
 struct MealsView: View {
     @State private var showAddMealSheet = false
+    @State private var meals = [Meal]()
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar(
-                content: {
-                    ToolbarItemGroup(placement: .navigationBarLeading) {
-                        Text("Meals")
-                            .font(.largeTitle)
-                            .bold()
-                    }
-                    
-                    ToolbarItemGroup(placement: .navigationBarTrailing) {
-                        Button {
-                            withAnimation(.easeInOut(duration: 0.35)) {
-                                showAddMealSheet.toggle()
-                            }
-                        } label: {
-                            Image(systemName: "plus")
-                        }
-                        
+        VStack(alignment: .leading, spacing: 0) {
+            Divider()
+            HStack {
+            Text(MultiplatformConstants.shared.MEALS_SUBHEADING.uppercased())
+                .font(.caption)
+                .foregroundColor(Color(hex: Constants.MOMENTUM_ORANGE))
+                .padding(.leading)
+                .padding(.leading, 5)
+                
+                Spacer()
+            }
+            .padding(.vertical, 5)
+
+            ScrollView {
+                ForEach(meals) { meal in
+                    NavigationLink  {
+                        Text(meal.receipient)
+                    } label: {
+                        DescriptionCard(title: meal.receipient, description: meal.reason)
                     }
                 }
-            )
-            .sheet(isPresented: $showAddMealSheet) {
-                UploadMealCardView(onDismiss: {
+            }
+            .frame(height: screenBounds.height - 230)
+            .padding(.top, 15)
+        }
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar(
+            content: {
+                ToolbarItemGroup(placement: .navigationBarLeading) {
+                    Text("Meals")
+                        .font(.largeTitle)
+                        .bold()
+                }
+                
+                ToolbarItemGroup(placement: .navigationBarTrailing) {
+                    Button {
+                        withAnimation(.easeInOut(duration: 0.35)) {
+                            showAddMealSheet.toggle()
+                        }
+                    } label: {
+                        Image(systemName: "plus")
+                    }
+                    
+                }
+            }
+        )
+        .sheet(isPresented: $showAddMealSheet) {
+            ZStack {
+                UploadMealCardView(onDismiss: { meal in
+                    meals.append(meal)
                     showAddMealSheet.toggle()
                 })
+            }.onTapGesture {
+                UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
             }
+        }
     }
 }
 
@@ -59,10 +116,29 @@ struct UploadMealCardView: View {
     @State private var loadingState: Double = 0
     @State private var startLoading = false
     @State private var loadingIncrement: Double = 1
-    @State private var description = "\u{2022} "
-    @State var dates = [Date]()
     
-    var onDismiss: () -> Void
+    /* STATE PAGE 1*/
+    @State private var recipient = ""
+    @State private var email = ""
+    @State private var phone = ""
+    @State private var reason = ""
+    
+    /* STATE PAGE 2*/
+    @State private var street = ""
+    @State private var city = ""
+    @State private var numberOfAdults = ""
+    @State private var numberOfKids = ""
+    @State private var preferredTime = ""
+    @State private var favourites = "\u{2022} "
+    /* STATE PAGE 2*/
+    @State private var leastFavourites = "\u{2022} "
+    @State private var allergies = "\u{2022} "
+    @State private var instructions = "\u{2022} "
+    
+    
+    @State var selectedDates = [Date]()
+    
+    var onDismiss: (Meal) -> Void
     
     var body: some View {
         VStack {
@@ -108,68 +184,69 @@ struct UploadMealCardView: View {
                     TabView (selection: $currentPage) {
                         VStack {
                             Group {
-                                DefaultTextfield(title: "Recipient", icon: "person", text: .constant(""))
+                                DefaultTextfield(title: "Recipient", icon: "person", text: $recipient)
                                 Divider()
-                                DefaultTextfield(title: "Email", icon: "envelope", text: .constant(""))
+                                DefaultTextfield(title: "Email", icon: "envelope", text: $email)
                                 Divider()
-                                DefaultTextfield(title: "Phone", icon: "envelope", text: .constant(""))
+                                DefaultTextfield(title: "Phone", icon: "phone", text: $phone)
                                 Divider()
                             }
                             Group {
-                                DefaultTextfield(title: "City", icon: "envelope", text: .constant(""))
-                                Divider()
-                                DefaultTextfield(title: "Street", icon: "envelope", text: .constant(""))
+                                DefaultTextfield(title: "Reason", icon: "info.circle", text: $reason)
                                 
                             }
                             Spacer()
                         }
                         .tag(0)
                         VStack {
-                            MultiDatePicker(anyDays: $dates)
+                            MultiDatePicker(anyDays: $selectedDates)
                                 .accentColor(.black)
                             Spacer()
                         }
                         .tag(1)
                         ScrollView(showsIndicators: false) {
                             VStack {
-                                DefaultTextfield(title: "Number of Adults", icon: "person", text: .constant(""))
+                                DefaultTextfield(title: "Street", icon: "building.2", text: $street)
                                 Divider()
-                                DefaultTextfield(title: "Number of Kids", icon: "person", text: .constant(""))
+                                DefaultTextfield(title: "City", icon: "building.columns", text: $city)
                                 Divider()
-                                DefaultTextfield(title: "Preferred Delivery Time(4pm - 5pm)", icon: "envelope", text: .constant(""))
+                                DefaultTextfield(title: "Number of Adults", icon: "person", text: $numberOfAdults)
                                 Divider()
-                                VStack(alignment: .leading) {
-                                    Text("Favorite Meals or Resturants")
-                                        .foregroundColor(.gray)
-                                        .font(.headline)
-                                        .fontWeight(.semibold)
-                                    TextEditor(text: $description)
-                                        .frame(minHeight: 130, maxHeight: 130)
-                                        .foregroundColor(.black)
-                                        .onChange(of: description) { [description] newText in
-                                            if newText.suffix(1) == "\n" && newText > description {
-                                                self.description.append("\u{2022} ")
-                                            }
-                                        }
-                                }.padding(.horizontal, 15)
+                                DefaultTextfield(title: "Number of Kids", icon: "person", text: $numberOfKids)
+                                Divider()
+                                DefaultTextfield(title: "Preferred Delivery Time(4pm - 5pm)", icon: "calendar.badge.clock", text: $preferredTime)
                                 
                                 Spacer()
                             }
                         }
                         .tag(2)
                         ScrollView(showsIndicators: false)  {
-                            
+                            VStack(alignment: .leading) {
+                                Text("Favorite Meals or Resturants")
+                                    .foregroundColor(.gray)
+                                    .font(.headline)
+                                    .fontWeight(.semibold)
+                                TextEditor(text: $favourites)
+                                    .frame(minHeight: 120, maxHeight: 120)
+                                    .foregroundColor(.black)
+                                    .onChange(of: favourites) { [favourites] newText in
+                                        if newText.suffix(1) == "\n" && newText > favourites {
+                                            self.favourites.append("\u{2022} ")
+                                        }
+                                    }
+                            }.padding(.horizontal, 15)
+                            Divider()
                             VStack(alignment: .leading) {
                                 Text("Least Favorite Meals")
                                     .foregroundColor(.gray)
                                     .font(.headline)
                                     .fontWeight(.semibold)
-                                TextEditor(text: $description)
+                                TextEditor(text: $leastFavourites)
                                     .frame(minHeight: 120, maxHeight: 120)
                                     .foregroundColor(.black)
-                                    .onChange(of: description) { [description] newText in
-                                        if newText.suffix(1) == "\n" && newText > description {
-                                            self.description.append("\u{2022} ")
+                                    .onChange(of: leastFavourites) { [leastFavourites] newText in
+                                        if newText.suffix(1) == "\n" && newText > leastFavourites {
+                                            self.leastFavourites.append("\u{2022} ")
                                         }
                                     }
                             }.padding(.horizontal, 15)
@@ -179,12 +256,12 @@ struct UploadMealCardView: View {
                                     .foregroundColor(.gray)
                                     .font(.headline)
                                     .fontWeight(.semibold)
-                                TextEditor(text: $description)
+                                TextEditor(text: $allergies)
                                     .frame(minHeight: 120, maxHeight: 120)
                                     .foregroundColor(.black)
-                                    .onChange(of: description) { [description] newText in
-                                        if newText.suffix(1) == "\n" && newText > description {
-                                            self.description.append("\u{2022} ")
+                                    .onChange(of: allergies) { [allergies] newText in
+                                        if newText.suffix(1) == "\n" && newText > allergies {
+                                            self.allergies.append("\u{2022} ")
                                         }
                                     }
                             }.padding(.horizontal, 15)
@@ -194,12 +271,12 @@ struct UploadMealCardView: View {
                                     .foregroundColor(.gray)
                                     .font(.headline)
                                     .fontWeight(.semibold)
-                                TextEditor(text: $description)
+                                TextEditor(text: $instructions)
                                     .frame(minHeight: 120, maxHeight: 120)
                                     .foregroundColor(.black)
-                                    .onChange(of: description) { [description] newText in
-                                        if newText.suffix(1) == "\n" && newText > description {
-                                            self.description.append("\u{2022} ")
+                                    .onChange(of: instructions) { [instructions] newText in
+                                        if newText.suffix(1) == "\n" && newText > instructions {
+                                            self.instructions.append("\u{2022} ")
                                         }
                                     }
                             }.padding(.horizontal, 15)
@@ -239,7 +316,25 @@ struct UploadMealCardView: View {
                                     currentPage += 1
                                 }
                             } else {
-                                onDismiss()
+                                onDismiss(Meal(
+                                    receipient: recipient,
+                                    reason: reason,
+                                    email: email,
+                                    phone: phone,
+                                    city: city,
+                                    street: street,
+                                    preferredTime: preferredTime,
+                                    meals: selectedDates.map({
+                                        MealPlan(date: $0.description, meal: "", notes: "")
+                                    }),
+                                    participants: [],
+                                    updates: [],
+                                    favourites: favourites,
+                                    leastFavourites: leastFavourites,
+                                    allergies: allergies,
+                                    instructions: instructions,
+                                    creatorId: 
+                                ))
                             }
                             
                         }} label: {
@@ -264,6 +359,7 @@ struct UploadMealCardView: View {
                 } else if loadingState > 99 {
                     currentPage += 1
                     stopTimer()
+                    
                 }
             }
             
@@ -271,6 +367,7 @@ struct UploadMealCardView: View {
         }
     }
     func stopTimer() {
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
         self.timer.upstream.connect().cancel()
     }
     
@@ -305,5 +402,34 @@ struct DefaultTextfield: View {
                 
             )
             .ignoresSafeArea(.keyboard, edges: .bottom)
+    }
+}
+
+struct DescriptionCard: View {
+    var title: String
+    var description: String
+    
+    var body: some View {
+        Card {
+            HStack {
+                VStack(alignment: .leading) {
+                    Text(title)
+                        .font(.title3)
+                        .fontWeight(.bold)
+                        .foregroundColor(Color.black)
+                    Text(description)
+                        .foregroundColor(.gray)
+                }
+                Spacer()
+                Image(systemName: "chevron.right")
+                    .foregroundColor(Color.black)
+            }
+            .padding(5)
+            .padding(.horizontal, 10)
+            .padding(.vertical, 10)
+        }
+        .frame(maxHeight: 70)
+        .padding(.horizontal, 10)
+        .padding(.top, 5)
     }
 }

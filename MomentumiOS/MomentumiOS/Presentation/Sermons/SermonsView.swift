@@ -156,6 +156,7 @@ struct SermonsView: View {
                                 showSermon = true
                                 print("clicked")
                             }
+                            .frame(maxHeight: 250)
                         }
                     }
                 }
@@ -173,8 +174,9 @@ struct SermonsView: View {
                     }
                 }
             }
-            .frame(height: screenBounds.height - 200)
+            .frame(height: screenBounds.height - 210)
             .redacted(reason: sermonViewmodel.sermons.isEmpty ? .placeholder : [])
+         
         }
         .navigationBarTitleDisplayMode(.inline)
         .toolbar(content: {
@@ -240,8 +242,7 @@ struct SermonsView: View {
             ZStack {
                 Color.black.ignoresSafeArea(.all)
                 ProgressView()
-                    .progressViewStyle(CircularProgressViewStyle())
-                    .accentColor(.white)
+                    .progressViewStyle(CircularProgressViewStyle(tint: Color(hex: Constants.MOMENTUM_ORANGE)))
                 if let sermon {
                     PlayerView(
                         player: sermonViewmodel.player,

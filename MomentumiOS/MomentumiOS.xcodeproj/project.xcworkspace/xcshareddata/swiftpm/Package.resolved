@@ -100,6 +100,15 @@
       }
     },
     {
+      "identity" : "multidatepicker",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/MwaiBanda/MultiDatePicker",
+      "state" : {
+        "branch" : "main",
+        "revision" : "886bc0e8a35211239bc2c33b0911414dd0380a8d"
+      }
+    },
+    {
       "identity" : "nanopb",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/firebase/nanopb.git",
@@ -136,12 +145,12 @@
       }
     },
     {
-      "identity" : "stripe-ios",
+      "identity" : "stripe-ios-spm",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/stripe/stripe-ios",
+      "location" : "https://github.com/stripe/stripe-ios-spm",
       "state" : {
-        "branch" : "master",
-        "revision" : "ef0c465f84402af07565d637ffb5952d3d2cc37b"
+        "revision" : "74c52df3cf28fc01b8ee1e14ce1d2d1e93dca189",
+        "version" : "23.13.0"
       }
     },
     {

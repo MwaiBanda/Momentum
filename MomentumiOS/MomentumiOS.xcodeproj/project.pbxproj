@@ -13,6 +13,7 @@
 		1C3CF16E28D984F400B46FC1 /* RoundedCorner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C3CF16D28D984F400B46FC1 /* RoundedCorner.swift */; };
 		1C3CF17028D98B1600B46FC1 /* Sermon+Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C3CF16F28D98B1600B46FC1 /* Sermon+Swift.swift */; };
 		1C3CF17228D993B500B46FC1 /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C3CF17128D993B500B46FC1 /* PlayerView.swift */; };
+		1C408EE72A81E68F00218708 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C408EE62A81E68F00218708 /* Card.swift */; };
 		1C46D1312A8072EB00E5FB25 /* MealsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C46D1302A8072EB00E5FB25 /* MealsView.swift */; };
 		1C46D13F2A80A4A500E5FB25 /* Stripe in Frameworks */ = {isa = PBXBuildFile; productRef = 1C46D13E2A80A4A500E5FB25 /* Stripe */; };
 		1C46D1412A80A4A500E5FB25 /* StripeApplePay in Frameworks */ = {isa = PBXBuildFile; productRef = 1C46D1402A80A4A500E5FB25 /* StripeApplePay */; };
@@ -118,6 +119,7 @@
 		1C3CF16D28D984F400B46FC1 /* RoundedCorner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedCorner.swift; sourceTree = "<group>"; };
 		1C3CF16F28D98B1600B46FC1 /* Sermon+Swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sermon+Swift.swift"; sourceTree = "<group>"; };
 		1C3CF17128D993B500B46FC1 /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
+		1C408EE62A81E68F00218708 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		1C46D1302A8072EB00E5FB25 /* MealsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealsView.swift; sourceTree = "<group>"; };
 		1C82C2A328ECB97900E19A30 /* DeviceSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceSize.swift; sourceTree = "<group>"; };
 		1C82C2A528ED277000E19A30 /* SermonCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SermonCard.swift; sourceTree = "<group>"; };
@@ -431,6 +433,7 @@
 				81E937CE288E5E2A00D74BD3 /* TitledTextField.swift */,
 				816CCDE0288F365600795B59 /* LinkLabel.swift */,
 				1C82C2A528ED277000E19A30 /* SermonCard.swift */,
+				1C408EE62A81E68F00218708 /* Card.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -758,6 +761,7 @@
 				81B802D42877E4080008509D /* LoadingView.swift in Sources */,
 				1CE8F2B228D92AFB0077F2F0 /* SermonsViewModel.swift in Sources */,
 				819E6161288654F0007BD761 /* TransactionView.swift in Sources */,
+				1C408EE72A81E68F00218708 /* Card.swift in Sources */,
 				8126AF84286FEF39007DBAB9 /* NavBar.swift in Sources */,
 				1CE8F2B428D92B220077F2F0 /* SermonsView.swift in Sources */,
 				8126AF75286FDB2F007DBAB9 /* View+Swift.swift in Sources */,

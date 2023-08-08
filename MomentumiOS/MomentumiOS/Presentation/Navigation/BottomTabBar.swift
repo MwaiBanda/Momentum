@@ -8,25 +8,26 @@
 import SwiftUI
 
 struct BottomTabBar: View {
-    let itemAppearance = UITabBarItemAppearance()
-    let appearance = UITabBarAppearance()
+   
     
-    
+    init() {
+        let itemAppearance = UITabBarItemAppearance()
+        let appearance = UITabBarAppearance()
+        itemAppearance.normal.iconColor = UIColor(Color(.black))
+        itemAppearance.normal.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(Color(.black))]
+        appearance.backgroundColor = UIColor(Color(.clear))
+ 
+        appearance.compactInlineLayoutAppearance = itemAppearance
+        
+        UITabBar.appearance().standardAppearance = appearance
+    }
     var body: some View {
         TabView {
             NavigationView {
                 ContentWrapper(navConfiguration: .detailConfig, hasBlurredBackground: false) {
                     MealsView()
                         .onAppear {
-                            itemAppearance.normal.iconColor = UIColor(Color(.black))
-                            itemAppearance.normal.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(Color(.black))]
-                            appearance.shadowColor = UIColor(Color.black)
-                            appearance.backgroundColor = UIColor(Color(.clear))
-                            appearance.stackedLayoutAppearance = itemAppearance
-                            appearance.inlineLayoutAppearance = itemAppearance
-                            appearance.compactInlineLayoutAppearance = itemAppearance
-                            
-                            UITabBar.appearance().standardAppearance = appearance
+                          
                         }
                 }
             }
@@ -39,42 +40,22 @@ struct BottomTabBar: View {
             NavigationView {
                 ContentWrapper {
                     OfferView()
-                        .onAppear {
-                            itemAppearance.normal.iconColor = UIColor(Color(.white))
-                            itemAppearance.normal.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(Color(.white))]
-                            appearance.shadowColor = UIColor(Color.black)
-                            appearance.backgroundColor = UIColor(Color(.clear))
-                            appearance.stackedLayoutAppearance = itemAppearance
-                            appearance.inlineLayoutAppearance = itemAppearance
-                            appearance.compactInlineLayoutAppearance = itemAppearance
-                            
-                            UITabBar.appearance().standardAppearance = appearance
-                        }
+                     
                 }
             }
             .navigationViewStyle(StackNavigationViewStyle())
-            .tag(0)
+            .tag(1)
             .tabItem {
                 Image(systemName: "giftcard")
             }
             NavigationView {
                 ContentWrapper(navConfiguration: .detailConfig, hasBlurredBackground: false) {
                     SermonsView()
-                        .onAppear {
-                            itemAppearance.normal.iconColor = UIColor(Color(.black))
-                            itemAppearance.normal.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(Color(.black))]
-                            appearance.shadowColor = UIColor(Color.black)
-                            appearance.backgroundColor = UIColor(Color(.clear))
-                            appearance.stackedLayoutAppearance = itemAppearance
-                            appearance.inlineLayoutAppearance = itemAppearance
-                            appearance.compactInlineLayoutAppearance = itemAppearance
-                            
-                            UITabBar.appearance().standardAppearance = appearance
-                        }
+                    
                 }
             }
             .navigationViewStyle(StackNavigationViewStyle())
-            .tag(0)
+            .tag(2)
             .tabItem {
                 Image(systemName: "ticket")
                 

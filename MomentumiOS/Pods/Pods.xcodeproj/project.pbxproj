@@ -16,10 +16,6 @@
 			dependencies = (
 			);
 			name = MomentumSDK;
-			packageProductDependencies = (
-				1C46D1362A80A16900E5FB25 /* MultiDatePicker */,
-			);
-			productName = MomentumSDK;
 		};
 /* End PBXAggregateTarget section */
 
@@ -48,10 +44,10 @@
 		4C10B2E672A4E033285A859F2308419F /* Pods-MomentumiOS-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-MomentumiOS-Info.plist"; sourceTree = "<group>"; };
 		574304B98D367B4DC4281F787B0F17F0 /* Pods-MomentumiOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-MomentumiOS.release.xcconfig"; sourceTree = "<group>"; };
 		73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		9A620336F95F761396EE71B665535F40 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9A620336F95F761396EE71B665535F40 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		A28BF62EE51F1D547F1501D24F5F38A1 /* MomentumSDK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = MomentumSDK.debug.xcconfig; sourceTree = "<group>"; };
-		BB0DFF7BB5DE164D2FEE6C588ABBC242 /* MomentumSDK.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; path = MomentumSDK.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		BB0DFF7BB5DE164D2FEE6C588ABBC242 /* MomentumSDK.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = MomentumSDK.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		C74E6A19E7829FC317FA1EDAC74B6A01 /* MomentumSDK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = MomentumSDK.release.xcconfig; sourceTree = "<group>"; };
 		DBF52CC2E9405D44E22D5DD5D5437617 /* MomentumSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MomentumSDK.framework; path = build/cocoapods/framework/MomentumSDK.framework; sourceTree = "<group>"; };
 		EACA16B54587BC9072D1AD0498625ACC /* Pods-MomentumiOS-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-MomentumiOS-dummy.m"; sourceTree = "<group>"; };
@@ -226,9 +222,6 @@
 				en,
 			);
 			mainGroup = CF1408CF629C7361332E53B88F7BD30C;
-			packageReferences = (
-				1C46D1352A80A16900E5FB25 /* XCRemoteSwiftPackageReference "MultiDatePicker" */,
-			);
 			productRefGroup = 106EACFB7C3DB874C539AF70156588DF /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -552,25 +545,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		1C46D1352A80A16900E5FB25 /* XCRemoteSwiftPackageReference "MultiDatePicker" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/MwaiBanda/MultiDatePicker";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		1C46D1362A80A16900E5FB25 /* MultiDatePicker */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 1C46D1352A80A16900E5FB25 /* XCRemoteSwiftPackageReference "MultiDatePicker" */;
-			productName = MultiDatePicker;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 }
