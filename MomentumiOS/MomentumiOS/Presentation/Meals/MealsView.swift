@@ -10,16 +10,18 @@ import SwiftUI
 import MultiDatePicker
 import MomentumSDK
 
-struct Meal: Identifiable  {
+struct MealRequest: Identifiable  {
     let id: String = UUID().uuidString
     let receipient: String
     let reason: String
     let email: String
     let phone: String
     let city: String
+    let numOfAdults: Int
+    let numOfKids: Int
     let street: String
     let preferredTime: String
-    let meals: [MealPlan]
+    var meals: [Meal]
     let participants: [String]
     let updates: [Update]
     let favourites: String
@@ -34,15 +36,17 @@ struct Update  {
     let message: String
 }
 
-struct MealPlan {
+struct Meal: Identifiable  {
+    let id: String = UUID().uuidString
     let date: String
     let meal: String
     let notes: String
+    let volunteerId: String? = nil
 }
 
 struct MealsView: View {
     @State private var showAddMealSheet = false
-    @State private var meals = [Meal]()
+    @State private var meals = [MealRequest]()
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -61,7 +65,7 @@ struct MealsView: View {
             ScrollView {
                 ForEach(meals) { meal in
                     NavigationLink  {
-                        Text(meal.receipient)
+                        MealDetailView(mealRequest: meal)
                     } label: {
                         DescriptionCard(title: meal.receipient, description: meal.reason)
                     }
@@ -138,7 +142,7 @@ struct UploadMealCardView: View {
     
     @State var selectedDates = [Date]()
     
-    var onDismiss: (Meal) -> Void
+    var onDismiss: (MealRequest) -> Void
     
     var body: some View {
         VStack {
@@ -174,8 +178,7 @@ struct UploadMealCardView: View {
                     
                     if currentPage == 3 && startLoading {
                         ProgressView(value: loadingState, total: 101)
-                            .progressViewStyle(LinearProgressViewStyle())
-                            .accentColor(Color.black)
+                            .progressViewStyle(LinearProgressViewStyle(tint: Color(hex: Constants.MOMENTUM_ORANGE)))
                         
                     } else {
                         Divider()
@@ -316,16 +319,18 @@ struct UploadMealCardView: View {
                                     currentPage += 1
                                 }
                             } else {
-                                onDismiss(Meal(
+                                onDismiss(MealRequest(
                                     receipient: recipient,
                                     reason: reason,
                                     email: email,
                                     phone: phone,
                                     city: city,
+                                    numOfAdults: Int(numberOfKids) ?? 0,
+                                    numOfKids: Int(numberOfAdults) ?? 0,
                                     street: street,
                                     preferredTime: preferredTime,
                                     meals: selectedDates.map({
-                                        MealPlan(date: $0.description, meal: "", notes: "")
+                                        Meal(date: $0.description, meal: "", notes: "")
                                     }),
                                     participants: [],
                                     updates: [],
@@ -333,7 +338,7 @@ struct UploadMealCardView: View {
                                     leastFavourites: leastFavourites,
                                     allergies: allergies,
                                     instructions: instructions,
-                                    creatorId: 
+                                    creatorId: ""
                                 ))
                             }
                             
@@ -343,7 +348,7 @@ struct UploadMealCardView: View {
                                 .bold()
                                 .padding()
                                 .frame(maxWidth: .infinity)
-                                .background(Color.black)
+                                .background(Color(hex: Constants.MOMENTUM_ORANGE))
                                 .cornerRadius(10)
                                 .padding()
                         }
