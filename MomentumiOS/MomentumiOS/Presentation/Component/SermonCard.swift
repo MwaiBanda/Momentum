@@ -27,13 +27,14 @@ struct SermonCard: View {
                 Image(sermon.videoThumbnail)
                     .resizable()
                     .aspectRatio(contentMode: .fill)
-                    .frame(maxWidth: screenBounds.width * 0.45)
+                    .frame(maxHeight: 100)
                     .cornerRadius(8, corners: [.topLeft, .topRight])
             } else {
                 ZStack(alignment: .topTrailing){
                     WebImage(url: URL(string: sermon.videoThumbnail))
                         .resizable()
                         .aspectRatio(contentMode: .fill)
+                        .frame(maxHeight: 100)
                         
                 
                     Button {

@@ -11,8 +11,8 @@ open class MomentumBase {
 
     companion object {
         private const val BASE_URL = "https://services.momentumchurch.dev"
-        private const val API_ENDPOINT = "/api/v1"
-        const val PAYMENT_ENDPOINT = "/payment"
+        private const val API_ROUTE = "/api/v1"
+        const val PAYMENT_ENDPOINT = "/payments"
         const val SERMONS_ENDPOINT = "/sermons"
 
         private const val WEB_HOOK_BASE_URL = "https://hooks.zapier.com/"
@@ -21,7 +21,7 @@ open class MomentumBase {
         fun HttpRequestBuilder.momentumAPI(path: String, params: HashMap<String, String> = hashMapOf()) {
             url {
                 takeFrom(BASE_URL)
-                encodedPath = "$API_ENDPOINT${path}"
+                encodedPath = "$API_ROUTE${path}"
                 if (params.isNotEmpty()) {
                     params.keys.forEach { key ->
                         parameters.append(name = key, value = params[key] ?: "")

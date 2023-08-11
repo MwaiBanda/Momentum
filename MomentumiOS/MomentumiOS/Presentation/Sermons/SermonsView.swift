@@ -15,7 +15,7 @@ struct SermonsView: View {
     @StateObject private var sermonViewmodel = SermonsViewModel()
     @State private var sermon: Sermon? = nil
     @State private var showSermon = false
-
+    
     @State private var showSearch = false
     @State private var showFilter = false
     @State private var filtered = [Sermon]()
@@ -52,73 +52,74 @@ struct SermonsView: View {
                 }
                 .padding(.top, 5)
             }
-            VStack(alignment: .leading) {
-                VStack(alignment: .leading) {
-                    
-                    if showSearch {
-                        TextField("Search \(sermonViewmodel.searchTag)", text: $sermonViewmodel.searchTerm)
-                            .padding(.top, 5)
-
-                    }
-                    if showFilter {
-                        
-                        Button{
-                            sermonViewmodel.filterFavourites = !sermonViewmodel.filterFavourites
-                            sermonViewmodel.filterOldest = false
-                            sermonViewmodel.filterNewest = false
-                        } label: {
-                            HStack {
-                                Image(systemName:  sermonViewmodel.filterFavourites ? "checkmark.square.fill" : "square")
-                                    .imageScale(.medium)
-                                    .foregroundColor(sermonViewmodel.filterFavourites ? .init(hex: Constants.MOMENTUM_ORANGE) : .black)
-                                Text("Favourites")
-                                    .foregroundColor(.black)
-                            }
-                        }.contentShape(Rectangle())
-                        
-                        Button{
-                            sermonViewmodel.filterNewest = !sermonViewmodel.filterNewest
-                            sermonViewmodel.filterOldest = false
-                            sermonViewmodel.filterFavourites = false
-                        } label: {
-                            HStack {
-                                Image(systemName:  sermonViewmodel.filterNewest ? "checkmark.square.fill" : "square")
-                                    .imageScale(.medium)
-                                    .foregroundColor(sermonViewmodel.filterNewest ? .init(hex: Constants.MOMENTUM_ORANGE) : .black)
-                                Text("Newest")
-                                    .foregroundColor(.black)
-                            }
-                        }.contentShape(Rectangle())
-                        
-                        
-                        Button{
-                            sermonViewmodel.filterOldest = !sermonViewmodel.filterOldest
-                            sermonViewmodel.filterNewest = false
-                            sermonViewmodel.filterFavourites = false
-                        } label: {
-                            HStack {
-                                Image(systemName:  sermonViewmodel.filterOldest ? "checkmark.square.fill" : "square")
-                                    .imageScale(.medium)
-                                    .foregroundColor(sermonViewmodel.filterOldest ? .init(hex: Constants.MOMENTUM_ORANGE) : .black)
-                                Text("Oldest")
-                                    .foregroundColor(.black)
-                            }
-                        }.contentShape(Rectangle())
-                    }
-                }
-                .font(.title3)
-                .padding(.horizontal)
-                .padding(.horizontal, 5)
-                if showSearch || showFilter {
-                    Divider()
-                        .padding(.top, 5)
-                }
-            }
-            .frame(height: showSearch ? 50 : showFilter ? 130 : 0)
-            .padding(.bottom, 5)
+          
             
             
             ScrollView {
+                VStack(alignment: .leading) {
+                    VStack(alignment: .leading) {
+                        
+                        if showSearch {
+                            TextField("Search \(sermonViewmodel.searchTag)", text: $sermonViewmodel.searchTerm)
+                                .padding(.top, 5)
+                            
+                        }
+                        if showFilter {
+                            
+                            Button{
+                                sermonViewmodel.filterFavourites = !sermonViewmodel.filterFavourites
+                                sermonViewmodel.filterOldest = false
+                                sermonViewmodel.filterNewest = false
+                            } label: {
+                                HStack {
+                                    Image(systemName:  sermonViewmodel.filterFavourites ? "checkmark.square.fill" : "square")
+                                        .imageScale(.medium)
+                                        .foregroundColor(sermonViewmodel.filterFavourites ? .init(hex: Constants.MOMENTUM_ORANGE) : .black)
+                                    Text("Favourites")
+                                        .foregroundColor(.black)
+                                }
+                            }.contentShape(Rectangle())
+                            
+                            Button{
+                                sermonViewmodel.filterNewest = !sermonViewmodel.filterNewest
+                                sermonViewmodel.filterOldest = false
+                                sermonViewmodel.filterFavourites = false
+                            } label: {
+                                HStack {
+                                    Image(systemName:  sermonViewmodel.filterNewest ? "checkmark.square.fill" : "square")
+                                        .imageScale(.medium)
+                                        .foregroundColor(sermonViewmodel.filterNewest ? .init(hex: Constants.MOMENTUM_ORANGE) : .black)
+                                    Text("Newest")
+                                        .foregroundColor(.black)
+                                }
+                            }.contentShape(Rectangle())
+                            
+                            
+                            Button{
+                                sermonViewmodel.filterOldest = !sermonViewmodel.filterOldest
+                                sermonViewmodel.filterNewest = false
+                                sermonViewmodel.filterFavourites = false
+                            } label: {
+                                HStack {
+                                    Image(systemName:  sermonViewmodel.filterOldest ? "checkmark.square.fill" : "square")
+                                        .imageScale(.medium)
+                                        .foregroundColor(sermonViewmodel.filterOldest ? .init(hex: Constants.MOMENTUM_ORANGE) : .black)
+                                    Text("Oldest")
+                                        .foregroundColor(.black)
+                                }
+                            }.contentShape(Rectangle())
+                        }
+                    }
+                    .font(.title3)
+                    .padding(.horizontal)
+                    .padding(.horizontal, 5)
+                    if showSearch || showFilter {
+                        Divider()
+                            .padding(.top, 5)
+                    }
+                }
+                .frame(height: showSearch ? 50 : showFilter ? 130 : 0)
+                .padding(.bottom, 5)
                 LazyVGrid(columns: columns, spacing: 10) {
                     if sermonViewmodel.sermons.isEmpty {
                         ForEach(0..<12, id: \.self
@@ -137,6 +138,8 @@ struct SermonsView: View {
                                 ),
                                 playedSermons: sermonViewmodel.watchedSermons
                             )
+                            .frame(maxHeight: 250)
+                            
                         }
                     } else {
                         ForEach(filtered, id: \.id) { sermon in
@@ -176,7 +179,7 @@ struct SermonsView: View {
             }
             .frame(height: screenBounds.height - 210)
             .redacted(reason: sermonViewmodel.sermons.isEmpty ? .placeholder : [])
-         
+            
         }
         .navigationBarTitleDisplayMode(.inline)
         .toolbar(content: {
@@ -238,46 +241,56 @@ struct SermonsView: View {
                 }.store(in: &disposables)
             }
         }
-        .fullScreenCover(isPresented: $showSermon) {
+        .fullScreenCover(item: $sermon) { sermon in
             ZStack {
                 Color.black.ignoresSafeArea(.all)
                 ProgressView()
                     .progressViewStyle(CircularProgressViewStyle(tint: Color(hex: Constants.MOMENTUM_ORANGE)))
-                if let sermon {
-                    PlayerView(
-                        player: sermonViewmodel.player,
-                        playbackURL: sermon.videoURL,
-                        lastPlayedTime: {
-                            let lastPlayedSermon = sermonViewmodel.watchedSermons.first(where: { $0.id == sermon.id })
-                            let myTime = CMTime(seconds: lastPlayedSermon?.last_played_time ?? 0, preferredTimescale: 60000)
-                            return myTime
-                        }
-                    )
-                    .ignoresSafeArea(.all)
-                    .onDisappear {
-                        showSermon = false
-                        UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
-                        AppDelegate.orientationLock = .portrait
-                        let currentTimeInSeconds: Double = sermonViewmodel.player.currentItem?.currentTime().seconds ?? 0
-                        let currentTimeInSecondsRounded = round(currentTimeInSeconds * 100) / 100
-                        sermonViewmodel.addSermon(
-                            sermon: MomentumSermon(
-                                id: sermonViewmodel.currentSermon?.id ?? "",
-                                last_played_time: currentTimeInSecondsRounded,
-                                last_played_percentage: Int32((currentTimeInSecondsRounded / (round((sermonViewmodel.player.currentItem?.duration.seconds ?? 0) * 100) / 100)) * 100)
-                            )
-                        )
-                        sermonViewmodel.resetNowPlaying()
+                PlayerView(
+                    player: sermonViewmodel.player,
+                    playbackURL: sermon.videoURL,
+                    lastPlayedTime: {
+                        let lastPlayedSermon = sermonViewmodel.watchedSermons.first(where: { $0.id == sermon.id })
+                        let myTime = CMTime(seconds: lastPlayedSermon?.last_played_time ?? 0, preferredTimescale: 60000)
+                        return myTime
                     }
-                    .onAppear {
-                        AppDelegate.orientationLock = .all
-                        sermonViewmodel.updateNowPlaying(sermon: sermon)
-                        sermonViewmodel.currentSermon = sermon
-                        
-                    }
-                }
+                ).ignoresSafeArea(.all)
+
             }
-           
+            .onDisappear {
+                if   #available(iOS 16.0, *) {
+                    let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
+                    windowScene?.requestGeometryUpdate(.iOS(interfaceOrientations: .portrait))
+                    
+                } else {
+                    UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
+                }
+                
+                
+                AppDelegate.orientationLock = .portrait
+                let currentTimeInSeconds: Double = sermonViewmodel.player.currentItem?.currentTime().seconds ?? 0
+                let currentTimeInSecondsRounded = round(currentTimeInSeconds * 100) / 100
+                let duration = (round((sermonViewmodel.player.currentItem?.duration.seconds ?? 0) * 100) / 100)
+                let playedPercentage =  Int32((currentTimeInSecondsRounded / duration) * 100)
+                print("[CurrentTimeInSeconds]: \(currentTimeInSeconds)")
+                print("[Duration]: \(duration)")
+                print("[PlayedPercentage]: \(playedPercentage)% watched")
+
+                sermonViewmodel.addSermon(
+                    sermon: MomentumSermon(
+                        id: sermonViewmodel.currentSermon?.id ?? "",
+                        last_played_time: currentTimeInSecondsRounded,
+                        last_played_percentage: playedPercentage
+                    )
+                )
+                sermonViewmodel.resetNowPlaying()
+            }
+            .onAppear {
+                AppDelegate.orientationLock = .all
+                sermonViewmodel.updateNowPlaying(sermon: sermon)
+                sermonViewmodel.currentSermon = sermon
+                
+            }
         }
     }
 }

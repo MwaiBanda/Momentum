@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct BottomTabBar: View {
-   
+    
     
     init() {
         let itemAppearance = UITabBarItemAppearance()
@@ -16,7 +16,7 @@ struct BottomTabBar: View {
         itemAppearance.normal.iconColor = UIColor(Color(.black))
         itemAppearance.normal.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(Color(.black))]
         appearance.backgroundColor = UIColor(Color(.clear))
- 
+        
         appearance.compactInlineLayoutAppearance = itemAppearance
         
         UITabBar.appearance().standardAppearance = appearance
@@ -24,12 +24,7 @@ struct BottomTabBar: View {
     var body: some View {
         TabView {
             NavigationView {
-                ContentWrapper(navConfiguration: .detailConfig, hasBlurredBackground: false) {
-                    MealsView()
-                        .onAppear {
-                          
-                        }
-                }
+                MealsView()
             }
             .navigationViewStyle(StackNavigationViewStyle())
             .tag(0)
@@ -40,7 +35,6 @@ struct BottomTabBar: View {
             NavigationView {
                 ContentWrapper {
                     OfferView()
-                     
                 }
             }
             .navigationViewStyle(StackNavigationViewStyle())
@@ -49,10 +43,7 @@ struct BottomTabBar: View {
                 Image(systemName: "giftcard")
             }
             NavigationView {
-                ContentWrapper(navConfiguration: .detailConfig, hasBlurredBackground: false) {
-                    SermonsView()
-                    
-                }
+                SermonsView()
             }
             .navigationViewStyle(StackNavigationViewStyle())
             .tag(2)

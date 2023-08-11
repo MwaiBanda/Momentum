@@ -60,7 +60,7 @@ struct MealsView: View {
                 
                 Spacer()
             }
-            .padding(.vertical, 5)
+            .padding(.top, 5)
 
             ScrollView {
                 ForEach(meals) { meal in
