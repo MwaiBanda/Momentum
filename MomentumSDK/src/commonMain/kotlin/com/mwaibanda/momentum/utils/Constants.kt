@@ -32,6 +32,7 @@ object MultiplatformConstants {
     const val ZIP_CODE = "zip code"
     const val PROFILE = "Profile"
     const val PROFILE_SUBHEADING = "Edit personal information & manage account"
+    const val API_KEY = "67a78d53-d47c-4981-b3e4-1843b8591904"
     const val MEALS_SUBHEADING = "View meals available & volunteer"
     const val CONTACT_INFORMATION = "Contact Information"
     const val BILLING_INFORMATION = "Billing Information"

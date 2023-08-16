@@ -10,44 +10,15 @@ import SwiftUI
 import MultiDatePicker
 import MomentumSDK
 
-struct MealRequest: Identifiable  {
-    let id: String = UUID().uuidString
-    let receipient: String
-    let reason: String
-    let email: String
-    let phone: String
-    let city: String
-    let numOfAdults: Int
-    let numOfKids: Int
-    let street: String
-    let preferredTime: String
-    var meals: [Meal]
-    let participants: [String]
-    let updates: [Update]
-    let favourites: String
-    let leastFavourites: String
-    let allergies: String
-    let instructions: String
-    let creatorId: String
-}
 
-struct Update  {
-    let userId: String
-    let message: String
-}
-
-struct Meal: Identifiable  {
-    let id: String = UUID().uuidString
-    let date: String
-    let meal: String
-    let notes: String
-    let volunteerId: String? = nil
-}
 
 struct MealsView: View {
+    @StateObject private var profileViewModel = ProfileViewModel()
     @State private var showAddMealSheet = false
-    @State private var meals = [MealRequest]()
-    
+    @State private var meals = [Meal]()
+    @StateObject private var mealViewModel = MealViewModel()
+    @EnvironmentObject var session: Session
+
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             Divider()
@@ -65,14 +36,24 @@ struct MealsView: View {
             ScrollView {
                 ForEach(meals) { meal in
                     NavigationLink  {
-                        MealDetailView(mealRequest: meal)
+                        MealDetailView(mealViewModel: mealViewModel, profileViewModel: profileViewModel, mealRequest: meal)
                     } label: {
-                        DescriptionCard(title: meal.receipient, description: meal.reason)
+                        DescriptionCard(title: meal.recipient, description: meal.reason)
                     }
                 }
             }
             .frame(height: screenBounds.height - 230)
             .padding(.top, 15)
+        }
+        .onAppear {
+            if !(session.currentUser?.isGuest ?? true) {
+                profileViewModel.getContactInformation(userId: session.currentUser?.id ?? "") {
+                    profileViewModel.getBillingInformation(userId: session.currentUser?.id ?? "")
+                }
+                mealViewModel.getMeals { meal in
+                    meals = meal
+                }
+            }
         }
         .navigationBarTitleDisplayMode(.inline)
         .toolbar(
@@ -97,8 +78,12 @@ struct MealsView: View {
         )
         .sheet(isPresented: $showAddMealSheet) {
             ZStack {
-                UploadMealCardView(onDismiss: { meal in
-                    meals.append(meal)
+                UploadMealCardView(onDismiss: { request in
+                    mealViewModel.postMeal(request: request) { _ in
+                        mealViewModel.getMeals { meals in
+                            self.meals = meals
+                        }
+                    }
                     showAddMealSheet.toggle()
                 })
             }.onTapGesture {
@@ -120,7 +105,8 @@ struct UploadMealCardView: View {
     @State private var loadingState: Double = 0
     @State private var startLoading = false
     @State private var loadingIncrement: Double = 1
-    
+    @EnvironmentObject var session: Session
+
     /* STATE PAGE 1*/
     @State private var recipient = ""
     @State private var email = ""
@@ -319,27 +305,7 @@ struct UploadMealCardView: View {
                                     currentPage += 1
                                 }
                             } else {
-                                onDismiss(MealRequest(
-                                    receipient: recipient,
-                                    reason: reason,
-                                    email: email,
-                                    phone: phone,
-                                    city: city,
-                                    numOfAdults: Int(numberOfKids) ?? 0,
-                                    numOfKids: Int(numberOfAdults) ?? 0,
-                                    street: street,
-                                    preferredTime: preferredTime,
-                                    meals: selectedDates.map({
-                                        Meal(date: $0.description, meal: "", notes: "")
-                                    }),
-                                    participants: [],
-                                    updates: [],
-                                    favourites: favourites,
-                                    leastFavourites: leastFavourites,
-                                    allergies: allergies,
-                                    instructions: instructions,
-                                    creatorId: ""
-                                ))
+                                onDismiss(MealRequest(allergies: allergies, city: city, email: email, favourites: favourites, instructions: instructions, leastFavourites: leastFavourites, meals: selectedDates.map({  MealVolunteerRequest.init(description: "", notes: "", mealId: "", userId: "", date: $0.description) }), numOfAdults: Int32(numberOfAdults) ?? 0, numberOfKids: Int32(numberOfKids) ?? 0, phone: phone, preferredTime: preferredTime, reason: reason, recipient: recipient, street: street, userId: session.currentUser?.id ?? ""))
                             }
                             
                         }} label: {

@@ -19,6 +19,7 @@ func controllerModule(resolver: TinyDi) {
         Single<UserController>(UserControllerImpl(driverFactory: resolver.resolve())),
         Single<BillingAddressController>(BillingAddressControllerImpl(driverFactory: resolver.resolve())),
         Single<AuthController>(AuthControllerImpl(controller: resolver.resolve())),
-        Single<SermonController>(SermonControllerImpl(driverFactory: resolver.resolve()))
+        Single<SermonController>(SermonControllerImpl(driverFactory: resolver.resolve())),
+        Single<MealController>(MealControllerImpl())
     )
 }

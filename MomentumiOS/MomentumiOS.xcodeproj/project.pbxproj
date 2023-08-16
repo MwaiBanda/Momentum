@@ -11,10 +11,11 @@
 		058557D9273AAEEB004C7B11 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */; };
 		1C3CF16B28D95E3000B46FC1 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 1C3CF16A28D95E3000B46FC1 /* SDWebImageSwiftUI */; };
 		1C3CF16E28D984F400B46FC1 /* RoundedCorner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C3CF16D28D984F400B46FC1 /* RoundedCorner.swift */; };
-		1C3CF17028D98B1600B46FC1 /* Sermon+Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C3CF16F28D98B1600B46FC1 /* Sermon+Swift.swift */; };
+		1C3CF17028D98B1600B46FC1 /* Models+Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C3CF16F28D98B1600B46FC1 /* Models+Swift.swift */; };
 		1C3CF17228D993B500B46FC1 /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C3CF17128D993B500B46FC1 /* PlayerView.swift */; };
 		1C408EE72A81E68F00218708 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C408EE62A81E68F00218708 /* Card.swift */; };
 		1C408EE92A82EE0200218708 /* MealDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C408EE82A82EE0200218708 /* MealDetailView.swift */; };
+		1C408EEB2A8AE11200218708 /* MealViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C408EEA2A8AE11200218708 /* MealViewModel.swift */; };
 		1C46D1312A8072EB00E5FB25 /* MealsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C46D1302A8072EB00E5FB25 /* MealsView.swift */; };
 		1C46D13F2A80A4A500E5FB25 /* Stripe in Frameworks */ = {isa = PBXBuildFile; productRef = 1C46D13E2A80A4A500E5FB25 /* Stripe */; };
 		1C46D1412A80A4A500E5FB25 /* StripeApplePay in Frameworks */ = {isa = PBXBuildFile; productRef = 1C46D1402A80A4A500E5FB25 /* StripeApplePay */; };
@@ -118,10 +119,11 @@
 		058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		06D68FEC8ABE2B8A7159EAFB /* Pods-MomentumiOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MomentumiOS.release.xcconfig"; path = "Target Support Files/Pods-MomentumiOS/Pods-MomentumiOS.release.xcconfig"; sourceTree = "<group>"; };
 		1C3CF16D28D984F400B46FC1 /* RoundedCorner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedCorner.swift; sourceTree = "<group>"; };
-		1C3CF16F28D98B1600B46FC1 /* Sermon+Swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sermon+Swift.swift"; sourceTree = "<group>"; };
+		1C3CF16F28D98B1600B46FC1 /* Models+Swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Models+Swift.swift"; sourceTree = "<group>"; };
 		1C3CF17128D993B500B46FC1 /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
 		1C408EE62A81E68F00218708 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		1C408EE82A82EE0200218708 /* MealDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealDetailView.swift; sourceTree = "<group>"; };
+		1C408EEA2A8AE11200218708 /* MealViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealViewModel.swift; sourceTree = "<group>"; };
 		1C46D1302A8072EB00E5FB25 /* MealsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealsView.swift; sourceTree = "<group>"; };
 		1C82C2A328ECB97900E19A30 /* DeviceSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceSize.swift; sourceTree = "<group>"; };
 		1C82C2A528ED277000E19A30 /* SermonCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SermonCard.swift; sourceTree = "<group>"; };
@@ -264,6 +266,7 @@
 			children = (
 				1C46D1302A8072EB00E5FB25 /* MealsView.swift */,
 				1C408EE82A82EE0200218708 /* MealDetailView.swift */,
+				1C408EEA2A8AE11200218708 /* MealViewModel.swift */,
 			);
 			path = Meals;
 			sourceTree = "<group>";
@@ -390,7 +393,7 @@
 				8126AF74286FDB2F007DBAB9 /* View+Swift.swift */,
 				8126AF76286FE009007DBAB9 /* Color+Swift.swift */,
 				81770C212877A314008B88F6 /* UIColor+Swift.swift */,
-				1C3CF16F28D98B1600B46FC1 /* Sermon+Swift.swift */,
+				1C3CF16F28D98B1600B46FC1 /* Models+Swift.swift */,
 			);
 			path = Exts;
 			sourceTree = "<group>";
@@ -743,9 +746,10 @@
 			files = (
 				811A3E7F287E16AF0052682B /* PaymentSummaryContentView.swift in Sources */,
 				81B802D82877E7C40008509D /* PaymentResultView.swift in Sources */,
-				1C3CF17028D98B1600B46FC1 /* Sermon+Swift.swift in Sources */,
+				1C3CF17028D98B1600B46FC1 /* Models+Swift.swift in Sources */,
 				81B802D62877E46A0008509D /* PaymentSummaryView.swift in Sources */,
 				818A2E99288DFE5E005D7449 /* BasePlainExpandableCard.swift in Sources */,
+				1C408EEB2A8AE11200218708 /* MealViewModel.swift in Sources */,
 				2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */,
 				813E775E288DC60500109C19 /* ProfileView.swift in Sources */,
 				81E937CD288E4F2400D74BD3 /* ProfileViewModel.swift in Sources */,

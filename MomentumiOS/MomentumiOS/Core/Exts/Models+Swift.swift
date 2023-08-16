@@ -9,3 +9,5 @@
 import MomentumSDK
 
 extension Sermon: Identifiable { }
+
+extension Meal: Identifiable { }

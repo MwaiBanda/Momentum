@@ -13,7 +13,7 @@ import KeyboardToolbar
 struct ProfileView: View {
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var session: Session
-    @StateObject private var profileViewModel = ProfileViewModel()
+    @ObservedObject var profileViewModel: ProfileViewModel
     @State private var showAlert = false
     var body: some View {
         VStack(alignment: .leading) {
@@ -456,6 +456,6 @@ struct ProfileView: View {
 
 struct AccountView_Previews: PreviewProvider {
     static var previews: some View {
-        ProfileView()
+        ProfileView(profileViewModel: ProfileViewModel())
     }
 }

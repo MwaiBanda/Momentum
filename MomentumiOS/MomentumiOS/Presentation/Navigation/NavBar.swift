@@ -14,7 +14,8 @@ struct NavBar: View {
     @Binding var showMenu: Bool
     @Environment(\.presentationMode) var presentationMode
     @State private var showTransactionSheet = false
-    
+    @StateObject private var profileViewModel = ProfileViewModel()
+
     var body: some View {
         HStack(alignment: .center)  {
             if false {
@@ -54,7 +55,7 @@ struct NavBar: View {
             
             Spacer()
             
-            NavigationLink { ProfileView() } label: {
+            NavigationLink { ProfileView(profileViewModel: profileViewModel) } label: {
                 Image(systemName: "person.crop.circle").imageScale(.large)
                     .font(.system(size: 20, weight: .medium))
                     .foregroundColor(Color.white)

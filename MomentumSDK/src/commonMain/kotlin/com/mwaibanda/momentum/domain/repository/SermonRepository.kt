@@ -1,9 +1,8 @@
 package com.mwaibanda.momentum.domain.repository
 
-import com.mwaibanda.momentum.domain.models.Sermon
 import com.mwaibanda.momentum.domain.models.SermonResponse
 import com.mwaibanda.momentum.utils.Result
 
 interface SermonRepository {
-    suspend fun getSermon(pageNumber: Int): Result<SermonResponse>
+    suspend fun getSermons(pageNumber: Int): Result<SermonResponse>
 }

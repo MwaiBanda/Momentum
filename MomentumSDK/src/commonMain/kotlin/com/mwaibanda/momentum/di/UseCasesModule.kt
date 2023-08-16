@@ -4,6 +4,9 @@ import com.mwaibanda.momentum.domain.usecase.cache.GetAllItemsUseCase
 import com.mwaibanda.momentum.domain.usecase.cache.GetItemUseCase
 import com.mwaibanda.momentum.domain.usecase.cache.SetItemUseCase
 import com.mwaibanda.momentum.domain.usecase.localDefaults.*
+import com.mwaibanda.momentum.domain.usecase.meal.GetMealUseCase
+import com.mwaibanda.momentum.domain.usecase.meal.PostMealUseCase
+import com.mwaibanda.momentum.domain.usecase.meal.PostVolunteeredMealUseCase
 import com.mwaibanda.momentum.domain.usecase.payment.CheckoutUseCase
 import com.mwaibanda.momentum.domain.usecase.transaction.PostTransactionUseCase
 import com.mwaibanda.momentum.domain.usecase.sermon.GetSermonsUseCase
@@ -50,5 +53,11 @@ val useCasesModule = module {
     single { GetItemUseCase<Any>(cacheRepository = get()) }
     single { SetItemUseCase<Any>(cacheRepository = get()) }
     single { GetAllItemsUseCase<Any>(cacheRepository = get()) }
+    /**
+     * @Meal - Use-cases
+     */
+    single { GetMealUseCase(mealRepository = get()) }
+    single { PostMealUseCase(mealRepository = get()) }
+    single { PostVolunteeredMealUseCase(mealRepository = get()) }
 }
 

@@ -7,16 +7,21 @@
 //
 
 import SwiftUI
+import MomentumSDK
 
 struct MealDetailView: View {
+    @ObservedObject var mealViewModel: MealViewModel
+    @ObservedObject var profileViewModel: ProfileViewModel
+    @EnvironmentObject var session: Session
+
     @State private var showRepcipentInfoSheet = false
     @State private var showVoluteerSheet = false
     @State private var meal = "\u{2022} "
     @State private var notes = "\u{2022} "
     @State private var selectedIndex = 0
-    @State private var meals = [Meal]()
+    @State private var meals = [VolunteeredMeal]()
 
-    var mealRequest: MealRequest
+    var mealRequest: Meal
     var body: some View {
         
         ScrollView {
@@ -35,7 +40,7 @@ struct MealDetailView: View {
                         )
                         RecipentInfo(
                             title: "Food for",
-                            description: "\(mealRequest.numOfAdults) Adults, \(mealRequest.numOfKids) Kids",
+                            description: "\(mealRequest.numOfAdults) Adults, \(mealRequest.numberOfKids) Kids",
                             icon: "person.3"
                         )
                         RecipentInfo(
@@ -78,7 +83,7 @@ struct MealDetailView: View {
                             }.padding(10)
                             Divider()
                                 .padding(.vertical, 5)
-                            if !m.meal.isEmpty {
+                            if !m.description_.isEmpty {
                                 ZStack(alignment: .center) {
                                     
                                     Circle()
@@ -86,7 +91,7 @@ struct MealDetailView: View {
                                         .frame(width: 50, height: 50)
                                     
                                     
-                                    Text("Mwai Banda"
+                                    Text(m.user.fullname
                                         .split(separator: " ")
                                         .map({ String($0.first?.uppercased() ?? "")})
                                         .reduce("", { x, y in x + y})
@@ -98,7 +103,7 @@ struct MealDetailView: View {
 
                             }
                             VStack(alignment: .leading) {
-                                if m.meal.isEmpty {
+                                if m.description_.isEmpty {
                                     Text("Available")
                                         .bold()
                                     Button {
@@ -114,9 +119,9 @@ struct MealDetailView: View {
                                             .clipShape(RoundedCorner(radius: 10))
                                     }
                                 } else {
-                                    Text("Mwai Banda")
+                                    Text(m.user.fullname)
                                         .bold()
-                                    Text(m.meal.trimmingCharacters(in: .whitespacesAndNewlines))
+                                    Text(m.description_.trimmingCharacters(in: .whitespacesAndNewlines))
                                 }
                                 
                             }.padding(10)
@@ -176,7 +181,7 @@ struct MealDetailView: View {
                 
                 RecipentInfo(
                     title: "People to Cook for",
-                    description: "\(mealRequest.numOfAdults) Adults, \(mealRequest.numOfKids) Kids",
+                    description: "\(mealRequest.numOfAdults) Adults, \(mealRequest.numberOfKids) Kids",
                     icon: "person.3"
                 )
                 .padding()
@@ -274,7 +279,10 @@ struct MealDetailView: View {
                             Spacer()
                             Button { withAnimation(.easeInOut) {
                                 let removed = meals.remove(at: selectedIndex)
-                                meals.insert(Meal(date: removed.date, meal: meal.replacingOccurrences(of: "\u{2022}", with: ""), notes: notes), at: selectedIndex)
+                                let meal = VolunteeredMeal(id: removed.id, createdOn: removed.createdOn, description: meal.replacingOccurrences(of: "\u{2022}", with: ""), notes: notes, user: User(fullname: profileViewModel.fullname, email: profileViewModel.email, phone: profileViewModel.phone, userId: session.currentUser?.id ?? "", createdOn: Date().description))
+                                mealViewModel.postVolunteeredMeal(request: VolunteeredMealRequest(mealId: mealRequest.id, volunteeredMeal: meal)) { meal in
+                                    meals.insert(meal, at: selectedIndex)
+                                }
                                 showVoluteerSheet.toggle()
                                 UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                             }} label: {
@@ -294,6 +302,13 @@ struct MealDetailView: View {
                 }
                 .frame(maxWidth: screenBounds.width - 65, maxHeight: 560, alignment: .center)
                 Spacer()
+            }
+            .onAppear {
+                if !(session.currentUser?.isGuest ?? true) {
+                    profileViewModel.getContactInformation(userId: session.currentUser?.id ?? "") {
+                        profileViewModel.getBillingInformation(userId: session.currentUser?.id ?? "")
+                    }
+                }
             }
             .onTapGesture {
                 UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)

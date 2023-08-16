@@ -19,4 +19,5 @@ val repositoryModule = module {
             getAllItemsUseCase = get()
         )
     }
+    single<MealRepository> { MealRepositoryImpl(httpClient = get()) }
 }

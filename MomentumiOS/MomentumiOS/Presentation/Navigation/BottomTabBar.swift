@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct BottomTabBar: View {
-    
+
     
     init() {
         let itemAppearance = UITabBarItemAppearance()

@@ -12,14 +12,14 @@ data class Transaction(
     val amount: Int,
     val date: String = "",
     val userId: String = ""
-)
-
-fun Transaction.toMomentumTransaction(): MomentumTransaction {
-    return MomentumTransaction(
-        id = (1000L..9999L).random(),
-        description = description,
-        date = date,
-        amount = amount.toDouble(),
-        is_seen = false
-    )
+) {
+    fun toMomentumTransaction(): MomentumTransaction {
+        return MomentumTransaction(
+            id = (1000L..9999L).random(),
+            description = description,
+            date = date,
+            amount = amount.toDouble(),
+            is_seen = false
+        )
+    }
 }
