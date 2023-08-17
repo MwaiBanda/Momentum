@@ -9,7 +9,7 @@ import SwiftUI
 
 struct BottomTabBar: View {
 
-    
+    @State private var selection = 1
     init() {
         let itemAppearance = UITabBarItemAppearance()
         let appearance = UITabBarAppearance()
@@ -22,7 +22,7 @@ struct BottomTabBar: View {
         UITabBar.appearance().standardAppearance = appearance
     }
     var body: some View {
-        TabView {
+        TabView(selection: $selection) {
             NavigationView {
                 MealsView()
             }

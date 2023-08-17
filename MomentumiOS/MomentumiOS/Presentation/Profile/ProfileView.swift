@@ -420,6 +420,9 @@ struct ProfileView: View {
                 }
             }
         }
+        .onDisappear {
+            profileViewModel.updateUser(user: User(fullname: profileViewModel.fullname, email: profileViewModel.email, phone: profileViewModel.phone, userId: session.currentUser?.id ?? "", createdOn: ""))
+        }
     }
     var circleIcon: some View {
         ZStack(alignment: .center) {

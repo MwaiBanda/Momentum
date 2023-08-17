@@ -28,17 +28,21 @@ struct TransactionView: View {
                 
             }.padding()
             Divider()
-            ForEach(transactionViewModel.transactions, id: \.id) { transaction in
-                TransactionLabel(
-                    description: transaction.description_,
-                    date: transaction.date,
-                    amount: transaction.amount
-                )
-                Divider()
-            }
+            
             if transactionViewModel.transactions.isEmpty {
                 Spacer()
                 Text("No Transactions")
+            } else {
+                ScrollView {
+                    ForEach(transactionViewModel.transactions, id: \.id) { transaction in
+                        TransactionLabel(
+                            description: transaction.description_,
+                            date: transaction.date,
+                            amount: transaction.amount
+                        )
+                        Divider()
+                    }
+                }
             }
             Spacer()
         }

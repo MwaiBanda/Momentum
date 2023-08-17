@@ -77,9 +77,9 @@ struct MealDetailView: View {
                     Card {
                         HStack {
                             VStack(alignment: .leading) {
-                                Text("Aug 8")
+                                Text(getDate(meal: m).split(separator: ",").first?.trimmingCharacters(in: .whitespacesAndNewlines) ?? "")
                                     .bold()
-                                Text("Wed")
+                                Text(getDate(meal: m).split(separator: ",").last?.trimmingCharacters(in: .whitespacesAndNewlines) ?? "")
                             }.padding(10)
                             Divider()
                                 .padding(.vertical, 5)
@@ -202,9 +202,7 @@ struct MealDetailView: View {
             
         }
         .onAppear {
-            if meals.isEmpty {
-                meals = mealRequest.meals
-            }
+            meals = mealRequest.meals.sorted(by: { getDay(meal: $0) < getDay(meal: $1) })
         }
         .sheet(isPresented: $showVoluteerSheet) {
             VStack {
@@ -279,7 +277,7 @@ struct MealDetailView: View {
                             Spacer()
                             Button { withAnimation(.easeInOut) {
                                 let removed = meals.remove(at: selectedIndex)
-                                let meal = VolunteeredMeal(id: removed.id, createdOn: removed.createdOn, description: meal.replacingOccurrences(of: "\u{2022}", with: ""), notes: notes, user: User(fullname: profileViewModel.fullname, email: profileViewModel.email, phone: profileViewModel.phone, userId: session.currentUser?.id ?? "", createdOn: Date().description))
+                                let meal = VolunteeredMeal(id: removed.id, createdOn: removed.createdOn, description: meal.replacingOccurrences(of: "\u{2022}", with: ""), date: removed.date, notes: notes, user: User(fullname: profileViewModel.fullname, email: profileViewModel.email, phone: profileViewModel.phone, userId: session.currentUser?.id ?? "", createdOn: Date().description))
                                 mealViewModel.postVolunteeredMeal(request: VolunteeredMealRequest(mealId: mealRequest.id, volunteeredMeal: meal)) { meal in
                                     meals.insert(meal, at: selectedIndex)
                                 }
@@ -314,6 +312,23 @@ struct MealDetailView: View {
                 UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
             }
         }
+    }
+    func getDate(meal: VolunteeredMeal) -> String {
+        let isoDate = "2016-04-14T10:44:00+0000"
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX") // set locale to reliable US_POSIX
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ssZ"
+        let date = dateFormatter.date(from: meal.date) ?? Date()
+        
+        dateFormatter.dateFormat = "MMM d, EEE"
+        return dateFormatter.string(from: date)
+    }
+    
+    func getDay(meal: VolunteeredMeal) -> Int {
+        return Int(
+            getDate(meal: meal).split(separator: ",").first?.split(separator: " ").last ?? "0"
+        ) ?? 0
     }
 }
 

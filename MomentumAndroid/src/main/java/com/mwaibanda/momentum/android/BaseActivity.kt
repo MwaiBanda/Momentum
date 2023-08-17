@@ -11,6 +11,7 @@ import com.mwaibanda.momentum.android.presentation.payment.PaymentViewModel
 import com.mwaibanda.momentum.android.presentation.profile.ProfileViewModel
 import com.mwaibanda.momentum.android.presentation.sermon.SermonViewModel
 import com.mwaibanda.momentum.android.presentation.transaction.TransactionViewModel
+import com.mwaibanda.momentum.domain.models.Payment
 import com.mwaibanda.momentum.domain.models.Transaction
 import com.stripe.android.PaymentConfiguration
 import com.stripe.android.paymentsheet.PaymentSheet
@@ -36,7 +37,7 @@ open class BaseActivity : AppCompatActivity() {
     }
 
     protected fun checkout(
-        transaction: Transaction,
+        transaction: Payment,
         onSuccess: (customer: PaymentSheet.CustomerConfiguration?, intent: String) -> Unit
     ) = coroutineScope.launch {
         paymentViewModel.checkout(transaction)

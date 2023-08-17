@@ -32,7 +32,7 @@ final class PaymentSummaryContentViewModel: ObservableObject {
         var amount: Int
         var type: ToggleLabel = .offering
     }
-
+    
     
     func processToggle(isActive: Bool, type: ToggleLabel){
         if selectedLabels.contains(where: { $0 == type }) {
@@ -241,57 +241,61 @@ final class PaymentSummaryContentViewModel: ObservableObject {
         }
     }
     func getTransactionDescription() -> String {
-        if selectedLabels.count < 2 {
-            var description = ""
-            switch selectedLabels[0] {
-            case .offering:
-                description = "$\(offeringAmount): \(selectedLabels[0].rawValue)"
-            case .tithe:
-                description = "$\(titheAmount): \(selectedLabels[0].rawValue)"
-            case .missions:
-                description = "$\(missionsAmount): \(selectedLabels[0].rawValue)"
-            case .specialSpeaker:
-                description = "$\(speakersAmount): \(selectedLabels[0].rawValue)"
-            case .other:
-                description = "$\(otherAmount): \(selectedLabels[0].rawValue)"
-            }
-            return description
-        } else {
-            var description = ""
-            selectedLabels.forEach { toggle in
-                if selectedLabels.last == toggle {
-                    switch toggle {
-                    case .offering:
-                        description += "$\(offeringAmount): \(toggle.rawValue)"
-                    case .tithe:
-                        description += "$\(titheAmount): \(toggle.rawValue)"
-                    case .missions:
-                        description += "$\(missionsAmount): \(toggle.rawValue)"
-                    case .specialSpeaker:
-                        description += "$\(speakersAmount): \(toggle.rawValue)"
-                    case .other:
-                        description += "$\(otherAmount): \(toggle.rawValue)"
+        var description = ""
+        if !selectedLabels.isEmpty {
+            if selectedLabels.count < 2 {
+                description = ""
+                switch selectedLabels[0] {
+                case .offering:
+                    description = "$\(offeringAmount): \(selectedLabels[0].rawValue)"
+                case .tithe:
+                    description = "$\(titheAmount): \(selectedLabels[0].rawValue)"
+                case .missions:
+                    description = "$\(missionsAmount): \(selectedLabels[0].rawValue)"
+                case .specialSpeaker:
+                    description = "$\(speakersAmount): \(selectedLabels[0].rawValue)"
+                case .other:
+                    description = "$\(otherAmount): \(selectedLabels[0].rawValue)"
+                }
+                return description
+            } else {
+                description = ""
+                selectedLabels.forEach { toggle in
+                    if selectedLabels.last == toggle {
+                        switch toggle {
+                        case .offering:
+                            description += "$\(offeringAmount): \(toggle.rawValue)"
+                        case .tithe:
+                            description += "$\(titheAmount): \(toggle.rawValue)"
+                        case .missions:
+                            description += "$\(missionsAmount): \(toggle.rawValue)"
+                        case .specialSpeaker:
+                            description += "$\(speakersAmount): \(toggle.rawValue)"
+                        case .other:
+                            description += "$\(otherAmount): \(toggle.rawValue)"
+                        }
+                    } else {
+                        switch toggle {
+                        case .offering:
+                            description += "$\(offeringAmount): \(toggle.rawValue), "
+                        case .tithe:
+                            description += "$\(titheAmount): \(toggle.rawValue), "
+                        case .missions:
+                            description += "$\(missionsAmount): \(toggle.rawValue), "
+                        case .specialSpeaker:
+                            description += "$\(speakersAmount): \(toggle.rawValue), "
+                        case .other:
+                            description += "$\(otherAmount): \(toggle.rawValue), "
+                        }
+                        
                     }
-                } else {
-                    switch toggle {
-                    case .offering:
-                        description += "$\(offeringAmount): \(toggle.rawValue), "
-                    case .tithe:
-                        description += "$\(titheAmount): \(toggle.rawValue), "
-                    case .missions:
-                        description += "$\(missionsAmount): \(toggle.rawValue), "
-                    case .specialSpeaker:
-                        description += "$\(speakersAmount): \(toggle.rawValue), "
-                    case .other:
-                        description += "$\(otherAmount): \(toggle.rawValue), "
-                    }
-                    
                 }
             }
-            return description
         }
+        return description
+        
     }
-
+    
     private func subtractAmounts(amounts: String...) -> String {
         let reminder = (Int(amounts[0]) ?? 0) - (Int(amounts[1]) ?? 0)
         return String(reminder)

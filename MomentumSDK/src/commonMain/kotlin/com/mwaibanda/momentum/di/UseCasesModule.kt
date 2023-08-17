@@ -30,9 +30,7 @@ val useCasesModule = module {
      */
     single { PostUserUseCase(userRepository = get()) }
     single { GetUserUseCase(userRepository = get()) }
-    single { UpdateUserEmailUseCase(userRepository = get()) }
-    single { UpdateUserFullnameUseCase(userRepository = get()) }
-    single { UpdateUserPhoneUseCase(userRepository = get()) }
+    single { UpdateUserCase(userRepository = get()) }
     single { DeleteRemoteUserUseCase(userRepository = get()) }
     /**
      * @LocalDefaults - Use-cases

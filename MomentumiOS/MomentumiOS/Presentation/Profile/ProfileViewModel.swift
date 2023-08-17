@@ -131,13 +131,13 @@ class ProfileViewModel: ObservableObject {
                             self.phone = user.phone
                             self.email = user.email
                             self.password = password
-                            self.createdOn = user.createdOn
+                            self.createdOn = user.createdOn ?? ""
                             self.addUser(
                                 fullname: user.fullname,
                                 phone: user.phone,
                                 password: password,
                                 email: user.email,
-                                createdOn: user.createdOn,
+                                createdOn: user.createdOn ?? "",
                                 userId: userId
                             )
                             onCompletion()
@@ -163,31 +163,30 @@ class ProfileViewModel: ObservableObject {
         }
     }
     
+    func updateUser(user: User) {
+        userController.updateUser(user: user) { _ in
+            
+        }
+    }
     func updateFullname(userId: String){
         userController.updateMomentumUserFullnameByUserId(
             userId: userId,
             fullname: fullname
-        ) { [unowned self] in
-            userController.updateUserFullname(userID: userId, fullname: fullname)
-        }
+        ) { }
     }
     
     func updatePhone(userId: String) {
         userController.updateMomentumUserPhoneByUserId(
             userId: userId,
             phone: phone
-        ) { [unowned self] in
-            userController.updatePhoneByUserId(userId: userId, phone: phone)
-        }
+        ) { }
     }
     
     func updateEmail(userId: String) {
         userController.updateMomentumUserEmailByUserId(
             userId: userId,
             email: email
-        ) { [unowned self] in
-            userController.updateUserEmail(userID: userId, email: email)
-        }
+        ) { }
     }
     
     func updatePassword(userId: String) {

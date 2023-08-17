@@ -15,6 +15,8 @@ interface UserController {
         onCompletion: () -> Unit
     )
     fun postUser(user: User)
+    fun updateUser(user: User, onCompletion: (User) -> Unit)
+
     fun getMomentumUserById(userId: String, onCompletion: (MomentumUser?) -> Unit)
     fun getUser(userId: String, onCompletion: (Result<User>) -> Unit)
     fun updateMomentumUserFullnameByUserId(
@@ -22,13 +24,11 @@ interface UserController {
         fullname: String,
         onCompletion: () -> Unit
     )
-    fun updateUserFullname(userID: String, fullname: String)
     fun updateMomentumUserEmailByUserId(
         userId: String,
         email: String,
         onCompletion: () -> Unit
     )
-    fun updateUserEmail(userID: String, email: String)
     fun updateMomentumUserPasswordUserId(
         userId: String,
         password: String,
@@ -39,7 +39,6 @@ interface UserController {
         phone: String,
         onCompletion: () -> Unit
     )
-    fun updatePhoneByUserId(userId: String, phone: String)
     fun deleteMomentumUserByUserId(userId: String, onCompletion: () -> Unit)
     fun deleteUser(userID: String, onCompletion: () -> Unit)
 }

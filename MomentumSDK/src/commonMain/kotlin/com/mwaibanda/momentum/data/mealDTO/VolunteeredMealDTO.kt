@@ -9,7 +9,8 @@ data class VolunteeredMealDTO(
     val description: String,
     val id: String,
     val notes: String,
-    val user: User
+    val user: User,
+    val date: String
 ) {
     fun toVolunteeredMeal(): VolunteeredMeal {
         return VolunteeredMeal(
@@ -17,7 +18,8 @@ data class VolunteeredMealDTO(
             createdOn = created_on,
             description = description,
             notes = notes,
-            user = user
+            user = user,
+            date = date
         )
     }
 }

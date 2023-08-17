@@ -14,7 +14,9 @@ open class MomentumBase {
         private const val BASE_URL = "https://services.momentumchurch.dev"
         private const val API_ROUTE = "/api/v1"
         const val PAYMENT_ENDPOINT = "/payments"
+        const val TRANSACTIONS_ENDPOINT = "/transactions"
         const val SERMONS_ENDPOINT = "/sermons"
+        const val USERS_ENDPOINT = "/users"
         const val MEALS_ENDPOINT = "/meals"
         const val VOLUNTEERED_MEAL_ENDPOINT="$MEALS_ENDPOINT/meal"
 

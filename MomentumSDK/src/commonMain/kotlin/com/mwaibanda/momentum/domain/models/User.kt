@@ -11,5 +11,5 @@ data class User(
     val phone: String,
     @SerialName("id")
     val userId: String,
-    val createdOn: String
+    val createdOn: String? = null
 )

@@ -8,6 +8,7 @@ data class VolunteeredMeal(
     @SerialName("created_on")
     val createdOn: String,
     val description: String,
+    val date: String,
     val notes: String,
     val user: User
 )

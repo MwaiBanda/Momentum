@@ -12,6 +12,7 @@ import androidx.compose.material.icons.filled.*
 import androidx.compose.material.icons.outlined.Chat
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -29,6 +30,7 @@ import com.mwaibanda.momentum.android.presentation.components.BottomSpacing
 import com.mwaibanda.momentum.android.presentation.components.LinkLabel
 import com.mwaibanda.momentum.android.presentation.components.TitleTextField
 import com.mwaibanda.momentum.android.presentation.profile.ProfileViewModel.ProfileCard.*
+import com.mwaibanda.momentum.domain.models.User
 import com.mwaibanda.momentum.utils.MultiplatformConstants
 
 @Composable
@@ -38,9 +40,21 @@ fun ProfileScreen(
     authViewModel: AuthViewModel
 ) {
     LaunchedEffect(key1 = Unit) {
-        if (authViewModel.currentUser?.isGuest?.not() == true) {
+        if (authViewModel.currentUser?.isGuest == false) {
             profileViewModel.getContactInformation(userId = authViewModel.currentUser?.id ?: "") {
                 profileViewModel.getBillingInformation(userId = authViewModel.currentUser?.id ?: "")
+            }
+        }
+    }
+    DisposableEffect(key1 = Unit) {
+        onDispose {
+            if (authViewModel.currentUser?.isGuest == false) {
+                profileViewModel.updateUser(User(
+                    fullname = profileViewModel.fullname,
+                    email = profileViewModel.email,
+                    phone = profileViewModel.phone,
+                    userId = authViewModel.currentUser?.id ?: "",
+                ))
             }
         }
     }
@@ -186,7 +200,8 @@ fun ProfileScreen(
                             text = profileViewModel.fullname,
                             onTextChange = { profileViewModel.fullname = it }
                         ) {
-                            profileViewModel.updateFullname(userId =  authViewModel.currentUser?.id ?: "")
+                            profileViewModel.updateFullname(userId = authViewModel.currentUser?.id
+                                ?: "")
                         }
                         Divider()
                         TitleTextField(
@@ -194,7 +209,8 @@ fun ProfileScreen(
                             text = profileViewModel.phone,
                             onTextChange = { profileViewModel.phone = it }
                         ) {
-                            profileViewModel.updatePhone(userId = authViewModel.currentUser?.id ?: "")
+                            profileViewModel.updatePhone(userId = authViewModel.currentUser?.id
+                                ?: "")
                         }
                         Divider()
                         TitleTextField(
@@ -202,7 +218,8 @@ fun ProfileScreen(
                             text = profileViewModel.email,
                             onTextChange = { profileViewModel.email = it }
                         ) {
-                            profileViewModel.updateEmail(userId = authViewModel.currentUser?.id ?: "")
+                            profileViewModel.updateEmail(userId = authViewModel.currentUser?.id
+                                ?: "")
                         }
                         Divider()
                         TitleTextField(
@@ -210,7 +227,8 @@ fun ProfileScreen(
                             text = profileViewModel.password,
                             onTextChange = { profileViewModel.password = it }
                         ) {
-                            profileViewModel.updatePassword(userId = authViewModel.currentUser?.id ?: "")
+                            profileViewModel.updatePassword(userId = authViewModel.currentUser?.id
+                                ?: "")
                         }
                     }
                     /**
@@ -258,9 +276,10 @@ fun ProfileScreen(
                         TitleTextField(
                             title = MultiplatformConstants.STREET_ADDRESS,
                             text = profileViewModel.streetAddress,
-                            onTextChange =  { profileViewModel.streetAddress = it }
-                        ){
-                            profileViewModel.updateStreetAddress(userId = authViewModel.currentUser?.id ?: "")
+                            onTextChange = { profileViewModel.streetAddress = it }
+                        ) {
+                            profileViewModel.updateStreetAddress(userId = authViewModel.currentUser?.id
+                                ?: "")
                         }
                         Divider()
                         TitleTextField(
@@ -276,7 +295,8 @@ fun ProfileScreen(
                             text = profileViewModel.city,
                             onTextChange = { profileViewModel.city = it }
                         ) {
-                            profileViewModel.updateCity(userId = authViewModel.currentUser?.id ?: "")
+                            profileViewModel.updateCity(userId = authViewModel.currentUser?.id
+                                ?: "")
                         }
                         Divider()
                         TitleTextField(
@@ -284,7 +304,8 @@ fun ProfileScreen(
                             text = profileViewModel.zipCode,
                             onTextChange = { profileViewModel.zipCode = it }
                         ) {
-                            profileViewModel.updateZipCode(userId = authViewModel.currentUser?.id ?: "")
+                            profileViewModel.updateZipCode(userId = authViewModel.currentUser?.id
+                                ?: "")
                         }
                     }
                     /**
@@ -343,12 +364,13 @@ fun ProfileScreen(
                             Spacer(modifier = Modifier.height(10.dp))
                             OutlinedButton(
                                 onClick = {
-                                       profileViewModel.deleteUser(userId = authViewModel.currentUser?.id ?: "")  {
-                                           authViewModel.deleteCurrentUser {
-                                               authViewModel.signInAsGuest()
-                                               navController.popBackStack()
-                                           }
-                                       }
+                                    profileViewModel.deleteUser(userId = authViewModel.currentUser?.id
+                                        ?: "") {
+                                        authViewModel.deleteCurrentUser {
+                                            authViewModel.signInAsGuest()
+                                            navController.popBackStack()
+                                        }
+                                    }
                                 },
                                 modifier = Modifier
                                     .fillMaxWidth()

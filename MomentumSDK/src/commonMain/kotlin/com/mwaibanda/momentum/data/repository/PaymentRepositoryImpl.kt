@@ -1,6 +1,7 @@
 package com.mwaibanda.momentum.data.repository
 
 import com.mwaibanda.momentum.data.MomentumBase
+import com.mwaibanda.momentum.domain.models.Payment
 import com.mwaibanda.momentum.domain.models.Transaction
 import com.mwaibanda.momentum.domain.models.PaymentResponse
 import com.mwaibanda.momentum.domain.repository.PaymentRepository
@@ -14,7 +15,7 @@ internal class PaymentRepositoryImpl(
     private val httpClient: HttpClient
 ): PaymentRepository, MomentumBase() {
 
-    override suspend fun prepareCheckout(transaction: Transaction): Result<PaymentResponse> {
+    override suspend fun prepareCheckout(transaction: Payment): Result<PaymentResponse> {
         return try {
             val response: PaymentResponse = httpClient.post {
                 momentumAPI(PAYMENT_ENDPOINT)

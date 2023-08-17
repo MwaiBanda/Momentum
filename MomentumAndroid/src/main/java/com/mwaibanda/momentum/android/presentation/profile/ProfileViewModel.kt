@@ -169,7 +169,9 @@ class ProfileViewModel(
             }
         }
     }
-
+    fun updateUser(user: User) {
+        userController.updateUser(user) { }
+    }
     fun getBillingInformation(userId: String) {
         billingAddressController.getBillingAddressByUserId(userId = userId) { address ->
             if (address != null) {
@@ -185,27 +187,21 @@ class ProfileViewModel(
         userController.updateMomentumUserFullnameByUserId(
             userId = userId,
             fullname = fullname
-        ) {
-            userController.updateUserFullname(userID = userId, fullname = fullname)
-        }
+        ) { }
     }
 
     fun updatePhone(userId: String) {
         userController.updateMomentumUserPhoneByUserId(
             userId = userId,
             phone = phone
-        ) {
-            userController.updatePhoneByUserId(userId = userId, phone = phone)
-        }
+        ) { }
     }
 
     fun updateEmail(userId: String) {
         userController.updateMomentumUserEmailByUserId(
             userId = userId,
             email = email
-        ) {
-            userController.updateUserEmail(userID = userId, email = email)
-        }
+        ) { }
     }
 
     fun updatePassword(userId: String) {

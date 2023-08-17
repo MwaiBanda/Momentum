@@ -41,7 +41,7 @@ data class MealRequest(
                 (100 downTo 10).toList().random()
             }-${(1000 downTo 100).toList().random()}-${
                 (10 downTo 0).toList().random()
-            }-${(10000 downTo 1000).toList().random()}","","","", User("","","",it.userId, "")) },
+            }-${(10000 downTo 1000).toList().random()}","","", "", "", User("", "","", it.userId, "")) },
             numOfAdults = numOfAdults,
             numberOfKids = numberOfKids,
             participants = emptyList(),

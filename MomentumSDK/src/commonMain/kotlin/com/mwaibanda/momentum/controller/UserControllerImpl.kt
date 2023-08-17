@@ -15,9 +15,8 @@ import org.koin.core.component.inject
 class UserControllerImpl(driverFactory: DatabaseDriverFactory): UserController, KoinComponent {
     private val postUserUseCase: PostUserUseCase by inject()
     private val getUserUseCase: GetUserUseCase by inject()
-    private val updateUserFullnameUseCase: UpdateUserFullnameUseCase by inject()
-    private val updateUserEmailUseCase: UpdateUserEmailUseCase by inject()
-    private val updateUserPhoneUseCase: UpdateUserPhoneUseCase by inject()
+    private val updateUserCase: UpdateUserCase by inject()
+
     private val deleteOnlineUserUseCase: DeleteRemoteUserUseCase by inject()
     private val database = Database(driverFactory)
     private val scope = MainScope()
@@ -48,6 +47,12 @@ class UserControllerImpl(driverFactory: DatabaseDriverFactory): UserController, 
         }
     }
 
+    override fun updateUser(user: User, onCompletion: (User) -> Unit) {
+        scope.launch {
+            updateUserCase(user, onCompletion)
+        }
+    }
+
     override fun getMomentumUserById(userId: String, onCompletion: (MomentumUser?) -> Unit) {
         onCompletion(database.getUserByUserId(userId = userId))
     }
@@ -72,14 +77,6 @@ class UserControllerImpl(driverFactory: DatabaseDriverFactory): UserController, 
         onCompletion()
     }
 
-    override fun updateUserFullname(userID: String, fullname: String) {
-        scope.launch {
-            updateUserFullnameUseCase(
-                userId = userID,
-                fullname = fullname
-            )
-        }
-    }
 
     override fun updateMomentumUserEmailByUserId(
         userId: String,
@@ -93,14 +90,7 @@ class UserControllerImpl(driverFactory: DatabaseDriverFactory): UserController, 
         onCompletion()
     }
 
-    override fun updateUserEmail(userID: String, email: String) {
-        scope.launch {
-            updateUserEmailUseCase(
-                userId = userID,
-                email = email
-            )
-        }
-    }
+
 
     override fun updateMomentumUserPasswordUserId(
         userId: String,
@@ -127,14 +117,7 @@ class UserControllerImpl(driverFactory: DatabaseDriverFactory): UserController, 
     }
 
 
-    override fun updatePhoneByUserId(userId: String, phone: String) {
-        scope.launch {
-            updateUserPhoneUseCase(
-                userId = userId,
-                phone = phone
-            )
-        }
-    }
+
 
     override fun deleteMomentumUserByUserId(userId: String, onCompletion: () -> Unit) {
         database.deleteUserByUserId(userId = userId)

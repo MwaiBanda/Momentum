@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModel
 import com.mwaibanda.momentum.data.db.MomentumTransaction
 import com.mwaibanda.momentum.domain.controller.TransactionController
 import com.mwaibanda.momentum.domain.models.Transaction
-import com.mwaibanda.momentum.domain.models.toMomentumTransaction
 import com.mwaibanda.momentum.utils.Result
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

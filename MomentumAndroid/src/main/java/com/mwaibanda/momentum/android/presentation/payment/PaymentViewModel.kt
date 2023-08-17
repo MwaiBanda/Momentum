@@ -6,6 +6,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import com.mwaibanda.momentum.domain.controller.PaymentController
+import com.mwaibanda.momentum.domain.models.Payment
 import com.mwaibanda.momentum.domain.models.Transaction
 import com.mwaibanda.momentum.domain.models.PaymentResponse
 import com.mwaibanda.momentum.utils.Result.Failure
@@ -22,7 +23,7 @@ class PaymentViewModel(
 
     var canInitiateTransaction by mutableStateOf(true)
 
-    fun checkout(transaction: Transaction) {
+    fun checkout(transaction: Payment) {
         paymentController.checkout(transaction) { res ->
             when (res) {
                 is Failure -> {

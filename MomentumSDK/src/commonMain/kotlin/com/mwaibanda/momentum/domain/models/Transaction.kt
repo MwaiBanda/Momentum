@@ -5,13 +5,12 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class Transaction(
-    val fullname: String,
-    val email: String,
-    val phone: String,
+    val id: String,
     val description: String,
     val amount: Int,
-    val date: String = "",
-    val userId: String = ""
+    val date: String,
+    val createdOn: String,
+    val user: User
 ) {
     fun toMomentumTransaction(): MomentumTransaction {
         return MomentumTransaction(
@@ -20,6 +19,16 @@ data class Transaction(
             date = date,
             amount = amount.toDouble(),
             is_seen = false
+        )
+    }
+
+    fun toRequest(): TransactionRequest {
+        return TransactionRequest(
+            id = id,
+            description = description,
+            amount = amount,
+            date = date,
+            userId = user.userId
         )
     }
 }

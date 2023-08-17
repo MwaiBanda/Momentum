@@ -60,13 +60,19 @@ struct PaymentSummaryView: View {
                         switch paymentResult {
                         case .completed:
                             let transaction = Transaction(
-                                fullname: profileViewModel.fullname,
-                                email: profileViewModel.email,
-                                phone: profileViewModel.phone,
+                                id: "",
                                 description: contentViewModel.getTransactionDescription(),
                                 amount: Int32(Double(offerViewModel.number) ?? 0.00),
                                 date: transactionViewModel.getTransactionDate(),
-                                userId: session.currentUser?.id ?? ""
+                                createdOn: "",
+                                user: User(
+                                    fullname: profileViewModel.fullname,
+                                    email: profileViewModel.email,
+                                    phone: profileViewModel.phone,
+                                    userId: session.currentUser?.id ?? "",
+                                    createdOn: ""
+                                )
+                              
                             )
                             transactionViewModel.postTransactionInfo(transaction: transaction) {
                                 transactionViewModel.addTransaction(
@@ -88,15 +94,13 @@ struct PaymentSummaryView: View {
         .onAppear {
             profileViewModel.getContactInformation(userId: session.currentUser?.id ?? "") {
                 paymentViewModel.checkout(
-                    transaction: Transaction(
+                    transaction: Payment(
+                        amount: Int32((Double(offerViewModel.number) ?? 0.00) * 100),
                         fullname: profileViewModel.fullname,
                         email: profileViewModel.email,
-                        phone: profileViewModel.phone,
-                        description: "",
-                        amount: Int32((Double(offerViewModel.number) ?? 0.00) * 100),
-                        date: transactionViewModel.getTransactionDate(),
-                        userId: session.currentUser?.id ?? ""
+                        phone: profileViewModel.phone
                     )
+                    
                 ) {
                     paymentViewModel.setUpPaymentSheet()
                 }

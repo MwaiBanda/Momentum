@@ -1,72 +1,55 @@
 package com.mwaibanda.momentum.data.repository
 
+import com.mwaibanda.momentum.data.MomentumBase
+import com.mwaibanda.momentum.data.MomentumBase.Companion.momentumAPI
+import com.mwaibanda.momentum.domain.models.Transaction
 import com.mwaibanda.momentum.domain.models.User
 import com.mwaibanda.momentum.domain.repository.UserRepository
 import com.mwaibanda.momentum.utils.MultiplatformConstants
 import com.mwaibanda.momentum.utils.Result
 import dev.gitlive.firebase.firestore.FirebaseFirestore
+import io.ktor.client.*
+import io.ktor.client.call.*
+import io.ktor.client.request.*
+import io.ktor.http.*
 
 class UserRepositoryImpl(
-    private val db: FirebaseFirestore
-): UserRepository {
-    init {
-        db.setSettings(persistenceEnabled = false)
-    }
+    private val httpClient: HttpClient
+): MomentumBase(), UserRepository {
 
     override suspend fun postUser(user: User) {
-        db.collection(MultiplatformConstants.USERS_COLLECTION)
-            .document(user.userId)
-            .set(User.serializer(), user, encodeDefaults = true)
+        httpClient.post {
+            momentumAPI(USERS_ENDPOINT)
+            contentType(ContentType.Application.Json)
+            setBody(user)
+        }
     }
 
     override suspend fun getUser(userId: String): Result<User> {
         return try {
-            Result.Success(
-                db.collection(MultiplatformConstants.USERS_COLLECTION)
-                    .document(userId)
-                    .get()
-                    .data()
-            )
+            val response: User = httpClient.get {
+                momentumAPI("$USERS_ENDPOINT/$userId")
+            }.body()
+            Result.Success(response)
         } catch (e: Exception) {
             Result.Failure(e.message.toString())
         }
     }
 
-    override suspend fun updateUserEmail(userId: String, email: String) {
-        db.collection(MultiplatformConstants.USERS_COLLECTION)
-            .document(userId)
-            .set(hashMapOf(EMAIL_KEY to email), merge = true)
-    }
-
-    override suspend fun updateUserPhone(userId: String, phone: String) {
-        db.collection(MultiplatformConstants.USERS_COLLECTION)
-            .document(userId)
-            .set(hashMapOf(PHONE_KEY to phone), merge = true)
+    override suspend fun updateUser(user: User): User {
+        val response: User = httpClient.put {
+            momentumAPI(USERS_ENDPOINT)
+            contentType(ContentType.Application.Json)
+            setBody(user)
+        }.body()
+        return response
     }
 
 
-
-    override suspend fun updateUserFullname(userId: String, fullname: String) {
-        db.collection(MultiplatformConstants.USERS_COLLECTION)
-            .document(userId)
-            .set(hashMapOf(FULLNAME_KEY to fullname), merge = true)
-    }
 
     override suspend fun deleteUser(userId: String) {
-        db.collection(MultiplatformConstants.USERS_COLLECTION)
-            .document(userId)
-            .delete()
-    }
-    suspend fun g(userId: String): User {
-        return db.collection(MultiplatformConstants.USERS_COLLECTION)
-            .document(userId)
-            .get()
-            .data()
-
-    }
-    companion object {
-        const val EMAIL_KEY = "email"
-        const val PHONE_KEY = "phone"
-        const val FULLNAME_KEY = "fullname"
+        httpClient.delete {
+            momentumAPI("$USERS_ENDPOINT/$userId")
+        }
     }
 }

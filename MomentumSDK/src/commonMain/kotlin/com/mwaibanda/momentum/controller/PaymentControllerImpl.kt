@@ -1,6 +1,7 @@
 package com.mwaibanda.momentum.controller
 
 import com.mwaibanda.momentum.domain.controller.PaymentController
+import com.mwaibanda.momentum.domain.models.Payment
 import com.mwaibanda.momentum.domain.models.Transaction
 import com.mwaibanda.momentum.domain.models.PaymentResponse
 import com.mwaibanda.momentum.domain.usecase.payment.CheckoutUseCase
@@ -14,7 +15,7 @@ class PaymentControllerImpl: PaymentController, KoinComponent {
     private val checkoutUseCase: CheckoutUseCase by inject()
     private val scope = MainScope()
 
-    override fun checkout(request: Transaction, onCompletion: (Result<PaymentResponse>) -> Unit) {
+    override fun checkout(request: Payment, onCompletion: (Result<PaymentResponse>) -> Unit) {
         scope.launch {
             checkoutUseCase(request) {
                 onCompletion(it)

@@ -7,8 +7,8 @@ import org.koin.dsl.module
 
 val repositoryModule = module {
     single<PaymentRepository> { PaymentRepositoryImpl(httpClient = get()) }
-    single<TransactionRepository> { TransactionRepositoryImpl(db = get()) }
-    single<UserRepository> { UserRepositoryImpl(db = get()) }
+    single<TransactionRepository> { TransactionRepositoryImpl(httpClient = get()) }
+    single<UserRepository> { UserRepositoryImpl(httpClient = get()) }
     single<LocalDefaultsRepository> { LocalDefaultsRepositoryImpl(settings = get()) }
     single<CacheRepository> { CacheRepositoryImpl(cache = get()) }
     single<SermonRepository> {

@@ -21,7 +21,9 @@ import com.mwaibanda.momentum.android.presentation.auth.AuthViewModel
 import com.mwaibanda.momentum.android.presentation.components.BottomSpacing
 import com.mwaibanda.momentum.android.presentation.profile.ProfileViewModel
 import com.mwaibanda.momentum.android.presentation.transaction.TransactionViewModel
+import com.mwaibanda.momentum.domain.models.Payment
 import com.mwaibanda.momentum.domain.models.Transaction
+import com.mwaibanda.momentum.domain.models.User
 import com.stripe.android.paymentsheet.PaymentSheetContract
 import com.stripe.android.paymentsheet.PaymentSheetResult
 import org.koin.androidx.compose.getViewModel
@@ -39,26 +41,31 @@ fun PaymentSummaryScreen(
     canInitiateTransaction: Boolean,
     onTransactionCanProcess: (Boolean) -> Unit,
     onHandlePaymentSheetResult: (paymentResult: PaymentSheetResult, onPaymentSuccess: () -> Unit, onPaymentCancellation: () -> Unit, onPaymentFailure: (String) -> Unit) -> Unit,
-    onInitiateCheckout:  (Transaction, ManagedActivityResultLauncher<PaymentSheetContract.Args, PaymentSheetResult>) -> Unit
+    onInitiateCheckout:  (Payment, ManagedActivityResultLauncher<PaymentSheetContract.Args, PaymentSheetResult>) -> Unit
 ){
+    val currentDate = LocalDateTime.now()
+    val formatter = DateTimeFormatter.ofPattern("MMM d")
+    val currentDateString = formatter.format(currentDate)
     val stripeLauncher = rememberLauncherForActivityResult(contract = PaymentSheetContract()){ result ->
         onHandlePaymentSheetResult(
             result,
             {
                 Log.d("PAY", "Success")
                 navController.navigate(NavigationRoutes.PaymentSuccessScreen.route)
-                val currentDate = LocalDateTime.now()
-                val formatter = DateTimeFormatter.ofPattern("MMM d")
-                val currentDateString = formatter.format(currentDate)
+
                 transactionViewModel.postTransactionInfo(
                     transaction = Transaction(
-                        fullname = profileViewModel.fullname,
-                        email = profileViewModel.email,
-                        phone = profileViewModel.phone,
+                        id = "",
                         date = currentDateString,
                         description = contentViewModel.getTransactionDescription(),
                         amount = amount.toInt(),
-                        userId = authViewModel.currentUser?.id ?: ""
+                        createdOn = "",
+                        user = User(
+                            fullname = profileViewModel.fullname,
+                            email = profileViewModel.email,
+                            phone = profileViewModel.phone,
+                            userId = authViewModel.currentUser?.id ?: ""
+                        )
                     )
                 ) {
                     transactionViewModel.addTransaction(
@@ -143,13 +150,14 @@ fun PaymentSummaryScreen(
                 onClick = {
                     profileViewModel.getContactInformation(authViewModel.currentUser?.id ?: "") {
                         onInitiateCheckout(
-                            Transaction(
+                            Payment(
+                                amount = (amount * 100).toInt(),
                                 fullname = profileViewModel.fullname,
                                 email = profileViewModel.email,
                                 phone = profileViewModel.phone,
-                                description = contentViewModel.getTransactionDescription(),
-                                amount = (amount * 100).toInt()
-                            ), stripeLauncher
+                            )
+
+                            , stripeLauncher
                         )
                     }
                 },
