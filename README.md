@@ -50,10 +50,6 @@ The app's are available for download on the app store & playstore for Android & 
     <td> </td>
   </tr>
   <tr>
-    <td>Firebase Firestore</td>
-    <td> </td>
-  </tr>
-  <tr>
     <td>Multiplaform Settings</td>
     <td> </td>
   </tr>
