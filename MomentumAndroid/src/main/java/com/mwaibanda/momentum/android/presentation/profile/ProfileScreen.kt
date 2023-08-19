@@ -2,13 +2,40 @@ package com.mwaibanda.momentum.android.presentation.profile
 
 import android.content.Intent
 import android.net.Uri
-import androidx.compose.foundation.*
-import androidx.compose.foundation.layout.*
+import androidx.activity.compose.BackHandler
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.*
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.Divider
+import androidx.compose.material.Icon
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.OutlinedButton
+import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
+import androidx.compose.material.icons.filled.ArrowDropDown
+import androidx.compose.material.icons.filled.ArrowDropUp
+import androidx.compose.material.icons.filled.DeleteOutline
+import androidx.compose.material.icons.filled.Domain
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.SupervisorAccount
 import androidx.compose.material.icons.outlined.Chat
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.runtime.Composable
@@ -29,9 +56,15 @@ import com.mwaibanda.momentum.android.presentation.components.BasePlainExpandabl
 import com.mwaibanda.momentum.android.presentation.components.BottomSpacing
 import com.mwaibanda.momentum.android.presentation.components.LinkLabel
 import com.mwaibanda.momentum.android.presentation.components.TitleTextField
-import com.mwaibanda.momentum.android.presentation.profile.ProfileViewModel.ProfileCard.*
+import com.mwaibanda.momentum.android.presentation.profile.ProfileViewModel.ProfileCard.BILLING_INFO
+import com.mwaibanda.momentum.android.presentation.profile.ProfileViewModel.ProfileCard.CONTACT_INFO
+import com.mwaibanda.momentum.android.presentation.profile.ProfileViewModel.ProfileCard.FEEDBACK
+import com.mwaibanda.momentum.android.presentation.profile.ProfileViewModel.ProfileCard.INFORMATION
+import com.mwaibanda.momentum.android.presentation.profile.ProfileViewModel.ProfileCard.MANAGE_ACC
+import com.mwaibanda.momentum.android.presentation.profile.ProfileViewModel.ProfileCard.TECH_SUPPORT
 import com.mwaibanda.momentum.domain.models.User
 import com.mwaibanda.momentum.utils.MultiplatformConstants
+import com.mwaibanda.momentum.utils.getFormattedDate
 
 @Composable
 fun ProfileScreen(
@@ -45,6 +78,9 @@ fun ProfileScreen(
                 profileViewModel.getBillingInformation(userId = authViewModel.currentUser?.id ?: "")
             }
         }
+    }
+    BackHandler {
+       navController.popBackStack()
     }
     DisposableEffect(key1 = Unit) {
         onDispose {
@@ -144,7 +180,16 @@ fun ProfileScreen(
                             style = MaterialTheme.typography.h6,
                         )
                         Text(
-                            text = profileViewModel.createdOn.ifEmpty { "Create an Account or Sign In" },
+                            text = "Est. ${
+                                if (profileViewModel.createdOn.isEmpty())
+                                    "Create an Account or Sign In" 
+                                else if (profileViewModel.createdOn.contains("Z")) 
+                                    getFormattedDate(
+                                        profileViewModel.createdOn, 
+                                        "mm/dd/yyyy"
+                                    ) 
+                                else profileViewModel.createdOn
+                            }",
                             style = MaterialTheme.typography.caption,
                             color = Color.Gray
                         )

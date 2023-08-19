@@ -31,7 +31,7 @@ struct ProfileView: View {
                     Text(profileViewModel.fullname.isEmpty ? "Guest" : profileViewModel.fullname)
                         .font(.title3)
                         .fontWeight(.heavy)
-                    Text(profileViewModel.createdOn.isEmpty ? "Create an Account or Sign In" : "Est. \(profileViewModel.createdOn)")
+                    Text(profileViewModel.createdOn.isEmpty ? "Create an Account or Sign In" : "Est. \(profileViewModel.createdOn.contains("Z") ?  DateUtilsKt.getFormattedDate(date: profileViewModel.createdOn, format: "mm/dd/yyyy") : profileViewModel.createdOn)")
                         .font(.caption)
                         .foregroundColor(.gray)
                     

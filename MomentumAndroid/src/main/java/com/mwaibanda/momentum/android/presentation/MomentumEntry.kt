@@ -1,6 +1,10 @@
 package com.mwaibanda.momentum.android.presentation
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
@@ -12,23 +16,18 @@ import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.google.accompanist.navigation.material.BottomSheetNavigator
 import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.mwaibanda.momentum.android.core.utils.ScreenConfiguration
 import com.mwaibanda.momentum.android.core.utils.ScreenConfiguration.ScreensWithoutNavigation
-import com.mwaibanda.momentum.android.presentation.components.rememberBottomSheetNavigator
 import com.mwaibanda.momentum.android.presentation.navigation.BottomBar
 import com.mwaibanda.momentum.android.presentation.navigation.TopBar
 
-@OptIn(ExperimentalMaterialApi::class)
-@ExperimentalMaterialNavigationApi
 @Composable
-fun MomentumEntry(content: @Composable (PaddingValues, NavHostController, BottomSheetNavigator) -> Unit) {
+fun MomentumEntry(isShowingModal: Boolean, onShowModal: () -> Unit,content: @Composable (PaddingValues, NavHostController) -> Unit) {
     val systemUiController = rememberSystemUiController()
     val useDarkIcons = MaterialTheme.colors.isLight
-    val bottomSheetNavigator = rememberBottomSheetNavigator()
-    val navController = rememberNavController(bottomSheetNavigator)
+    val navController = rememberNavController()
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
 
@@ -43,13 +42,13 @@ fun MomentumEntry(content: @Composable (PaddingValues, NavHostController, Bottom
 
     Scaffold() {
         Box {
-            content(it, navController, bottomSheetNavigator)
+            content(it, navController)
             if (ScreensWithoutNavigation.screens.contains(currentRoute).not()) {
                 Column(
                     Modifier.fillMaxSize(),
                     verticalArrangement = Arrangement.SpaceBetween
                 ) {
-                    TopBar(navController = navController, currentRoute = currentRoute)
+                    TopBar(navController = navController, currentRoute = currentRoute, isShowingModal, onShowModal)
                     BottomBar(navController = navController, currentRoute = currentRoute)
 
                 }

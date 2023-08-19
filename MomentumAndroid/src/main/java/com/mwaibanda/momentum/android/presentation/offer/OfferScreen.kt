@@ -38,7 +38,8 @@ fun OfferScreen(
     navController: NavController,
     authViewModel: AuthViewModel,
     offerViewModel: OfferViewModel = getViewModel(),
-    appReviewRequester: AppReviewRequester = get()
+    appReviewRequester: AppReviewRequester = get(),
+    onShowModal: () -> Unit
 ){
     val context = LocalContext.current
     LaunchedEffect(key1 = Unit) {
@@ -96,7 +97,8 @@ fun OfferScreen(
                     onClick = {
                         Log.d("OFFER", "${offerViewModel.number.value.toFloat()}" )
                         if (authViewModel.currentUser?.isGuest == true) {
-                            navController.navigate(NavigationRoutes.AuthControllerScreen.route)
+                            onShowModal()
+//                            navController.navigate(NavigationRoutes.AuthControllerScreen.route)
                         } else {
                             navController.navigate("pay/${offerViewModel.number.value.toFloat()}")
                         }
@@ -126,5 +128,5 @@ fun OfferScreen(
 @Composable
 @Preview
 fun OfferScreenPreview(){
-    OfferScreen(rememberNavController() ,offerViewModel = getViewModel(), authViewModel = getViewModel())
+    OfferScreen(rememberNavController() ,offerViewModel = getViewModel(), authViewModel = getViewModel()) {}
 }

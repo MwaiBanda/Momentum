@@ -16,7 +16,7 @@ sealed class NavigationRoutes(
     object LaunchScreen: NavigationRoutes(route = "launch")
     object OfferScreen: NavigationRoutes(route = "offer", tabName = R.string.offer, icon = Icons.Filled.CardGiftcard)
     object SermonScreen: NavigationRoutes(route = "sermon", tabName = R.string.sermon, icon = Icons.Filled.LocalMovies)
-    object PlayerScreen: NavigationRoutes(route = "play/{sermon}")
+    object PlayerScreen: NavigationRoutes(route = "play/sermon")
     object PaymentSummaryScreen: NavigationRoutes(route = "pay/{amount}")
     object PaymentSuccessScreen: NavigationRoutes(route = "pay/success")
     object PaymentFailureScreen: NavigationRoutes(route = "pay/failure")

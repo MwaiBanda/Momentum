@@ -1,18 +1,16 @@
 package com.mwaibanda.momentum.data.repository
 
 import com.mwaibanda.momentum.data.MomentumBase
-import com.mwaibanda.momentum.data.MomentumBase.Companion.momentumAPI
-import com.mwaibanda.momentum.domain.models.PaymentResponse
 import com.mwaibanda.momentum.domain.models.Transaction
 import com.mwaibanda.momentum.domain.repository.TransactionRepository
 import com.mwaibanda.momentum.utils.Result
-import dev.gitlive.firebase.firestore.FirebaseFirestore
-import dev.gitlive.firebase.firestore.where
-import io.ktor.client.*
-import io.ktor.client.call.*
-import io.ktor.client.request.*
-import io.ktor.http.*
-import kotlinx.coroutines.flow.toList
+import io.ktor.client.HttpClient
+import io.ktor.client.call.body
+import io.ktor.client.request.get
+import io.ktor.client.request.post
+import io.ktor.client.request.setBody
+import io.ktor.http.ContentType
+import io.ktor.http.contentType
 
 class TransactionRepositoryImpl(
     private val httpClient: HttpClient,

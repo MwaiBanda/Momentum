@@ -96,15 +96,11 @@ fun PlayerScreen(
         CastPlayer(castContext)
     }
 
-
-
-
-
     LockScreenOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR)
     LaunchedEffect(key1 = Unit) {
         canEnterPictureInPicture(true)
         val currentSermon =
-            sermonViewModel.getCurrentSermon(id = sermonViewModel.currentSermon?.id ?: "")
+            sermonViewModel.getCurrentSermon()
         currentSermon?.let {
             exoPlayer.apply {
                 seekTo(it.last_played_time.toLong())

@@ -1,9 +1,15 @@
 package com.mwaibanda.momentum.android.presentation.transaction
 
-import androidx.compose.foundation.layout.*
-import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Close
+import androidx.activity.compose.BackHandler
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.Divider
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -28,7 +34,9 @@ fun TransactionScreen(
             transactionViewModel.getMomentumTransactions(userId = authViewModel.currentUser?.id ?: "")
         }
     }
-
+    BackHandler {
+        onCloseModal()
+    }
     Column(modifier = Modifier
         .fillMaxWidth()
         .fillMaxHeight(0.95f)) {
@@ -44,9 +52,9 @@ fun TransactionScreen(
                     .padding(10.dp)
                     .padding(bottom = 8.dp)
             )
-            IconButton(onClick = { onCloseModal() }) {
+            /*IconButton(onClick = { onCloseModal() }, Modifier.padding(horizontal = 10.dp)) {
                 Icon(imageVector = Icons.Default.Close, contentDescription = "Close transaction icon")
-            }
+            }*/
         }
         Divider()
         transactions.forEach { transaction ->

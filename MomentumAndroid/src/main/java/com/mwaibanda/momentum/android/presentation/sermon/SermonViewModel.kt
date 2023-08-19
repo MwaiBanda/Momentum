@@ -13,7 +13,13 @@ import com.mwaibanda.momentum.domain.models.Sermon
 import com.mwaibanda.momentum.utils.Result
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 
@@ -111,6 +117,8 @@ class SermonViewModel(
                     _canLoadMoreSermons.value = it.data?.canLoadMoreSermons ?: false
                     Log.d("SERMON/SUCCESS", "${it.data}")
                 }
+
+                else -> {}
             }
         }
     }
@@ -129,6 +137,8 @@ class SermonViewModel(
                     _canLoadMoreSermons.value = it.data?.canLoadMoreSermons ?: false
                     Log.d("SERMON/SUCCESS", "${it.data}")
                 }
+
+                else -> {}
             }
         }
     }
@@ -158,7 +168,7 @@ class SermonViewModel(
         onCompletion()
     }
 
-    fun getCurrentSermon(id: String): MomentumSermon? {
+    fun getCurrentSermon(): MomentumSermon? {
         return _watchedSermons.value.firstOrNull {
             it.id == (currentSermon?.id ?: "")
         }

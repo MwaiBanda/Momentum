@@ -4,7 +4,7 @@ plugins {
     id("com.android.library")
     id( "com.squareup.sqldelight")
     id("kotlin-parcelize")
-    kotlin("plugin.serialization") version "1.7.21"
+    kotlin("plugin.serialization") version "1.9.0"
 }
 
 
@@ -16,6 +16,8 @@ kotlin {
     iosArm64()
     iosSimulatorArm64()
 
+    // For example:
+    jvmToolchain(17)
     cocoapods {
         summary = """
         The Momentum SDK facilitates seamlessly integration with auth, networking,
@@ -35,10 +37,10 @@ kotlin {
     }
     
     sourceSets {
-        val ktorVersion = "2.0.2"
-        val serialization = "1.3.2"
+        val ktorVersion = "2.3.0"
+        val serialization = "1.5.0"
         val firebase = "1.6.2"
-        val sqlDelight = "1.5.3"
+        val sqlDelight = "1.5.4"
         val commonMain by getting {
             dependencies {
                 // Stately
@@ -54,17 +56,15 @@ kotlin {
                 implementation("io.insert-koin:koin-core:3.2.0")
                 // SQLDelight
                 implementation("com.squareup.sqldelight:runtime:$sqlDelight")
-                // Kotlin Firestore
-                implementation("dev.gitlive:firebase-firestore:$firebase")
                 // Kotlin Serialization
                 implementation ("org.jetbrains.kotlinx:kotlinx-serialization-json:$serialization")
                 // Kotlin datetime
                 implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
                 // Multiplatform Preferences
-                implementation("com.russhwolf:multiplatform-settings-no-arg:0.9")
+                implementation("com.russhwolf:multiplatform-settings-no-arg:1.0.0")
                 // Cache4K
                 implementation("io.github.reactivecircus.cache4k:cache4k:0.8.0")
-                implementation("io.github.mwaibanda:authentication:1.0.0")
+                implementation("io.github.mwaibanda:authentication:1.0.5")
 
             }
         }
@@ -79,7 +79,6 @@ kotlin {
                 implementation("com.squareup.sqldelight:android-driver:$sqlDelight")
             }
         }
-        val androidTest by getting
         val iosX64Main by getting
         val iosArm64Main by getting
         val iosSimulatorArm64Main by getting
@@ -113,13 +112,15 @@ kotlin {
 }
 
 android {
-    compileSdk = 32
+    compileSdk = 34
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     defaultConfig {
-        minSdk = 21
-        targetSdk = 31
+        minSdk = 26
     }
     namespace = "com.mwaibanda.momentum"
+}
+dependencies {
+    implementation("androidx.core:core-i18n:1.0.0-alpha01")
 }
 
 sqldelight {
