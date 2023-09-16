@@ -2,7 +2,16 @@ package com.mwaibanda.momentum.android.presentation.offer
 
 import android.util.Log
 import androidx.activity.ComponentActivity
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
@@ -24,9 +33,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.mwaibanda.momentum.android.Modal
 import com.mwaibanda.momentum.android.core.utils.AppReviewRequester
 import com.mwaibanda.momentum.android.core.utils.C
-import com.mwaibanda.momentum.android.core.utils.NavigationRoutes
 import com.mwaibanda.momentum.android.presentation.auth.AuthViewModel
 import com.mwaibanda.momentum.android.presentation.components.BlurredBackground
 import com.mwaibanda.momentum.android.presentation.components.BottomSpacing
@@ -39,7 +48,7 @@ fun OfferScreen(
     authViewModel: AuthViewModel,
     offerViewModel: OfferViewModel = getViewModel(),
     appReviewRequester: AppReviewRequester = get(),
-    onShowModal: () -> Unit
+    onShowModal: (Modal) -> Unit
 ){
     val context = LocalContext.current
     LaunchedEffect(key1 = Unit) {
@@ -97,7 +106,7 @@ fun OfferScreen(
                     onClick = {
                         Log.d("OFFER", "${offerViewModel.number.value.toFloat()}" )
                         if (authViewModel.currentUser?.isGuest == true) {
-                            onShowModal()
+                            onShowModal(Modal.Authentication)
 //                            navController.navigate(NavigationRoutes.AuthControllerScreen.route)
                         } else {
                             navController.navigate("pay/${offerViewModel.number.value.toFloat()}")

@@ -20,8 +20,10 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.TouchApp
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -83,13 +85,13 @@ fun AuthControllerScreen(
                             .background(Color.Transparent) // Changed to white
                             .size(30.dp)
                     ) {
-                        /*IconButton(onClick = { onCloseModal() }) {
+                        IconButton(onClick = { onCloseModal() }) {
                             Icon(
                                 imageVector = Icons.Default.Close,
                                 contentDescription = "Close auth icon",
                                 tint = Color.LightGray
                             )
-                        }*/
+                        }
                     }
                 }
                 Column(

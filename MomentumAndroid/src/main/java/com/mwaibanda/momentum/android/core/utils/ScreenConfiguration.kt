@@ -1,27 +1,38 @@
 package com.mwaibanda.momentum.android.core.utils
 
-import com.mwaibanda.momentum.android.core.utils.NavigationRoutes.*
+import com.mwaibanda.momentum.android.core.utils.NavigationRoutes.AuthControllerScreen
+import com.mwaibanda.momentum.android.core.utils.NavigationRoutes.LaunchScreen
+import com.mwaibanda.momentum.android.core.utils.NavigationRoutes.MealScreen
+import com.mwaibanda.momentum.android.core.utils.NavigationRoutes.OfferScreen
+import com.mwaibanda.momentum.android.core.utils.NavigationRoutes.PaymentFailureScreen
+import com.mwaibanda.momentum.android.core.utils.NavigationRoutes.PaymentSuccessScreen
+import com.mwaibanda.momentum.android.core.utils.NavigationRoutes.PlayerScreen
+import com.mwaibanda.momentum.android.core.utils.NavigationRoutes.ProfileScreen
+import com.mwaibanda.momentum.android.core.utils.NavigationRoutes.SermonScreen
+import com.mwaibanda.momentum.android.core.utils.NavigationRoutes.TransactionsScreen
 
 sealed class ScreenConfiguration(val screens: List<String>){
-    object ScreensWithoutBackButton: ScreenConfiguration(
+    data object ScreensWithoutBackButton: ScreenConfiguration(
         listOf(
             PaymentSuccessScreen.route,
             PaymentFailureScreen.route,
             OfferScreen.route,
             LaunchScreen.route,
             TransactionsScreen.route,
-            SermonScreen.route
+            SermonScreen.route,
+            MealScreen.route
         )
     )
 
-    object ScreensWithTopBarIcons: ScreenConfiguration(
+    data object ScreensWithTopBarIcons: ScreenConfiguration(
         listOf(
             TransactionsScreen.route,
             AuthControllerScreen.route,
-            SermonScreen.route
+            SermonScreen.route,
+            MealScreen.route
         )
     )
-    object ScreensWithoutNavigation: ScreenConfiguration(
+    data object ScreensWithoutNavigation: ScreenConfiguration(
         listOf(
             LaunchScreen.route,
             TransactionsScreen.route,
@@ -29,7 +40,7 @@ sealed class ScreenConfiguration(val screens: List<String>){
             PlayerScreen.route
         )
     )
-    object ScreensWithWhiteStatusBar: ScreenConfiguration (
+    data object ScreensWithWhiteStatusBar: ScreenConfiguration (
         listOf(
             ProfileScreen.route,
             PaymentSuccessScreen.route,
@@ -37,12 +48,12 @@ sealed class ScreenConfiguration(val screens: List<String>){
         )
     )
 
-    object ScreensWithTransparentBottomBar: ScreenConfiguration (
+    data object ScreensWithTransparentBottomBar: ScreenConfiguration (
         listOf(
             OfferScreen.route
         )
     )
-    object ScreensWithLogo: ScreenConfiguration(
+    data object ScreensWithLogo: ScreenConfiguration(
         listOf(
             OfferScreen.route
         )

@@ -8,8 +8,12 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Divider
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -39,7 +43,7 @@ fun TransactionScreen(
     }
     Column(modifier = Modifier
         .fillMaxWidth()
-        .fillMaxHeight(0.95f)) {
+        .fillMaxHeight(0.93f)) {
         Row(Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
@@ -52,9 +56,9 @@ fun TransactionScreen(
                     .padding(10.dp)
                     .padding(bottom = 8.dp)
             )
-            /*IconButton(onClick = { onCloseModal() }, Modifier.padding(horizontal = 10.dp)) {
+            IconButton(onClick = { onCloseModal() }, Modifier.padding(horizontal = 10.dp)) {
                 Icon(imageVector = Icons.Default.Close, contentDescription = "Close transaction icon")
-            }*/
+            }
         }
         Divider()
         transactions.forEach { transaction ->

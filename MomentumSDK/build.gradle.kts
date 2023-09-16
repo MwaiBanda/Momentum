@@ -4,7 +4,7 @@ plugins {
     id("com.android.library")
     id( "com.squareup.sqldelight")
     id("kotlin-parcelize")
-    kotlin("plugin.serialization") version "1.9.0"
+    kotlin("plugin.serialization") version "1.9.10"
 }
 
 
@@ -38,7 +38,7 @@ kotlin {
     
     sourceSets {
         val ktorVersion = "2.3.0"
-        val serialization = "1.5.0"
+        val serialization = "1.5.1"
         val firebase = "1.6.2"
         val sqlDelight = "1.5.4"
         val commonMain by getting {

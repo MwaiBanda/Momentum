@@ -4,20 +4,35 @@ import android.app.PictureInPictureParams
 import android.content.pm.PackageManager
 import android.content.res.ColorStateList
 import android.content.res.Configuration
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.util.Rational
 import androidx.activity.compose.setContent
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.Card
+import androidx.compose.material.Divider
 import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.ModalBottomSheetLayout
 import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -25,22 +40,26 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
 import androidx.core.view.WindowCompat
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import com.google.accompanist.insets.ProvideWindowInsets
-import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
-import com.google.accompanist.navigation.material.bottomSheet
 import com.google.android.gms.cast.framework.CastContext
 import com.google.android.gms.dynamite.DynamiteModule
+import com.mwaibanda.momentum.android.Modal.*
 import com.mwaibanda.momentum.android.core.utils.C
 import com.mwaibanda.momentum.android.core.utils.NavigationRoutes.*
 import com.mwaibanda.momentum.android.presentation.MomentumEntry
 import com.mwaibanda.momentum.android.presentation.auth.AuthControllerScreen
+import com.mwaibanda.momentum.android.presentation.meals.AddMealScreen
+import com.mwaibanda.momentum.android.presentation.meals.MealScreen
 import com.mwaibanda.momentum.android.presentation.navigation.LaunchScreen
 import com.mwaibanda.momentum.android.presentation.offer.OfferScreen
 import com.mwaibanda.momentum.android.presentation.payment.PaymentFailureScreen
@@ -54,16 +73,12 @@ import com.mwaibanda.momentum.domain.models.Sermon
 import com.mwaibanda.momentum.utils.MultiplatformConstants
 import com.stripe.android.paymentsheet.PaymentSheet
 import com.stripe.android.paymentsheet.PaymentSheetContract
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.launch
-import kotlin.coroutines.CoroutineContext
 
 enum class Modal {
-    Transactions,
-    Auth
+    ViewTransactions,
+    Authentication,
+    AddMeal
 }
 class MainActivity : BaseActivity() {
     private lateinit var castContext: CastContext
@@ -95,8 +110,9 @@ class MainActivity : BaseActivity() {
             var showModalSheet by rememberSaveable {
                 mutableStateOf(false)
             }
+            
             var currentModal: Modal by rememberSaveable {
-                mutableStateOf(Modal.Transactions)
+                mutableStateOf(ViewTransactions)
             }
             LaunchedEffect(key1 = sheetState.isVisible, block = {
                 launch {
@@ -106,34 +122,42 @@ class MainActivity : BaseActivity() {
             var currentSermon: Sermon? by rememberSaveable {
                 mutableStateOf(null)
             }
-            MomentumEntry(showModalSheet, {
+            
+            val showModal: (Modal) -> Unit = {
                 scope.launch {
-                    currentModal = Modal.Transactions
+                    currentModal = it
                     showModalSheet = true
                     sheetState.show()
                 }
+            }
+
+            val closeModal: () -> Unit = {
+                scope.launch {
+                    sheetState.hide()
+                    showModalSheet = false
+                }
+            }
+            MomentumEntry(showModalSheet, {
+                showModal(ViewTransactions)
             }) { contentPadding, navController ->
                 ModalBottomSheetLayout(
                     sheetState = sheetState,
                     sheetContent = {
                             when(currentModal){
-                                Modal.Transactions -> TransactionScreen(
+                                ViewTransactions -> TransactionScreen(
                                     authViewModel = authViewModel,
                                     transactionViewModel = transactionViewModel
                                 ) {
-                                    scope.launch {
-                                        sheetState.hide()
-                                        showModalSheet = false
-                                    }
+                                    closeModal()
                                 }
-                                Modal.Auth -> AuthControllerScreen(
+                                Authentication -> AuthControllerScreen(
                                     authViewModel = authViewModel,
                                     profileViewModel = profileViewModel
                                 ) {
-                                    scope.launch {
-                                        sheetState.hide()
-                                        showModalSheet = false
-                                    }
+                                    closeModal()
+                                }
+                                AddMeal ->  AddMealScreen {
+                                    closeModal()
                                 }
                             }
 
@@ -147,16 +171,17 @@ class MainActivity : BaseActivity() {
                         composable(LaunchScreen.route) {
                             LaunchScreen(navController = navController)
                         }
+                        composable(MealScreen.route) {
+                            MealScreen {
+                                showModal(AddMeal)
+                            }
+                        }
                         composable(OfferScreen.route) {
                             OfferScreen(
                                 navController = navController,
                                 authViewModel = authViewModel
                             ){
-                                scope.launch {
-                                    currentModal = Modal.Auth
-                                    showModalSheet = true
-                                    sheetState.show()
-                                }
+                                showModal(Authentication)
                             }
                         }
                         composable(SermonScreen.route) {
