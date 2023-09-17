@@ -9,10 +9,12 @@ import android.util.Log
 import android.util.Rational
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ModalBottomSheetLayout
 import androidx.compose.material.ModalBottomSheetValue
+import androidx.compose.material.Text
 import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -22,6 +24,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.sp
 import androidx.core.view.WindowCompat
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -37,6 +40,7 @@ import com.mwaibanda.momentum.android.presentation.auth.AuthControllerScreen
 import com.mwaibanda.momentum.android.presentation.meals.AddMealScreen
 import com.mwaibanda.momentum.android.presentation.meals.MealScreen
 import com.mwaibanda.momentum.android.presentation.meals.MealsDetailScreen
+import com.mwaibanda.momentum.android.presentation.meals.Modal
 import com.mwaibanda.momentum.android.presentation.navigation.LaunchScreen
 import com.mwaibanda.momentum.android.presentation.offer.OfferScreen
 import com.mwaibanda.momentum.android.presentation.payment.PaymentFailureScreen
@@ -56,7 +60,10 @@ import kotlinx.coroutines.launch
 enum class Modal {
     ViewTransactions,
     Authentication,
-    AddMeal
+    PostMeal,
+    AddMeal,
+    ViewRecipientInfo
+
 }
 class MainActivity : BaseActivity() {
     private lateinit var castContext: CastContext
@@ -141,8 +148,15 @@ class MainActivity : BaseActivity() {
                                 ) {
                                     closeModal()
                                 }
-                                AddMeal ->  AddMealScreen {
+                                PostMeal ->  AddMealScreen {
                                     closeModal()
+                                }
+
+                                AddMeal -> Modal(closeModal) {
+                                    Text(text = "Add Meal", color = Color.Black,)
+                                }
+                                ViewRecipientInfo -> Modal(closeModal, "Recipient Information") {
+                                    Text(text = "View Recipient Info", color = Color.Black)
                                 }
                             }
 
@@ -161,12 +175,14 @@ class MainActivity : BaseActivity() {
                                 currentMeal = it
                                 navController.navigate(MealDetailScreen.route)
                             }) {
-                                showModal(AddMeal)
+                                showModal(PostMeal)
                             }
                         }
                         composable(MealDetailScreen.route) {
-                            currentMeal?.let { 
-                                MealsDetailScreen(meal = it)
+                            currentMeal?.let { meal ->
+                                MealsDetailScreen(meal = meal){ modal ->
+                                    showModal(modal)
+                                }
                             }
                         }
                         composable(OfferScreen.route) {

@@ -90,25 +90,9 @@ fun AddMealScreen(closeModal: () -> Unit) {
         restartOnPlay = true
 
     )
-    BackHandler {
-        closeModal()
-    }
 
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .fillMaxHeight(0.93f),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.SpaceBetween
-    ) {
-        Row(
-            Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.End,
-        ) {
-            IconButton(onClick = closeModal) {
-                Icon(imageVector = Icons.Default.Close, contentDescription = "Close add meals icon")
-            }
-        }
+
+    Modal(closeModal, arrangement = Arrangement.SpaceBetween) {
         Card(
             Modifier
                 .size((configuration.screenWidthDp - 30).dp, 540.dp)
@@ -386,5 +370,38 @@ fun AddMealScreen(closeModal: () -> Unit) {
             }
         }
         Spacer(modifier = Modifier.height(10.dp))
+    }
+}
+
+@Composable
+fun Modal(closeModal: () -> Unit, title: String = "", arrangement: Arrangement.Vertical = Arrangement.Top, content: @Composable () -> Unit) {
+    BackHandler {
+        closeModal()
+    }
+
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .fillMaxHeight(0.93f),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = arrangement
+    ) {
+        Row(Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                text = title,
+                fontWeight = FontWeight.ExtraBold,
+                style = MaterialTheme.typography.h6,
+                modifier = Modifier
+                    .padding(10.dp)
+                    .padding(bottom = 8.dp)
+            )
+            IconButton(onClick = { closeModal() }, Modifier.padding(horizontal = 10.dp)) {
+                Icon(imageVector = Icons.Default.Close, contentDescription = "Close  icon")
+            }
+        }
+        content()
     }
 }

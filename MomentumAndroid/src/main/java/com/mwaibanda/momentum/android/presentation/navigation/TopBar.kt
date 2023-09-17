@@ -1,7 +1,11 @@
 package com.mwaibanda.momentum.android.presentation.navigation
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.Text
@@ -16,18 +20,16 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.google.accompanist.insets.LocalWindowInsets
-import com.google.accompanist.insets.rememberInsetsPaddingValues
 import com.mwaibanda.momentum.android.R
 import com.mwaibanda.momentum.android.core.utils.C
 import com.mwaibanda.momentum.android.core.utils.NavigationRoutes
 import com.mwaibanda.momentum.android.core.utils.ScreenConfiguration
 
 @Composable
-fun TopBar(navController: NavController, currentRoute: String?, isShowingModal: Boolean, onShowModal: () -> Unit) {
+fun TopBar(navController: NavController, currentRoute: String?,onShowModal: () -> Unit) {
     TopAppBar(
         title = {
-            if (ScreenConfiguration.ScreensWithLogo.screens.contains(currentRoute) && isShowingModal.not())
+            if (ScreenConfiguration.ScreensWithLogo.screens.contains(currentRoute))
                 Row(
                     Modifier.fillMaxWidth(0.9f),
                     horizontalArrangement = Arrangement.Center
@@ -58,14 +60,14 @@ fun TopBar(navController: NavController, currentRoute: String?, isShowingModal: 
                         Text(text = "Back", color = Color(C.MOMENTUM_ORANGE))
                     }
                 }
-            if (ScreenConfiguration.ScreensWithTopBarIcons.screens.contains(currentRoute).not() && isShowingModal.not())
+            if (ScreenConfiguration.ScreensWithTopBarIcons.screens.contains(currentRoute).not())
                 IconButton(
                     onClick = {
                         onShowModal()
                     },
                     enabled = ScreenConfiguration.ScreensWithoutBackButton.screens.contains(
                         currentRoute
-                    )  && isShowingModal.not()
+                    )
                 ) {
                     Icon(
                         Icons.Outlined.AccessTime,
@@ -77,12 +79,12 @@ fun TopBar(navController: NavController, currentRoute: String?, isShowingModal: 
                 }
         },
         actions = {
-            if (ScreenConfiguration.ScreensWithTopBarIcons.screens.contains(currentRoute).not() && isShowingModal.not())
+            if (ScreenConfiguration.ScreensWithTopBarIcons.screens.contains(currentRoute).not())
                 IconButton(
                     onClick = { navController.navigate(NavigationRoutes.ProfileScreen.route) },
                     enabled = ScreenConfiguration.ScreensWithoutBackButton.screens.contains(
                         currentRoute
-                    ) && isShowingModal.not()
+                    )
                 ) {
                     Icon(
                         imageVector = Icons.Outlined.AccountCircle,
