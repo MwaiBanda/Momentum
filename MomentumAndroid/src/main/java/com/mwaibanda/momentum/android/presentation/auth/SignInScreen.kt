@@ -14,7 +14,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import com.mwaibanda.momentum.android.core.utils.C
-import com.mwaibanda.momentum.android.presentation.components.IconTextfield
+import com.mwaibanda.momentum.android.presentation.components.IconTextField
 import com.mwaibanda.momentum.android.presentation.components.PasswordTextField
 
 @Composable
@@ -47,7 +47,7 @@ fun SignInScreen(
             )
         }
         Divider(color = Color.White.copy(0.5f), thickness = 0.8.dp)
-        IconTextfield(
+        IconTextField(
             text = email,
             placeholder = "Email",
             icon = Icons.Outlined.MailOutline,

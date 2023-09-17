@@ -16,7 +16,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import com.mwaibanda.momentum.android.core.utils.C
-import com.mwaibanda.momentum.android.presentation.components.IconTextfield
+import com.mwaibanda.momentum.android.presentation.components.IconTextField
 import com.mwaibanda.momentum.android.presentation.components.PasswordTextField
 import com.mwaibanda.momentum.android.presentation.profile.ProfileViewModel
 
@@ -58,7 +58,7 @@ fun SignUpScreen(
             )
         }
         Divider(color = Color.White.copy(0.5f), thickness = 0.8.dp)
-        IconTextfield(
+        IconTextField(
             text = fullname,
             placeholder = "Fullname",
             icon = Icons.Outlined.Person,
@@ -68,7 +68,7 @@ fun SignUpScreen(
             focusManager.clearFocus()
         }
         Divider(color = Color.White.copy(0.5f), thickness = 0.8.dp)
-        IconTextfield(
+        IconTextField(
             text = phone,
             placeholder = "Phone",
             icon = Icons.Outlined.Phone,
@@ -78,7 +78,7 @@ fun SignUpScreen(
             focusManager.clearFocus()
         }
         Divider(color = Color.White.copy(0.5f), thickness = 0.8.dp)
-        IconTextfield(
+        IconTextField(
             text = email,
             placeholder = "Email",
             icon = Icons.Outlined.MailOutline,

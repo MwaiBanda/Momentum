@@ -1,26 +1,28 @@
 package com.mwaibanda.momentum.android
 
 import android.graphics.Rect
-import androidx.activity.ComponentActivity
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import com.mwaibanda.momentum.android.presentation.auth.AuthViewModel
+import com.mwaibanda.momentum.android.presentation.meals.MealViewModel
 import com.mwaibanda.momentum.android.presentation.payment.PaymentViewModel
 import com.mwaibanda.momentum.android.presentation.profile.ProfileViewModel
 import com.mwaibanda.momentum.android.presentation.sermon.SermonViewModel
 import com.mwaibanda.momentum.android.presentation.transaction.TransactionViewModel
 import com.mwaibanda.momentum.domain.models.Payment
-import com.mwaibanda.momentum.domain.models.Transaction
 import com.stripe.android.PaymentConfiguration
 import com.stripe.android.paymentsheet.PaymentSheet
 import com.stripe.android.paymentsheet.PaymentSheetResult
-import kotlinx.coroutines.*
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 
 open class BaseActivity : AppCompatActivity() {
+    protected val mealViewModel: MealViewModel by inject()
     protected val authViewModel: AuthViewModel by inject()
     protected val paymentViewModel: PaymentViewModel by inject()
     protected val profileViewModel: ProfileViewModel by inject()

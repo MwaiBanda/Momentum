@@ -19,11 +19,12 @@ import androidx.compose.ui.unit.dp
 import com.mwaibanda.momentum.android.core.utils.C
 
 @Composable
-fun IconTextfield(
+fun IconTextField(
     text: TextFieldValue,
     placeholder: String,
     icon: ImageVector,
     keyboardType: KeyboardType,
+    accentColor: Color = Color.White,
     onTextChange: (TextFieldValue) -> Unit,
     onCommit: () -> Unit
 ) {
@@ -34,12 +35,12 @@ fun IconTextfield(
         colors = TextFieldDefaults.textFieldColors(
             backgroundColor = Color.Transparent,
             cursorColor = Color(C.MOMENTUM_ORANGE),
-            disabledLabelColor = Color.White,
+            disabledLabelColor = accentColor,
             focusedIndicatorColor = Color.Transparent,
             focusedLabelColor = Color.Transparent,
             unfocusedIndicatorColor = Color.Transparent,
-            unfocusedLabelColor = Color.White,
-            textColor = Color.White
+            unfocusedLabelColor = accentColor,
+            textColor = accentColor
         ),
         shape = RoundedCornerShape(10.dp),
         label = {
@@ -56,7 +57,7 @@ fun IconTextfield(
             Icon(
                 imageVector = icon,
                 contentDescription = "",
-                tint = Color.White
+                tint = accentColor
             )
         }
     )

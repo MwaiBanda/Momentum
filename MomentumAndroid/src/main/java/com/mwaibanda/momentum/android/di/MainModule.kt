@@ -7,7 +7,6 @@ import com.mwaibanda.momentum.controller.AuthControllerImpl
 import com.mwaibanda.momentum.data.db.DatabaseDriverFactory
 import com.mwaibanda.momentum.domain.controller.AuthController
 import io.github.mwaibanda.authentication.di.Authentication
-import io.github.mwaibanda.authentication.domain.controller.AuthenticationController
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 

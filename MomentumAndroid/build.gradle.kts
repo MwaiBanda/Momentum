@@ -123,8 +123,13 @@ dependencies {
     // Auth
     implementation("io.github.mwaibanda:authentication:1.0.5")
 
-    //
+    // Logging
     implementation("org.slf4j:slf4j-simple:2.0.7")
+
+    // Calendar
+    implementation( "io.github.boguszpawlowski.composecalendar:composecalendar:1.1.1")
+    // separate artifact with utilities for working with kotlinx-datetime
+    implementation("io.github.boguszpawlowski.composecalendar:kotlinx-datetime:1.1.1")
 
 }
 

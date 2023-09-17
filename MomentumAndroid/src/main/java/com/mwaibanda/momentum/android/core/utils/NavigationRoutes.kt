@@ -13,17 +13,17 @@ sealed class NavigationRoutes(
     @StringRes val tabName: Int? = null,
     val icon: ImageVector? = null,
 ) {
-    object LaunchScreen: NavigationRoutes(route = "launch")
-    object MealsScreen: NavigationRoutes(route = "offer", tabName = R.string.offer, icon = Icons.Filled.CardGiftcard)
-    object MealScreen: NavigationRoutes(route = "meals", tabName = R.string.meals, icon = Icons.Filled.Fastfood)
+    data object LaunchScreen: NavigationRoutes(route = "launch")
+    data object MealScreen: NavigationRoutes(route = "meals", tabName = R.string.meals, icon = Icons.Filled.Fastfood)
+    data object MealDetailScreen: NavigationRoutes(route = "meals/detail")
 
-    object OfferScreen: NavigationRoutes(route = "offer", tabName = R.string.offer, icon = Icons.Filled.CardGiftcard)
-    object SermonScreen: NavigationRoutes(route = "sermon", tabName = R.string.sermon, icon = Icons.Filled.LocalMovies)
-    object PlayerScreen: NavigationRoutes(route = "play/sermon")
-    object PaymentSummaryScreen: NavigationRoutes(route = "pay/{amount}")
-    object PaymentSuccessScreen: NavigationRoutes(route = "pay/success")
-    object PaymentFailureScreen: NavigationRoutes(route = "pay/failure")
-    object TransactionsScreen: NavigationRoutes(route = "transactions")
-    object ProfileScreen: NavigationRoutes(route = "profile")
-    object AuthControllerScreen: NavigationRoutes(route = "auth")
+    data object OfferScreen: NavigationRoutes(route = "offer", tabName = R.string.offer, icon = Icons.Filled.CardGiftcard)
+    data object SermonScreen: NavigationRoutes(route = "sermon", tabName = R.string.sermon, icon = Icons.Filled.LocalMovies)
+    data object PlayerScreen: NavigationRoutes(route = "play/sermon")
+    data object PaymentSummaryScreen: NavigationRoutes(route = "pay/{amount}")
+    data object PaymentSuccessScreen: NavigationRoutes(route = "pay/success")
+    data object PaymentFailureScreen: NavigationRoutes(route = "pay/failure")
+    data object TransactionsScreen: NavigationRoutes(route = "transactions")
+    data object ProfileScreen: NavigationRoutes(route = "profile")
+    data object AuthControllerScreen: NavigationRoutes(route = "auth")
 }

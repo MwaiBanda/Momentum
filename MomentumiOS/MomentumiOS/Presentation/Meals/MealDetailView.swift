@@ -30,7 +30,7 @@ struct MealDetailView: View {
                 Card {
                     
                     VStack(alignment: .leading) {
-                        Text("Repcipent")
+                        Text("Recipient")
                             .font(.title2)
                             .bold()
                         RecipentInfo(
