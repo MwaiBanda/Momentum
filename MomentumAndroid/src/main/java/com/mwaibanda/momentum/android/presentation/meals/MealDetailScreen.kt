@@ -32,17 +32,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.mwaibanda.momentum.android.Modal
 import com.mwaibanda.momentum.android.core.utils.C
+import com.mwaibanda.momentum.android.core.utils.Modal
+import com.mwaibanda.momentum.android.core.utils.getDate
+import com.mwaibanda.momentum.android.presentation.components.RecipientInfo
 import com.mwaibanda.momentum.domain.models.Meal
-import java.text.SimpleDateFormat
-import java.util.Date
+import com.mwaibanda.momentum.domain.models.VolunteeredMeal
 
 @Composable
-fun MealsDetailScreen(meal: Meal, onShowModal: (Modal) -> Unit) {
+fun MealsDetailScreen(meal: Meal, onShowModal: (Modal, VolunteeredMeal?) -> Unit) {
     Column(
         Modifier
             .systemBarsPadding()
@@ -81,7 +81,7 @@ fun MealsDetailScreen(meal: Meal, onShowModal: (Modal) -> Unit) {
                 )
                 OutlinedButton(
                     onClick = {
-                        onShowModal(Modal.ViewRecipientInfo)
+                        onShowModal(Modal.ViewRecipientInfo, null)
                     },
                     modifier = Modifier
                         .fillMaxWidth()
@@ -141,7 +141,7 @@ fun MealsDetailScreen(meal: Meal, onShowModal: (Modal) -> Unit) {
                             )
                             Button(
                                 onClick = {
-                                    onShowModal(Modal.AddMeal)
+                                    onShowModal(Modal.PostVolunteerMeal, it)
                                 },
                                 elevation = ButtonDefaults.elevation(0.dp, 0.dp),
                                 modifier = Modifier
@@ -191,26 +191,5 @@ fun MealsDetailScreen(meal: Meal, onShowModal: (Modal) -> Unit) {
     }
 }
 
-@Composable
-fun RecipientInfo(
-    title: String,
-    description: String,
-    icon: ImageVector,
-) {
-    Row {
-        androidx.compose.material.Icon(imageVector = icon, contentDescription = "")
-        Column(Modifier.padding(start = 10.dp, bottom = 10.dp)) {
-            Text(text = title, fontWeight = FontWeight.Medium)
-            Text(text = description)
-        }
-    }
-}
 
-fun getDate(date: String): String {
-    var format = SimpleDateFormat("yyyy-MM-dd hh:mm:ss Z")
-    val newDate: Date = format.parse(date)
 
-    format = SimpleDateFormat("MMM d, EEE")
-    return format.format(newDate)
-
-}

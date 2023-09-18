@@ -25,8 +25,9 @@ fun IconTextField(
     icon: ImageVector,
     keyboardType: KeyboardType,
     accentColor: Color = Color.White,
-    onTextChange: (TextFieldValue) -> Unit,
-    onCommit: () -> Unit
+    isReadOnly: Boolean = false,
+    onTextChange: (TextFieldValue) -> Unit = {},
+    onCommit: () -> Unit = {}
 ) {
     TextField(
         modifier = Modifier.fillMaxWidth(),
@@ -37,11 +38,15 @@ fun IconTextField(
             cursorColor = Color(C.MOMENTUM_ORANGE),
             disabledLabelColor = accentColor,
             focusedIndicatorColor = Color.Transparent,
+            disabledIndicatorColor = Color.Transparent,
+            disabledTextColor = Color.Gray,
             focusedLabelColor = Color.Transparent,
             unfocusedIndicatorColor = Color.Transparent,
             unfocusedLabelColor = accentColor,
             textColor = accentColor
         ),
+        enabled = isReadOnly.not(),
+        readOnly = isReadOnly,
         shape = RoundedCornerShape(10.dp),
         label = {
             Text(text = placeholder)

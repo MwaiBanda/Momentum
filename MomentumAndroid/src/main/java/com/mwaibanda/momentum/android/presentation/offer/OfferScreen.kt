@@ -33,7 +33,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.mwaibanda.momentum.android.Modal
+import com.mwaibanda.momentum.android.core.utils.Modal
 import com.mwaibanda.momentum.android.core.utils.AppReviewRequester
 import com.mwaibanda.momentum.android.core.utils.C
 import com.mwaibanda.momentum.android.presentation.auth.AuthViewModel

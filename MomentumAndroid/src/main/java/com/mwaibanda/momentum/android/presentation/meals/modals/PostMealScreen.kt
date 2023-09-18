@@ -1,6 +1,5 @@
-package com.mwaibanda.momentum.android.presentation.meals
+package com.mwaibanda.momentum.android.presentation.meals.modals
 
-import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.SizeTransform
 import androidx.compose.animation.fadeIn
@@ -27,12 +26,9 @@ import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Card
 import androidx.compose.material.Divider
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.outlined.CalendarMonth
 import androidx.compose.material.icons.outlined.House
 import androidx.compose.material.icons.outlined.Info
@@ -65,12 +61,13 @@ import com.airbnb.lottie.compose.rememberLottieComposition
 import com.mwaibanda.momentum.android.R
 import com.mwaibanda.momentum.android.core.utils.C
 import com.mwaibanda.momentum.android.presentation.components.IconTextField
+import com.mwaibanda.momentum.android.presentation.components.BaseModal
 import io.github.boguszpawlowski.composecalendar.SelectableCalendar
 import io.github.boguszpawlowski.composecalendar.rememberSelectableCalendarState
 import io.github.boguszpawlowski.composecalendar.selection.SelectionMode
 
 @Composable
-fun AddMealScreen(closeModal: () -> Unit) {
+fun PostMealScreen(closeModal: () -> Unit) {
     val configuration = LocalConfiguration.current
     var currentTab by remember {
         mutableIntStateOf(0)
@@ -92,11 +89,13 @@ fun AddMealScreen(closeModal: () -> Unit) {
     )
 
 
-    Modal(closeModal, arrangement = Arrangement.SpaceBetween) {
+    BaseModal(closeModal, arrangement = Arrangement.SpaceBetween) {
         Card(
             Modifier
-                .size((configuration.screenWidthDp - 30).dp, 540.dp)
-                .padding(bottom = 20.dp), elevation = 4.dp) {
+                .size((configuration.screenWidthDp - 30).dp, 590.dp)
+                .padding(bottom = 20.dp),
+            elevation = 4.dp
+        ) {
             Column(Modifier.fillMaxSize(), verticalArrangement = Arrangement.SpaceBetween) {
                 Column {
                     Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
@@ -189,7 +188,7 @@ fun AddMealScreen(closeModal: () -> Unit) {
                             Modifier
                                 .fillMaxWidth()
                                 .fillMaxHeight(0.8f)
-                                .verticalScroll(rememberScrollState())
+                                .padding(10.dp)
                         ) {
                             SelectableCalendar(
                                 calendarState = calendarState
@@ -373,35 +372,3 @@ fun AddMealScreen(closeModal: () -> Unit) {
     }
 }
 
-@Composable
-fun Modal(closeModal: () -> Unit, title: String = "", arrangement: Arrangement.Vertical = Arrangement.Top, content: @Composable () -> Unit) {
-    BackHandler {
-        closeModal()
-    }
-
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .fillMaxHeight(0.93f),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = arrangement
-    ) {
-        Row(Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Text(
-                text = title,
-                fontWeight = FontWeight.ExtraBold,
-                style = MaterialTheme.typography.h6,
-                modifier = Modifier
-                    .padding(10.dp)
-                    .padding(bottom = 8.dp)
-            )
-            IconButton(onClick = { closeModal() }, Modifier.padding(horizontal = 10.dp)) {
-                Icon(imageVector = Icons.Default.Close, contentDescription = "Close  icon")
-            }
-        }
-        content()
-    }
-}

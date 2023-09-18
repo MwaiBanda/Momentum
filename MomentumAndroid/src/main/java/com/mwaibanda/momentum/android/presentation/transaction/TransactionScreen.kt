@@ -6,8 +6,8 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import com.mwaibanda.momentum.android.presentation.auth.AuthViewModel
+import com.mwaibanda.momentum.android.presentation.components.BaseModal
 import com.mwaibanda.momentum.android.presentation.components.TransactionLabel
-import com.mwaibanda.momentum.android.presentation.meals.Modal
 
 @Composable
 fun TransactionScreen(
@@ -23,7 +23,7 @@ fun TransactionScreen(
         }
     }
 
-    Modal(onCloseModal, "Transactions") {
+    BaseModal(onCloseModal, "Transactions") {
         Divider()
         transactions.forEach { transaction ->
             TransactionLabel(

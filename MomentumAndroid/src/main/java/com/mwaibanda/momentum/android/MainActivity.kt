@@ -9,12 +9,10 @@ import android.util.Log
 import android.util.Rational
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ModalBottomSheetLayout
 import androidx.compose.material.ModalBottomSheetValue
-import androidx.compose.material.Text
 import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -24,7 +22,6 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.sp
 import androidx.core.view.WindowCompat
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -32,15 +29,17 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.google.android.gms.cast.framework.CastContext
 import com.google.android.gms.dynamite.DynamiteModule
-import com.mwaibanda.momentum.android.Modal.*
+import com.mwaibanda.momentum.android.core.utils.Modal
+import com.mwaibanda.momentum.android.core.utils.Modal.*
 import com.mwaibanda.momentum.android.core.utils.C
 import com.mwaibanda.momentum.android.core.utils.NavigationRoutes.*
 import com.mwaibanda.momentum.android.presentation.MomentumEntry
 import com.mwaibanda.momentum.android.presentation.auth.AuthControllerScreen
-import com.mwaibanda.momentum.android.presentation.meals.AddMealScreen
 import com.mwaibanda.momentum.android.presentation.meals.MealScreen
 import com.mwaibanda.momentum.android.presentation.meals.MealsDetailScreen
-import com.mwaibanda.momentum.android.presentation.meals.Modal
+import com.mwaibanda.momentum.android.presentation.meals.modals.PostMealScreen
+import com.mwaibanda.momentum.android.presentation.meals.modals.PostVolunteerMealScreen
+import com.mwaibanda.momentum.android.presentation.meals.modals.ViewRecipientInfoScreen
 import com.mwaibanda.momentum.android.presentation.navigation.LaunchScreen
 import com.mwaibanda.momentum.android.presentation.offer.OfferScreen
 import com.mwaibanda.momentum.android.presentation.payment.PaymentFailureScreen
@@ -52,19 +51,12 @@ import com.mwaibanda.momentum.android.presentation.sermon.SermonScreen
 import com.mwaibanda.momentum.android.presentation.transaction.TransactionScreen
 import com.mwaibanda.momentum.domain.models.Meal
 import com.mwaibanda.momentum.domain.models.Sermon
+import com.mwaibanda.momentum.domain.models.VolunteeredMeal
 import com.mwaibanda.momentum.utils.MultiplatformConstants
 import com.stripe.android.paymentsheet.PaymentSheet
 import com.stripe.android.paymentsheet.PaymentSheetContract
 import kotlinx.coroutines.launch
 
-enum class Modal {
-    ViewTransactions,
-    Authentication,
-    PostMeal,
-    AddMeal,
-    ViewRecipientInfo
-
-}
 class MainActivity : BaseActivity() {
     private lateinit var castContext: CastContext
 
@@ -95,11 +87,11 @@ class MainActivity : BaseActivity() {
             var showModalSheet by rememberSaveable {
                 mutableStateOf(false)
             }
-            
+
             var currentModal: Modal by rememberSaveable {
                 mutableStateOf(ViewTransactions)
             }
-            
+
             var currentSermon: Sermon? by rememberSaveable {
                 mutableStateOf(null)
             }
@@ -107,7 +99,11 @@ class MainActivity : BaseActivity() {
             var currentMeal: Meal? by rememberSaveable {
                 mutableStateOf(null)
             }
-            
+
+            var currentVolunteeredMeal: VolunteeredMeal? by rememberSaveable {
+                mutableStateOf(null)
+            }
+
             val showModal: (Modal) -> Unit = {
                 coroutineScope.launch {
                     currentModal = it
@@ -122,46 +118,38 @@ class MainActivity : BaseActivity() {
                     showModalSheet = false
                 }
             }
-            
+
             LaunchedEffect(key1 = sheetState.isVisible, block = {
-                launch {
-                    showModalSheet = sheetState.isVisible
-                }
+                showModalSheet = sheetState.isVisible
             })
-            
+
             MomentumEntry(showModalSheet, {
                 showModal(ViewTransactions)
             }) { contentPadding, navController ->
                 ModalBottomSheetLayout(
                     sheetState = sheetState,
                     sheetContent = {
-                            when(currentModal){
-                                ViewTransactions -> TransactionScreen(
-                                    authViewModel = authViewModel,
-                                    transactionViewModel = transactionViewModel
-                                ) {
-                                    closeModal()
-                                }
-                                Authentication -> AuthControllerScreen(
-                                    authViewModel = authViewModel,
-                                    profileViewModel = profileViewModel
-                                ) {
-                                    closeModal()
-                                }
-                                PostMeal ->  AddMealScreen {
-                                    closeModal()
-                                }
-
-                                AddMeal -> Modal(closeModal) {
-                                    Text(text = "Add Meal", color = Color.Black,)
-                                }
-                                ViewRecipientInfo -> Modal(closeModal, "Recipient Information") {
-                                    Text(text = "View Recipient Info", color = Color.Black)
-                                }
+                        when (currentModal) {
+                            ViewTransactions -> TransactionScreen(
+                                authViewModel = authViewModel,
+                                transactionViewModel = transactionViewModel
+                            ) {
+                                closeModal()
                             }
-
+                            Authentication -> AuthControllerScreen(
+                                authViewModel = authViewModel,
+                                profileViewModel = profileViewModel
+                            ) {
+                                closeModal()
+                            }
+                            PostMeal -> PostMealScreen(closeModal)
+                            PostVolunteerMeal -> currentVolunteeredMeal?.let {
+                                PostVolunteerMealScreen(it, closeModal)
+                            }
+                            ViewRecipientInfo -> ViewRecipientInfoScreen(currentMeal, closeModal)
+                        }
                     }
-                ){
+                ) {
                     NavHost(
                         navController = navController,
                         modifier = Modifier.padding(contentPadding),
@@ -180,7 +168,8 @@ class MainActivity : BaseActivity() {
                         }
                         composable(MealDetailScreen.route) {
                             currentMeal?.let { meal ->
-                                MealsDetailScreen(meal = meal){ modal ->
+                                MealsDetailScreen(meal = meal) { modal, volunteeredMeal ->
+                                    currentVolunteeredMeal = volunteeredMeal
                                     showModal(modal)
                                 }
                             }
@@ -189,7 +178,7 @@ class MainActivity : BaseActivity() {
                             OfferScreen(
                                 navController = navController,
                                 authViewModel = authViewModel
-                            ){
+                            ) {
                                 showModal(Authentication)
                             }
                         }
@@ -283,7 +272,10 @@ class MainActivity : BaseActivity() {
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
         sermonViewModel.setLandscape(newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE)
-        Log.d("Config" , "Layout is landscape: ${newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE}")
+        Log.d(
+            "Config",
+            "Layout is landscape: ${newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE}"
+        )
     }
 
     override fun onUserLeaveHint() {
