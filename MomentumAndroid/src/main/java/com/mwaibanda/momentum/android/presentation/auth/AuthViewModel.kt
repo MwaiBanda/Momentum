@@ -8,7 +8,8 @@ import androidx.lifecycle.ViewModel
 import com.mwaibanda.momentum.domain.controller.AuthController
 import com.mwaibanda.momentum.domain.controller.LocalDefaultsController
 import com.mwaibanda.momentum.utils.MultiplatformConstants
-import io.github.mwaibanda.authentication.utils.AuthResult.*
+import io.github.mwaibanda.authentication.utils.AuthResult.Failure
+import io.github.mwaibanda.authentication.utils.AuthResult.Success
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
@@ -32,6 +33,8 @@ class AuthViewModel(
                 is Failure -> {
                     Log.d("Auth/Failure", res.message ?: "")
                 }
+
+                else -> {}
             }
             Log.d("Auth", "User {id: ${res.data?.uid}, isGuest: ${res.data?.isAnonymous}}")
         }
@@ -59,6 +62,8 @@ class AuthViewModel(
                     )
                     onCompletion()
                 }
+
+                else -> {}
             }
         }
     }
@@ -77,6 +82,8 @@ class AuthViewModel(
                     )
                     onCompletion()
                 }
+
+                else -> {}
             }
             Log.d("Auth", "User {id: ${res.data?.uid}, isGuest: ${res.data?.isAnonymous}}")
         }
@@ -95,6 +102,8 @@ class AuthViewModel(
                         isGuest = res.data?.isAnonymous ?: false
                     )
                 }
+
+                else -> {}
             }
         }
     }
@@ -112,6 +121,8 @@ class AuthViewModel(
                         isGuest = res.data?.isAnonymous ?: false
                     )
                 }
+
+                else -> {}
             }
         }
     }

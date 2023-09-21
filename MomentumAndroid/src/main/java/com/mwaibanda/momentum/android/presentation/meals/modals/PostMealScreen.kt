@@ -39,7 +39,9 @@ import androidx.compose.material.icons.outlined.Phone
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -60,15 +62,64 @@ import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.mwaibanda.momentum.android.R
 import com.mwaibanda.momentum.android.core.utils.C
-import com.mwaibanda.momentum.android.presentation.components.IconTextField
+import com.mwaibanda.momentum.android.presentation.auth.AuthViewModel
 import com.mwaibanda.momentum.android.presentation.components.BaseModal
+import com.mwaibanda.momentum.android.presentation.components.IconTextField
+import com.mwaibanda.momentum.android.presentation.meals.MealViewModel
+import com.mwaibanda.momentum.android.presentation.profile.ProfileViewModel
+import com.mwaibanda.momentum.data.mealDTO.MealRequest
+import com.mwaibanda.momentum.data.mealDTO.MealVolunteerRequest
+import com.mwaibanda.momentum.domain.models.Meal
 import io.github.boguszpawlowski.composecalendar.SelectableCalendar
 import io.github.boguszpawlowski.composecalendar.rememberSelectableCalendarState
 import io.github.boguszpawlowski.composecalendar.selection.SelectionMode
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.launch
 
 @Composable
-fun PostMealScreen(closeModal: () -> Unit) {
+fun PostMealScreen(mealViewModel: MealViewModel, profileViewModel: ProfileViewModel, authViewModel: AuthViewModel, channel: Channel<Meal>, closeModal: () -> Unit) {
     val configuration = LocalConfiguration.current
+    val coroutineScope = rememberCoroutineScope()
+    var recipient by remember {
+        mutableStateOf(TextFieldValue())
+    }
+    var email by remember {
+        mutableStateOf(TextFieldValue())
+    }
+    var phone by remember {
+        mutableStateOf(TextFieldValue())
+    }
+    var reason by remember {
+        mutableStateOf(TextFieldValue())
+    }
+    var street by remember {
+        mutableStateOf(TextFieldValue())
+    }
+    var city by remember {
+        mutableStateOf(TextFieldValue())
+    }
+    var numberOfKids by remember {
+        mutableStateOf(TextFieldValue())
+    }
+    var numberOfAdults by remember {
+        mutableStateOf(TextFieldValue())
+    }
+    var preferredTime by remember {
+        mutableStateOf(TextFieldValue())
+    }
+    var favourites by remember {
+        mutableStateOf(TextFieldValue())
+    }
+    var leastFavourites by remember {
+        mutableStateOf(TextFieldValue())
+    }
+    var allergies by remember {
+        mutableStateOf(TextFieldValue())
+    }
+    var instructions by remember {
+        mutableStateOf(TextFieldValue())
+    }
+
     var currentTab by remember {
         mutableIntStateOf(0)
     }
@@ -140,48 +191,40 @@ fun PostMealScreen(closeModal: () -> Unit) {
                                 .fillMaxHeight(0.8f)
                         ) {
                             IconTextField(
-                                text = TextFieldValue(),
+                                text = recipient,
                                 placeholder = "Recipient",
                                 icon = Icons.Outlined.Person,
                                 keyboardType = KeyboardType.Text,
                                 accentColor = Color.Gray,
-                                onTextChange = {}
-                            ) {
-
-                            }
+                                onTextChange = { recipient = it }
+                            )
                             Divider()
                             IconTextField(
-                                text = TextFieldValue(),
+                                text = email,
                                 placeholder = "Email",
                                 icon = Icons.Outlined.Mail,
                                 keyboardType = KeyboardType.Text,
                                 accentColor = Color.Gray,
-                                onTextChange = {}
-                            ) {
-
-                            }
+                                onTextChange = { email = it }
+                            )
                             Divider()
                             IconTextField(
-                                text = TextFieldValue(),
+                                text = phone,
                                 placeholder = "Phone",
                                 icon = Icons.Outlined.Phone,
                                 keyboardType = KeyboardType.Text,
                                 accentColor = Color.Gray,
-                                onTextChange = {}
-                            ) {
-
-                            }
+                                onTextChange = { phone = it }
+                            )
                             Divider()
                             IconTextField(
-                                text = TextFieldValue(),
+                                text = reason,
                                 placeholder = "Reason",
                                 icon = Icons.Outlined.Info,
                                 keyboardType = KeyboardType.Text,
                                 accentColor = Color.Gray,
-                                onTextChange = {}
-                            ) {
-
-                            }
+                                onTextChange = { reason = it }
+                            )
                         }
 
                         1 -> Column(
@@ -201,59 +244,49 @@ fun PostMealScreen(closeModal: () -> Unit) {
                                 .fillMaxHeight(0.8f)
                         ) {
                             IconTextField(
-                                text = TextFieldValue(),
+                                text = street,
                                 placeholder = "Street",
                                 icon = Icons.Outlined.House,
                                 keyboardType = KeyboardType.Text,
                                 accentColor = Color.Gray,
-                                onTextChange = {}
-                            ) {
-
-                            }
+                                onTextChange = { street = it }
+                            )
                             Divider()
                             IconTextField(
-                                text = TextFieldValue(),
+                                text = city,
                                 placeholder = "City",
                                 icon = Icons.Outlined.LocationCity,
                                 keyboardType = KeyboardType.Text,
                                 accentColor = Color.Gray,
-                                onTextChange = {}
-                            ) {
-
-                            }
+                                onTextChange = { city = it }
+                            )
                             Divider()
                             IconTextField(
-                                text = TextFieldValue(),
+                                text = numberOfAdults,
                                 placeholder = "Number of Adults",
                                 icon = Icons.Outlined.Person,
                                 keyboardType = KeyboardType.Text,
                                 accentColor = Color.Gray,
-                                onTextChange = {}
-                            ) {
-
-                            }
+                                onTextChange = { numberOfAdults = it }
+                            )
                             Divider()
                             IconTextField(
-                                text = TextFieldValue(),
+                                text = numberOfKids,
                                 placeholder = "Number of Kids",
                                 icon = Icons.Outlined.Person,
                                 keyboardType = KeyboardType.Text,
                                 accentColor = Color.Gray,
-                                onTextChange = {}
-                            ) {
-
-                            }
+                                onTextChange = { numberOfKids = it }
+                            )
                             Divider()
                             IconTextField(
-                                text = TextFieldValue(),
+                                text = preferredTime,
                                 placeholder = "Preferred Delivery Time(4pm - 5pm)",
                                 icon = Icons.Outlined.CalendarMonth,
                                 keyboardType = KeyboardType.Text,
                                 accentColor = Color.Gray,
-                                onTextChange = {}
-                            ) {
-
-                            }
+                                onTextChange = { preferredTime = it}
+                            )
                         }
 
                         3 -> Column(
@@ -264,8 +297,8 @@ fun PostMealScreen(closeModal: () -> Unit) {
                         ) {
                             Text(text = "Favorite Meals or Restaurants", modifier = Modifier.padding(horizontal = 10.dp),  fontWeight = FontWeight.Bold, color = Color.Gray)
                             BasicTextField(
-                                value = "",
-                                onValueChange = { },
+                                value = favourites,
+                                onValueChange = {  favourites = it },
                                 minLines = 5,
                                 maxLines = 5,
                                 modifier = Modifier
@@ -276,8 +309,8 @@ fun PostMealScreen(closeModal: () -> Unit) {
                             Divider()
                             Text(text = "Least Favourite Meals", modifier = Modifier.padding(horizontal = 10.dp),  fontWeight = FontWeight.Bold, color = Color.Gray)
                             BasicTextField(
-                                value = "",
-                                onValueChange = { },
+                                value = leastFavourites,
+                                onValueChange = { leastFavourites = it },
                                 minLines = 5,
                                 maxLines = 5,
                                 modifier = Modifier
@@ -288,8 +321,8 @@ fun PostMealScreen(closeModal: () -> Unit) {
                             Divider()
                             Text(text = "Allergies or Dietary Restrictions", modifier = Modifier.padding(horizontal = 10.dp),  fontWeight = FontWeight.Bold, color = Color.Gray)
                             BasicTextField(
-                                value = "",
-                                onValueChange = { },
+                                value = allergies,
+                                onValueChange = { allergies = it },
                                 minLines = 5,
                                 maxLines = 5,
                                 modifier = Modifier
@@ -300,8 +333,8 @@ fun PostMealScreen(closeModal: () -> Unit) {
                             Divider()
                             Text(text = "Additional Special Instructions", modifier = Modifier.padding(horizontal = 10.dp),  fontWeight = FontWeight.Bold, color = Color.Gray)
                             BasicTextField(
-                                value = "",
-                                onValueChange = { },
+                                value = instructions,
+                                onValueChange = { instructions = it },
                                 minLines = 5,
                                 maxLines = 5,
                                 modifier = Modifier
@@ -345,8 +378,35 @@ fun PostMealScreen(closeModal: () -> Unit) {
                             if (currentTab < 4) {
                                 currentTab++
                             } else {
-                                closeModal()
-                                currentTab = 0
+                                mealViewModel.postMeal(MealRequest(
+                                    allergies = allergies.text,
+                                    city = city.text,
+                                    email = email.text,
+                                    favourites = favourites.text,
+                                    instructions = instructions.text,
+                                    leastFavourites = leastFavourites.text,
+                                    meals = calendarState.selectionState.selection.map { MealVolunteerRequest(
+                                        mealId = "",
+                                        userId = authViewModel.currentUser?.id ?: "",
+                                        description =  "",
+                                        date = "$it 05:00:00 +0000",
+                                        notes = "" ,
+                                    ) },
+                                    numberOfKids = numberOfKids.text.toIntOrNull() ?: 0,
+                                    numOfAdults = numberOfAdults.text.toIntOrNull() ?: 0,
+                                    phone = phone.text,
+                                    preferredTime = preferredTime.text,
+                                    reason = reason.text,
+                                    recipient = recipient.text,
+                                    street = street.text,
+                                    userId = authViewModel.currentUser?.id ?: ""
+                                )){
+                                    coroutineScope.launch {
+                                        channel.send(it)
+                                        closeModal()
+                                        currentTab = 0
+                                    }
+                                }
                             }
                         },
                         modifier = Modifier

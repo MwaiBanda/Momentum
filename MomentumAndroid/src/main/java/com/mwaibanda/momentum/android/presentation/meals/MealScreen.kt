@@ -37,10 +37,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.mwaibanda.momentum.android.core.utils.C
 import com.mwaibanda.momentum.domain.models.Meal
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.launch
 
 @Composable
 fun MealScreen(
     mealViewModel: MealViewModel,
+    channel: Channel<Meal>,
     onMealSelected: (Meal?) -> Unit,
     onShowModal: () -> Unit
 ) {
@@ -48,8 +51,15 @@ fun MealScreen(
         mutableStateOf(emptyList<Meal>())
     }
     LaunchedEffect(key1 = Unit){
-        mealViewModel.getMeals { 
+        mealViewModel.getMeals {
             meals = it
+        }
+        launch {
+            for (meal in channel) {
+                mealViewModel.getMeals {
+                    meals = it
+                }
+            }
         }
     }
     Column(

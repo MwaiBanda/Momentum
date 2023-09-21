@@ -142,9 +142,21 @@ class MainActivity : BaseActivity() {
                             ) {
                                 closeModal()
                             }
-                            PostMeal -> PostMealScreen(closeModal)
+                            PostMeal -> PostMealScreen(
+                                mealViewModel = mealViewModel,
+                                profileViewModel = profileViewModel,
+                                authViewModel = authViewModel,
+                                channel = mealChannel,
+                                closeModal
+                            )
                             PostVolunteerMeal -> currentVolunteeredMeal?.let {
-                                PostVolunteerMealScreen(it, closeModal)
+                                PostVolunteerMealScreen(
+                                    profileViewModel = profileViewModel,
+                                    authViewModel = authViewModel,
+                                    channel = volunteeredMealChannel,
+                                    volunteeredMeal = it,
+                                    closeModal
+                                )
                             }
                             ViewRecipientInfo -> ViewRecipientInfoScreen(currentMeal, closeModal)
                         }
@@ -159,18 +171,33 @@ class MainActivity : BaseActivity() {
                             LaunchScreen(navController = navController)
                         }
                         composable(MealScreen.route) {
-                            MealScreen(mealViewModel = mealViewModel, onMealSelected = {
-                                currentMeal = it
-                                navController.navigate(MealDetailScreen.route)
+                            MealScreen(
+                                mealViewModel = mealViewModel,
+                                channel = mealChannel,
+                                onMealSelected = {
+                                    currentMeal = it
+                                    navController.navigate(MealDetailScreen.route)
                             }) {
-                                showModal(PostMeal)
+                                if (authViewModel.currentUser?.isGuest == true) {
+                                    showModal(Authentication)
+                                } else {
+                                    showModal(PostMeal)
+                                }
                             }
                         }
                         composable(MealDetailScreen.route) {
                             currentMeal?.let { meal ->
-                                MealsDetailScreen(meal = meal) { modal, volunteeredMeal ->
+                                MealsDetailScreen(
+                                    mealViewModel = mealViewModel,
+                                    channel = volunteeredMealChannel,
+                                    currentMeal = meal
+                                ) { modal, volunteeredMeal ->
                                     currentVolunteeredMeal = volunteeredMeal
-                                    showModal(modal)
+                                    if (authViewModel.currentUser?.isGuest == true) {
+                                        showModal(Authentication)
+                                    } else {
+                                        showModal(modal)
+                                    }
                                 }
                             }
                         }

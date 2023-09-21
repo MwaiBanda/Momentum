@@ -11,12 +11,15 @@ import com.mwaibanda.momentum.android.presentation.payment.PaymentViewModel
 import com.mwaibanda.momentum.android.presentation.profile.ProfileViewModel
 import com.mwaibanda.momentum.android.presentation.sermon.SermonViewModel
 import com.mwaibanda.momentum.android.presentation.transaction.TransactionViewModel
+import com.mwaibanda.momentum.domain.models.Meal
 import com.mwaibanda.momentum.domain.models.Payment
+import com.mwaibanda.momentum.domain.models.VolunteeredMeal
 import com.stripe.android.PaymentConfiguration
 import com.stripe.android.paymentsheet.PaymentSheet
 import com.stripe.android.paymentsheet.PaymentSheetResult
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.cancel
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
@@ -33,6 +36,9 @@ open class BaseActivity : AppCompatActivity() {
     protected var canEnterPictureInPicture by mutableStateOf(false)
 
     private val coroutineScope = MainScope()
+
+    protected val volunteeredMealChannel = Channel<VolunteeredMeal>()
+    protected val mealChannel = Channel<Meal>()
 
     init {
         authViewModel.checkAndSignIn()

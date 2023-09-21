@@ -24,6 +24,12 @@ import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.CalendarMonth
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -38,12 +44,37 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.mwaibanda.momentum.android.core.utils.C
 import com.mwaibanda.momentum.android.core.utils.getDate
+import com.mwaibanda.momentum.android.presentation.auth.AuthViewModel
 import com.mwaibanda.momentum.android.presentation.components.BaseModal
 import com.mwaibanda.momentum.android.presentation.components.IconTextField
+import com.mwaibanda.momentum.android.presentation.profile.ProfileViewModel
+import com.mwaibanda.momentum.domain.models.User
 import com.mwaibanda.momentum.domain.models.VolunteeredMeal
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @Composable
-fun PostVolunteerMealScreen(volunteeredMeal: VolunteeredMeal, closeModal: () -> Unit){
+fun PostVolunteerMealScreen(
+    profileViewModel: ProfileViewModel,
+    authViewModel: AuthViewModel,
+    channel: Channel<VolunteeredMeal>,
+    volunteeredMeal: VolunteeredMeal,
+    closeModal: () -> Unit
+){
+    var meal by remember {
+        mutableStateOf("")
+    }
+    var notes by remember {
+        mutableStateOf("")
+    }
+
+    val coroutineScope = rememberCoroutineScope()
+
+    LaunchedEffect(key1 = Unit) {
+        profileViewModel.getContactInformation(authViewModel.currentUser?.id ?: "")
+    }
+
     BaseModal(closeModal, arrangement = Arrangement.SpaceBetween) {
         val configuration = LocalConfiguration.current
         Card(
@@ -125,8 +156,8 @@ fun PostVolunteerMealScreen(volunteeredMeal: VolunteeredMeal, closeModal: () -> 
                         color = Color.Gray
                     )
                     BasicTextField(
-                        value = "",
-                        onValueChange = { },
+                        value = meal,
+                        onValueChange = { meal = it },
                         minLines = 5,
                         maxLines = 5,
                         modifier = Modifier
@@ -142,8 +173,8 @@ fun PostVolunteerMealScreen(volunteeredMeal: VolunteeredMeal, closeModal: () -> 
                         color = Color.Gray
                     )
                     BasicTextField(
-                        value = "",
-                        onValueChange = { },
+                        value = notes,
+                        onValueChange = { notes = it },
                         minLines = 5,
                         maxLines = 5,
                         modifier = Modifier
@@ -157,7 +188,29 @@ fun PostVolunteerMealScreen(volunteeredMeal: VolunteeredMeal, closeModal: () -> 
                     Divider()
                     Button(
                         onClick = {
-
+                            closeModal()
+                            coroutineScope.launch {
+                                channel.send(
+                                    VolunteeredMeal(
+                                        id = volunteeredMeal.id,
+                                        createdOn = volunteeredMeal.createdOn,
+                                        description =  meal,
+                                        date = volunteeredMeal.date,
+                                        notes = notes,
+                                        user = User(
+                                            profileViewModel.fullname,
+                                            profileViewModel.email,
+                                            profileViewModel.phone,
+                                            authViewModel.currentUser?.id ?: ""
+                                        )
+                                    )
+                                )
+                                launch {
+                                    delay(1500)
+                                    meal = ""
+                                    notes = ""
+                                }
+                            }
                         },
                         modifier = Modifier
                             .padding(vertical = 20.dp)

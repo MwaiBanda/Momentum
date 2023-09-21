@@ -28,6 +28,11 @@ import androidx.compose.material.icons.outlined.People
 import androidx.compose.material.icons.outlined.Shield
 import androidx.compose.material.icons.outlined.Timelapse
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -38,11 +43,48 @@ import com.mwaibanda.momentum.android.core.utils.C
 import com.mwaibanda.momentum.android.core.utils.Modal
 import com.mwaibanda.momentum.android.core.utils.getDate
 import com.mwaibanda.momentum.android.presentation.components.RecipientInfo
+import com.mwaibanda.momentum.data.mealDTO.VolunteeredMealRequest
 import com.mwaibanda.momentum.domain.models.Meal
 import com.mwaibanda.momentum.domain.models.VolunteeredMeal
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.launch
 
 @Composable
-fun MealsDetailScreen(meal: Meal, onShowModal: (Modal, VolunteeredMeal?) -> Unit) {
+fun MealsDetailScreen(
+    mealViewModel: MealViewModel,
+    channel: Channel<VolunteeredMeal>,
+    currentMeal: Meal,
+    onShowModal: (Modal, VolunteeredMeal?) -> Unit
+) {
+    var meals by remember {
+        mutableStateOf(emptyList<VolunteeredMeal>())
+    }
+
+    LaunchedEffect(key1 = Unit) {
+        meals = currentMeal.meals.sortedBy { getDate(it.date) }.toMutableList()
+        launch {
+            for (meal in channel) {
+                val index = meals.indexOfFirst { it.id == meal.id }
+                meals = buildList {
+                    addAll(meals)
+                    removeAt(index)
+                }
+                if (meal.description.isNotEmpty()) {
+                    mealViewModel.postVolunteeredMeal(
+                        VolunteeredMealRequest(
+                            mealId = currentMeal.id,
+                            volunteeredMeal = meal
+                        )
+                    ) {
+                        meals = buildList {
+                            addAll(meals)
+                            add(index, meal)
+                        }
+                    }
+                }
+            }
+        }
+    }
     Column(
         Modifier
             .systemBarsPadding()
@@ -71,12 +113,12 @@ fun MealsDetailScreen(meal: Meal, onShowModal: (Modal, VolunteeredMeal?) -> Unit
                 )
                 RecipientInfo(
                     title = "Food for",
-                    description = "${meal.numOfAdults} Adults, ${meal.numberOfKids} Kids",
+                    description = "${currentMeal.numOfAdults} Adults, ${currentMeal.numberOfKids} Kids",
                     icon = Icons.Outlined.People
                 )
                 RecipientInfo(
                     title = "Drop-time",
-                    description = meal.preferredTime,
+                    description = currentMeal.preferredTime,
                     icon = Icons.Outlined.Timelapse
                 )
                 OutlinedButton(
@@ -107,7 +149,7 @@ fun MealsDetailScreen(meal: Meal, onShowModal: (Modal, VolunteeredMeal?) -> Unit
             style = MaterialTheme.typography.h6,
             fontWeight = FontWeight.Bold
         )
-        meal.meals.sortedBy { getDate(it.date) }.forEach {
+        meals.forEachIndexed { index, volunteeredMeal ->
             Card(
                 Modifier
                     .heightIn(min = 55.dp)
@@ -120,10 +162,10 @@ fun MealsDetailScreen(meal: Meal, onShowModal: (Modal, VolunteeredMeal?) -> Unit
                 Row(Modifier.padding(10.dp)) {
                     Column {
                         Text(
-                            text = getDate(it.date).split(",").first().trim(),
+                            text = getDate(volunteeredMeal.date).split(",").first().trim(),
                             fontWeight = FontWeight.Medium
                         )
-                        Text(text = getDate(it.date).split(",").last().trim())
+                        Text(text = getDate(volunteeredMeal.date).split(",").last().trim())
                     }
 
                     Box(
@@ -133,7 +175,7 @@ fun MealsDetailScreen(meal: Meal, onShowModal: (Modal, VolunteeredMeal?) -> Unit
                             .background(Color.Gray.copy(0.5f))
                             .width(1.dp)
                     )
-                    if (it.description.isEmpty()) {
+                    if (volunteeredMeal.description.isEmpty()) {
                         Column {
                             Text(
                                 text = "Available",
@@ -141,7 +183,7 @@ fun MealsDetailScreen(meal: Meal, onShowModal: (Modal, VolunteeredMeal?) -> Unit
                             )
                             Button(
                                 onClick = {
-                                    onShowModal(Modal.PostVolunteerMeal, it)
+                                    onShowModal(Modal.PostVolunteerMeal, volunteeredMeal)
                                 },
                                 elevation = ButtonDefaults.elevation(0.dp, 0.dp),
                                 modifier = Modifier
@@ -170,7 +212,7 @@ fun MealsDetailScreen(meal: Meal, onShowModal: (Modal, VolunteeredMeal?) -> Unit
                             contentAlignment = Alignment.Center
                         ) {
                             Text(
-                                text = it.user.fullname
+                                text = volunteeredMeal.user.fullname
                                     .split(" ")
                                     .map { it.firstOrNull().toString() }
                                     .reduce { x, y -> x + y },
@@ -182,8 +224,8 @@ fun MealsDetailScreen(meal: Meal, onShowModal: (Modal, VolunteeredMeal?) -> Unit
                     }
 
                     Column(Modifier.padding(start = 10.dp)) {
-                        Text(text = it.user.fullname, fontWeight = FontWeight.Medium)
-                        Text(text = it.description.trim())
+                        Text(text = volunteeredMeal.user.fullname, fontWeight = FontWeight.Medium)
+                        Text(text = volunteeredMeal.description.trim())
                     }
                 }
             }
