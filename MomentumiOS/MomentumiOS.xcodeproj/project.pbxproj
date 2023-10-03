@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -28,6 +28,9 @@
 		1C8BACBA2923174D00731617 /* TinyDi in Frameworks */ = {isa = PBXBuildFile; productRef = 1C8BACB92923174D00731617 /* TinyDi */; };
 		1C8BACBC292317AE00731617 /* SingletonModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8BACBB292317AE00731617 /* SingletonModule.swift */; };
 		1C8BACBE2923191B00731617 /* ControllerModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8BACBD2923191B00731617 /* ControllerModule.swift */; };
+		1C918AC42ADCF42700587A43 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 1C918AC32ADCF42700587A43 /* FirebaseAnalytics */; };
+		1C918AC62ADCF42700587A43 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 1C918AC52ADCF42700587A43 /* FirebaseAuth */; };
+		1C918AC82ADCF42700587A43 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 1C918AC72ADCF42700587A43 /* FirebaseMessaging */; };
 		1CA5277328CED0DC00066605 /* AppReviewRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CA5277228CED0DC00066605 /* AppReviewRequester.swift */; };
 		1CE5BEAF2A80C939008F7BD8 /* MultiDatePicker in Frameworks */ = {isa = PBXBuildFile; productRef = 1CE5BEAE2A80C939008F7BD8 /* MultiDatePicker */; };
 		1CE5BEB12A80D74D008F7BD8 /* postSuccess.json in Resources */ = {isa = PBXBuildFile; fileRef = 1CE5BEB02A80D74D008F7BD8 /* postSuccess.json */; };
@@ -75,8 +78,6 @@
 		8186F1EE2894E84E00FEA781 /* KeyboardToolbar in Frameworks */ = {isa = PBXBuildFile; productRef = 8186F1ED2894E84E00FEA781 /* KeyboardToolbar */; };
 		8186F1F12894EA0700FEA781 /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = 8186F1F02894EA0700FEA781 /* Introspect */; };
 		818A2E99288DFE5E005D7449 /* BasePlainExpandableCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818A2E98288DFE5E005D7449 /* BasePlainExpandableCard.swift */; };
-		818E26142893B51A00749888 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 818E26132893B51A00749888 /* FirebaseAuth */; };
-		818E26162893B51A00749888 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 818E26152893B51A00749888 /* FirebaseFirestore */; };
 		819497FE288797240099B30B /* TransactionLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819497FD288797240099B30B /* TransactionLabel.swift */; };
 		819498002887B2460099B30B /* ToggleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819497FF2887B2460099B30B /* ToggleLabel.swift */; };
 		819B795028708F020010B960 /* OfferViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819B794F28708F020010B960 /* OfferViewModel.swift */; };
@@ -209,20 +210,21 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1C918AC82ADCF42700587A43 /* FirebaseMessaging in Frameworks */,
+				1C918AC42ADCF42700587A43 /* FirebaseAnalytics in Frameworks */,
+				1C918AC62ADCF42700587A43 /* FirebaseAuth in Frameworks */,
 				1C46D1432A80A4A500E5FB25 /* StripeCardScan in Frameworks */,
 				1C46D1452A80A4A500E5FB25 /* StripePaymentSheet in Frameworks */,
 				8186F1F12894EA0700FEA781 /* Introspect in Frameworks */,
 				1C46D1492A80A4A500E5FB25 /* StripePaymentsUI in Frameworks */,
 				1C46D1412A80A4A500E5FB25 /* StripeApplePay in Frameworks */,
 				1C8BACBA2923174D00731617 /* TinyDi in Frameworks */,
-				818E26142893B51A00749888 /* FirebaseAuth in Frameworks */,
 				8186F1EE2894E84E00FEA781 /* KeyboardToolbar in Frameworks */,
 				814525F528793F3300989B4C /* Lottie in Frameworks */,
 				1C46D13F2A80A4A500E5FB25 /* Stripe in Frameworks */,
 				3703363E8055D813FEFB7DBA /* Pods_MomentumiOS.framework in Frameworks */,
 				1C3CF16B28D95E3000B46FC1 /* SDWebImageSwiftUI in Frameworks */,
 				1C46D1472A80A4A500E5FB25 /* StripePayments in Frameworks */,
-				818E26162893B51A00749888 /* FirebaseFirestore in Frameworks */,
 				1CE5BEAF2A80C939008F7BD8 /* MultiDatePicker in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -605,8 +607,6 @@
 			name = MomentumiOS;
 			packageProductDependencies = (
 				814525F428793F3300989B4C /* Lottie */,
-				818E26132893B51A00749888 /* FirebaseAuth */,
-				818E26152893B51A00749888 /* FirebaseFirestore */,
 				8186F1ED2894E84E00FEA781 /* KeyboardToolbar */,
 				8186F1F02894EA0700FEA781 /* Introspect */,
 				1C3CF16A28D95E3000B46FC1 /* SDWebImageSwiftUI */,
@@ -618,6 +618,9 @@
 				1C46D1462A80A4A500E5FB25 /* StripePayments */,
 				1C46D1482A80A4A500E5FB25 /* StripePaymentsUI */,
 				1CE5BEAE2A80C939008F7BD8 /* MultiDatePicker */,
+				1C918AC32ADCF42700587A43 /* FirebaseAnalytics */,
+				1C918AC52ADCF42700587A43 /* FirebaseAuth */,
+				1C918AC72ADCF42700587A43 /* FirebaseMessaging */,
 			);
 			productName = MomentumiOS;
 			productReference = 7555FF7B242A565900829871 /* MomentumiOS.app */;
@@ -672,13 +675,13 @@
 			mainGroup = 7555FF72242A565900829871;
 			packageReferences = (
 				814525F328793F3300989B4C /* XCRemoteSwiftPackageReference "lottie-ios" */,
-				818E26122893B51A00749888 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				8186F1EC2894E84D00FEA781 /* XCRemoteSwiftPackageReference "KeyboardToolbar" */,
 				8186F1EF2894EA0700FEA781 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */,
 				1C3CF16928D95E3000B46FC1 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
 				1C8BACB82923174D00731617 /* XCRemoteSwiftPackageReference "TinyDi" */,
 				1C46D13D2A80A4A500E5FB25 /* XCRemoteSwiftPackageReference "stripe-ios-spm" */,
 				1CE5BEAD2A80C939008F7BD8 /* XCRemoteSwiftPackageReference "MultiDatePicker" */,
+				1C918AC22ADCF42700587A43 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 7555FF7C242A565900829871 /* Products */;
 			projectDirPath = "";
@@ -980,7 +983,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.9;
+				MARKETING_VERSION = 1.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mwaibanda.MomentumiOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1010,7 +1013,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.9;
+				MARKETING_VERSION = 1.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mwaibanda.MomentumiOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1135,6 +1138,14 @@
 				kind = branch;
 			};
 		};
+		1C918AC22ADCF42700587A43 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.16.0;
+			};
+		};
 		1CE5BEAD2A80C939008F7BD8 /* XCRemoteSwiftPackageReference "MultiDatePicker" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/MwaiBanda/MultiDatePicker";
@@ -1162,14 +1173,6 @@
 		8186F1EF2894EA0700FEA781 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/siteline/SwiftUI-Introspect.git";
-			requirement = {
-				branch = master;
-				kind = branch;
-			};
-		};
-		818E26122893B51A00749888 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
 			requirement = {
 				branch = master;
 				kind = branch;
@@ -1218,6 +1221,21 @@
 			package = 1C8BACB82923174D00731617 /* XCRemoteSwiftPackageReference "TinyDi" */;
 			productName = TinyDi;
 		};
+		1C918AC32ADCF42700587A43 /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1C918AC22ADCF42700587A43 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+		1C918AC52ADCF42700587A43 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1C918AC22ADCF42700587A43 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		1C918AC72ADCF42700587A43 /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1C918AC22ADCF42700587A43 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMessaging;
+		};
 		1CE5BEAE2A80C939008F7BD8 /* MultiDatePicker */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 1CE5BEAD2A80C939008F7BD8 /* XCRemoteSwiftPackageReference "MultiDatePicker" */;
@@ -1237,16 +1255,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 8186F1EF2894EA0700FEA781 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */;
 			productName = Introspect;
-		};
-		818E26132893B51A00749888 /* FirebaseAuth */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 818E26122893B51A00749888 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseAuth;
-		};
-		818E26152893B51A00749888 /* FirebaseFirestore */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 818E26122893B51A00749888 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseFirestore;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

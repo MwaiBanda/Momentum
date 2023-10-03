@@ -24,11 +24,10 @@ class PaymentViewModelTests: BaseXCTestCase {
     
     func testCheckout() {
         sut.checkout(
-            request: PaymentRequest(
-                fullname: "Mwai Banda",
+            transaction: Payment(
+                amount: 10, fullname: "Mwai Banda",
                 email: "mwai.developer@gmail.com",
-                phone: "2190000000",
-                amount: 10
+                phone: "2190000000"
             )
         )
         XCTAssertNotNil(sut.response)
