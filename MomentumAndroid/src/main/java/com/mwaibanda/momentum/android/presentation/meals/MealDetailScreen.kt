@@ -1,5 +1,6 @@
 package com.mwaibanda.momentum.android.presentation.meals
 
+import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -64,6 +65,7 @@ fun MealsDetailScreen(
         meals = currentMeal.meals.sortedBy { getDate(it.date) }.toMutableList()
         launch {
             for (meal in channel) {
+                Log.e("[MEAL]", meal.toString())
                 val index = meals.indexOfFirst { it.id == meal.id }
                 meals = buildList {
                     addAll(meals)

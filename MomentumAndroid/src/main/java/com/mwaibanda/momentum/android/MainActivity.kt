@@ -144,7 +144,6 @@ class MainActivity : BaseActivity() {
                             }
                             PostMeal -> PostMealScreen(
                                 mealViewModel = mealViewModel,
-                                profileViewModel = profileViewModel,
                                 authViewModel = authViewModel,
                                 channel = mealChannel,
                                 closeModal

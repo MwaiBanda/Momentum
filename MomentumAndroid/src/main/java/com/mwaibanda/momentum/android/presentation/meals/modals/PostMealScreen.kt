@@ -66,7 +66,6 @@ import com.mwaibanda.momentum.android.presentation.auth.AuthViewModel
 import com.mwaibanda.momentum.android.presentation.components.BaseModal
 import com.mwaibanda.momentum.android.presentation.components.IconTextField
 import com.mwaibanda.momentum.android.presentation.meals.MealViewModel
-import com.mwaibanda.momentum.android.presentation.profile.ProfileViewModel
 import com.mwaibanda.momentum.data.mealDTO.MealRequest
 import com.mwaibanda.momentum.data.mealDTO.MealVolunteerRequest
 import com.mwaibanda.momentum.domain.models.Meal
@@ -77,7 +76,12 @@ import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.launch
 
 @Composable
-fun PostMealScreen(mealViewModel: MealViewModel, profileViewModel: ProfileViewModel, authViewModel: AuthViewModel, channel: Channel<Meal>, closeModal: () -> Unit) {
+fun PostMealScreen(
+    mealViewModel: MealViewModel,
+    authViewModel: AuthViewModel,
+    channel: Channel<Meal>,
+    closeModal: () -> Unit
+) {
     val configuration = LocalConfiguration.current
     val coroutineScope = rememberCoroutineScope()
     var recipient by remember {
