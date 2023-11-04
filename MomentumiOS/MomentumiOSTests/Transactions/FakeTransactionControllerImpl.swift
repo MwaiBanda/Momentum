@@ -9,11 +9,26 @@
 @testable import MomentumSDK
 
 class FakeTransactionControllerImpl: TransactionController {
-    func postTransactionInfo(paymentRequest: PaymentRequest, onCompletion: @escaping (Result<KotlinInt>) -> Void) {
-        onCompletion(ResultSuccess(data: 1))
+    var transactions = [MomentumTransaction]()
+    
+    func postTransactionInfo(transaction: Transaction, onCompletion: @escaping (Result<KotlinInt>) -> Void) {
+        transactions.append(transaction.toMomentumTransaction())
     }
     
-    var transactions = [MomentumTransaction]()
+    func addTransactions(transactions: [MomentumTransaction]) {
+        self.transactions.append(contentsOf: transactions)
+    }
+    
+    func getMomentumTransactions(onCompletion: @escaping ([MomentumTransaction]) -> Void) {
+        onCompletion(transactions)
+    }
+    
+    func getTransactions(userId: String, onCompletion: @escaping (Result<NSArray>) -> Void) {
+        onCompletion(ResultSuccess(data: transactions as NSArray))
+    }
+    
+
+    
     func addTransaction(
         description: String,
         date: String,

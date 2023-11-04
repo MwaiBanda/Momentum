@@ -37,7 +37,7 @@ class TransactionViewModel: ObservableObject {
 //         controller.deleteAllTransactions()
         controller.getTransactions(userId: userId) { [self] res in
             if let res = res.data {
-                transactions = (res as! [Transaction]).map({ $0.toMomentumTransaction() })
+                transactions = (res as? [Transaction] ?? []).map({ $0.toMomentumTransaction() })
                 if !transactions.isEmpty {
                     addTransactions(transactions: transactions)
                 }

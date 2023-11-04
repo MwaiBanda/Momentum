@@ -10,8 +10,14 @@
 import MomentumSDK
 
 class FakeUserControllerImpl: UserController {
+    
+    
     var remoteUsers = [User]()
     var localUsers = [MomentumUser]()
+    
+    func updateUser(user: User, onCompletion: @escaping (User) -> Void) {
+        
+    }
     
     func addMomentumUser(
         fullname: String,

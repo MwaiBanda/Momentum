@@ -28,7 +28,7 @@ class TransactionViewModelTests: BaseXCTestCase {
             amount: 25.99,
             isSeen: false
         )
-        sut.getAllTransactions()
+        sut.getMomemtumTransactions(userId: "1001")
         XCTAssertEqual(sut.transactions[0].id, 1)
         XCTAssertEqual(sut.transactions[0].amount, 25.99)
         sut.addTransaction(
@@ -37,7 +37,7 @@ class TransactionViewModelTests: BaseXCTestCase {
             amount: 55.99,
             isSeen: false
         )
-        sut.getAllTransactions()
+        sut.getMomemtumTransactions(userId: "1001")
         XCTAssertEqual(sut.transactions[1].id, 2)
         XCTAssertEqual(sut.transactions[1].amount, 55.99)
     }
@@ -55,10 +55,10 @@ class TransactionViewModelTests: BaseXCTestCase {
             amount: 55.99,
             isSeen: false
         )
-        sut.getAllTransactions()
+        sut.getMomemtumTransactions(userId: "1001")
         XCTAssertEqual(sut.transactions.count, 2)
         sut.deleteAllTransactions()
-        sut.getAllTransactions()
+        sut.getMomemtumTransactions(userId: "1001")
         XCTAssertTrue(sut.transactions.isEmpty)
 
     }
@@ -76,12 +76,12 @@ class TransactionViewModelTests: BaseXCTestCase {
             amount: 55.99,
             isSeen: false
         )
-        sut.getAllTransactions()
+        sut.getMomemtumTransactions(userId: "1001")
         XCTAssertEqual(sut.transactions.count, 2)
         XCTAssertEqual(sut.transactions[0].id, 1)
         XCTAssertEqual(sut.transactions[0].amount, 25.99)
         sut.deleteTransactionById(transactionId: 1)
-        sut.getAllTransactions()
+        sut.getMomemtumTransactions(userId: "1001")
         XCTAssertEqual(sut.transactions[0].id, 2)
         XCTAssertEqual(sut.transactions[0].amount, 55.99)
     }

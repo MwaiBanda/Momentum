@@ -9,7 +9,7 @@
 @testable import MomentumSDK
 
 class FakePaymentControllerImpl: PaymentController {
-    func checkout(request: PaymentRequest, onCompletion: @escaping (Result<PaymentResponse>) -> Void) {
+    func checkout(request: Payment, onCompletion: @escaping (Result<PaymentResponse>) -> Void) {
         let response: PaymentResponse = .init(
                   publishableKey: "100101-111",
                   paymentIntent: "Intent",
