@@ -29,7 +29,7 @@ class MealViewModel(
         mealController.postMeal(request) {
             when (it) {
                 is Result.Failure -> {
-                    Log.e("MealViewModel[getAllMeals]", it.message ?: "" )
+                    Log.e("MealViewModel[postMeal]", it.message ?: "" )
                 }
                 is Result.Success -> {
                     it.data?.let(onCompletion)
@@ -42,7 +42,7 @@ class MealViewModel(
         mealController.postVolunteeredMeal(request) {
             when (it) {
                 is Result.Failure -> {
-                    Log.e("MealViewModel[getAllMeals]", it.message ?: "" )
+                    Log.e("MealViewModel[postVolunteeredMeal]", it.message ?: "" )
                 }
                 is Result.Success -> {
                     it.data?.let(onCompletion)

@@ -29,9 +29,9 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.google.android.gms.cast.framework.CastContext
 import com.google.android.gms.dynamite.DynamiteModule
+import com.mwaibanda.momentum.android.core.utils.C
 import com.mwaibanda.momentum.android.core.utils.Modal
 import com.mwaibanda.momentum.android.core.utils.Modal.*
-import com.mwaibanda.momentum.android.core.utils.C
 import com.mwaibanda.momentum.android.core.utils.NavigationRoutes.*
 import com.mwaibanda.momentum.android.presentation.MomentumEntry
 import com.mwaibanda.momentum.android.presentation.auth.AuthControllerScreen
@@ -40,6 +40,7 @@ import com.mwaibanda.momentum.android.presentation.meals.MealsDetailScreen
 import com.mwaibanda.momentum.android.presentation.meals.modals.PostMealScreen
 import com.mwaibanda.momentum.android.presentation.meals.modals.PostVolunteerMealScreen
 import com.mwaibanda.momentum.android.presentation.meals.modals.ViewRecipientInfoScreen
+import com.mwaibanda.momentum.android.presentation.messages.MessagesScreen
 import com.mwaibanda.momentum.android.presentation.navigation.LaunchScreen
 import com.mwaibanda.momentum.android.presentation.offer.OfferScreen
 import com.mwaibanda.momentum.android.presentation.payment.PaymentFailureScreen
@@ -57,10 +58,10 @@ import com.stripe.android.paymentsheet.PaymentSheet
 import com.stripe.android.paymentsheet.PaymentSheetContract
 import kotlinx.coroutines.launch
 
+@OptIn(ExperimentalMaterialApi::class)
 class MainActivity : BaseActivity() {
     private lateinit var castContext: CastContext
 
-    @OptIn(ExperimentalMaterialApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         try {
@@ -69,7 +70,7 @@ class MainActivity : BaseActivity() {
             var cause = e.cause
             while (cause != null) {
                 if (cause is DynamiteModule.LoadingException) {
-                    Log.e("CAST", "falied")
+                    Log.e("CAST", "failed")
                     return
                 }
                 cause = cause.cause
@@ -132,16 +133,14 @@ class MainActivity : BaseActivity() {
                         when (currentModal) {
                             ViewTransactions -> TransactionScreen(
                                 authViewModel = authViewModel,
-                                transactionViewModel = transactionViewModel
-                            ) {
-                                closeModal()
-                            }
+                                transactionViewModel = transactionViewModel,
+                                closeModal
+                            )
                             Authentication -> AuthControllerScreen(
                                 authViewModel = authViewModel,
-                                profileViewModel = profileViewModel
-                            ) {
-                                closeModal()
-                            }
+                                profileViewModel = profileViewModel,
+                                closeModal
+                            )
                             PostMeal -> PostMealScreen(
                                 mealViewModel = mealViewModel,
                                 authViewModel = authViewModel,
@@ -176,7 +175,7 @@ class MainActivity : BaseActivity() {
                                 onMealSelected = {
                                     currentMeal = it
                                     navController.navigate(MealDetailScreen.route)
-                            }) {
+                                }) {
                                 if (authViewModel.currentUser?.isGuest == true) {
                                     showModal(Authentication)
                                 } else {
@@ -216,6 +215,9 @@ class MainActivity : BaseActivity() {
                                 currentSermon = it
                                 navController.navigate(PlayerScreen.route)
                             }
+                        }
+                        composable(MessagesScreen.route) {
+                            MessagesScreen()
                         }
                         composable(
                             route = PlayerScreen.route
@@ -260,8 +262,8 @@ class MainActivity : BaseActivity() {
                                 transactionViewModel = transactionViewModel,
                                 amount = it.arguments?.getFloat("amount") ?: 0.0f,
                                 canInitiateTransaction = paymentViewModel.canInitiateTransaction,
-                                onTransactionCanProcess = {
-                                    paymentViewModel.canInitiateTransaction = it
+                                onTransactionCanProcess = { canInitiateTransaction ->
+                                    paymentViewModel.canInitiateTransaction = canInitiateTransaction
                                 },
                                 onHandlePaymentSheetResult = ::onHandlePaymentResult
                             ) { request, launcher ->

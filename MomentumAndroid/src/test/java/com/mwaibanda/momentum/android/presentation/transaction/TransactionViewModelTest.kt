@@ -4,8 +4,7 @@ import app.cash.turbine.test
 import com.mwaibanda.momentum.data.db.MomentumTransaction
 import com.mwaibanda.momentum.domain.controller.TransactionController
 import kotlinx.coroutines.runBlocking
-import org.junit.jupiter.api.Assertions.*
-
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
@@ -27,7 +26,7 @@ internal class TransactionViewModelTest {
             amount = 44.44,
             isSeen = false
         )
-        sut.getMomentumTransactions()
+        sut.getMomentumTransactions("1001")
         sut.transactions.test {
             val emissions = awaitItem()
             assertEquals(1, emissions[0].id)
@@ -44,9 +43,9 @@ internal class TransactionViewModelTest {
             amount = 44.44,
             isSeen = false
         )
-        sut.getMomentumTransactions()
+        sut.getMomentumTransactions("1001")
         sut.deleteAllTransactions()
-        sut.getMomentumTransactions()
+        sut.getMomentumTransactions("1001")
         sut.transactions.test {
 
             val emission = awaitItem()
@@ -70,7 +69,7 @@ internal class TransactionViewModelTest {
             isSeen = false
         )
         sut.deleteTransactionById(1)
-        sut.getMomentumTransactions()
+        sut.getMomentumTransactions("1001")
         sut.transactions.test {
 
             val emissions = awaitItem()

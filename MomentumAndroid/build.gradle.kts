@@ -31,7 +31,11 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-
+    packaging {
+        resources {
+            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+        }
+    }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.1"
     }
@@ -53,21 +57,24 @@ android {
 
 dependencies {
     implementation(project(":MomentumSDK"))
-    implementation("androidx.core:core-ktx:1.10.1")
+    implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("com.google.android.material:material:1.9.0")
+    implementation("androidx.compose.ui:ui:1.5.4")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
+    implementation("com.google.android.material:material:1.10.0")
     // Integration with activities
-    implementation("androidx.activity:activity-compose:1.7.2")
+    implementation("androidx.activity:activity-compose:1.8.0")
     // Compose Material Design
-    implementation("androidx.compose.material:material:1.5.0")
+    implementation("androidx.compose.material:material:1.5.4")
     // Animations
-    implementation("androidx.compose.animation:animation:1.5.0")
+    implementation("androidx.compose.animation:animation:1.5.4")
     // Tooling support (Previews, etc.)
-    implementation("androidx.compose.ui:ui-tooling:1.5.0")
+    implementation("androidx.compose.ui:ui-tooling:1.5.4")
     // Integration with ViewModels
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
+    implementation("com.google.firebase:firebase-auth:22.2.0")
     // UI Tests
-    androidTestImplementation("androidx.compose.ui:ui-test-junit4:1.5.0")
+    androidTestImplementation("androidx.compose.ui:ui-test-junit4:1.5.4")
     //Unit Testing
     testImplementation("junit:junit:4.13.2")
     testImplementation("org.junit.jupiter:junit-jupiter:5.8.2")
@@ -79,9 +86,9 @@ dependencies {
     testImplementation("org.mockito:mockito-core:4.6.1")
     testImplementation("app.cash.turbine:turbine:0.8.0")
     // Navigation
-    implementation("androidx.navigation:navigation-compose:2.7.0")
+    implementation("androidx.navigation:navigation-compose:2.7.5")
     // Icons exts
-    implementation("androidx.compose.material:material-icons-extended:1.5.0")
+    implementation("androidx.compose.material:material-icons-extended:1.5.4")
     // Status Bar
     implementation("com.google.accompanist:accompanist-systemuicontroller:0.31.3-beta")
     implementation("com.google.accompanist:accompanist-insets:0.26.5-rc")
@@ -118,7 +125,7 @@ dependencies {
     implementation("com.google.android.exoplayer:extension-cast:2.18.0")
 
     // Kotlin serialization
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
 
     // Auth
     implementation("io.github.mwaibanda:authentication:1.0.5")

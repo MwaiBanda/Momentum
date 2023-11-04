@@ -1,10 +1,10 @@
 package com.mwaibanda.momentum.android
 
 import android.graphics.Rect
-import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.fragment.app.FragmentActivity
 import com.mwaibanda.momentum.android.presentation.auth.AuthViewModel
 import com.mwaibanda.momentum.android.presentation.meals.MealViewModel
 import com.mwaibanda.momentum.android.presentation.payment.PaymentViewModel
@@ -24,7 +24,7 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 
-open class BaseActivity : AppCompatActivity() {
+open class BaseActivity : FragmentActivity() {
     protected val mealViewModel: MealViewModel by inject()
     protected val authViewModel: AuthViewModel by inject()
     protected val paymentViewModel: PaymentViewModel by inject()
@@ -43,7 +43,6 @@ open class BaseActivity : AppCompatActivity() {
     init {
         authViewModel.checkAndSignIn()
     }
-
     protected fun checkout(
         transaction: Payment,
         onSuccess: (customer: PaymentSheet.CustomerConfiguration?, intent: String) -> Unit

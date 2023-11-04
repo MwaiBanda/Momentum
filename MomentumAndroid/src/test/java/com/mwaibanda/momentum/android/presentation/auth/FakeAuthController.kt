@@ -4,49 +4,51 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import com.mwaibanda.momentum.domain.controller.AuthController
-import com.mwaibanda.momentum.domain.models.UserResponse
-import com.mwaibanda.momentum.utils.Result
+import io.github.mwaibanda.authentication.domain.model.UserResponse
+import io.github.mwaibanda.authentication.utils.AuthResult
 
 class FakeAuthController: AuthController {
     private var currentUser: UserResponse? by mutableStateOf(null)
+
+
     override fun signInWithEmail(
         email: String,
         password: String,
-        onCompletion: (Result<UserResponse>) -> Unit
+        onCompletion: (AuthResult<UserResponse>) -> Unit
     ) {
         currentUser = UserResponse(
             uid = "1001-01",
             email = email,
             isAnonymous = false
         )
-        onCompletion(Result.Success(currentUser!!))
+        onCompletion(AuthResult.Success(currentUser!!))
     }
 
     override fun signUpWithEmail(
         email: String,
         password: String,
-        onCompletion: (Result<UserResponse>) -> Unit
+        onCompletion: (AuthResult<UserResponse>) -> Unit
     ) {
         currentUser = UserResponse(
             uid = "1001-01",
             email = email,
             isAnonymous = false
         )
-        onCompletion(Result.Success(currentUser!!))
+        onCompletion(AuthResult.Success(currentUser!!))
     }
 
-    override fun signInAsGuest(onCompletion: (Result<UserResponse>) -> Unit) {
+    override fun signInAsGuest(onCompletion: (AuthResult<UserResponse>) -> Unit) {
         currentUser = UserResponse(
             uid = "1001-01",
             email = "guest@momentum.com",
             isAnonymous = true
         )
-        onCompletion(Result.Success(currentUser!!))
+        onCompletion(AuthResult.Success(currentUser!!))
     }
 
-    override fun checkAuthAndSignAsGuest(onCompletion: (Result<UserResponse>) -> Unit) {
+    override fun checkAuthAndSignAsGuest(onCompletion: (AuthResult<UserResponse>) -> Unit) {
         if (currentUser != null) {
-            onCompletion(Result.Success(currentUser!!))
+            onCompletion(AuthResult.Success(currentUser!!))
         } else {
             signInAsGuest {
                 onCompletion(it)
@@ -54,11 +56,11 @@ class FakeAuthController: AuthController {
         }
     }
 
-    override fun getCurrentUser(onCompletion: (Result<UserResponse>) -> Unit) {
+    override fun getCurrentUser(onCompletion: (AuthResult<UserResponse>) -> Unit) {
         if (currentUser != null) {
-            onCompletion(Result.Success(currentUser!!))
+            onCompletion(AuthResult.Success(currentUser!!))
         } else {
-            onCompletion(Result.Failure("No user"))
+            onCompletion(AuthResult.Failure("No user"))
         }
     }
 

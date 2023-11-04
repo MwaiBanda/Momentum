@@ -67,7 +67,11 @@ class FakeUserController: UserController {
         onCompletion()
     }
 
-    override fun updateUserFullname(userID: String, fullname: String) {
+    override fun updateUser(user: User, onCompletion: (User) -> Unit) {
+        TODO("Not yet implemented")
+    }
+
+     fun updateUserFullname(userID: String, fullname: String) {
         val index = remote.indexOfFirst { it.userId == userID }
         val user = remote[index]
         remote.set(
@@ -104,7 +108,7 @@ class FakeUserController: UserController {
         onCompletion()
     }
 
-    override fun updateUserEmail(userID: String, email: String) {
+     fun updateUserEmail(userID: String, email: String) {
         val index = remote.indexOfFirst { it.userId == userID }
         val user = remote[index]
         remote.set(
@@ -163,7 +167,7 @@ class FakeUserController: UserController {
         onCompletion()
     }
 
-    override fun updatePhoneByUserId(userId: String, phone: String) {
+     fun updatePhoneByUserId(userId: String, phone: String) {
         val index = remote.indexOfFirst { it.userId == userId }
         val user = remote[index]
         remote.set(

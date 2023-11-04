@@ -1,19 +1,21 @@
 package com.mwaibanda.momentum.android.presentation.auth
 
 import com.mwaibanda.momentum.domain.controller.AuthController
-import org.junit.jupiter.api.Assertions.*
-
+import com.mwaibanda.momentum.domain.controller.LocalDefaultsController
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
 internal class AuthViewModelTest {
     private lateinit var authController: AuthController
+    private lateinit var localDefaults: LocalDefaultsController
     private lateinit var sut: AuthViewModel
 
     @BeforeEach
     fun setUp() {
         authController = FakeAuthController()
-        sut = AuthViewModel(authController)
+        localDefaults = FakeLocalDefaultsController()
+        sut = AuthViewModel(authController, localDefaults)
     }
 
     @Test

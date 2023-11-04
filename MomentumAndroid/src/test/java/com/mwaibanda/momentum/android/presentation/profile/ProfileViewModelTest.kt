@@ -1,23 +1,30 @@
 package com.mwaibanda.momentum.android.presentation.profile
 
-import com.mwaibanda.momentum.android.presentation.profile.ProfileViewModel.ProfileCard.*
+import com.mwaibanda.momentum.android.presentation.auth.FakeLocalDefaultsController
+import com.mwaibanda.momentum.android.presentation.profile.ProfileViewModel.ProfileCard.BILLING_INFO
+import com.mwaibanda.momentum.android.presentation.profile.ProfileViewModel.ProfileCard.CONTACT_INFO
+import com.mwaibanda.momentum.android.presentation.profile.ProfileViewModel.ProfileCard.FEEDBACK
 import com.mwaibanda.momentum.domain.controller.BillingAddressController
+import com.mwaibanda.momentum.domain.controller.LocalDefaultsController
 import com.mwaibanda.momentum.domain.controller.UserController
-import org.junit.jupiter.api.Assertions.*
-
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertFalse
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
 internal class ProfileViewModelTest {
     private lateinit var userController: UserController
     private lateinit var billingAddressController: BillingAddressController
+    private lateinit var localDefaults: LocalDefaultsController
     private lateinit var sut: ProfileViewModel
 
     @BeforeEach
     fun setUp() {
         userController = FakeUserController()
         billingAddressController = FakeBillingAddressController()
-        sut = ProfileViewModel(userController, billingAddressController)
+        localDefaults = FakeLocalDefaultsController()
+        sut = ProfileViewModel(userController, billingAddressController, localDefaults)
     }
 
     @Test

@@ -28,7 +28,8 @@ fun BottomBar(navController: NavController, currentRoute: String?) {
     val bottomTabs = listOf(
         NavigationRoutes.MealScreen,
         NavigationRoutes.OfferScreen,
-        NavigationRoutes.SermonScreen
+        NavigationRoutes.SermonScreen,
+        NavigationRoutes.MessagesScreen
     )
 
     Column {
