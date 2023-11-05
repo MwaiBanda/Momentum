@@ -2,6 +2,7 @@ package com.mwaibanda.momentum.android.di
 
 import com.mwaibanda.momentum.android.presentation.auth.AuthViewModel
 import com.mwaibanda.momentum.android.presentation.meals.MealViewModel
+import com.mwaibanda.momentum.android.presentation.messages.MessageViewModel
 import com.mwaibanda.momentum.android.presentation.offer.OfferViewModel
 import com.mwaibanda.momentum.android.presentation.payment.PaymentSummaryContentViewModel
 import com.mwaibanda.momentum.android.presentation.payment.PaymentViewModel
@@ -26,4 +27,5 @@ val viewModelModule = module {
     viewModel { MealViewModel(mealController = get()) }
     viewModel { AuthViewModel(authController = get(), localDefaultsController = get()) }
     viewModel { SermonViewModel(sermonController = get()) }
+    viewModel { MessageViewModel(messageController = get()) }
 }

@@ -1,8 +1,21 @@
 package com.mwaibanda.momentum.di
 
-import com.mwaibanda.momentum.data.repository.*
+import com.mwaibanda.momentum.data.repository.CacheRepositoryImpl
+import com.mwaibanda.momentum.data.repository.LocalDefaultsRepositoryImpl
+import com.mwaibanda.momentum.data.repository.MealRepositoryImpl
+import com.mwaibanda.momentum.data.repository.MessageRepositoryImpl
 import com.mwaibanda.momentum.data.repository.PaymentRepositoryImpl
-import com.mwaibanda.momentum.domain.repository.*
+import com.mwaibanda.momentum.data.repository.SermonRepositoryImpl
+import com.mwaibanda.momentum.data.repository.TransactionRepositoryImpl
+import com.mwaibanda.momentum.data.repository.UserRepositoryImpl
+import com.mwaibanda.momentum.domain.repository.CacheRepository
+import com.mwaibanda.momentum.domain.repository.LocalDefaultsRepository
+import com.mwaibanda.momentum.domain.repository.MealRepository
+import com.mwaibanda.momentum.domain.repository.MessageRepository
+import com.mwaibanda.momentum.domain.repository.PaymentRepository
+import com.mwaibanda.momentum.domain.repository.SermonRepository
+import com.mwaibanda.momentum.domain.repository.TransactionRepository
+import com.mwaibanda.momentum.domain.repository.UserRepository
 import org.koin.dsl.module
 
 val repositoryModule = module {
@@ -20,4 +33,5 @@ val repositoryModule = module {
         )
     }
     single<MealRepository> { MealRepositoryImpl(httpClient = get()) }
+    single<MessageRepository> { MessageRepositoryImpl(httpClient = get()) }
 }

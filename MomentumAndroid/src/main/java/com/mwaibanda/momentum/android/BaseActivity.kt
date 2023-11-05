@@ -7,6 +7,7 @@ import androidx.compose.runtime.setValue
 import androidx.fragment.app.FragmentActivity
 import com.mwaibanda.momentum.android.presentation.auth.AuthViewModel
 import com.mwaibanda.momentum.android.presentation.meals.MealViewModel
+import com.mwaibanda.momentum.android.presentation.messages.MessageViewModel
 import com.mwaibanda.momentum.android.presentation.payment.PaymentViewModel
 import com.mwaibanda.momentum.android.presentation.profile.ProfileViewModel
 import com.mwaibanda.momentum.android.presentation.sermon.SermonViewModel
@@ -31,6 +32,7 @@ open class BaseActivity : FragmentActivity() {
     protected val profileViewModel: ProfileViewModel by inject()
     protected val transactionViewModel: TransactionViewModel by inject()
     protected val sermonViewModel: SermonViewModel by inject()
+    protected val messageViewModel: MessageViewModel by inject()
     protected var videoBounds = Rect()
     protected var showControls by mutableStateOf(true)
     protected var canEnterPictureInPicture by mutableStateOf(false)

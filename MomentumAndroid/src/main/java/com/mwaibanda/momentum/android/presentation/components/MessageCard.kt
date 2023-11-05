@@ -24,7 +24,14 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 
 @Composable
-fun MessageCard(onMessageSelected: () -> Unit) {
+fun MessageCard(
+    series: String,
+    title: String,
+    preacher: String,
+    date: String,
+    thumbnail: String,
+    onMessageSelected: () -> Unit
+) {
     Card(
         modifier = Modifier.fillMaxWidth().heightIn(max = 150.dp).clip(RoundedCornerShape(8.dp)).clickable{
             onMessageSelected()
@@ -34,7 +41,7 @@ fun MessageCard(onMessageSelected: () -> Unit) {
         Row {
             AsyncImage(
                 model = ImageRequest.Builder(LocalContext.current)
-                    .data("https://github.com/MwaiBanda/Momentum/assets/49708426/e5b6e89c-57bd-4c47-9eb0-d3a05a4f97fe")
+                    .data(thumbnail)
                     .crossfade(true)
                     .build(),
                 contentDescription = "Sermon thumbnail",
@@ -44,7 +51,7 @@ fun MessageCard(onMessageSelected: () -> Unit) {
             Column(Modifier.padding(8.dp)) {
 
                 Text(
-                    text = "Don't be a Pharisee",
+                    text = series,
                     fontSize = 10.sp,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
@@ -53,7 +60,7 @@ fun MessageCard(onMessageSelected: () -> Unit) {
 
                 )
                 Text(
-                    text = "Don't be a Pharisee: Part 1",
+                    text = title,
                     fontSize = 12.sp,
                     fontWeight = FontWeight.Bold,
                     maxLines = 1,
@@ -61,13 +68,13 @@ fun MessageCard(onMessageSelected: () -> Unit) {
 
                     )
                 Text(
-                    text = "Charlie Arms",
+                    text = preacher,
                     fontSize = 10.sp,
                     color = Color.Gray,
                     modifier = Modifier.padding(vertical = 0.5.dp)
                 )
                 Text(
-                    text = "Nov 5, 2023",
+                    text = date,
                     fontSize = 8.sp,
                 )
             }

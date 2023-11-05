@@ -3,15 +3,24 @@ package com.mwaibanda.momentum.di
 import com.mwaibanda.momentum.domain.usecase.cache.GetAllItemsUseCase
 import com.mwaibanda.momentum.domain.usecase.cache.GetItemUseCase
 import com.mwaibanda.momentum.domain.usecase.cache.SetItemUseCase
-import com.mwaibanda.momentum.domain.usecase.localDefaults.*
+import com.mwaibanda.momentum.domain.usecase.localDefaults.GetBooleanUseCase
+import com.mwaibanda.momentum.domain.usecase.localDefaults.GetIntUseCase
+import com.mwaibanda.momentum.domain.usecase.localDefaults.GetStringUseCase
+import com.mwaibanda.momentum.domain.usecase.localDefaults.SetBooleanUseCase
+import com.mwaibanda.momentum.domain.usecase.localDefaults.SetIntUseCase
+import com.mwaibanda.momentum.domain.usecase.localDefaults.SetStringUseCase
 import com.mwaibanda.momentum.domain.usecase.meal.GetMealUseCase
 import com.mwaibanda.momentum.domain.usecase.meal.PostMealUseCase
 import com.mwaibanda.momentum.domain.usecase.meal.PostVolunteeredMealUseCase
+import com.mwaibanda.momentum.domain.usecase.messages.GetAllMessagesUseCase
 import com.mwaibanda.momentum.domain.usecase.payment.CheckoutUseCase
-import com.mwaibanda.momentum.domain.usecase.transaction.PostTransactionUseCase
 import com.mwaibanda.momentum.domain.usecase.sermon.GetSermonsUseCase
 import com.mwaibanda.momentum.domain.usecase.transaction.GetTransactionsUseCase
-import com.mwaibanda.momentum.domain.usecase.user.*
+import com.mwaibanda.momentum.domain.usecase.transaction.PostTransactionUseCase
+import com.mwaibanda.momentum.domain.usecase.user.DeleteRemoteUserUseCase
+import com.mwaibanda.momentum.domain.usecase.user.GetUserUseCase
+import com.mwaibanda.momentum.domain.usecase.user.PostUserUseCase
+import com.mwaibanda.momentum.domain.usecase.user.UpdateUserCase
 import org.koin.dsl.module
 
 val useCasesModule = module {
@@ -57,5 +66,9 @@ val useCasesModule = module {
     single { GetMealUseCase(mealRepository = get()) }
     single { PostMealUseCase(mealRepository = get()) }
     single { PostVolunteeredMealUseCase(mealRepository = get()) }
+    /**
+     * @Message - Use-cases
+     */
+    single { GetAllMessagesUseCase(messageRepository = get()) }
 }
 

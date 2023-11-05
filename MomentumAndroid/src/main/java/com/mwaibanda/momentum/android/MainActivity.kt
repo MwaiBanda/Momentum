@@ -52,6 +52,7 @@ import com.mwaibanda.momentum.android.presentation.sermon.PlayerScreen
 import com.mwaibanda.momentum.android.presentation.sermon.SermonScreen
 import com.mwaibanda.momentum.android.presentation.transaction.TransactionScreen
 import com.mwaibanda.momentum.domain.models.Meal
+import com.mwaibanda.momentum.domain.models.Message
 import com.mwaibanda.momentum.domain.models.Sermon
 import com.mwaibanda.momentum.domain.models.VolunteeredMeal
 import com.mwaibanda.momentum.utils.MultiplatformConstants
@@ -99,6 +100,9 @@ class MainActivity : BaseActivity() {
             }
 
             var currentMeal: Meal? by rememberSaveable {
+                mutableStateOf(null)
+            }
+            var currentMessage: Message? by rememberSaveable {
                 mutableStateOf(null)
             }
 
@@ -218,10 +222,14 @@ class MainActivity : BaseActivity() {
                             }
                         }
                         composable(MessagesScreen.route) {
-                            MessagesScreen(navController = navController)
+                            MessagesScreen(navController = navController, authViewModel = authViewModel, messageViewModel = messageViewModel) {
+                                currentMessage = it
+                            }
                         }
                         composable(MessageDetailScreen.route) {
-                            MessageDetailScreen()
+                            currentMessage?.let {
+                                MessageDetailScreen(it)
+                            }
                         }
                         composable(
                             route = PlayerScreen.route
