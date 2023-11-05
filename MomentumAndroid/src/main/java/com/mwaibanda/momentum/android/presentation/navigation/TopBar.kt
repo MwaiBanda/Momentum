@@ -44,7 +44,7 @@ fun TopBar(navController: NavController, currentRoute: String?,onShowModal: () -
         backgroundColor = if (ScreenConfiguration.ScreensWithoutBackButton.screens.contains(
                 currentRoute
             )
-        ) Color.Transparent else Color.White,
+        || currentRoute == NavigationRoutes.MessageDetailScreen.route) Color.Transparent else Color.White,
         elevation = 0.dp,
         navigationIcon = {
             if (ScreenConfiguration.ScreensWithoutBackButton.screens.contains(currentRoute).not())
@@ -55,9 +55,9 @@ fun TopBar(navController: NavController, currentRoute: String?,onShowModal: () -
                         Icon(
                             Icons.Filled.ArrowBackIosNew,
                             "",
-                            tint = Color(C.MOMENTUM_ORANGE)
+                            tint = if ( currentRoute == NavigationRoutes.MessageDetailScreen.route) Color.White else Color(C.MOMENTUM_ORANGE)
                         )
-                        Text(text = "Back", color = Color(C.MOMENTUM_ORANGE))
+                        Text(text = "Back", color = if ( currentRoute == NavigationRoutes.MessageDetailScreen.route) Color.White else Color(C.MOMENTUM_ORANGE))
                     }
                 }
             if (ScreenConfiguration.ScreensWithTopBarIcons.screens.contains(currentRoute).not())

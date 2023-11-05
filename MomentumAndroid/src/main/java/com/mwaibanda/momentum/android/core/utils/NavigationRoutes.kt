@@ -22,6 +22,8 @@ sealed class NavigationRoutes(
     data object OfferScreen: NavigationRoutes(route = "offer", tabName = R.string.offer, icon = Icons.Filled.CardGiftcard)
     data object MessagesScreen: NavigationRoutes(route = "messages", tabName = R.string.messages, icon = Icons.Filled.MenuBook)
 
+    data object MessageDetailScreen: NavigationRoutes(route = "messages/detail")
+
     data object SermonScreen: NavigationRoutes(route = "sermon", tabName = R.string.sermon, icon = Icons.Filled.LocalMovies)
     data object PlayerScreen: NavigationRoutes(route = "play/sermon")
 

@@ -40,6 +40,7 @@ import com.mwaibanda.momentum.android.presentation.meals.MealsDetailScreen
 import com.mwaibanda.momentum.android.presentation.meals.modals.PostMealScreen
 import com.mwaibanda.momentum.android.presentation.meals.modals.PostVolunteerMealScreen
 import com.mwaibanda.momentum.android.presentation.meals.modals.ViewRecipientInfoScreen
+import com.mwaibanda.momentum.android.presentation.messages.MessageDetailScreen
 import com.mwaibanda.momentum.android.presentation.messages.MessagesScreen
 import com.mwaibanda.momentum.android.presentation.navigation.LaunchScreen
 import com.mwaibanda.momentum.android.presentation.offer.OfferScreen
@@ -217,7 +218,10 @@ class MainActivity : BaseActivity() {
                             }
                         }
                         composable(MessagesScreen.route) {
-                            MessagesScreen()
+                            MessagesScreen(navController = navController)
+                        }
+                        composable(MessageDetailScreen.route) {
+                            MessageDetailScreen()
                         }
                         composable(
                             route = PlayerScreen.route

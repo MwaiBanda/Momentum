@@ -3,6 +3,7 @@ package com.mwaibanda.momentum.android.core.utils
 import com.mwaibanda.momentum.android.core.utils.NavigationRoutes.AuthControllerScreen
 import com.mwaibanda.momentum.android.core.utils.NavigationRoutes.LaunchScreen
 import com.mwaibanda.momentum.android.core.utils.NavigationRoutes.MealScreen
+import com.mwaibanda.momentum.android.core.utils.NavigationRoutes.MessageDetailScreen
 import com.mwaibanda.momentum.android.core.utils.NavigationRoutes.MessagesScreen
 import com.mwaibanda.momentum.android.core.utils.NavigationRoutes.OfferScreen
 import com.mwaibanda.momentum.android.core.utils.NavigationRoutes.PaymentFailureScreen
@@ -32,7 +33,8 @@ sealed class ScreenConfiguration(val screens: List<String>){
             AuthControllerScreen.route,
             SermonScreen.route,
             MealScreen.route,
-            MessagesScreen.route
+            MessagesScreen.route,
+            MessageDetailScreen.route
         )
     )
     data object ScreensWithoutNavigation: ScreenConfiguration(
