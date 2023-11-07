@@ -51,6 +51,15 @@ struct BottomTabBar: View {
                 Image(systemName: "ticket")
                 
             }
+            NavigationView {
+                MessageView()
+            }
+            .navigationViewStyle(StackNavigationViewStyle())
+            .tag(3)
+            .tabItem {
+                Image(systemName: "book")
+                
+            }
         }
         .accentColor(Color(hex: Constants.MOMENTUM_ORANGE))
         

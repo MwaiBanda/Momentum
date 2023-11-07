@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		058557BB273AAA24004C7B11 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058557BA273AAA24004C7B11 /* Assets.xcassets */; };
 		058557D9273AAEEB004C7B11 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */; };
+		1C1551262AF8B3C5002393B3 /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1551252AF8B3C5002393B3 /* MessageView.swift */; };
 		1C3CF16B28D95E3000B46FC1 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 1C3CF16A28D95E3000B46FC1 /* SDWebImageSwiftUI */; };
 		1C3CF16E28D984F400B46FC1 /* RoundedCorner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C3CF16D28D984F400B46FC1 /* RoundedCorner.swift */; };
 		1C3CF17028D98B1600B46FC1 /* Models+Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C3CF16F28D98B1600B46FC1 /* Models+Swift.swift */; };
@@ -23,6 +24,7 @@
 		1C46D1452A80A4A500E5FB25 /* StripePaymentSheet in Frameworks */ = {isa = PBXBuildFile; productRef = 1C46D1442A80A4A500E5FB25 /* StripePaymentSheet */; };
 		1C46D1472A80A4A500E5FB25 /* StripePayments in Frameworks */ = {isa = PBXBuildFile; productRef = 1C46D1462A80A4A500E5FB25 /* StripePayments */; };
 		1C46D1492A80A4A500E5FB25 /* StripePaymentsUI in Frameworks */ = {isa = PBXBuildFile; productRef = 1C46D1482A80A4A500E5FB25 /* StripePaymentsUI */; };
+		1C6F04652AFA039C00A3C2D6 /* MessageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6F04642AFA039C00A3C2D6 /* MessageViewModel.swift */; };
 		1C82C2A428ECB97900E19A30 /* DeviceSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C82C2A328ECB97900E19A30 /* DeviceSize.swift */; };
 		1C82C2A628ED277000E19A30 /* SermonCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C82C2A528ED277000E19A30 /* SermonCard.swift */; };
 		1C8BACBA2923174D00731617 /* TinyDi in Frameworks */ = {isa = PBXBuildFile; productRef = 1C8BACB92923174D00731617 /* TinyDi */; };
@@ -119,6 +121,7 @@
 		058557BA273AAA24004C7B11 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		06D68FEC8ABE2B8A7159EAFB /* Pods-MomentumiOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MomentumiOS.release.xcconfig"; path = "Target Support Files/Pods-MomentumiOS/Pods-MomentumiOS.release.xcconfig"; sourceTree = "<group>"; };
+		1C1551252AF8B3C5002393B3 /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
 		1C3CF16D28D984F400B46FC1 /* RoundedCorner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedCorner.swift; sourceTree = "<group>"; };
 		1C3CF16F28D98B1600B46FC1 /* Models+Swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Models+Swift.swift"; sourceTree = "<group>"; };
 		1C3CF17128D993B500B46FC1 /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
@@ -126,6 +129,7 @@
 		1C408EE82A82EE0200218708 /* MealDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealDetailView.swift; sourceTree = "<group>"; };
 		1C408EEA2A8AE11200218708 /* MealViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealViewModel.swift; sourceTree = "<group>"; };
 		1C46D1302A8072EB00E5FB25 /* MealsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealsView.swift; sourceTree = "<group>"; };
+		1C6F04642AFA039C00A3C2D6 /* MessageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageViewModel.swift; sourceTree = "<group>"; };
 		1C82C2A328ECB97900E19A30 /* DeviceSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceSize.swift; sourceTree = "<group>"; };
 		1C82C2A528ED277000E19A30 /* SermonCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SermonCard.swift; sourceTree = "<group>"; };
 		1C8BACBB292317AE00731617 /* SingletonModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingletonModule.swift; sourceTree = "<group>"; };
@@ -255,6 +259,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		1C1551242AF8B38A002393B3 /* Messages */ = {
+			isa = PBXGroup;
+			children = (
+				1C1551252AF8B3C5002393B3 /* MessageView.swift */,
+				1C6F04642AFA039C00A3C2D6 /* MessageViewModel.swift */,
+			);
+			path = Messages;
+			sourceTree = "<group>";
+		};
 		1C3CF16C28D984DD00B46FC1 /* Shape */ = {
 			isa = PBXGroup;
 			children = (
@@ -356,6 +369,7 @@
 		8126AF6E286FD7AF007DBAB9 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				1C1551242AF8B38A002393B3 /* Messages */,
 				1C46D12F2A8072CA00E5FB25 /* Meals */,
 				1CE8F2B028D92ACA0077F2F0 /* Sermons */,
 				813E775C288DC5C700109C19 /* Profile */,
@@ -770,6 +784,7 @@
 				81770C222877A314008B88F6 /* UIColor+Swift.swift in Sources */,
 				1C3CF17228D993B500B46FC1 /* PlayerView.swift in Sources */,
 				81B802D42877E4080008509D /* LoadingView.swift in Sources */,
+				1C6F04652AFA039C00A3C2D6 /* MessageViewModel.swift in Sources */,
 				1CE8F2B228D92AFB0077F2F0 /* SermonsViewModel.swift in Sources */,
 				819E6161288654F0007BD761 /* TransactionView.swift in Sources */,
 				1C408EE72A81E68F00218708 /* Card.swift in Sources */,
@@ -777,6 +792,7 @@
 				8126AF84286FEF39007DBAB9 /* NavBar.swift in Sources */,
 				1CE8F2B428D92B220077F2F0 /* SermonsView.swift in Sources */,
 				8126AF75286FDB2F007DBAB9 /* View+Swift.swift in Sources */,
+				1C1551262AF8B3C5002393B3 /* MessageView.swift in Sources */,
 				1C82C2A628ED277000E19A30 /* SermonCard.swift in Sources */,
 				8126AF77286FE009007DBAB9 /* Color+Swift.swift in Sources */,
 				81E937CF288E5E2A00D74BD3 /* TitledTextField.swift in Sources */,
