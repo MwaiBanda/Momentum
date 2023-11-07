@@ -27,6 +27,8 @@
 		1C6F04652AFA039C00A3C2D6 /* MessageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6F04642AFA039C00A3C2D6 /* MessageViewModel.swift */; };
 		1C82C2A428ECB97900E19A30 /* DeviceSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C82C2A328ECB97900E19A30 /* DeviceSize.swift */; };
 		1C82C2A628ED277000E19A30 /* SermonCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C82C2A528ED277000E19A30 /* SermonCard.swift */; };
+		1C83C85C2AFA1229008026F4 /* MessageCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C83C85B2AFA1229008026F4 /* MessageCard.swift */; };
+		1C83C85E2AFA137F008026F4 /* MessageDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C83C85D2AFA137F008026F4 /* MessageDetailView.swift */; };
 		1C8BACBA2923174D00731617 /* TinyDi in Frameworks */ = {isa = PBXBuildFile; productRef = 1C8BACB92923174D00731617 /* TinyDi */; };
 		1C8BACBC292317AE00731617 /* SingletonModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8BACBB292317AE00731617 /* SingletonModule.swift */; };
 		1C8BACBE2923191B00731617 /* ControllerModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8BACBD2923191B00731617 /* ControllerModule.swift */; };
@@ -132,6 +134,8 @@
 		1C6F04642AFA039C00A3C2D6 /* MessageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageViewModel.swift; sourceTree = "<group>"; };
 		1C82C2A328ECB97900E19A30 /* DeviceSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceSize.swift; sourceTree = "<group>"; };
 		1C82C2A528ED277000E19A30 /* SermonCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SermonCard.swift; sourceTree = "<group>"; };
+		1C83C85B2AFA1229008026F4 /* MessageCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCard.swift; sourceTree = "<group>"; };
+		1C83C85D2AFA137F008026F4 /* MessageDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageDetailView.swift; sourceTree = "<group>"; };
 		1C8BACBB292317AE00731617 /* SingletonModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingletonModule.swift; sourceTree = "<group>"; };
 		1C8BACBD2923191B00731617 /* ControllerModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControllerModule.swift; sourceTree = "<group>"; };
 		1CA5277228CED0DC00066605 /* AppReviewRequester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppReviewRequester.swift; sourceTree = "<group>"; };
@@ -264,6 +268,7 @@
 			children = (
 				1C1551252AF8B3C5002393B3 /* MessageView.swift */,
 				1C6F04642AFA039C00A3C2D6 /* MessageViewModel.swift */,
+				1C83C85D2AFA137F008026F4 /* MessageDetailView.swift */,
 			);
 			path = Messages;
 			sourceTree = "<group>";
@@ -456,6 +461,7 @@
 				816CCDE0288F365600795B59 /* LinkLabel.swift */,
 				1C82C2A528ED277000E19A30 /* SermonCard.swift */,
 				1C408EE62A81E68F00218708 /* Card.swift */,
+				1C83C85B2AFA1229008026F4 /* MessageCard.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -807,9 +813,11 @@
 				8126AF89286FF12F007DBAB9 /* MenuButton.swift in Sources */,
 				81826E28288A060400B22B6E /* Session.swift in Sources */,
 				1C82C2A428ECB97900E19A30 /* DeviceSize.swift in Sources */,
+				1C83C85E2AFA137F008026F4 /* MessageDetailView.swift in Sources */,
 				81E8F8D428921F1300F4A87C /* SessionTime.swift in Sources */,
 				7555FF83242A565900829871 /* ContentView.swift in Sources */,
 				811A3E7D287E05D90052682B /* ToggleAmountLabel.swift in Sources */,
+				1C83C85C2AFA1229008026F4 /* MessageCard.swift in Sources */,
 				8126AF86286FEF39007DBAB9 /* BottomTabBar.swift in Sources */,
 				81B802DA2877E7D80008509D /* PaymentSuccessView.swift in Sources */,
 				8126AF82286FEF39007DBAB9 /* ContentWrapper.swift in Sources */,
@@ -1002,7 +1010,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.0;
+				MARKETING_VERSION = 1.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mwaibanda.MomentumiOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1032,7 +1040,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.0;
+				MARKETING_VERSION = 1.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mwaibanda.MomentumiOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

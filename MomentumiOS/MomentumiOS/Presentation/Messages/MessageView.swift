@@ -12,49 +12,31 @@ import SDWebImageSwiftUI
 
 struct MessageView: View {
     @StateObject private var messageViewModel = MessageViewModel()
+    @EnvironmentObject var session: Session
     @State private var messages = [Message]()
     var body: some View {
-        ForEach(messages, id: \.id) { message in
-            Card {
-                HStack {
-                    WebImage(url: URL(string: message.thumbnail))
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(maxHeight: 150)
-                        
-                    VStack(alignment: .leading) {
-                        Text(message.series)
-                            .font(.caption)
-                            .lineLimit(1)
-                            .multilineTextAlignment(.leading)
-                        
-                        
-                        Text(message.title)
-                            .font(.subheadline)
-                            .bold()
-                            .lineLimit(1)
-                            .multilineTextAlignment(.leading)
-                        
-                        
-                        Text(message.preacher)
-                            .foregroundColor(.gray)
-                            .font(.caption)
-                            .lineLimit(1)
-                            .multilineTextAlignment(.leading)
-                        
-                        
-                        Text(message.date)
-                            .font(.caption2)
-                            .multilineTextAlignment(.leading)
-                    }
-                    .padding(5)
-                    .padding(.bottom, 5)
-                    Spacer()
+        ScrollView {
+            Divider()
+            HStack {
+            Text(MultiplatformConstants.shared.MESSAGES_SUBHEADING.uppercased())
+                .font(.caption)
+                .foregroundColor(Color(hex: Constants.MOMENTUM_ORANGE))
+                .padding(.leading)
+                Spacer()
+            }
+            .padding(.top, 5)
+            ForEach(messages, id: \.id) { message in
+                NavigationLink {
+                    MessageDetailView(message: message)
+                } label: {
+                    MessageCard(message: message)
                 }
-            }.onAppear {
-                messageViewModel.getAllMessages(userId: "") { messages in
-                    self.messages = messages
-                }
+
+            }
+        }.navigationTitle("Messages")
+        .onAppear {
+            messageViewModel.getAllMessages(userId: session.currentUser?.id ?? "") { messages in
+                self.messages = messages
             }
         }
     }

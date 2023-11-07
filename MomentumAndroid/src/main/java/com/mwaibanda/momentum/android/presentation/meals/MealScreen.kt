@@ -37,6 +37,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.mwaibanda.momentum.android.core.utils.C
 import com.mwaibanda.momentum.domain.models.Meal
+import com.mwaibanda.momentum.utils.MultiplatformConstants
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.launch
 
@@ -92,7 +93,7 @@ fun MealScreen(
                 }
                 Divider()
                 Text(
-                    text = "View meals available & volunteer".uppercase(),
+                    text = MultiplatformConstants.MEALS_SUBHEADING.uppercase(),
                     modifier = Modifier.padding(horizontal = 10.dp),
                     style = MaterialTheme.typography.caption,
                     color = Color(C.MOMENTUM_ORANGE)

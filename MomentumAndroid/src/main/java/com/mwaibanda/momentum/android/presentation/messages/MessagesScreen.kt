@@ -27,6 +27,7 @@ import com.mwaibanda.momentum.android.core.utils.NavigationRoutes
 import com.mwaibanda.momentum.android.presentation.auth.AuthViewModel
 import com.mwaibanda.momentum.android.presentation.components.MessageCard
 import com.mwaibanda.momentum.domain.models.Message
+import com.mwaibanda.momentum.utils.MultiplatformConstants
 
 @Composable
 fun MessagesScreen(
@@ -61,7 +62,7 @@ fun MessagesScreen(
 
                 Divider()
                 Text(
-                    text = "View upcoming messages and add notes".uppercase(),
+                    text = MultiplatformConstants.MESSAGES_SUBHEADING.uppercase(),
                     modifier = Modifier.padding(horizontal = 10.dp),
                     style = MaterialTheme.typography.caption,
                     color = Color(C.MOMENTUM_ORANGE)
