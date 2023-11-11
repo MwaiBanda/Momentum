@@ -10,6 +10,7 @@ import SwiftUI
 import MomentumSDK
 
 struct PaymentSummaryContentView: View {
+    @Binding var isEditingToggle: Bool
     @ObservedObject var offerViewModel: OfferViewModel
     @ObservedObject var contentViewModel: PaymentSummaryContentViewModel
 
@@ -31,9 +32,13 @@ struct PaymentSummaryContentView: View {
                     contentViewModel.processToggle(isActive: isActive, type: .offering)
                     }
                 } onAmountChanged: { amount in
+                    isEditingToggle = true
                     DispatchQueue.main.async {
                         contentViewModel.processAmount(amount: amount, type: .offering)
                     }
+                } onCommit: {
+                    isEditingToggle = false
+                    print(isEditingToggle, " [ToggleAmountLabel]")
                 }.disabled(
                     contentViewModel.selectedLabels.count == 2 &&
                     !contentViewModel.selectedLabels.contains(where: { $0 == .offering})
@@ -51,8 +56,11 @@ struct PaymentSummaryContentView: View {
                     }
                 } onAmountChanged: { amount in
                     DispatchQueue.main.async {
+                        isEditingToggle = true
                     contentViewModel.processAmount(amount: amount, type: .tithe)
                     }
+                } onCommit: {
+                    isEditingToggle = false
                 }.disabled(
                     contentViewModel.selectedLabels.count == 2 &&
                     !contentViewModel.selectedLabels.contains(where: { $0 == .tithe})
@@ -68,8 +76,11 @@ struct PaymentSummaryContentView: View {
                     contentViewModel.processToggle(isActive: isActive, type: .missions)
                 } onAmountChanged: { amount in
                     DispatchQueue.main.async {
+                        isEditingToggle = true
                     contentViewModel.processAmount(amount: amount, type: .missions)
                     }
+                } onCommit: {
+                    isEditingToggle = false
                 }.disabled(
                     contentViewModel.selectedLabels.count == 2 &&
                     !contentViewModel.selectedLabels.contains(where: { $0 == .missions})
@@ -87,8 +98,11 @@ struct PaymentSummaryContentView: View {
                     }
                 } onAmountChanged: { amount in
                     DispatchQueue.main.async {
+                        isEditingToggle = true
                     contentViewModel.processAmount(amount: amount, type: .specialSpeaker)
                     }
+                } onCommit: {
+                    isEditingToggle = false
                 }.disabled(
                     contentViewModel.selectedLabels.count == 2 &&
                     !contentViewModel.selectedLabels.contains(where: { $0 == .specialSpeaker})
@@ -106,29 +120,34 @@ struct PaymentSummaryContentView: View {
                     }
                 } onAmountChanged: { amount in
                     DispatchQueue.main.async {
-                    contentViewModel.processAmount(amount: amount, type: .other)
+                        isEditingToggle = true
+                        contentViewModel.processAmount(amount: amount, type: .other)
                     }
+                } onCommit: {
+                    isEditingToggle = false
                 }.disabled(
                     contentViewModel.selectedLabels.count == 2 &&
                     !contentViewModel.selectedLabels.contains(where: { $0 == .other})
                 )
             }
             Spacer()
-            VStack {
-                Divider()
-                HStack {
-                    Text("Total")
-                        .font(.title)
-                        .bold()
-                    
-                    Spacer()
-                    
-                    Text(offerViewModel.isDecimalMode ? offerViewModel.displayNumber : offerViewModel.displayNumber + ".00")
-                    .fontWeight(.light)
-                    .font(.title)
-                    
-                }.padding()
-                Divider()
+            if !isEditingToggle {
+                VStack {
+                    Divider()
+                    HStack {
+                        Text("Total")
+                            .font(.title)
+                            .bold()
+                        
+                        Spacer()
+                        
+                        Text(offerViewModel.isDecimalMode ? offerViewModel.displayNumber : offerViewModel.displayNumber + ".00")
+                            .fontWeight(.light)
+                            .font(.title)
+                        
+                    }.padding()
+                    Divider()
+                }
             }
         }
         .onAppear{
@@ -139,6 +158,6 @@ struct PaymentSummaryContentView: View {
 
 struct PaymentSummaryContentView_Previews: PreviewProvider {
     static var previews: some View {
-        PaymentSummaryContentView(offerViewModel: OfferViewModel(), contentViewModel: PaymentSummaryContentViewModel())
+        PaymentSummaryContentView(isEditingToggle: .constant(true), offerViewModel: OfferViewModel(), contentViewModel: PaymentSummaryContentViewModel())
     }
 }

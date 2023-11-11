@@ -16,6 +16,7 @@ struct ToggleAmountLabel: View {
     var showLabel: Bool
     var onToggleLabel: (Bool) -> Void
     var onAmountChanged: (String) -> Void
+    var onCommit: () -> Void
     var body: some View {
         HStack(alignment: .center) {
             HStack {
@@ -48,7 +49,8 @@ struct ToggleAmountLabel: View {
                     .bold()
                 TextField("", text: $amount, onEditingChanged: { isTyping in
                     onAmountChanged(amount)
-                    Log.d(tag: "ToggleLabel/Amount", message: "Amount changed \(title):\(amount)")
+                }, onCommit: {
+                    onCommit()
                 })
                 .font(.headline)
                 .textContentType(.oneTimeCode)
@@ -67,8 +69,6 @@ struct ToggleAmountLabel: View {
         }
     
     }
-    func commitAmountChanged() {
-        onAmountChanged(amount)
-    }
+  
 }
 

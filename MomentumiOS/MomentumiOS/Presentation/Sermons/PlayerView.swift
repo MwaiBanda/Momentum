@@ -19,12 +19,14 @@ struct PlayerView: UIViewControllerRepresentable {
 
     func makeUIViewController(context: Context) -> AVPlayerViewController {
         let avPlayerController = AVPlayerViewController()
-        if let contentURL = URL(string: playbackURL)  {
-            player.replaceCurrentItem(with: AVPlayerItem(url: contentURL))
-            avPlayerController.player = player
-            avPlayerController.updatesNowPlayingInfoCenter = false
-            player.seek(to: lastPlayedTime(), toleranceBefore: .zero, toleranceAfter: .zero)
-            avPlayerController.player?.play()
+        DispatchQueue.main.async {
+            if let contentURL = URL(string: playbackURL)  {
+                player.replaceCurrentItem(with: AVPlayerItem(url: contentURL))
+                avPlayerController.player = player
+                avPlayerController.updatesNowPlayingInfoCenter = false
+                player.seek(to: lastPlayedTime(), toleranceBefore: .zero, toleranceAfter: .zero)
+                avPlayerController.player?.play()
+            }
         }
         return avPlayerController
     }

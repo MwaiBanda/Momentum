@@ -8,7 +8,6 @@
 
 import SwiftUI
 import MomentumSDK
-import KeyboardToolbar
 
 struct ProfileView: View {
     @Environment(\.presentationMode) var presentationMode

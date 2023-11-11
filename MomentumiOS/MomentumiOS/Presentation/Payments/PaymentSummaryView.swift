@@ -19,7 +19,7 @@ struct PaymentSummaryView: View {
     @StateObject private var contentViewModel = PaymentSummaryContentViewModel()
     @StateObject private var transactionViewModel = TransactionViewModel()
     @StateObject private var profileViewModel = ProfileViewModel()
-    
+    @State private var isEditingToggle = false
     var body: some View {
         ZStack {
             VStack {
@@ -27,19 +27,45 @@ struct PaymentSummaryView: View {
                     VStack {
                         Divider()
                         PaymentSummaryContentView(
+                            isEditingToggle: $isEditingToggle,
                             offerViewModel: offerViewModel,
                             contentViewModel: contentViewModel
                         )
                         Spacer()
-                        PaymentSheet.PaymentButton(
-                            paymentSheet: paymentSheet,
-                            onCompletion: paymentViewModel.onPaymentCompletion
-                        ) {
-                            Text("Confirm")
-                                .fontWeight(.heavy)
-                                .frame(width: screenBounds.width - 30, height: 55)
+                        if isEditingToggle {
+                            Divider()
+                            HStack {
+                                Spacer()
+                                Button {
+                                    let keyWindow = UIApplication.shared.connectedScenes
+                                        .filter({$0.activationState == .foregroundActive})
+                                        .map({$0 as? UIWindowScene})
+                                        .compactMap({$0})
+                                        .first?.windows
+                                        .filter({$0.isKeyWindow}).first
+                                    keyWindow?.endEditing(true)
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.15, execute: {
+                                        isEditingToggle = false
+                                    })
+                                } label: {
+                                    Text("Done")
+                                        .fontWeight(.bold)
+                                }
+                                .padding([.top, .bottom, .trailing], 5)
+                                .padding(.trailing, 10)
+                            }
+                        } else {
+                            PaymentSheet.PaymentButton(
+                                paymentSheet: paymentSheet,
+                                onCompletion: paymentViewModel.onPaymentCompletion
+                            ) {
+                                Text("Confirm")
+                                    .fontWeight(.heavy)
+                                    .frame(width: screenBounds.width - 30, height: 55)
+                            }
+                            .buttonStyle(FilledButtonStyle(isDisabled: $isEditingToggle))
+                            .disabled(isEditingToggle)
                         }
-                        .buttonStyle(FilledButtonStyle())
                         Divider()
                         
                     }

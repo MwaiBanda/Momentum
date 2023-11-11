@@ -79,7 +79,6 @@
 		8182E77C288B9CC100A9CF9D /* PasswordTextfield.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8182E77B288B9CC100A9CF9D /* PasswordTextfield.swift */; };
 		81841AF82884C81200C42204 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81841AF72884C81200C42204 /* LaunchScreen.storyboard */; };
 		8184A3D9288B85FF00083399 /* NavConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8184A3D8288B85FF00083399 /* NavConfiguration.swift */; };
-		8186F1EE2894E84E00FEA781 /* KeyboardToolbar in Frameworks */ = {isa = PBXBuildFile; productRef = 8186F1ED2894E84E00FEA781 /* KeyboardToolbar */; };
 		8186F1F12894EA0700FEA781 /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = 8186F1F02894EA0700FEA781 /* Introspect */; };
 		818A2E99288DFE5E005D7449 /* BasePlainExpandableCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818A2E98288DFE5E005D7449 /* BasePlainExpandableCard.swift */; };
 		819497FE288797240099B30B /* TransactionLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819497FD288797240099B30B /* TransactionLabel.swift */; };
@@ -227,7 +226,6 @@
 				1C46D1492A80A4A500E5FB25 /* StripePaymentsUI in Frameworks */,
 				1C46D1412A80A4A500E5FB25 /* StripeApplePay in Frameworks */,
 				1C8BACBA2923174D00731617 /* TinyDi in Frameworks */,
-				8186F1EE2894E84E00FEA781 /* KeyboardToolbar in Frameworks */,
 				814525F528793F3300989B4C /* Lottie in Frameworks */,
 				1C46D13F2A80A4A500E5FB25 /* Stripe in Frameworks */,
 				3703363E8055D813FEFB7DBA /* Pods_MomentumiOS.framework in Frameworks */,
@@ -627,7 +625,6 @@
 			name = MomentumiOS;
 			packageProductDependencies = (
 				814525F428793F3300989B4C /* Lottie */,
-				8186F1ED2894E84E00FEA781 /* KeyboardToolbar */,
 				8186F1F02894EA0700FEA781 /* Introspect */,
 				1C3CF16A28D95E3000B46FC1 /* SDWebImageSwiftUI */,
 				1C8BACB92923174D00731617 /* TinyDi */,
@@ -696,7 +693,6 @@
 			mainGroup = 7555FF72242A565900829871;
 			packageReferences = (
 				814525F328793F3300989B4C /* XCRemoteSwiftPackageReference "lottie-ios" */,
-				8186F1EC2894E84D00FEA781 /* XCRemoteSwiftPackageReference "KeyboardToolbar" */,
 				8186F1EF2894EA0700FEA781 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */,
 				1C3CF16928D95E3000B46FC1 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
 				1C8BACB82923174D00731617 /* XCRemoteSwiftPackageReference "TinyDi" */,
@@ -1010,7 +1006,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.1;
+				MARKETING_VERSION = 1.1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mwaibanda.MomentumiOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1040,7 +1036,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.1;
+				MARKETING_VERSION = 1.1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mwaibanda.MomentumiOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1189,14 +1185,6 @@
 				kind = branch;
 			};
 		};
-		8186F1EC2894E84D00FEA781 /* XCRemoteSwiftPackageReference "KeyboardToolbar" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/cameronshemilt/KeyboardToolbar";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
-			};
-		};
 		8186F1EF2894EA0700FEA781 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/siteline/SwiftUI-Introspect.git";
@@ -1272,11 +1260,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 814525F328793F3300989B4C /* XCRemoteSwiftPackageReference "lottie-ios" */;
 			productName = Lottie;
-		};
-		8186F1ED2894E84E00FEA781 /* KeyboardToolbar */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 8186F1EC2894E84D00FEA781 /* XCRemoteSwiftPackageReference "KeyboardToolbar" */;
-			productName = KeyboardToolbar;
 		};
 		8186F1F02894EA0700FEA781 /* Introspect */ = {
 			isa = XCSwiftPackageProductDependency;
