@@ -1,4 +1,5 @@
 import SwiftUI
+import FirebaseMessaging
 import AVKit
 import MomentumSDK
 import FirebaseCore
@@ -33,9 +34,9 @@ class AppDelegate : NSObject, UIApplicationDelegate {
     }
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
-        FirebaseApp.configure()
         DependencyRegistryKt.doInitKoin()
         DependencyRegistry.shared.inject()
+        
         Thread.sleep(forTimeInterval: 1.5)
         do {
             try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback, mode: AVAudioSession.Mode.default)
@@ -61,4 +62,46 @@ class AppDelegate : NSObject, UIApplicationDelegate {
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
     
+}
+
+extension AppDelegate: UNUserNotificationCenterDelegate, MessagingDelegate {
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+       Messaging.messaging().apnsToken = deviceToken
+       //FCM TOken
+       Messaging.messaging().token { token, error in
+           if let error = error {
+               print("Error fetching FCM registration token: \(error)")
+           } else if let token = token {
+               print(token)
+           }
+       }
+   }
+    func application(_ application: UIApplication, willFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+        FirebaseApp.configure()
+        UNUserNotificationCenter.current().delegate = self
+
+        let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
+        UNUserNotificationCenter.current().requestAuthorization(
+          options: authOptions,
+          completionHandler: { _, _ in }
+        )
+
+        application.registerForRemoteNotifications()
+        Messaging.messaging().delegate = self
+        
+        return true
+    }
+    
+    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
+        print("Firebase registration token: \(String(describing: fcmToken ?? "" ))")
+
+         let dataDict: [String: String] = ["token": fcmToken ?? ""]
+         NotificationCenter.default.post(
+           name: Notification.Name("FCMToken"),
+           object: nil,
+           userInfo: dataDict
+         )
+        
+     
+    }
 }

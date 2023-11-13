@@ -9,6 +9,7 @@
 import SwiftUI
 import MomentumSDK
 import SDWebImageSwiftUI
+import Algorithms
 
 struct MessageDetailView: View {
     let message: Message
@@ -26,18 +27,24 @@ struct MessageDetailView: View {
                         VStack(alignment: .leading) {
                             Text(passage.verse ?? "")
                                 .bold()
-                            (passage.message ?? "").map({
-                                if Character(extendedGraphemeClusterLiteral: $0).isNumber {
-                                     Text(String($0))
-                                        .foregroundColor(.gray)
-                                        .bold()
-                                        .font(.caption2)
-                                } else {
-                                     Text(String($0))
+                         
+                                if let message = passage.message  {
+                                    Group {
+                                        getMessageTextArray(message: message).prefix(500).reduce(Text("")) { x, y in
+                                            x + y
+                                        }
+                                    }
+                                    if getMessageTextArray(message: message).count > 500 {
+                                        Group {
+                                            getMessageTextArray(message: message).dropFirst(500).reduce(Text("")) { x, y in
+                                                x + y
+                                            }
+                                        }
+                                    } else {
+                                        
+                                    }
                                 }
-                            }).reduce(Text("")) { x, y in
-                                x + y
-                            }
+                            
                         }.frame(maxWidth: .infinity).padding(10)
                     } else {
                         Divider()
@@ -53,6 +60,19 @@ struct MessageDetailView: View {
             }
         }
         .navigationBarTitleDisplayMode(.inline)
+    }
+    
+    func getMessageTextArray(message: String)  -> [Text] {
+        message.map({
+            if Character(extendedGraphemeClusterLiteral: $0).isNumber {
+                Text(String($0))
+                    .foregroundColor(.gray)
+                    .bold()
+                    .font(.caption2)
+            } else {
+                Text(String($0))
+            }
+        })
     }
 }
 

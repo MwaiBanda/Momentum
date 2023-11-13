@@ -73,6 +73,7 @@ dependencies {
     // Integration with ViewModels
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
     implementation("com.google.firebase:firebase-auth:22.2.0")
+    implementation("com.google.firebase:firebase-messaging:23.3.1")
     // UI Tests
     androidTestImplementation("androidx.compose.ui:ui-test-junit4:1.5.4")
     //Unit Testing

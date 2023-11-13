@@ -34,7 +34,7 @@ fun MessagesScreen(
     navController: NavController,
     authViewModel: AuthViewModel,
     messageViewModel: MessageViewModel,
-    onMessageSelected: (Message) -> Unit
+    onMessageSelected: (Message) -> Unit,
 ) {
     var messages by remember {
         mutableStateOf(emptyList<Message>())
