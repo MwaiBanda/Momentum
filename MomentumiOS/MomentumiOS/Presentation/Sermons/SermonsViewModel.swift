@@ -232,7 +232,7 @@ class SermonsViewModel: ObservableObject  {
     }
     
     
-    @objc func handleInterruption(notification: Notification) {
+    @objc func handleInterruption(notification: MediaPlayer.Notification) {
         guard let userInfo = notification.userInfo,
               let typeValue = userInfo[AVAudioSessionInterruptionTypeKey] as? UInt,
               let type = AVAudioSession.InterruptionType(rawValue: typeValue) else {
@@ -259,7 +259,7 @@ class SermonsViewModel: ObservableObject  {
     }
     
     
-    @objc func handleRouteChange(notification: Notification) {
+    @objc func handleRouteChange(notification: MediaPlayer.Notification) {
         guard let userInfo = notification.userInfo,
               let reasonValue = userInfo[AVAudioSessionRouteChangeReasonKey] as? UInt,
               let reason = AVAudioSession.RouteChangeReason(rawValue:reasonValue) else {

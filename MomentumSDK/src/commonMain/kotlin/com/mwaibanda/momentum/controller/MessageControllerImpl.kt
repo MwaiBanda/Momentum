@@ -2,7 +2,7 @@ package com.mwaibanda.momentum.controller
 
 import com.mwaibanda.momentum.domain.controller.MessageController
 import com.mwaibanda.momentum.domain.models.Message
-import com.mwaibanda.momentum.domain.usecase.messages.GetAllMessagesUseCase
+import com.mwaibanda.momentum.domain.usecase.message.GetAllMessagesUseCase
 import com.mwaibanda.momentum.utils.Result
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
