@@ -4,11 +4,14 @@ import com.russhwolf.settings.Settings
 import io.github.mwaibanda.authentication.di.Authentication
 import io.github.reactivecircus.cache4k.Cache
 import io.ktor.client.HttpClient
+import io.ktor.client.plugins.HttpRequestRetry
 import io.ktor.client.plugins.HttpTimeout
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.plugins.logging.LogLevel
 import io.ktor.client.plugins.logging.Logging
 import io.ktor.serialization.kotlinx.json.json
+import io.ktor.utils.io.CancellationException
+import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.serialization.json.Json
 import org.koin.dsl.module
 import kotlin.time.Duration.Companion.hours
@@ -27,10 +30,19 @@ val singletonModule = module {
                 })
             }
             install(HttpTimeout) {
-                val timeout = 30000L
+                val timeout = 60000L
                 connectTimeoutMillis = timeout
                 requestTimeoutMillis = timeout
                 socketTimeoutMillis = timeout
+            }
+            install(HttpRequestRetry) {
+                retryOnServerErrors(maxRetries = 5)
+                retryOnExceptionIf(maxRetries = 5) { request, cause ->
+                    cause is TimeoutCancellationException ||
+                    cause is CancellationException ||
+                    cause is kotlinx.coroutines.CancellationException
+                }
+                exponentialDelay()
             }
         }
     }

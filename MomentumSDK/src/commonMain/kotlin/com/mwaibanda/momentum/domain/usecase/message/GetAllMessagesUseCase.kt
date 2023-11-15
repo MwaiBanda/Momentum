@@ -1,4 +1,4 @@
-package com.mwaibanda.momentum.domain.usecase.messages
+package com.mwaibanda.momentum.domain.usecase.message
 
 import com.mwaibanda.momentum.domain.models.Message
 import com.mwaibanda.momentum.domain.repository.MessageRepository

@@ -46,4 +46,5 @@ object MultiplatformConstants {
     const val FEEDBACK_PROMPT = "Are enjoying the app? Do you have any thoughts on anything we can improve? Let's get in touch"
     const val INFORMATION = "Information"
     const val ABOUT_CHURCH = "Momentum Church exists to help people move forward in faith and life by discovering and fulfilling their purpose. The word “Momentum” is synonymous with movement. Sometimes people get stuck and need help and support to move forward from their past, their sin, their struggles, their fears, and their worries and into an empowering relationship with Christ."
+    const val ALL_USERS_TOPIC = "MomentumUsers"
 }

@@ -88,13 +88,20 @@ extension AppDelegate: UNUserNotificationCenterDelegate, MessagingDelegate {
 
         application.registerForRemoteNotifications()
         Messaging.messaging().delegate = self
-        
+          
         return true
     }
     
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
         print("Firebase registration token: \(String(describing: fcmToken ?? "" ))")
-
+        Messaging.messaging().subscribe(toTopic: MultiplatformConstants.shared.ALL_USERS_TOPIC) { error in
+            if let error {
+                print(error.localizedDescription)
+            } else {
+                print("Subscribed to MomentumUsers topic")
+            }
+            
+        }
          let dataDict: [String: String] = ["token": fcmToken ?? ""]
          NotificationCenter.default.post(
            name: Notification.Name("FCMToken"),
@@ -104,4 +111,24 @@ extension AppDelegate: UNUserNotificationCenterDelegate, MessagingDelegate {
         
      
     }
+    func application(
+        _ application: UIApplication,
+                     
+        didReceiveRemoteNotification userInfo: [AnyHashable: Any]
+    ) async -> UIBackgroundFetchResult {
+
+      print(userInfo)
+
+      return UIBackgroundFetchResult.newData
+    }
+    
+    func userNotificationCenter(
+        _ center: UNUserNotificationCenter,
+        willPresent notification: UNNotification,
+        withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void)
+    {
+        completionHandler(.banner)
+
+    }
+
 }

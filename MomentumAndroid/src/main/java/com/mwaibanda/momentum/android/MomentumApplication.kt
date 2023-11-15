@@ -9,6 +9,7 @@ import com.mwaibanda.momentum.android.di.mainModule
 import com.mwaibanda.momentum.android.di.viewModelModule
 import com.mwaibanda.momentum.di.controllerModule
 import com.mwaibanda.momentum.di.initKoin
+import com.mwaibanda.momentum.utils.MultiplatformConstants
 import org.koin.android.ext.koin.androidContext
 
 class MomentumApplication: Application() {
@@ -22,6 +23,14 @@ class MomentumApplication: Application() {
             }
             val token = task.result
             Log.e(TAG, token)
+            FirebaseMessaging.getInstance().subscribeToTopic(MultiplatformConstants.ALL_USERS_TOPIC).addOnCompleteListener {
+                if (!it.isSuccessful) {
+                    Log.e(TAG, "Subscribing to Topic(${MultiplatformConstants.ALL_USERS_TOPIC}) failed", task.exception)
+                    return@addOnCompleteListener
+                } else {
+                    Log.e(TAG, "Subscribed to Topic(${MultiplatformConstants.ALL_USERS_TOPIC})")
+                }
+            }
         })
         initKoin {
             androidContext(this@MomentumApplication)

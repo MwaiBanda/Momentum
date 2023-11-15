@@ -24,7 +24,12 @@ val viewModelModule = module {
             localDefaultsController = get()
         )
     }
-    viewModel { MealViewModel(mealController = get()) }
+    viewModel {
+        MealViewModel(
+            mealController = get(),
+            notificationController = get()
+        )
+    }
     viewModel { AuthViewModel(authController = get(), localDefaultsController = get()) }
     viewModel { SermonViewModel(sermonController = get()) }
     viewModel { MessageViewModel(messageController = get()) }

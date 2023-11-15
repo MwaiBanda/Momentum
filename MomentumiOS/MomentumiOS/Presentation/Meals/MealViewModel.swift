@@ -11,10 +11,11 @@ import TinyDi
 import MomentumSDK
 
 class MealViewModel: ObservableObject {
-    @Inject private var controller: MealController
-    
+    @Inject private var mealController: MealController
+    @Inject private var notificationController: NotificationController
+
     func getMeals(onCompletion: @escaping ([Meal]) -> Void) {
-        controller.getAllMeals { res in
+        mealController.getAllMeals { res in
             if let meals = res.data as? [Meal] {
                 onCompletion(meals)
             }
@@ -22,14 +23,23 @@ class MealViewModel: ObservableObject {
     }
     
     func postMeal(request: MealRequest, onCompletion: @escaping (Meal) -> Void) {
-        controller.postMeal(request: request) { res in
+        mealController.postMeal(request: request) { [weak self] res in
             if let meal = res.data {
                 onCompletion(meal)
+                self?.notificationController.sendNotification(notification: Notification(
+                    title: "Momentum Church: Indiana",
+                    body: "We have a new meal, organised by \(meal.user.fullname) for the \(meal.recipient)",
+                    topic: MultiplatformConstants.shared.ALL_USERS_TOPIC
+                )) { res in
+                    if let data = res.data {
+                        print("Notification posted successfully")
+                    }
+                }
             }
         }
     }
     func postVolunteeredMeal(request: VolunteeredMealRequest, onCompletion: @escaping (VolunteeredMeal) -> Void) {
-        controller.postVolunteeredMeal(request: request) { res in
+        mealController.postVolunteeredMeal(request: request) { res in
             if let meal = res.data {
                 onCompletion(meal)
             }
