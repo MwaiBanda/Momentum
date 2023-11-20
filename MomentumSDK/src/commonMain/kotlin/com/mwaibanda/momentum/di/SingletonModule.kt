@@ -37,7 +37,7 @@ val singletonModule = module {
             }
             install(HttpRequestRetry) {
                 retryOnServerErrors(maxRetries = 5)
-                retryOnExceptionIf(maxRetries = 5) { request, cause ->
+                retryOnExceptionIf(maxRetries = 5) { _, cause ->
                     cause is TimeoutCancellationException ||
                     cause is CancellationException ||
                     cause is kotlinx.coroutines.CancellationException
