@@ -26,7 +26,7 @@ class UserRepositoryImpl(
         }
     }
 
-    override suspend fun getUser(userId: String): Result<User> {
+    override suspend fun fetchUser(userId: String): Result<User> {
         return try {
             val response: User = httpClient.get {
                 momentumAPI("$USERS_ENDPOINT/$userId")

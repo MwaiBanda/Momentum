@@ -8,6 +8,6 @@ class GetUserUseCase(
     private val userRepository: UserRepository
 ) {
     suspend operator fun invoke(userId: String, onCompletion: (Result<User>) -> Unit) {
-        onCompletion(userRepository.getUser(userId))
+        onCompletion(userRepository.fetchUser(userId))
     }
 }

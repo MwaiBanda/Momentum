@@ -12,7 +12,7 @@ import io.ktor.client.request.get
 class MessageRepositoryImpl(
     private val httpClient: HttpClient
 ): MomentumBase(), MessageRepository {
-    override suspend fun getAllMessages(userId: String): Result<List<Message>> {
+    override suspend fun fetchAllMessages(userId: String): Result<List<Message>> {
         return try {
             val messages = httpClient.get {
                 momentumAPI("$MESSAGE_ENDPOINT/$userId")

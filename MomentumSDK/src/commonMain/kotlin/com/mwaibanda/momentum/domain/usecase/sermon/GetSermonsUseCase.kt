@@ -8,6 +8,6 @@ class GetSermonsUseCase(
     private val sermonRepository: SermonRepository
 ) {
     suspend operator fun invoke(pageNumber: Int, onCompletion: (Result<SermonResponse>) -> Unit) {
-        onCompletion(sermonRepository.getSermons(pageNumber = pageNumber))
+        onCompletion(sermonRepository.fetchSermons(pageNumber = pageNumber))
     }
 }

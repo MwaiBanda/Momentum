@@ -5,5 +5,5 @@ import com.mwaibanda.momentum.utils.Result
 
 interface TransactionRepository {
     suspend fun postTransaction(transaction: Transaction): Result<Int>
-    suspend fun getTransactions(userId: String): Result<List<Transaction>>
+    suspend fun fetchTransactions(userId: String): Result<List<Transaction>>
 }

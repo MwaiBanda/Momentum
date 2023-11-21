@@ -16,7 +16,7 @@ import io.ktor.http.*
 class MealRepositoryImpl(
     private val httpClient: HttpClient
 ): MomentumBase(), MealRepository {
-    override suspend fun getAllMeals(): Result<List<Meal>> {
+    override suspend fun fetchAllMeals(): Result<List<Meal>> {
         return try {
             val meals: MealContainerDTO = httpClient.get {
                 momentumAPI(MEALS_ENDPOINT)

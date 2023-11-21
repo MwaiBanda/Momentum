@@ -2,6 +2,7 @@ package com.mwaibanda.momentum.di
 
 import com.mwaibanda.momentum.controller.AuthControllerImpl
 import com.mwaibanda.momentum.controller.BillingAddressControllerImpl
+import com.mwaibanda.momentum.controller.EventControllerImpl
 import com.mwaibanda.momentum.controller.LocalDefaultsControllerImpl
 import com.mwaibanda.momentum.controller.MealControllerImpl
 import com.mwaibanda.momentum.controller.MessageControllerImpl
@@ -12,6 +13,7 @@ import com.mwaibanda.momentum.controller.TransactionControllerImpl
 import com.mwaibanda.momentum.controller.UserControllerImpl
 import com.mwaibanda.momentum.domain.controller.AuthController
 import com.mwaibanda.momentum.domain.controller.BillingAddressController
+import com.mwaibanda.momentum.domain.controller.EventController
 import com.mwaibanda.momentum.domain.controller.LocalDefaultsController
 import com.mwaibanda.momentum.domain.controller.MealController
 import com.mwaibanda.momentum.domain.controller.MessageController
@@ -33,4 +35,5 @@ val controllerModule = module {
     single<MealController> { MealControllerImpl() }
     single<MessageController> { MessageControllerImpl() }
     single<NotificationController> { NotificationControllerImpl() }
+    single<EventController> { EventControllerImpl() }
 }

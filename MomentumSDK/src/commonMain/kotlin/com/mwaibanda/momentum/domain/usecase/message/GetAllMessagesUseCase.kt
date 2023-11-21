@@ -8,6 +8,6 @@ class GetAllMessagesUseCase(
     private val messageRepository: MessageRepository
 ) {
     suspend operator fun invoke(userId: String, onCompletion: (Result<List<Message>>) -> Unit) {
-        onCompletion(messageRepository.getAllMessages(userId))
+        onCompletion(messageRepository.fetchAllMessages(userId))
     }
 }

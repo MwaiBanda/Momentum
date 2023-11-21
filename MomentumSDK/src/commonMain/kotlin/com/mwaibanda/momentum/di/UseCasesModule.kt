@@ -3,6 +3,7 @@ package com.mwaibanda.momentum.di
 import com.mwaibanda.momentum.domain.usecase.cache.GetAllItemsUseCase
 import com.mwaibanda.momentum.domain.usecase.cache.GetItemUseCase
 import com.mwaibanda.momentum.domain.usecase.cache.SetItemUseCase
+import com.mwaibanda.momentum.domain.usecase.event.GetEventsUseCase
 import com.mwaibanda.momentum.domain.usecase.localDefaults.GetBooleanUseCase
 import com.mwaibanda.momentum.domain.usecase.localDefaults.GetIntUseCase
 import com.mwaibanda.momentum.domain.usecase.localDefaults.GetStringUseCase
@@ -75,5 +76,9 @@ val useCasesModule = module {
      * @Notification - Use-cases
      */
     single { PostNotificationUseCase(notificationRepository = get()) }
+    /**
+     * @Event - Use-cases
+     */
+    single { GetEventsUseCase(eventRepository = get()) }
 }
 

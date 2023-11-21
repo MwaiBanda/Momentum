@@ -20,7 +20,7 @@ class SermonRepositoryImpl(
     private val getAllItemsUseCase: GetAllItemsUseCase<SermonResponse>
 ) : SermonRepository, MomentumBase() {
 
-    override suspend fun getSermons(pageNumber: Int): Result<SermonResponse> {
+    override suspend fun fetchSermons(pageNumber: Int): Result<SermonResponse> {
         val cachedResponse = getItemUseCase(key = "page$pageNumber")?.sermons.orEmpty()
         if (cachedResponse.isNotEmpty()) {
             val allCachedSermonResponses = getAllItemsUseCase()

@@ -21,6 +21,7 @@ open class MomentumBase {
         const val MESSAGE_ENDPOINT = "/messages"
         const val USERS_ENDPOINT = "/users"
         const val MEALS_ENDPOINT = "/meals"
+        const val EVENTS_ENDPOINT = "/events"
         const val VOLUNTEERED_MEAL_ENDPOINT="$MEALS_ENDPOINT/meal"
 
         fun HttpRequestBuilder.momentumAPI(path: String, params: HashMap<String, String> = hashMapOf()) {

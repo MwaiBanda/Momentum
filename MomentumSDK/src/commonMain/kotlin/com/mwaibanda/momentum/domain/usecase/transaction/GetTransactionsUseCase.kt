@@ -8,6 +8,6 @@ class GetTransactionsUseCase(
     private val transactionRepository: TransactionRepository
 ) {
     suspend operator fun invoke(userId: String, onCompletion: (Result<List<Transaction>>) -> Unit){
-        onCompletion(transactionRepository.getTransactions(userId = userId))
+        onCompletion(transactionRepository.fetchTransactions(userId = userId))
     }
 }

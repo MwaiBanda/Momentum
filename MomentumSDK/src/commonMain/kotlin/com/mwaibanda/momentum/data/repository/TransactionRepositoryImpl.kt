@@ -29,7 +29,7 @@ class TransactionRepositoryImpl(
         }
     }
 
-    override suspend fun getTransactions(userId: String): Result<List<Transaction>> {
+    override suspend fun fetchTransactions(userId: String): Result<List<Transaction>> {
         return try {
             val response: List<Transaction> = httpClient.get {
                 momentumAPI("$TRANSACTIONS_ENDPOINT/$userId")
