@@ -36,6 +36,8 @@
 		1C918AC62ADCF42700587A43 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 1C918AC52ADCF42700587A43 /* FirebaseAuth */; };
 		1C918AC82ADCF42700587A43 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 1C918AC72ADCF42700587A43 /* FirebaseMessaging */; };
 		1CA5277328CED0DC00066605 /* AppReviewRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CA5277228CED0DC00066605 /* AppReviewRequester.swift */; };
+		1CB27F912B0F447A0029E9E9 /* EventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB27F902B0F447A0029E9E9 /* EventView.swift */; };
+		1CB27F932B0F44920029E9E9 /* EventViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB27F922B0F44920029E9E9 /* EventViewModel.swift */; };
 		1CE5BEAF2A80C939008F7BD8 /* MultiDatePicker in Frameworks */ = {isa = PBXBuildFile; productRef = 1CE5BEAE2A80C939008F7BD8 /* MultiDatePicker */; };
 		1CE5BEB12A80D74D008F7BD8 /* postSuccess.json in Resources */ = {isa = PBXBuildFile; fileRef = 1CE5BEB02A80D74D008F7BD8 /* postSuccess.json */; };
 		1CE8F2B228D92AFB0077F2F0 /* SermonsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE8F2B128D92AFB0077F2F0 /* SermonsViewModel.swift */; };
@@ -139,6 +141,8 @@
 		1C8BACBB292317AE00731617 /* SingletonModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingletonModule.swift; sourceTree = "<group>"; };
 		1C8BACBD2923191B00731617 /* ControllerModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControllerModule.swift; sourceTree = "<group>"; };
 		1CA5277228CED0DC00066605 /* AppReviewRequester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppReviewRequester.swift; sourceTree = "<group>"; };
+		1CB27F902B0F447A0029E9E9 /* EventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventView.swift; sourceTree = "<group>"; };
+		1CB27F922B0F44920029E9E9 /* EventViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventViewModel.swift; sourceTree = "<group>"; };
 		1CE5BEB02A80D74D008F7BD8 /* postSuccess.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = postSuccess.json; sourceTree = "<group>"; };
 		1CE8F2B128D92AFB0077F2F0 /* SermonsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SermonsViewModel.swift; sourceTree = "<group>"; };
 		1CE8F2B328D92B220077F2F0 /* SermonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SermonsView.swift; sourceTree = "<group>"; };
@@ -291,6 +295,15 @@
 			path = Meals;
 			sourceTree = "<group>";
 		};
+		1CB27F8F2B0F444B0029E9E9 /* Events */ = {
+			isa = PBXGroup;
+			children = (
+				1CB27F902B0F447A0029E9E9 /* EventView.swift */,
+				1CB27F922B0F44920029E9E9 /* EventViewModel.swift */,
+			);
+			path = Events;
+			sourceTree = "<group>";
+		};
 		1CE8F2B028D92ACA0077F2F0 /* Sermons */ = {
 			isa = PBXGroup;
 			children = (
@@ -374,6 +387,7 @@
 		8126AF6E286FD7AF007DBAB9 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				1CB27F8F2B0F444B0029E9E9 /* Events */,
 				1C1551242AF8B38A002393B3 /* Messages */,
 				1C46D12F2A8072CA00E5FB25 /* Meals */,
 				1CE8F2B028D92ACA0077F2F0 /* Sermons */,
@@ -825,9 +839,11 @@
 				8182E77C288B9CC100A9CF9D /* PasswordTextfield.swift in Sources */,
 				1C8BACBE2923191B00731617 /* ControllerModule.swift in Sources */,
 				817AD150288BB0B00046441D /* SignUpView.swift in Sources */,
+				1CB27F912B0F447A0029E9E9 /* EventView.swift in Sources */,
 				1C3CF16E28D984F400B46FC1 /* RoundedCorner.swift in Sources */,
 				814525F728793F5000989B4C /* LottieView.swift in Sources */,
 				8126AF7B286FE3C2007DBAB9 /* Constants.swift in Sources */,
+				1CB27F932B0F44920029E9E9 /* EventViewModel.swift in Sources */,
 				81B802DC2877E7FF0008509D /* PaymentFailureView.swift in Sources */,
 				819E616328865523007BD761 /* TransactionViewModel.swift in Sources */,
 			);
@@ -1010,7 +1026,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.3;
+				MARKETING_VERSION = 1.1.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mwaibanda.MomentumiOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1040,7 +1056,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.3;
+				MARKETING_VERSION = 1.1.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mwaibanda.MomentumiOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

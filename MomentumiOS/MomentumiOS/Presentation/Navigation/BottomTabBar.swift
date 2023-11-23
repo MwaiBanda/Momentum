@@ -60,6 +60,16 @@ struct BottomTabBar: View {
                 Image(systemName: "book")
                 
             }
+            
+            NavigationView {
+                EventView()
+            }
+            .navigationViewStyle(StackNavigationViewStyle())
+            .tag(3)
+            .tabItem {
+                Image(systemName: "calendar")
+                
+            }
         }
         .accentColor(Color(hex: Constants.MOMENTUM_ORANGE))
         

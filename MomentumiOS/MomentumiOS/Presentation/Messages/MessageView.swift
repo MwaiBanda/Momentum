@@ -15,25 +15,29 @@ struct MessageView: View {
     @EnvironmentObject var session: Session
     @State private var messages = [Message]()
     var body: some View {
-        ScrollView {
+        VStack {
             Divider()
             HStack {
-            Text(MultiplatformConstants.shared.MESSAGES_SUBHEADING.uppercased())
-                .font(.caption)
-                .foregroundColor(Color(hex: Constants.MOMENTUM_ORANGE))
-                .padding(.leading)
+                Text(MultiplatformConstants.shared.MESSAGES_SUBHEADING.uppercased())
+                    .font(.caption)
+                    .foregroundColor(Color(hex: Constants.MOMENTUM_ORANGE))
+                    .padding(.leading)
                 Spacer()
             }
             .padding(.top, 5)
-            ForEach(messages, id: \.id) { message in
-                NavigationLink {
-                    MessageDetailView(message: message)
-                } label: {
-                    MessageCard(message: message)
+            ScrollView {
+                
+                ForEach(messages, id: \.id) { message in
+                    NavigationLink {
+                        MessageDetailView(message: message)
+                    } label: {
+                        MessageCard(message: message)
+                    }
+                    
                 }
-
             }
-        }.navigationTitle("Messages")
+        }
+        .navigationTitle("Messages")
         .onAppear {
             messageViewModel.getAllMessages(userId: session.currentUser?.id ?? "") { messages in
                 self.messages = messages

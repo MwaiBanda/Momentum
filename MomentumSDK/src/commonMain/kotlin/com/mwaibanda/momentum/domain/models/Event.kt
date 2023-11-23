@@ -14,10 +14,19 @@ data class Event(
     fun getFormattedStartDate(): String {
         return getFormattedDate(startTime, "EEEE, MMM YY")
     }
-    fun getFormattedStartTime(): String {
-        return getFormattedDate(startTime, "hh:mm a")
+    private fun getFormattedStartTime(): String {
+        return getFormattedDate(startTime, "h:mma").replace(":00", "")
     }
-    fun getFormattedEndTime(): String {
-        return getFormattedDate(endTime, "hh:mm a")
+    private fun getFormattedEndTime(): String {
+        return getFormattedDate(endTime, "h:mma").replace(":00", "")
+    }
+    fun getDisplayEventTime(): String {
+        val startTime = getFormattedStartTime()
+        val endTime = getFormattedEndTime()
+        var result = "$startTime-$endTime"
+        if (startTime.contains("AM") && endTime.contains("AM") || startTime.contains("PM") && endTime.contains("PM")) {
+            result ="${startTime.replace("AM", "").replace("PM", "")}-$endTime"
+        }
+        return  result.lowercase()
     }
 }

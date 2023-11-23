@@ -35,6 +35,7 @@ object MultiplatformConstants {
     const val MESSAGES_SUBHEADING = "View upcoming messages and add notes"
     const val API_KEY = "67a78d53-d47c-4981-b3e4-1843b8591904"
     const val MEALS_SUBHEADING = "View available meals & volunteer"
+    const val EVENTS_SUBHEADING = "View available events & set reminders"
     const val CONTACT_INFORMATION = "Contact Information"
     const val BILLING_INFORMATION = "Billing Information"
     const val MANAGE_ACCOUNT = "Manage Account"

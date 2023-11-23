@@ -15,3 +15,7 @@ extension Meal: Identifiable { }
 extension Passage: Identifiable {
     
 }
+
+extension GroupedEvent: Identifiable {
+    public var id: String { UUID().uuidString }
+}

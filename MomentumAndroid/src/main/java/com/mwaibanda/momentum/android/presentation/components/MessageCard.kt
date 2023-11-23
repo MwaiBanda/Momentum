@@ -44,7 +44,7 @@ fun MessageCard(
                     .data(thumbnail)
                     .crossfade(true)
                     .build(),
-                contentDescription = "Sermon thumbnail",
+                contentDescription = "Message thumbnail",
                 contentScale = ContentScale.Fit,
                 modifier = Modifier.heightIn(max = 150.dp).widthIn(max = 150.dp)
             )
