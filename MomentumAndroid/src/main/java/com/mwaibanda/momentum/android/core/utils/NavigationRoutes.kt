@@ -2,6 +2,7 @@ package com.mwaibanda.momentum.android.core.utils
 
 import androidx.annotation.StringRes
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.CalendarMonth
 import androidx.compose.material.icons.filled.CardGiftcard
 import androidx.compose.material.icons.filled.Fastfood
 import androidx.compose.material.icons.filled.LocalMovies
@@ -25,6 +26,7 @@ sealed class NavigationRoutes(
     data object MessageDetailScreen: NavigationRoutes(route = "messages/detail")
 
     data object SermonScreen: NavigationRoutes(route = "sermon", tabName = R.string.sermon, icon = Icons.Filled.LocalMovies)
+    data object EventScreen: NavigationRoutes(route = "event", tabName = R.string.event, icon = Icons.Filled.CalendarMonth)
     data object PlayerScreen: NavigationRoutes(route = "play/sermon")
 
     data object PaymentSummaryScreen: NavigationRoutes(route = "pay/{amount}")

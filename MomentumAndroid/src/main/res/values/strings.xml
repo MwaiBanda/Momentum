@@ -5,4 +5,5 @@
     <string name="sermon">Sermon</string>
     <string name="meals">Meals</string>
     <string name="messages">Messages</string>
+    <string name="event">Events</string>
 </resources>

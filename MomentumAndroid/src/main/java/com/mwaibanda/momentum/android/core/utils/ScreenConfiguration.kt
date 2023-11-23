@@ -23,18 +23,20 @@ sealed class ScreenConfiguration(val screens: List<String>){
             TransactionsScreen.route,
             SermonScreen.route,
             MealScreen.route,
-            MessagesScreen.route
+            MessagesScreen.route,
+            NavigationRoutes.EventScreen.route
         )
     )
 
-    data object ScreensWithTopBarIcons: ScreenConfiguration(
+    data object ScreensWithoutTopBarIcons: ScreenConfiguration(
         listOf(
             TransactionsScreen.route,
             AuthControllerScreen.route,
             SermonScreen.route,
             MealScreen.route,
             MessagesScreen.route,
-            MessageDetailScreen.route
+            MessageDetailScreen.route,
+            NavigationRoutes.EventScreen.route
         )
     )
     data object ScreensWithoutNavigation: ScreenConfiguration(

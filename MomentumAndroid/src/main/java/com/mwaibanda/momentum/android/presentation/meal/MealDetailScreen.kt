@@ -1,4 +1,4 @@
-package com.mwaibanda.momentum.android.presentation.meals
+package com.mwaibanda.momentum.android.presentation.meal
 
 import android.util.Log
 import androidx.compose.foundation.BorderStroke

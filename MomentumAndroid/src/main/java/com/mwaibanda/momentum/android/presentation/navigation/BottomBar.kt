@@ -29,7 +29,8 @@ fun BottomBar(navController: NavController, currentRoute: String?) {
         NavigationRoutes.MealScreen,
         NavigationRoutes.OfferScreen,
         NavigationRoutes.SermonScreen,
-        NavigationRoutes.MessagesScreen
+        NavigationRoutes.MessagesScreen,
+        NavigationRoutes.EventScreen
     )
 
     Column {

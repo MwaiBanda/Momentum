@@ -1,5 +1,8 @@
 package com.mwaibanda.momentum.data.eventDTO
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class EventAttributesDTO(
     val all_day_event: Boolean,
     val ends_at: String,

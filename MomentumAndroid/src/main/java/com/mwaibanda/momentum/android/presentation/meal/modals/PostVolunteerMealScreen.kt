@@ -1,4 +1,4 @@
-package com.mwaibanda.momentum.android.presentation.meals.modals
+package com.mwaibanda.momentum.android.presentation.meal.modals
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

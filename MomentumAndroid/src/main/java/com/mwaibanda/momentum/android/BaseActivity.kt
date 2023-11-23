@@ -6,8 +6,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.fragment.app.FragmentActivity
 import com.mwaibanda.momentum.android.presentation.auth.AuthViewModel
-import com.mwaibanda.momentum.android.presentation.meals.MealViewModel
-import com.mwaibanda.momentum.android.presentation.messages.MessageViewModel
+import com.mwaibanda.momentum.android.presentation.meal.MealViewModel
+import com.mwaibanda.momentum.android.presentation.message.MessageViewModel
 import com.mwaibanda.momentum.android.presentation.payment.PaymentViewModel
 import com.mwaibanda.momentum.android.presentation.profile.ProfileViewModel
 import com.mwaibanda.momentum.android.presentation.sermon.SermonViewModel

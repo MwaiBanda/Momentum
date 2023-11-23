@@ -1,7 +1,9 @@
 package com.mwaibanda.momentum.data.eventDTO
 
 import com.mwaibanda.momentum.domain.models.Event
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class EventDTO(
     val attributes: EventAttributesDTO,
     val id: String

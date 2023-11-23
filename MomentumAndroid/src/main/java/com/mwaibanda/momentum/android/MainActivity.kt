@@ -40,13 +40,14 @@ import com.mwaibanda.momentum.android.core.utils.Modal.*
 import com.mwaibanda.momentum.android.core.utils.NavigationRoutes.*
 import com.mwaibanda.momentum.android.presentation.MomentumEntry
 import com.mwaibanda.momentum.android.presentation.auth.AuthControllerScreen
-import com.mwaibanda.momentum.android.presentation.meals.MealScreen
-import com.mwaibanda.momentum.android.presentation.meals.MealsDetailScreen
-import com.mwaibanda.momentum.android.presentation.meals.modals.PostMealScreen
-import com.mwaibanda.momentum.android.presentation.meals.modals.PostVolunteerMealScreen
-import com.mwaibanda.momentum.android.presentation.meals.modals.ViewRecipientInfoScreen
-import com.mwaibanda.momentum.android.presentation.messages.MessageDetailScreen
-import com.mwaibanda.momentum.android.presentation.messages.MessagesScreen
+import com.mwaibanda.momentum.android.presentation.event.EventScreen
+import com.mwaibanda.momentum.android.presentation.meal.MealScreen
+import com.mwaibanda.momentum.android.presentation.meal.MealsDetailScreen
+import com.mwaibanda.momentum.android.presentation.meal.modals.PostMealScreen
+import com.mwaibanda.momentum.android.presentation.meal.modals.PostVolunteerMealScreen
+import com.mwaibanda.momentum.android.presentation.meal.modals.ViewRecipientInfoScreen
+import com.mwaibanda.momentum.android.presentation.message.MessageDetailScreen
+import com.mwaibanda.momentum.android.presentation.message.MessagesScreen
 import com.mwaibanda.momentum.android.presentation.navigation.LaunchScreen
 import com.mwaibanda.momentum.android.presentation.offer.OfferScreen
 import com.mwaibanda.momentum.android.presentation.payment.PaymentFailureScreen
@@ -220,6 +221,9 @@ class MainActivity : BaseActivity() {
                                     showModal(PostMeal)
                                 }
                             }
+                        }
+                        composable(EventScreen.route) {
+                            EventScreen()
                         }
                         composable(MealDetailScreen.route) {
                             currentMeal?.let { meal ->

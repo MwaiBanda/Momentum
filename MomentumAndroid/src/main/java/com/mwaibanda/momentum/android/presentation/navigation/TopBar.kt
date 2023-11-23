@@ -60,7 +60,7 @@ fun TopBar(navController: NavController, currentRoute: String?,onShowModal: () -
                         Text(text = "Back", color = if ( currentRoute == NavigationRoutes.MessageDetailScreen.route) Color.White else Color(C.MOMENTUM_ORANGE))
                     }
                 }
-            if (ScreenConfiguration.ScreensWithTopBarIcons.screens.contains(currentRoute).not())
+            if (ScreenConfiguration.ScreensWithoutTopBarIcons.screens.contains(currentRoute).not())
                 IconButton(
                     onClick = {
                         onShowModal()
@@ -79,7 +79,7 @@ fun TopBar(navController: NavController, currentRoute: String?,onShowModal: () -
                 }
         },
         actions = {
-            if (ScreenConfiguration.ScreensWithTopBarIcons.screens.contains(currentRoute).not())
+            if (ScreenConfiguration.ScreensWithoutTopBarIcons.screens.contains(currentRoute).not())
                 IconButton(
                     onClick = { navController.navigate(NavigationRoutes.ProfileScreen.route) },
                     enabled = ScreenConfiguration.ScreensWithoutBackButton.screens.contains(

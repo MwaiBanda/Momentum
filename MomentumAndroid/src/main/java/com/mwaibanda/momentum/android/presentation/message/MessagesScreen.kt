@@ -1,4 +1,4 @@
-package com.mwaibanda.momentum.android.presentation.messages
+package com.mwaibanda.momentum.android.presentation.message
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
