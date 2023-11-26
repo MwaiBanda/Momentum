@@ -24,6 +24,7 @@ struct MessageDetailView: View {
                 
                 ForEach(message.passages) { passage in
                     if (passage.header ?? "").isEmpty {
+                        
                         VStack(alignment: .leading) {
                             Text(passage.verse ?? "")
                                 .bold()
@@ -40,12 +41,10 @@ struct MessageDetailView: View {
                                                 x + y
                                             }
                                         }
-                                    } else {
-                                        
                                     }
                                 }
                             
-                        }.frame(maxWidth: .infinity).padding(10)
+                        }
                     } else {
                         Divider()
                         HStack {

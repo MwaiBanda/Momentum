@@ -39,8 +39,10 @@ struct MessageView: View {
         }
         .navigationTitle("Messages")
         .onAppear {
-            messageViewModel.getAllMessages(userId: session.currentUser?.id ?? "") { messages in
-                self.messages = messages
+            if messages.isEmpty {
+                messageViewModel.getAllMessages(userId: session.currentUser?.id ?? "") { messages in
+                    self.messages = messages
+                }
             }
         }
     }

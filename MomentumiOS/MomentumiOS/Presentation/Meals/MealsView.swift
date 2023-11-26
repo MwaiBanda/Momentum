@@ -50,8 +50,10 @@ struct MealsView: View {
                 profileViewModel.getContactInformation(userId: session.currentUser?.id ?? "") {
                     profileViewModel.getBillingInformation(userId: session.currentUser?.id ?? "")
                 }
-                mealViewModel.getMeals { meal in
-                    meals = meal
+                if meals.isEmpty {
+                    mealViewModel.getMeals { meal in
+                        meals = meal
+                    }
                 }
             }
         }

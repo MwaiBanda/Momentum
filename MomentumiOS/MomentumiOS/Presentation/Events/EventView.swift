@@ -46,7 +46,7 @@ struct EventView: View {
                                     
                                     
                                     Text(event.name)
-                                        .font(.title3)
+                                        .font(.headline)
                                         .fontWeight(.bold)
                                         .lineLimit(1)
                                         .foregroundColor(Color.init(hex: Constants.MOMENTUM_ORANGE))
@@ -80,8 +80,10 @@ struct EventView: View {
         
         .navigationTitle("Events")
         .onAppear {
-            eventViewModel.getEvents() { events in
-                self.groupedEvents = events
+            if groupedEvents.isEmpty {
+                eventViewModel.getEvents { events in
+                    self.groupedEvents = events
+                }
             }
         }
     }
