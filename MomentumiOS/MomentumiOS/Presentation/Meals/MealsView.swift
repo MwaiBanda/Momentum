@@ -34,14 +34,21 @@ struct MealsView: View {
             .padding(.top, 5)
 
             ScrollView {
-                ForEach(meals) { meal in
-                    NavigationLink  {
-                        MealDetailView(mealViewModel: mealViewModel, profileViewModel: profileViewModel, mealRequest: meal)
-                    } label: {
-                        DescriptionCard(title: meal.recipient, description: meal.reason)
+                if meals.isEmpty {
+                    ForEach(0..<12, id: \.self) { _ in
+                        DescriptionCard(title: "placeholder", description: "placeholder")
+                    }
+                } else {
+                    ForEach(meals) { meal in
+                        NavigationLink  {
+                            MealDetailView(mealViewModel: mealViewModel, profileViewModel: profileViewModel, mealRequest: meal)
+                        } label: {
+                            DescriptionCard(title: meal.recipient, description: meal.reason)
+                        }
                     }
                 }
             }
+            .redacted(reason: meals.isEmpty ? .placeholder : [])
             .frame(height: screenBounds.height - 230)
             .padding(.top, 15)
         }
@@ -50,10 +57,8 @@ struct MealsView: View {
                 profileViewModel.getContactInformation(userId: session.currentUser?.id ?? "") {
                     profileViewModel.getBillingInformation(userId: session.currentUser?.id ?? "")
                 }
-                if meals.isEmpty {
-                    mealViewModel.getMeals { meal in
-                        meals = meal
-                    }
+                mealViewModel.getMeals { meal in
+                    meals = meal
                 }
             }
         }

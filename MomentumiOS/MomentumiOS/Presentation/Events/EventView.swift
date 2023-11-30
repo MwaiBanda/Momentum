@@ -24,67 +24,90 @@ struct EventView: View {
             }
             .padding(.top, 5)
             ScrollView {
-            
-                ForEach(groupedEvents, id: \.id) { group in
-                    HStack {
-                        Text(group.monthAndYear)
-                            .font(.title)
-                            .fontWeight(.bold)
-                        Spacer()
-                    }.padding(.leading)
-
-                    ForEach(group.events, id: \.id) { event in
-                        Card {
-                            HStack {
-                              
-                                VStack(alignment: .leading) {
-                                    Text(event.getFormattedStartDate())
-                                        .font(.subheadline)
-                                        .bold()
-                                        .lineLimit(1)
-                                        .multilineTextAlignment(.leading)
-                                    
-                                    
-                                    Text(event.name)
-                                        .font(.headline)
-                                        .fontWeight(.bold)
-                                        .lineLimit(1)
-                                        .foregroundColor(Color.init(hex: Constants.MOMENTUM_ORANGE))
-                                        .multilineTextAlignment(.leading)
-                                    
-                                    
-                                    Text(event.intervalSummary)
-                                        .foregroundColor(.gray)
-                                        .font(.caption)
-                                        .lineLimit(1)
-                                        .multilineTextAlignment(.leading)
-                                    
-                                    
-                                  
-                                }.padding()
-                                Spacer()
-                                Text(event.getDisplayEventTime())
-                                    .foregroundColor(Color.gray)
-                                    .padding(.horizontal, 10)
-                            }
-                            .foregroundColor(Color.black)
-                        }
-                        .frame(maxHeight: 88)
-                        .padding(.horizontal)
-                        .padding(.top, 5)
+                if groupedEvents.isEmpty {
+                    ForEach(0..<12, id: \.self
+                    ) { _ in
+                        GroupedEvents(group: GroupedEvent(
+                            monthAndYear: "placeholder",
+                            events: Array(
+                                repeating: Event(
+                                    id: "placeholder",
+                                    startTime: "placeholder",
+                                    endTime: "placeholder", 
+                                    description: "placeholder",
+                                    intervalSummary: "placeholder",
+                                    name: "placeholder",
+                                    thumbnail: "placeholder"
+                                ),
+                                count: 4
+                         )))
                     }
-                    
+                } else {
+                    ForEach(groupedEvents, id: \.id) { group in
+                        GroupedEvents(group: group)
+                    }
                 }
-            }
+            }.redacted(reason: groupedEvents.isEmpty ? .placeholder : [])
         }
         
         .navigationTitle("Events")
         .onAppear {
-            if groupedEvents.isEmpty {
-                eventViewModel.getEvents { events in
-                    self.groupedEvents = events
-                }
+            eventViewModel.getEvents { events in
+                self.groupedEvents = events
             }
+        }
+    }
+}
+
+struct GroupedEvents: View {
+    let group: GroupedEvent
+    var body: some View {
+        HStack {
+            Text(group.monthAndYear)
+                .font(.title)
+                .fontWeight(.bold)
+            Spacer()
+        }.padding(.leading)
+
+        ForEach(group.events, id: \.id) { event in
+            Card {
+                HStack {
+                  
+                    VStack(alignment: .leading) {
+                        Text(event.getFormattedStartDate())
+                            .font(.subheadline)
+                            .bold()
+                            .lineLimit(1)
+                            .multilineTextAlignment(.leading)
+                        
+                        
+                        Text(event.name)
+                            .font(.headline)
+                            .fontWeight(.bold)
+                            .lineLimit(1)
+                            .foregroundColor(Color.init(hex: Constants.MOMENTUM_ORANGE))
+                            .multilineTextAlignment(.leading)
+                        
+                        
+                        Text(event.intervalSummary)
+                            .foregroundColor(.gray)
+                            .font(.caption)
+                            .lineLimit(1)
+                            .multilineTextAlignment(.leading)
+                        
+                        
+                      
+                    }.padding()
+                    Spacer()
+                    Text(event.getDisplayEventTime())
+                        .foregroundColor(Color.gray)
+                        .padding(.horizontal, 10)
+                }
+                .foregroundColor(Color.black)
+            }
+            .frame(maxHeight: 88)
+            .padding(.horizontal)
+            .padding(.top, 5)
         }
     }
 }

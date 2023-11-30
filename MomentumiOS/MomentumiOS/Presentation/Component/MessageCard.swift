@@ -11,14 +11,26 @@ import MomentumSDK
 import SDWebImageSwiftUI
 
 struct MessageCard: View {
+    var isRedacted: Bool
     let message: Message
+    init(isRedacted: Bool = false, message: Message) {
+        self.isRedacted = isRedacted
+        self.message = message
+    }
     var body: some View {
         Card {
             HStack {
-                WebImage(url: URL(string: message.thumbnail))
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(maxWidth: 150, maxHeight: 150)
+                if isRedacted {
+                    Image(message.thumbnail)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(maxWidth: 150, maxHeight: 150)
+                } else {
+                    WebImage(url: URL(string: message.thumbnail))
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(maxWidth: 150, maxHeight: 150)
+                }
                 VStack(alignment: .leading) {
                     Text(message.series)
                         .font(.caption)

@@ -36,8 +36,26 @@ val repositoryModule = module {
             getAllItemsUseCase = get()
         )
     }
-    single<MealRepository> { MealRepositoryImpl(httpClient = get()) }
-    single<MessageRepository> { MessageRepositoryImpl(httpClient = get()) }
+    single<MealRepository> {
+        MealRepositoryImpl(
+            httpClient = get(),
+            getItemUseCase = get(),
+            setItemUseCase = get()
+        )
+    }
+    single<MessageRepository> {
+        MessageRepositoryImpl(
+            httpClient = get(),
+            getItemUseCase = get(),
+            setItemUseCase = get()
+        )
+    }
     single<NotificationRepository> { NotificationRepositoryImpl(httpClient = get())  }
-    single<EventRepository> { EventRepositoryImpl(httpClient = get()) }
+    single<EventRepository> {
+        EventRepositoryImpl(
+            httpClient = get(),
+            getItemUseCase = get(),
+            setItemUseCase = get()
+        )
+    }
 }

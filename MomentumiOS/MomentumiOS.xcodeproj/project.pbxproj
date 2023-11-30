@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		058557BB273AAA24004C7B11 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058557BA273AAA24004C7B11 /* Assets.xcassets */; };
 		058557D9273AAEEB004C7B11 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */; };
+		1C03B5512B17E9AC00172299 /* SwiftyAttributes in Frameworks */ = {isa = PBXBuildFile; productRef = 1C03B5502B17E9AC00172299 /* SwiftyAttributes */; };
 		1C1551262AF8B3C5002393B3 /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1551252AF8B3C5002393B3 /* MessageView.swift */; };
 		1C3CF16B28D95E3000B46FC1 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 1C3CF16A28D95E3000B46FC1 /* SDWebImageSwiftUI */; };
 		1C3CF16E28D984F400B46FC1 /* RoundedCorner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C3CF16D28D984F400B46FC1 /* RoundedCorner.swift */; };
@@ -236,6 +237,7 @@
 				1C46D13F2A80A4A500E5FB25 /* Stripe in Frameworks */,
 				3703363E8055D813FEFB7DBA /* Pods_MomentumiOS.framework in Frameworks */,
 				1C3CF16B28D95E3000B46FC1 /* SDWebImageSwiftUI in Frameworks */,
+				1C03B5512B17E9AC00172299 /* SwiftyAttributes in Frameworks */,
 				1C46D1472A80A4A500E5FB25 /* StripePayments in Frameworks */,
 				1CE5BEAF2A80C939008F7BD8 /* MultiDatePicker in Frameworks */,
 			);
@@ -655,6 +657,7 @@
 				1C918AC52ADCF42700587A43 /* FirebaseAuth */,
 				1C918AC72ADCF42700587A43 /* FirebaseMessaging */,
 				1CEA18832B00A6A500E16231 /* Algorithms */,
+				1C03B5502B17E9AC00172299 /* SwiftyAttributes */,
 			);
 			productName = MomentumiOS;
 			productReference = 7555FF7B242A565900829871 /* MomentumiOS.app */;
@@ -717,6 +720,7 @@
 				1CE5BEAD2A80C939008F7BD8 /* XCRemoteSwiftPackageReference "MultiDatePicker" */,
 				1C918AC22ADCF42700587A43 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				1CEA18822B00A6A500E16231 /* XCRemoteSwiftPackageReference "swift-algorithms" */,
+				1C03B54F2B17E9AC00172299 /* XCRemoteSwiftPackageReference "SwiftyAttributes" */,
 			);
 			productRefGroup = 7555FF7C242A565900829871 /* Products */;
 			projectDirPath = "";
@@ -1022,11 +1026,12 @@
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = MomentumiOS/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Momentum;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.4;
+				MARKETING_VERSION = 1.1.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mwaibanda.MomentumiOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1052,11 +1057,12 @@
 				ENABLE_TESTABILITY = YES;
 				INFOPLIST_FILE = MomentumiOS/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Momentum;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.4;
+				MARKETING_VERSION = 1.1.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mwaibanda.MomentumiOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1157,6 +1163,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		1C03B54F2B17E9AC00172299 /* XCRemoteSwiftPackageReference "SwiftyAttributes" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/eddiekaiger/SwiftyAttributes";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		1C3CF16928D95E3000B46FC1 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI.git";
@@ -1224,6 +1238,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		1C03B5502B17E9AC00172299 /* SwiftyAttributes */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1C03B54F2B17E9AC00172299 /* XCRemoteSwiftPackageReference "SwiftyAttributes" */;
+			productName = SwiftyAttributes;
+		};
 		1C3CF16A28D95E3000B46FC1 /* SDWebImageSwiftUI */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 1C3CF16928D95E3000B46FC1 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;

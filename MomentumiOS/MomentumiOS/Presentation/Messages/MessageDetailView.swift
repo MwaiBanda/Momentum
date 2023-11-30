@@ -10,6 +10,7 @@ import SwiftUI
 import MomentumSDK
 import SDWebImageSwiftUI
 import Algorithms
+import SwiftyAttributes
 
 struct MessageDetailView: View {
     let message: Message
@@ -24,37 +25,32 @@ struct MessageDetailView: View {
                 
                 ForEach(message.passages) { passage in
                     if (passage.header ?? "").isEmpty {
-                        
                         VStack(alignment: .leading) {
+                            HStack {
                             Text(passage.verse ?? "")
                                 .bold()
-                         
-                                if let message = passage.message  {
+                                Spacer()
+                            }
+                            if let message = passage.message  {
+                                if #available(iOS 15, *) {
+                                    Text(getMesssageAttritubuted(message))
+                                } else {
                                     Group {
-                                        getMessageTextArray(message: message).prefix(500).reduce(Text("")) { x, y in
+                                        getMessageTextArray(message: message).prefix(450).reduce(Text("")) { x, y in
                                             x + y
                                         }
                                     }
-                                    if getMessageTextArray(message: message).count > 500 {
-                                        Group {
-                                            getMessageTextArray(message: message).dropFirst(500).reduce(Text("")) { x, y in
-                                                x + y
-                                            }
-                                        }
-                                    }
                                 }
-                            
-                        }
+                            }
+                        }.frame(maxWidth: .infinity).padding(10)
                     } else {
-                        Divider()
                         HStack {
                             Text(passage.header ?? "")
                             Spacer()
                         }.padding(10)
-                        Divider()
-                            .padding(.bottom, 10)
-                        
                     }
+                    Divider()
+                       
                 }
             }
         }
@@ -72,6 +68,20 @@ struct MessageDetailView: View {
                 Text(String($0))
             }
         })
+    }
+    
+    @available(iOS 15, *)
+    func getMesssageAttritubuted(_ s: String) -> AttributedString {
+        s.map({
+            if Character(extendedGraphemeClusterLiteral: $0).isNumber {
+                var res = AttributedString(String($0))
+                res.font = .caption.bold()
+                res.foregroundColor = .gray
+                return res
+            } else {
+                return AttributedString(String($0))
+            }
+        }).reduce(AttributedString(""), { x, y in x + y })
     }
 }
 

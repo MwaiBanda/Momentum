@@ -26,23 +26,38 @@ struct MessageView: View {
             }
             .padding(.top, 5)
             ScrollView {
-                
-                ForEach(messages, id: \.id) { message in
-                    NavigationLink {
-                        MessageDetailView(message: message)
-                    } label: {
-                        MessageCard(message: message)
+                if messages.isEmpty {
+                    ForEach(0..<12, id: \.self
+                    ) { _ in
+                        MessageCard(
+                            isRedacted: true,
+                            message: Message(
+                            id: "1001",
+                            thumbnail:"thumbnail",
+                            series: "placeholder",
+                            title: "placeholder",
+                            preacher: "placeholder",
+                            date: "placeholder",
+                            createdOn: "placeholder",
+                            passages: [Passage]()
+                        ))
                     }
-                    
+                } else {
+                    ForEach(messages, id: \.id) { message in
+                        NavigationLink {
+                            MessageDetailView(message: message)
+                        } label: {
+                            MessageCard(message: message)
+                        }
+                        
+                    }
                 }
-            }
+            }.redacted(reason: messages.isEmpty ? .placeholder : [])
         }
         .navigationTitle("Messages")
         .onAppear {
-            if messages.isEmpty {
-                messageViewModel.getAllMessages(userId: session.currentUser?.id ?? "") { messages in
-                    self.messages = messages
-                }
+            messageViewModel.getAllMessages(userId: session.currentUser?.id ?? "") { messages in
+                self.messages = messages
             }
         }
     }

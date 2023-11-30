@@ -181,6 +181,15 @@
       }
     },
     {
+      "identity" : "swiftyattributes",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/eddiekaiger/SwiftyAttributes",
+      "state" : {
+        "branch" : "master",
+        "revision" : "8addfeaf8d181f66221fcd0c963acef33cdc41c8"
+      }
+    },
+    {
       "identity" : "tinydi",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/MwaiBanda/TinyDi",

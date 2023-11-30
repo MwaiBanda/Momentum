@@ -1,5 +1,6 @@
 package com.mwaibanda.momentum.data.repository
 
+import com.mwaibanda.momentum.data.MealResponse
 import com.mwaibanda.momentum.data.MomentumBase
 import com.mwaibanda.momentum.data.mealDTO.MealContainerDTO
 import com.mwaibanda.momentum.data.mealDTO.MealRequest
@@ -7,24 +8,38 @@ import com.mwaibanda.momentum.data.mealDTO.VolunteeredMealRequest
 import com.mwaibanda.momentum.domain.models.Meal
 import com.mwaibanda.momentum.domain.models.VolunteeredMeal
 import com.mwaibanda.momentum.domain.repository.MealRepository
+import com.mwaibanda.momentum.domain.usecase.cache.GetItemUseCase
+import com.mwaibanda.momentum.domain.usecase.cache.SetItemUseCase
 import com.mwaibanda.momentum.utils.Result
-import io.ktor.client.*
-import io.ktor.client.call.*
-import io.ktor.client.request.*
-import io.ktor.http.*
+import io.ktor.client.HttpClient
+import io.ktor.client.call.body
+import io.ktor.client.request.get
+import io.ktor.client.request.post
+import io.ktor.client.request.setBody
+import io.ktor.http.ContentType
+import io.ktor.http.contentType
 
 class MealRepositoryImpl(
-    private val httpClient: HttpClient
+    private val httpClient: HttpClient,
+    private val getItemUseCase: GetItemUseCase<MealResponse>,
+    private val setItemUseCase: SetItemUseCase<MealResponse>,
 ): MomentumBase(), MealRepository {
-    override suspend fun fetchAllMeals(): Result<List<Meal>> {
-        return try {
-            val meals: MealContainerDTO = httpClient.get {
+    override suspend fun fetchAllMeals(): Result<MealResponse> {
+        val cacheMeals = getItemUseCase(MEALS_KEY).orEmpty()
+        if (cacheMeals.isNotEmpty()) {
+            return Result.Success(cacheMeals)
+        }
+        try {
+            val mealDTO: MealContainerDTO = httpClient.get {
                 momentumAPI(MEALS_ENDPOINT)
             }.body()
-            Result.Success(meals.map { it.toMeal() })
+            val meals = mealDTO.map { it.toMeal() }
+            setItemUseCase(MEALS_KEY, meals)
         } catch (e: Exception) {
-            Result.Failure(e.message.toString())
+            return  Result.Failure(e.message.toString())
         }
+        val newlyCachedMeals = getItemUseCase(MEALS_KEY).orEmpty()
+        return Result.Success(newlyCachedMeals)
     }
 
     override suspend fun postMeal(request: MealRequest): Result<Meal> {
@@ -51,5 +66,9 @@ class MealRepositoryImpl(
         } catch (e: Exception) {
             Result.Failure(e.message.toString())
         }
+    }
+
+    companion object {
+        const val MEALS_KEY = "meals"
     }
 }
