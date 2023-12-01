@@ -12,13 +12,25 @@ data class Event(
     val thumbnail: String
 ) {
     fun getFormattedStartDate(): String {
-        return getFormattedDate(startTime, "EEEE, MMM YY")
+        return if (startTime == "placeholder") {
+            "Thursday, Nov 2023"
+        } else {
+            getFormattedDate(startTime, "EEEE, MMM YY")
+        }
     }
     private fun getFormattedStartTime(): String {
-        return getFormattedDate(startTime, "h:mma").replace(":00", "")
+        return if (startTime == "placeholder") {
+            "00:00pm"
+        } else {
+            getFormattedDate(startTime, "h:mma").replace(":00", "")
+        }
     }
     private fun getFormattedEndTime(): String {
-        return getFormattedDate(endTime, "h:mma").replace(":00", "")
+        return if (endTime == "placeholder") {
+            "00:00pm"
+        } else {
+            getFormattedDate(endTime, "h:mma").replace(":00", "")
+        }
     }
     fun getDisplayEventTime(): String {
         val startTime = getFormattedStartTime()

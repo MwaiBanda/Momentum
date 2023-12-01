@@ -1,6 +1,7 @@
 package com.mwaibanda.momentum.android.presentation.message
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -25,6 +26,7 @@ import androidx.navigation.NavController
 import com.mwaibanda.momentum.android.core.utils.C
 import com.mwaibanda.momentum.android.core.utils.NavigationRoutes
 import com.mwaibanda.momentum.android.presentation.auth.AuthViewModel
+import com.mwaibanda.momentum.android.presentation.components.LoadingSpinner
 import com.mwaibanda.momentum.android.presentation.components.MessageCard
 import com.mwaibanda.momentum.domain.models.Message
 import com.mwaibanda.momentum.utils.MultiplatformConstants
@@ -67,22 +69,40 @@ fun MessagesScreen(
                     style = MaterialTheme.typography.caption,
                     color = Color(C.MOMENTUM_ORANGE)
                 )
-                Column(
-                    Modifier
-                        .fillMaxWidth()
-                        .padding(10.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-                    messages.forEach { message ->
-                        MessageCard(
-                            series = message.series,
-                            title = message.title,
-                            preacher = message.preacher,
-                            date = message.date,
-                            thumbnail = message.thumbnail
-                        ) {
-                            onMessageSelected(message)
-                            navController.navigate(NavigationRoutes.MessageDetailScreen.route)
+                Box(contentAlignment = Alignment.TopCenter) {
+
+                    Column(
+                        Modifier
+                            .fillMaxWidth()
+                            .padding(10.dp), horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        if (messages.isEmpty()) {
+                            repeat(6) {
+                                MessageCard(
+                                    isRedacted = true,
+                                    series = "placeholder",
+                                    title = "placeholder",
+                                    preacher = "placeholder",
+                                    date = "placeholder",
+                                    thumbnail = "placeholder"
+                                ) {}
+                            }
+                        } else {
+                            messages.forEach { message ->
+                                MessageCard(
+                                    series = message.series,
+                                    title = message.title,
+                                    preacher = message.preacher,
+                                    date = message.date,
+                                    thumbnail = message.thumbnail
+                                ) {
+                                    onMessageSelected(message)
+                                    navController.navigate(NavigationRoutes.MessageDetailScreen.route)
+                                }
+                            }
                         }
                     }
+                    LoadingSpinner(isVisible = messages.isEmpty())
                 }
             }
         }

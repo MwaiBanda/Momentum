@@ -2,7 +2,6 @@ package com.mwaibanda.momentum.android.presentation.sermon
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.animateDpAsState
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -15,23 +14,19 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Checkbox
 import androidx.compose.material.CheckboxDefaults
-import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Divider
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.material.TextFieldDefaults
@@ -58,6 +53,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.mwaibanda.momentum.android.core.utils.C
 import com.mwaibanda.momentum.android.presentation.components.BottomSpacing
+import com.mwaibanda.momentum.android.presentation.components.LoadingSpinner
 import com.mwaibanda.momentum.android.presentation.components.SermonCard
 import com.mwaibanda.momentum.domain.models.Sermon
 
@@ -255,7 +251,7 @@ fun SermonScreen(
                                 }
                                 ) {
                                     SermonCard(
-                                        isPlaceholder = true,
+                                        isRedacted = true,
                                         sermon = it,
                                         modifier = Modifier
                                             .weight(0.4f)
@@ -312,36 +308,11 @@ fun SermonScreen(
                             }
                         }
                     }
-                    Column {
-                        AnimatedVisibility(visible = sermons.isEmpty() && searchTerm.isEmpty()) {
-                            Column(Modifier.size(30.dp)) {
-                                Surface(
-                                    elevation = 4.dp,
-                                    shape = CircleShape
-                                ) {
-                                    Box(
-                                        Modifier
-                                            .padding(5.dp)
-                                            .size(25.dp)
-                                            .background(
-                                                color = Color.White,
-                                                shape = CircleShape
-                                            ),
-                                        contentAlignment = Alignment.Center
-                                    ) {
-                                        CircularProgressIndicator(
-                                            color = Color.Black,
-                                            modifier = Modifier
-                                                .size(25.dp)
-                                        )
-                                    }
-                                }
-                            }
-                        }
-                    }
+                    LoadingSpinner(isVisible = sermons.isEmpty() && searchTerm.isEmpty())
                 }
             }
         }
     }
 }
+
 

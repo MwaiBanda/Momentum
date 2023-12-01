@@ -1,14 +1,28 @@
 package com.mwaibanda.momentum.android.presentation.components
 
-import android.icu.text.StringSearch
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.runtime.*
+import androidx.compose.material.Card
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
+import androidx.compose.material.LinearProgressIndicator
+import androidx.compose.material.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -22,10 +36,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
-import com.google.accompanist.placeholder.PlaceholderHighlight
-import com.google.accompanist.placeholder.placeholder
-import com.google.accompanist.placeholder.shimmer
 import com.mwaibanda.momentum.android.R
+import com.mwaibanda.momentum.android.core.exts.redacted
 import com.mwaibanda.momentum.android.core.utils.C
 import com.mwaibanda.momentum.data.db.MomentumSermon
 import com.mwaibanda.momentum.data.db.SermonFavourite
@@ -33,7 +45,7 @@ import com.mwaibanda.momentum.domain.models.Sermon
 
 @Composable
 fun SermonCard(
-    isPlaceholder: Boolean = false,
+    isRedacted: Boolean = false,
     sermon: Sermon,
     watchedSermons: List<MomentumSermon> = emptyList(),
     favouriteSermons: List<SermonFavourite> = emptyList(),
@@ -83,28 +95,12 @@ fun SermonCard(
                 Image(
                     painter = painterResource(id = R.drawable.thumbnail),
                     contentDescription = "Video thumbnail placeholder",
-                    modifier = Modifier
-                        .placeholder(
-                            visible = true,
-                            color = Color.Gray,
-                            shape = RoundedCornerShape(4.dp),
-                            highlight = PlaceholderHighlight.shimmer(
-                                highlightColor = Color.White,
-                            ),
-                        )
+                    modifier = Modifier.redacted(true)
                 )
-                if (isPlaceholder.not()) {
+                if (isRedacted.not()) {
                     Box(
                         contentAlignment = Alignment.TopEnd,
-                        modifier = Modifier
-                            .placeholder(
-                                visible = isPlaceholder,
-                                color = Color.Gray,
-                                shape = RoundedCornerShape(4.dp),
-                                highlight = PlaceholderHighlight.shimmer(
-                                    highlightColor = Color.White,
-                                ),
-                            )
+                        modifier = Modifier.redacted(isRedacted),
                     ) {
                         AsyncImage(
                             model = ImageRequest.Builder(LocalContext.current)
@@ -169,15 +165,8 @@ fun SermonCard(
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
                     modifier = Modifier
-                        .padding(bottom = if (isPlaceholder) 2.dp else 0.5.dp)
-                        .placeholder(
-                            visible = isPlaceholder,
-                            color = Color.Gray,
-                            shape = RoundedCornerShape(4.dp),
-                            highlight = PlaceholderHighlight.shimmer(
-                                highlightColor = Color.White,
-                            ),
-                        )
+                        .padding(bottom = if (isRedacted) 2.dp else 0.5.dp)
+                        .redacted(isRedacted)
                 )
                 Text(
                     text = sermon.title,
@@ -185,43 +174,20 @@ fun SermonCard(
                     fontWeight = FontWeight.Bold,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
-                    modifier = Modifier
-                        .placeholder(
-                            visible = isPlaceholder,
-                            color = Color.Gray,
-                            shape = RoundedCornerShape(4.dp),
-                            highlight = PlaceholderHighlight.shimmer(
-                                highlightColor = Color.White,
-                            ),
-                        )
+                    modifier = Modifier.redacted(isRedacted)
                 )
                 Text(
                     text = sermon.preacher,
                     fontSize = 10.sp,
                     color = Color.Gray,
                     modifier = Modifier
-                        .padding(vertical = if (isPlaceholder) 2.dp else 0.5.dp)
-                        .placeholder(
-                            visible = isPlaceholder,
-                            color = Color.Gray,
-                            shape = RoundedCornerShape(4.dp),
-                            highlight = PlaceholderHighlight.shimmer(
-                                highlightColor = Color.White,
-                            ),
-                        )
+                        .padding(vertical = if (isRedacted) 2.dp else 0.5.dp)
+                        .redacted(isRedacted)
                 )
                 Text(
                     text = sermon.date,
                     fontSize = 8.sp,
-                    modifier = Modifier
-                        .placeholder(
-                            visible = isPlaceholder,
-                            color = Color.Gray,
-                            shape = RoundedCornerShape(4.dp),
-                            highlight = PlaceholderHighlight.shimmer(
-                                highlightColor = Color.White,
-                            ),
-                        )
+                    modifier = Modifier.redacted(isRedacted)
                 )
             }
         }

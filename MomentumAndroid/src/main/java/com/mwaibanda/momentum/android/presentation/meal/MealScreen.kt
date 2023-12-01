@@ -2,6 +2,7 @@ package com.mwaibanda.momentum.android.presentation.meal
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -35,7 +36,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.mwaibanda.momentum.android.core.exts.redacted
 import com.mwaibanda.momentum.android.core.utils.C
+import com.mwaibanda.momentum.android.presentation.components.LoadingSpinner
 import com.mwaibanda.momentum.domain.models.Meal
 import com.mwaibanda.momentum.utils.MultiplatformConstants
 import kotlinx.coroutines.channels.Channel
@@ -98,22 +101,39 @@ fun MealScreen(
                     style = MaterialTheme.typography.caption,
                     color = Color(C.MOMENTUM_ORANGE)
                 )
-                Column(
-                    Modifier.fillMaxSize().verticalScroll(rememberScrollState())
-                ) {
-                    meals.forEach {
-                        DescriptionCard(title = it.recipient, description = it.reason) {
-                            onMealSelected(it)
+                Box(contentAlignment = Alignment.TopCenter) {
+
+                    Column(
+                        Modifier
+                            .fillMaxSize()
+                            .verticalScroll(rememberScrollState())
+                    ) {
+                        if (meals.isEmpty()) {
+                            repeat(7) {
+                                DescriptionCard(
+                                    isRedacted = true,
+                                    title = "placeholder",
+                                    description = "placeholder"
+                                ) {}
+                            }
+                        } else {
+                            meals.forEach {
+                                DescriptionCard(title = it.recipient, description = it.reason) {
+                                    onMealSelected(it)
+                                }
+                            }
                         }
                     }
+                    LoadingSpinner(isVisible = meals.isEmpty())
                 }
+                
             }
         }
     }
 }
 
 @Composable
-fun DescriptionCard(title: String, description: String, onCardClicked: () -> Unit) {
+fun DescriptionCard(isRedacted: Boolean = false,  title: String, description: String, onCardClicked: () -> Unit) {
     Card(
         Modifier
             .heightIn(min = 55.dp)
@@ -132,20 +152,27 @@ fun DescriptionCard(title: String, description: String, onCardClicked: () -> Uni
                     Text(text = title,
                         fontSize = 20.sp,
                         fontWeight = FontWeight.Bold,
+                        modifier = Modifier.redacted(isRedacted)
                     )
                     Text(
                         text = description,
                         color = Color.Gray,
                         fontSize = 13.sp,
+                        modifier = Modifier
+                            .padding(vertical = if (isRedacted) 2.dp else 0.dp)
+                            .redacted(isRedacted)
+
                     )
                 }
                 Icon(
                     imageVector = Icons.Default.ChevronRight,
                     contentDescription = "Profile navigation icon",
-                    tint = Color(0xFF434359)
+                    tint = Color(0xFF434359),
+                    modifier = Modifier.redacted(isRedacted)
                 )
             }
         }
     }
 }
+
 

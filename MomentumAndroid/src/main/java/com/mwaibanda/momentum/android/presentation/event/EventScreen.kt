@@ -2,6 +2,7 @@ package com.mwaibanda.momentum.android.presentation.event
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -31,7 +32,9 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.mwaibanda.momentum.android.core.exts.redacted
 import com.mwaibanda.momentum.android.core.utils.C
+import com.mwaibanda.momentum.android.presentation.components.LoadingSpinner
 import com.mwaibanda.momentum.domain.models.Event
 import com.mwaibanda.momentum.domain.models.GroupedEvent
 import com.mwaibanda.momentum.utils.MultiplatformConstants
@@ -70,26 +73,47 @@ fun EventScreen(eventViewModel: EventViewModel = getViewModel()){
                     style = MaterialTheme.typography.caption,
                     color = Color(C.MOMENTUM_ORANGE)
                 )
-                LazyColumn(
-                    Modifier
-                        .fillMaxWidth()
-                        .navigationBarsPadding()
-                        .systemBarsPadding()
-                        .padding(horizontal = 10.dp)
-                ) {
-                    items(groupedEvents) { group ->
-                        Text(text = group.monthAndYear, style = MaterialTheme.typography.h6, fontWeight = FontWeight.Bold)
-                        group.events.forEach { event ->
-                            Spacer(modifier = Modifier.height(10.dp))
-                            EventCard(event = event) {
-                                
+                Box(contentAlignment = Alignment.TopCenter) {
+
+                    LazyColumn(
+                        Modifier
+                            .fillMaxWidth()
+                            .navigationBarsPadding()
+                            .systemBarsPadding()
+                            .padding(horizontal = 10.dp)
+                    ) {
+                        if (groupedEvents.isEmpty()) {
+                            item {
+                                repeat(2) {
+                                    GroupedEvents(
+                                        isRedacted = true,
+                                        group = GroupedEvent(
+                                            monthAndYear = "placeholder",
+                                            events = MutableList(3) {
+                                                Event(
+                                                    id = "placeholder",
+                                                    startTime = "placeholder",
+                                                    endTime = "placeholder",
+                                                    description = "placeholder",
+                                                    intervalSummary = "placeholder",
+                                                    name = "placeholder",
+                                                    thumbnail = "placeholder"
+                                                )
+                                            }
+                                        )
+                                    )
+                                }
+                            }
+                        } else {
+                            items(groupedEvents) { group ->
+                                GroupedEvents(group = group)
                             }
                         }
-                        Spacer(modifier = Modifier.height(20.dp))
+                        item {
+                            Spacer(modifier = Modifier.height(65.dp))
+                        }
                     }
-                    item {
-                        Spacer(modifier = Modifier.height(65.dp))
-                    }
+                    LoadingSpinner(isVisible = groupedEvents.isEmpty())
                 }
 
             }
@@ -97,9 +121,26 @@ fun EventScreen(eventViewModel: EventViewModel = getViewModel()){
     }
 }
 
-
 @Composable
-fun EventCard(event: Event, onCardClicked: () -> Unit) {
+fun GroupedEvents(isRedacted: Boolean = false, group: GroupedEvent) {
+    Text(
+        text = group.monthAndYear,
+        style = MaterialTheme.typography.h6,
+        fontWeight = FontWeight.Bold,
+        modifier = Modifier
+            .padding(vertical = if (isRedacted) 2.dp else 0.dp)
+            .redacted(isRedacted)
+    )
+    group.events.forEach { event ->
+        Spacer(modifier = Modifier.height(10.dp))
+        EventCard(isRedacted = isRedacted, event = event) {
+
+        }
+    }
+    Spacer(modifier = Modifier.height(20.dp))
+}
+@Composable
+fun EventCard(isRedacted: Boolean, event: Event, onCardClicked: () -> Unit) {
     Card(
         Modifier
             .heightIn(min = 55.dp)
@@ -122,11 +163,29 @@ fun EventCard(event: Event, onCardClicked: () -> Unit) {
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Column {
-                            Text(text = event.getFormattedStartDate(), fontWeight = FontWeight.Medium)
-                            Text(text = event.name, style = MaterialTheme.typography.body1, fontWeight = FontWeight.ExtraBold, color = Color(C.MOMENTUM_ORANGE))
-                            Text(text = event.intervalSummary, color = Color.Gray, style = MaterialTheme.typography.caption)
+                            Text(text = event.getFormattedStartDate(), fontWeight = FontWeight.Medium,
+                                    modifier = Modifier.redacted(isRedacted)
+                            )
+                            Text(
+                                text = event.name,
+                                style = MaterialTheme.typography.body1,
+                                fontWeight = FontWeight.ExtraBold,
+                                color = Color(C.MOMENTUM_ORANGE),
+                                modifier = Modifier
+                                    .padding(vertical = if (isRedacted) 2.dp else 0.dp)
+                                    .redacted(isRedacted)
+                            )
+                            Text(text = event.intervalSummary, color = Color.Gray, style = MaterialTheme.typography.caption,
+                                modifier = Modifier.redacted(isRedacted)
+                            )
                         }
-                        Text(text = event.getDisplayEventTime(), color = Color.Gray)
+                        Text(
+                            text = event.getDisplayEventTime(),
+                            color = Color.Gray,
+                            modifier = Modifier
+                                .padding(vertical = if (isRedacted) 2.dp else 0.dp)
+                                .redacted(isRedacted)
+                        )
                     }
                 /*
                 Icon(
