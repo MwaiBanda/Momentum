@@ -9,7 +9,7 @@ import SwiftUI
 
 struct BottomTabBar: View {
 
-    @State private var selection = 1
+    @State private var selection = 2
     init() {
         let itemAppearance = UITabBarItemAppearance()
         let appearance = UITabBarAppearance()
@@ -32,24 +32,25 @@ struct BottomTabBar: View {
                 Image(systemName: "takeoutbag.and.cup.and.straw")
                 
             }
+           
+            NavigationView {
+                SermonsView()
+            }
+            .navigationViewStyle(StackNavigationViewStyle())
+            .tag(1)
+            .tabItem {
+                Image(systemName: "ticket")
+                
+            }
             NavigationView {
                 ContentWrapper {
                     OfferView()
                 }
             }
             .navigationViewStyle(StackNavigationViewStyle())
-            .tag(1)
-            .tabItem {
-                Image(systemName: "giftcard")
-            }
-            NavigationView {
-                SermonsView()
-            }
-            .navigationViewStyle(StackNavigationViewStyle())
             .tag(2)
             .tabItem {
-                Image(systemName: "ticket")
-                
+                Image(systemName: "giftcard")
             }
             NavigationView {
                 MessageView()
@@ -65,14 +66,13 @@ struct BottomTabBar: View {
                 EventView()
             }
             .navigationViewStyle(StackNavigationViewStyle())
-            .tag(3)
+            .tag(4)
             .tabItem {
                 Image(systemName: "calendar")
                 
             }
         }
         .accentColor(Color(hex: Constants.MOMENTUM_ORANGE))
-        
     }
 }
 

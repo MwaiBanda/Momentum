@@ -14,6 +14,7 @@ import io.ktor.utils.io.CancellationException
 import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.serialization.json.Json
 import org.koin.dsl.module
+import kotlin.time.Duration.Companion.hours
 import kotlin.time.Duration.Companion.minutes
 
 val singletonModule = module {
@@ -30,7 +31,7 @@ val singletonModule = module {
                 })
             }
             install(HttpTimeout) {
-                val timeout = 60000L
+                val timeout = 45000L
                 connectTimeoutMillis = timeout
                 requestTimeoutMillis = timeout
                 socketTimeoutMillis = timeout
@@ -51,7 +52,7 @@ val singletonModule = module {
     single { Authentication.controller }
     single<Cache<String, Any>>{
         Cache.Builder()
-            .expireAfterWrite(45.minutes)
+            .expireAfterWrite(2.hours + 30.minutes)
             .build()
     }
 }

@@ -9,7 +9,10 @@ import com.mwaibanda.momentum.utils.Result
 class MessageViewModel(
     private val messageController: MessageController
 ): ViewModel() {
-    fun getMessages(userId: String, onCompletion: (List<Message>) -> Unit) {
+    fun getMessages(userId: String, isRefreshing: Boolean = false, onCompletion: (List<Message>) -> Unit) {
+
+        if (isRefreshing) messageController.clearMessagesCache()
+
         messageController.getAllMessages(userId) {
             when (it) {
                 is Result.Failure -> {

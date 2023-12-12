@@ -6,11 +6,12 @@ import com.mwaibanda.momentum.data.db.MomentumSermon
 import com.mwaibanda.momentum.data.db.SermonFavourite
 import com.mwaibanda.momentum.domain.controller.SermonController
 import com.mwaibanda.momentum.domain.models.SermonResponse
-import kotlinx.coroutines.launch
-
 import com.mwaibanda.momentum.domain.usecase.sermon.GetSermonsUseCase
 import com.mwaibanda.momentum.utils.Result
-import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
@@ -20,8 +21,8 @@ class SermonControllerImpl(
 
     private val getSermonsUseCase: GetSermonsUseCase by inject()
     private val database = Database(driverFactory)
-    private val scope = MainScope()
-
+    private val completableJob = SupervisorJob()
+    private val scope: CoroutineScope = CoroutineScope(Dispatchers.Default + completableJob)
     override fun getSermon(pageNumber: Int, onCompletion: (Result<SermonResponse>) -> Unit) {
         scope.launch {
             getSermonsUseCase(pageNumber = pageNumber) {

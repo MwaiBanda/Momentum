@@ -9,6 +9,7 @@ import com.mwaibanda.momentum.utils.Result
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.get
+import kotlinx.coroutines.delay
 import com.mwaibanda.momentum.data.messageDTO.MessageDTO as MessageContainer
 
 class MessageRepositoryImpl(
@@ -25,7 +26,12 @@ class MessageRepositoryImpl(
             val messages = httpClient.get {
                 momentumAPI("$MESSAGE_ENDPOINT/$userId")
             }.body<MessageContainer>().data
-            setItemUseCase(MESSAGE_KEY, messages)
+             if (messages.isNotEmpty()) {
+                 setItemUseCase(MESSAGE_KEY, messages)
+             } else {
+                 delay(30000)
+                 fetchAllMessages(userId = userId)
+             }
         } catch (e: Exception) {
            return Result.Failure(e.message.toString())
         }

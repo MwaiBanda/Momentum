@@ -20,4 +20,8 @@ class CacheRepositoryImpl(
             .filter { it.key.toString().startsWith("page") }
             .map { it.value as T }
     }
+
+    override fun invalidateItems(key: String) {
+        cache.invalidate(key = key)
+    }
 }

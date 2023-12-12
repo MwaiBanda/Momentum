@@ -52,8 +52,10 @@ struct EventView: View {
         
         .navigationTitle("Events")
         .onAppear {
-            eventViewModel.getEvents { events in
-                self.groupedEvents = events
+            DispatchQueue.main.async {
+                eventViewModel.getEvents { events in
+                    self.groupedEvents = events
+                }
             }
         }
     }

@@ -16,7 +16,10 @@ class MealViewModel(
     private val mealController: MealController,
     private val notificationController: NotificationController
 ): ViewModel() {
-    fun getMeals(onCompletion: (List<Meal>) -> Unit) {
+    fun getMeals(isRefreshing: Boolean = false, onCompletion: (List<Meal>) -> Unit) {
+
+        if (isRefreshing) mealController.clearMealsCache()
+
         mealController.getAllMeals {
             when (it) {
                 is Result.Failure -> {

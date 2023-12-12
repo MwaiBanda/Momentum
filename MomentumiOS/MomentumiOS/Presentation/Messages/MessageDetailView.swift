@@ -10,7 +10,6 @@ import SwiftUI
 import MomentumSDK
 import SDWebImageSwiftUI
 import Algorithms
-import SwiftyAttributes
 
 struct MessageDetailView: View {
     let message: Message

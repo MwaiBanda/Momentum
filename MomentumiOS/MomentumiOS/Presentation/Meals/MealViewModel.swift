@@ -14,7 +14,10 @@ class MealViewModel: ObservableObject {
     @Inject private var mealController: MealController
     @Inject private var notificationController: NotificationController
 
-    func getMeals(onCompletion: @escaping ([Meal]) -> Void) {
+    func getMeals(isResfreshing: Bool = false, onCompletion: @escaping ([Meal]) -> Void) {
+        if isResfreshing {
+            mealController.clearMealsCache()
+        }
         mealController.getAllMeals { res in
             if let meals = res.data as? [Meal] {
                 onCompletion(meals)
@@ -31,7 +34,7 @@ class MealViewModel: ObservableObject {
                     body: "We have a new meal, organised by \(meal.user.fullname) for the \(meal.recipient)",
                     topic: MultiplatformConstants.shared.ALL_USERS_TOPIC
                 )) { res in
-                    if let data = res.data {
+                    if res.data != nil {
                         print("Notification posted successfully")
                     }
                 }

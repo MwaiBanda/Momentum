@@ -8,7 +8,9 @@ import com.mwaibanda.momentum.domain.models.Transaction
 import com.mwaibanda.momentum.domain.usecase.transaction.GetTransactionsUseCase
 import com.mwaibanda.momentum.domain.usecase.transaction.PostTransactionUseCase
 import com.mwaibanda.momentum.utils.Result
-import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
@@ -17,8 +19,8 @@ class TransactionControllerImpl(driverFactory: DatabaseDriverFactory): Transacti
     private val postTransactionUseCase: PostTransactionUseCase by inject()
     private val getTransactionsUseCase: GetTransactionsUseCase by inject()
     private val database = Database(driverFactory)
-    private val scope = MainScope()
-
+    private val completableJob = SupervisorJob()
+    private val scope: CoroutineScope = CoroutineScope(Dispatchers.Default + completableJob)
     override fun addTransaction(
         description: String,
         date: String,

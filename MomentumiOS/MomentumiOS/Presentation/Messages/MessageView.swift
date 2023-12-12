@@ -10,6 +10,7 @@ import SwiftUI
 import MomentumSDK
 import SDWebImageSwiftUI
 
+
 struct MessageView: View {
     @StateObject private var messageViewModel = MessageViewModel()
     @EnvironmentObject var session: Session
@@ -25,41 +26,63 @@ struct MessageView: View {
                 Spacer()
             }
             .padding(.top, 5)
-            ScrollView {
-                if messages.isEmpty {
-                    ForEach(0..<12, id: \.self
-                    ) { _ in
-                        MessageCard(
-                            isRedacted: true,
-                            message: Message(
-                            id: "1001",
-                            thumbnail:"thumbnail",
-                            series: "placeholder",
-                            title: "placeholder",
-                            preacher: "placeholder",
-                            date: "placeholder",
-                            createdOn: "placeholder",
-                            passages: [Passage]()
-                        ))
+            if #available(iOS 15, *) {
+                MessageList(messages: $messages)
+                    .refreshable {
+                        messages = []
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5, execute: {
+                            messageViewModel.getAllMessages(userId: session.currentUser?.id ?? "", isRefreshing: true) { messages in
+                                self.messages = messages
+                            }
+                        })
                     }
-                } else {
-                    ForEach(messages, id: \.id) { message in
-                        NavigationLink {
-                            MessageDetailView(message: message)
-                        } label: {
-                            MessageCard(message: message)
-                        }
-                        
-                    }
-                }
-            }.redacted(reason: messages.isEmpty ? .placeholder : [])
+            } else {
+                MessageList(messages: $messages)
+            }
         }
         .navigationTitle("Messages")
         .onAppear {
-            messageViewModel.getAllMessages(userId: session.currentUser?.id ?? "") { messages in
-                self.messages = messages
+            DispatchQueue.main.async {
+                messageViewModel.getAllMessages(userId: session.currentUser?.id ?? "") { messages in
+                    self.messages = messages
+                }
             }
         }
+    }
+}
+
+struct MessageList: View {
+    @Binding var messages: [Message]
+    var body: some View {
+        ScrollView {
+            if messages.isEmpty {
+                ForEach(0..<12, id: \.self
+                ) { _ in
+                    MessageCard(
+                        isRedacted: true,
+                        message: Message(
+                        id: "1001",
+                        thumbnail:"thumbnail",
+                        series: "placeholder",
+                        title: "placeholder",
+                        preacher: "placeholder",
+                        date: "placeholder",
+                        createdOn: "placeholder",
+                        passages: [Passage]()
+                    ))
+                }
+            } else {
+                ForEach(messages, id: \.id) { message in
+                    NavigationLink {
+                        MessageDetailView(message: message)
+                    } label: {
+                        MessageCard(message: message)
+                    }
+                    
+                }
+            }
+        }
+        .redacted(reason: messages.isEmpty ? .placeholder : [])
     }
 }
 

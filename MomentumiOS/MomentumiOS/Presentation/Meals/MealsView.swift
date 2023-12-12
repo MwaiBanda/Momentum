@@ -32,33 +32,30 @@ struct MealsView: View {
                 Spacer()
             }
             .padding(.top, 5)
-
-            ScrollView {
-                if meals.isEmpty {
-                    ForEach(0..<12, id: \.self) { _ in
-                        DescriptionCard(title: "placeholder", description: "placeholder")
+            if #available(iOS 15, *) {
+                MealsList(meals: $meals, mealViewModel: mealViewModel, profileViewModel: profileViewModel)
+                    .refreshable {
+                        meals = []
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5, execute: {
+                            mealViewModel.getMeals(isResfreshing: true) { meals in
+                                self.meals = meals
+                            }
+                        })
                     }
-                } else {
-                    ForEach(meals) { meal in
-                        NavigationLink  {
-                            MealDetailView(mealViewModel: mealViewModel, profileViewModel: profileViewModel, mealRequest: meal)
-                        } label: {
-                            DescriptionCard(title: meal.recipient, description: meal.reason)
-                        }
-                    }
-                }
+            } else {
+                MealsList(meals: $meals, mealViewModel: mealViewModel, profileViewModel: profileViewModel)
             }
-            .redacted(reason: meals.isEmpty ? .placeholder : [])
-            .frame(height: screenBounds.height - 230)
-            .padding(.top, 15)
+           
         }
         .onAppear {
-            if !(session.currentUser?.isGuest ?? true) {
-                profileViewModel.getContactInformation(userId: session.currentUser?.id ?? "") {
-                    profileViewModel.getBillingInformation(userId: session.currentUser?.id ?? "")
-                }
-                mealViewModel.getMeals { meal in
-                    meals = meal
+            DispatchQueue.main.async {
+                if !(session.currentUser?.isGuest ?? true) {
+                    profileViewModel.getContactInformation(userId: session.currentUser?.id ?? "") {
+                        profileViewModel.getBillingInformation(userId: session.currentUser?.id ?? "")
+                    }
+                    mealViewModel.getMeals { meal in
+                        meals = meal
+                    }
                 }
             }
         }
@@ -106,6 +103,32 @@ struct Meals_Previews: PreviewProvider {
     }
 }
 
+struct MealsList: View {
+    @Binding var meals: [Meal]
+    @ObservedObject var mealViewModel: MealViewModel
+    @ObservedObject var profileViewModel: ProfileViewModel
+
+    var body: some View {
+        ScrollView {
+            if meals.isEmpty {
+                ForEach(0..<12, id: \.self) { _ in
+                    DescriptionCard(title: "placeholder", description: "placeholder")
+                }
+            } else {
+                ForEach(meals) { meal in
+                    NavigationLink  {
+                        MealDetailView(mealViewModel: mealViewModel, profileViewModel: profileViewModel, mealRequest: meal)
+                    } label: {
+                        DescriptionCard(title: meal.recipient, description: meal.reason)
+                    }
+                }
+            }
+        }
+        .redacted(reason: meals.isEmpty ? .placeholder : [])
+        .frame(height: screenBounds.height - 230)
+        .padding(.top, 15)
+    }
+}
 struct UploadMealCardView: View {
     @State private var currentPage = Int()
     @State private var timer = Timer.publish(every: 3, on: .main, in: .common).autoconnect()

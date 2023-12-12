@@ -16,6 +16,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Card
 import androidx.compose.material.Divider
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
@@ -23,11 +24,15 @@ import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ChevronRight
+import androidx.compose.material.pullrefresh.PullRefreshIndicator
+import androidx.compose.material.pullrefresh.pullRefresh
+import androidx.compose.material.pullrefresh.rememberPullRefreshState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -42,8 +47,10 @@ import com.mwaibanda.momentum.android.presentation.components.LoadingSpinner
 import com.mwaibanda.momentum.domain.models.Meal
 import com.mwaibanda.momentum.utils.MultiplatformConstants
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun MealScreen(
     mealViewModel: MealViewModel,
@@ -54,6 +61,21 @@ fun MealScreen(
     var meals by remember {
         mutableStateOf(emptyList<Meal>())
     }
+    val refreshScope = rememberCoroutineScope()
+    var isRefreshing by remember { mutableStateOf(false) }
+
+    fun onRefresh() = refreshScope.launch {
+        isRefreshing = true
+        meals = emptyList()
+        delay(1500)
+        mealViewModel.getMeals {
+            meals  = it
+            isRefreshing = false
+        }
+    }
+    val refreshState = rememberPullRefreshState(isRefreshing, ::onRefresh)
+    val scrollState = rememberScrollState()
+
     LaunchedEffect(key1 = Unit){
         mealViewModel.getMeals {
             meals = it
@@ -66,69 +88,74 @@ fun MealScreen(
             }
         }
     }
-    Column(
-        Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.SpaceBetween,
-        horizontalAlignment = Alignment.Start
-    ) {
-        Column {
+
+    Box(modifier = Modifier.pullRefresh(refreshState)) {
+
+        Column(
+            Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.SpaceBetween,
+            horizontalAlignment = Alignment.Start
+        ) {
             Column {
-                Spacer(modifier = Modifier.height(65.dp))
-                Row(
-                    Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Text(
-                        text = "Meals",
-                        fontWeight = FontWeight.ExtraBold,
-                        style = MaterialTheme.typography.h5,
-                        modifier = Modifier.padding(10.dp)
-                    )
-
-                    IconButton(onClick = onShowModal) {
-                        Icon(
-                            imageVector = Icons.Default.Add,
-                            contentDescription = "Add Meal Icon",
-                            tint = Color(C.MOMENTUM_ORANGE)
-                        )
-                    }
-                }
-                Divider()
-                Text(
-                    text = MultiplatformConstants.MEALS_SUBHEADING.uppercase(),
-                    modifier = Modifier.padding(horizontal = 10.dp),
-                    style = MaterialTheme.typography.caption,
-                    color = Color(C.MOMENTUM_ORANGE)
-                )
-                Box(contentAlignment = Alignment.TopCenter) {
-
-                    Column(
-                        Modifier
-                            .fillMaxSize()
-                            .verticalScroll(rememberScrollState())
+                Column {
+                    Spacer(modifier = Modifier.height(65.dp))
+                    Row(
+                        Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
                     ) {
-                        if (meals.isEmpty()) {
-                            repeat(7) {
-                                DescriptionCard(
-                                    isRedacted = true,
-                                    title = "placeholder",
-                                    description = "placeholder"
-                                ) {}
-                            }
-                        } else {
-                            meals.forEach {
-                                DescriptionCard(title = it.recipient, description = it.reason) {
-                                    onMealSelected(it)
+                        Text(
+                            text = "Meals",
+                            fontWeight = FontWeight.ExtraBold,
+                            style = MaterialTheme.typography.h5,
+                            modifier = Modifier.padding(10.dp)
+                        )
+
+                        IconButton(onClick = onShowModal) {
+                            Icon(
+                                imageVector = Icons.Default.Add,
+                                contentDescription = "Add Meal Icon",
+                                tint = Color(C.MOMENTUM_ORANGE)
+                            )
+                        }
+                    }
+                    Divider()
+                    Text(
+                        text = MultiplatformConstants.MEALS_SUBHEADING.uppercase(),
+                        modifier = Modifier.padding(horizontal = 10.dp),
+                        style = MaterialTheme.typography.caption,
+                        color = Color(C.MOMENTUM_ORANGE)
+                    )
+                    Box(contentAlignment = Alignment.TopCenter) {
+
+                        Column(
+                            Modifier
+                                .fillMaxSize()
+                                .verticalScroll(scrollState)
+                        ) {
+                            if (meals.isEmpty()) {
+                                repeat(7) {
+                                    DescriptionCard(
+                                        isRedacted = true,
+                                        title = "placeholder",
+                                        description = "placeholder"
+                                    ) {}
+                                }
+                            } else {
+                                meals.forEach {
+                                    DescriptionCard(title = it.recipient, description = it.reason) {
+                                        onMealSelected(it)
+                                    }
                                 }
                             }
                         }
+                        LoadingSpinner(isVisible = meals.isEmpty() && isRefreshing.not())
                     }
-                    LoadingSpinner(isVisible = meals.isEmpty())
+
                 }
-                
             }
         }
+        PullRefreshIndicator(isRefreshing, refreshState, Modifier.align(Alignment.TopCenter))
     }
 }
 

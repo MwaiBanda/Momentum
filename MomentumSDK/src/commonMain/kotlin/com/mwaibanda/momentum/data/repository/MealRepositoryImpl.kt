@@ -18,6 +18,7 @@ import io.ktor.client.request.post
 import io.ktor.client.request.setBody
 import io.ktor.http.ContentType
 import io.ktor.http.contentType
+import kotlinx.coroutines.delay
 
 class MealRepositoryImpl(
     private val httpClient: HttpClient,
@@ -34,7 +35,12 @@ class MealRepositoryImpl(
                 momentumAPI(MEALS_ENDPOINT)
             }.body()
             val meals = mealDTO.map { it.toMeal() }
-            setItemUseCase(MEALS_KEY, meals)
+            if (meals.isNotEmpty()) {
+                setItemUseCase(MEALS_KEY, meals)
+            } else {
+                delay(30000)
+                fetchAllMeals()
+            }
         } catch (e: Exception) {
             return  Result.Failure(e.message.toString())
         }
