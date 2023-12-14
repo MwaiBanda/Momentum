@@ -12,8 +12,7 @@ import com.mwaibanda.momentum.domain.usecase.meal.PostMealUseCase
 import com.mwaibanda.momentum.domain.usecase.meal.PostVolunteeredMealUseCase
 import com.mwaibanda.momentum.utils.Result
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
@@ -23,8 +22,7 @@ class MealControllerImpl: MealController, KoinComponent {
     private val postMealUseCase: PostMealUseCase by inject()
     private val postVolunteeredMealUseCase: PostVolunteeredMealUseCase by inject()
     private val invalidateItemsUseCase: InvalidateItemsUseCase by inject()
-    private val completableJob = SupervisorJob()
-    private val scope: CoroutineScope = CoroutineScope(Dispatchers.Default + completableJob)
+    private val scope: CoroutineScope = MainScope()
     override fun getAllMeals(onCompletion: (Result<List<Meal>>) -> Unit) {
         scope.launch {
             getMealUseCase(onCompletion)

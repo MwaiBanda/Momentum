@@ -11,10 +11,11 @@ plugins {
 version = "1.0.0"
 
 kotlin {
-    android()
+    androidTarget()
     iosX64()
     iosArm64()
     iosSimulatorArm64()
+
 
     // For example:
     jvmToolchain(17)
@@ -38,74 +39,55 @@ kotlin {
     
     sourceSets {
         val ktorVersion = "2.3.0"
-        val serialization = "1.5.1"
+        val serialization = "1.6.2"
         val firebase = "1.6.2"
         val sqlDelight = "1.5.4"
-        val commonMain by getting {
-            dependencies {
-                // Stately
-                implementation("co.touchlab:stately-common:1.2.1")
-                implementation("co.touchlab:stately-isolate:1.2.1")
-                implementation("co.touchlab:stately-iso-collections:1.2.1")
-                // Ktor
-                implementation("io.ktor:ktor-client-core:$ktorVersion")
-                implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
-                implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
-                implementation("io.ktor:ktor-client-logging:$ktorVersion")
-                // Koin
-                implementation("io.insert-koin:koin-core:3.2.0")
-                // SQLDelight
-                implementation("com.squareup.sqldelight:runtime:$sqlDelight")
-                // Kotlin Serialization
-                implementation ("org.jetbrains.kotlinx:kotlinx-serialization-json:$serialization")
-                // Kotlin datetime
-                implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
-                // Multiplatform Preferences
-                implementation("com.russhwolf:multiplatform-settings-no-arg:1.0.0")
-                // Cache4K
-                implementation("io.github.reactivecircus.cache4k:cache4k:0.8.0")
-                implementation("io.github.mwaibanda:authentication:1.0.5")
 
-            }
+        commonMain.dependencies {
+            // Stately
+            implementation("co.touchlab:stately-common:1.2.5")
+            implementation("co.touchlab:stately-isolate:1.2.1")
+            implementation("co.touchlab:stately-iso-collections:1.2.1")
+            // Ktor
+            implementation("io.ktor:ktor-client-core:$ktorVersion")
+            implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
+            implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
+            implementation("io.ktor:ktor-client-logging:$ktorVersion")
+            // Koin
+            implementation("io.insert-koin:koin-core:3.5.0")
+            // SQLDelight
+            implementation("com.squareup.sqldelight:runtime:$sqlDelight")
+            // Kotlin Serialization
+            implementation ("org.jetbrains.kotlinx:kotlinx-serialization-json:$serialization")
+            // Kotlin datetime
+            implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
+            // Multiplatform Preferences
+            implementation("com.russhwolf:multiplatform-settings-no-arg:1.0.0")
+            // Cache4K
+            implementation("io.github.reactivecircus.cache4k:cache4k:0.8.0")
+            implementation("io.github.mwaibanda:authentication:1.0.5")
         }
-        val commonTest by getting {
-            dependencies {
-                implementation(kotlin("test"))
-            }
-        }
-        val androidMain by getting {
-            dependencies {
-                implementation("io.ktor:ktor-client-okhttp:$ktorVersion")
-                implementation("com.squareup.sqldelight:android-driver:$sqlDelight")
-            }
-        }
-        val iosX64Main by getting
-        val iosArm64Main by getting
-        val iosSimulatorArm64Main by getting
 
-        val iosMain by creating {
-            dependsOn(commonMain)
-            iosX64Main.dependsOn(this)
-            iosArm64Main.dependsOn(this)
-            iosSimulatorArm64Main.dependsOn(this)
-            dependencies {
-                implementation("io.ktor:ktor-client-ios:$ktorVersion")
-                implementation ("com.squareup.sqldelight:native-driver:$sqlDelight")
-                implementation ("org.jetbrains.kotlinx:kotlinx-serialization-json:$serialization")
-            }
+        commonTest.dependencies {
+            implementation(kotlin("test"))
         }
-        val iosX64Test by getting
-        val iosArm64Test by getting
-        val iosSimulatorArm64Test by getting
-        val iosTest by creating {
-            dependsOn(commonTest)
-            iosX64Test.dependsOn(this)
-            iosArm64Test.dependsOn(this)
-            iosSimulatorArm64Test.dependsOn(this)
-            dependencies {
-                implementation("dev.gitlive:firebase-auth:$firebase")
-                implementation ("org.jetbrains.kotlinx:kotlinx-serialization-json:$serialization")
-            }
+
+        androidMain.dependencies {
+            implementation("io.ktor:ktor-client-okhttp:$ktorVersion")
+            implementation("com.squareup.sqldelight:android-driver:$sqlDelight")
+        }
+
+        iosMain.dependencies {
+            implementation("io.ktor:ktor-client-ios:$ktorVersion")
+            implementation ("com.squareup.sqldelight:native-driver:$sqlDelight")
+            implementation ("org.jetbrains.kotlinx:kotlinx-serialization-json:$serialization")
+
+        }
+
+        iosTest.dependencies {
+            implementation("dev.gitlive:firebase-auth:$firebase")
+            implementation ("org.jetbrains.kotlinx:kotlinx-serialization-json:$serialization")
+            implementation ("com.squareup.sqldelight:native-driver:$sqlDelight")
         }
     }
 
@@ -118,9 +100,9 @@ android {
         minSdk = 26
     }
     namespace = "com.mwaibanda.momentum"
-}
-dependencies {
-    implementation("androidx.core:core-i18n:1.0.0-alpha01")
+    dependencies {
+        implementation("androidx.core:core-i18n:1.0.0-alpha01")
+    }
 }
 
 sqldelight {

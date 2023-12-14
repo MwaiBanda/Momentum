@@ -37,7 +37,7 @@ class AppDelegate : NSObject, UIApplicationDelegate {
         DependencyRegistryKt.doInitKoin()
         DependencyRegistry.shared.inject()
         
-        Thread.sleep(forTimeInterval: 1.5)
+        Thread.sleep(forTimeInterval: 1.0)
         do {
             try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback, mode: AVAudioSession.Mode.default)
             try AVAudioSession.sharedInstance().setActive(true)

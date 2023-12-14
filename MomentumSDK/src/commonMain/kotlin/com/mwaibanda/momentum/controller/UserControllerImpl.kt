@@ -11,8 +11,7 @@ import com.mwaibanda.momentum.domain.usecase.user.PostUserUseCase
 import com.mwaibanda.momentum.domain.usecase.user.UpdateUserCase
 import com.mwaibanda.momentum.utils.Result
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
@@ -24,9 +23,7 @@ class UserControllerImpl(driverFactory: DatabaseDriverFactory): UserController, 
 
     private val deleteOnlineUserUseCase: DeleteRemoteUserUseCase by inject()
     private val database = Database(driverFactory)
-    private val completableJob = SupervisorJob()
-    private val scope: CoroutineScope = CoroutineScope(Dispatchers.Default + completableJob)
-
+    private val scope: CoroutineScope = MainScope()
     override fun addMomentumUser(
         fullname: String,
         phone: String,
