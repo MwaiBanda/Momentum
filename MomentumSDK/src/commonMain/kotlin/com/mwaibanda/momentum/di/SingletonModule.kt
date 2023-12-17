@@ -10,8 +10,6 @@ import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.plugins.logging.LogLevel
 import io.ktor.client.plugins.logging.Logging
 import io.ktor.serialization.kotlinx.json.json
-import io.ktor.utils.io.CancellationException
-import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.serialization.json.Json
 import org.koin.dsl.module
 import kotlin.time.Duration.Companion.hours
@@ -37,13 +35,11 @@ val singletonModule = module {
                 socketTimeoutMillis = timeout
             }
             install(HttpRequestRetry) {
-                retryOnServerErrors(maxRetries = 5)
-                retryOnExceptionIf(maxRetries = 5) { _, cause ->
-                    cause is TimeoutCancellationException ||
-                    cause is CancellationException ||
-                    cause is kotlinx.coroutines.CancellationException
-                }
-                exponentialDelay()
+                retryOnExceptionOrServerErrors(maxRetries = 5)
+                exponentialDelay(
+                    maxDelayMs = 90000,
+                    randomizationMs = 30000
+                )
             }
         }
     }

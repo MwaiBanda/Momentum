@@ -43,7 +43,7 @@ struct BottomTabBar: View {
                 
             }
             NavigationView {
-                ContentWrapper {
+                MomentumBlurredBackground {
                     OfferView()
                 }
             }
@@ -79,5 +79,17 @@ struct BottomTabBar: View {
 struct BottomTabBar_Previews: PreviewProvider {
     static var previews: some View {
         BottomTabBar()
+    }
+}
+
+struct MomentumBlurredBackground<Content: View>: View {
+    var content: () -> Content
+    var body: some View {
+        ZStack {
+            BackgroundView().ignoresSafeArea(.all)
+            VStack {
+                content()
+            }
+        }
     }
 }

@@ -165,7 +165,8 @@ struct SignUpView: View {
                 .buttonStyle(FilledButtonStyle())
                 .padding(.bottom, 10)
                 Spacer()
-            }.matchedGeometryEffect(id: "button", in: namespace)
+            }
+            .matchedGeometryEffect(id: "button", in: namespace)
             
         }
     }

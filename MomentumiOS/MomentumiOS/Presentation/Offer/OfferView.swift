@@ -15,6 +15,7 @@ struct OfferView: View {
 
     var body: some View {
         VStack {
+            NavBar(showMenu: .constant(false))
             Spacer()
             if offerViewModel.displayText.isEmpty {
                 Text("$0")
@@ -50,9 +51,6 @@ struct OfferView: View {
                             
                         } label: {
                             ZStack {
-                                Circle()
-                                    .stroke(.clear)
-                                    .frame(width: 80, height: 80)
                                 Text(String(button))
                                     .font(Font.system(size: 30, design: .default))
                                     .padding()
@@ -63,6 +61,7 @@ struct OfferView: View {
                     
                 }
             }
+            Spacer()
             NavigationLink {
                     PaymentSummaryView(offerViewModel: offerViewModel)
                 
@@ -80,6 +79,7 @@ struct OfferView: View {
                     showAuthSheet.toggle()
                 }
             })
+            .padding(.bottom, 10)
         }
         .foregroundColor(.white)
         .onAppear {

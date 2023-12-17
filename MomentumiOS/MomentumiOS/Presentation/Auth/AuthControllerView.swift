@@ -78,7 +78,7 @@ struct AuthControllerView: View {
                         .foregroundColor(Color.white)
                     }
                     .frame(width: DeviceType.deviceIsPad ? proxy.size.width - 250 : screenBounds.width - 90, height: 45)
-                }
+                }.padding(.vertical, 10)
                 if DeviceType.deviceIsPad {
                     Spacer()
                 }

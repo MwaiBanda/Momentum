@@ -53,9 +53,9 @@ struct MealsView: View {
                     profileViewModel.getContactInformation(userId: session.currentUser?.id ?? "") {
                         profileViewModel.getBillingInformation(userId: session.currentUser?.id ?? "")
                     }
-                    mealViewModel.getMeals { meal in
-                        meals = meal
-                    }
+                }
+                mealViewModel.getMeals { meal in
+                    meals = meal
                 }
             }
         }

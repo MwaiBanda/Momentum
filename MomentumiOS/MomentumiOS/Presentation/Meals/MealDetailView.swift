@@ -13,6 +13,7 @@ struct MealDetailView: View {
     @ObservedObject var mealViewModel: MealViewModel
     @ObservedObject var profileViewModel: ProfileViewModel
     @EnvironmentObject var session: Session
+    @State private var showAuthSheet = false
 
     @State private var showRepcipentInfoSheet = false
     @State private var showVoluteerSheet = false
@@ -107,8 +108,12 @@ struct MealDetailView: View {
                                     Text("Available")
                                         .bold()
                                     Button {
-                                        selectedIndex = i
-                                        showVoluteerSheet.toggle()
+                                        if (session.currentUser?.isGuest ?? true) {
+                                            showAuthSheet.toggle()
+                                        } else {
+                                            selectedIndex = i
+                                            showVoluteerSheet.toggle()
+                                        }
                                     } label: {
                                         Text("Volunteer")
                                             .foregroundColor(.white)
@@ -132,6 +137,11 @@ struct MealDetailView: View {
                 }
             }
             .padding(.horizontal, 10)
+        }
+        .sheet(isPresented: $showAuthSheet) {
+            ContentWrapper(navConfiguration: .detailConfig) {
+                AuthControllerView()
+            }
         }
         .sheet(isPresented: $showRepcipentInfoSheet) {
             VStack(alignment: .leading) {
@@ -276,6 +286,7 @@ struct MealDetailView: View {
                         HStack {
                             Spacer()
                             Button { withAnimation(.easeInOut) {
+                                
                                 let removed = meals.remove(at: selectedIndex)
                                 let meal = VolunteeredMeal(id: removed.id, createdOn: removed.createdOn, description: meal.replacingOccurrences(of: "\u{2022}", with: ""), date: removed.date, notes: notes, user: User(fullname: profileViewModel.fullname, email: profileViewModel.email, phone: profileViewModel.phone, userId: session.currentUser?.id ?? "", createdOn: Date().description))
                                 mealViewModel.postVolunteeredMeal(request: VolunteeredMealRequest(mealId: mealRequest.id, volunteeredMeal: meal)) { meal in

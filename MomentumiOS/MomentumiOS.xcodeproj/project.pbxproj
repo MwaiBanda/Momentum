@@ -393,7 +393,7 @@
 				1CE8F2B028D92ACA0077F2F0 /* Sermons */,
 				813E775C288DC5C700109C19 /* Profile */,
 				8182E776288B919700A9CF9D /* Auth */,
-				8126AF87286FF11B007DBAB9 /* Component */,
+				8126AF87286FF11B007DBAB9 /* Components */,
 				8126AF7C286FEF39007DBAB9 /* Navigation */,
 				81A4013828852F6900C0802D /* Transactions */,
 				8126AF6F286FD7EB007DBAB9 /* Offer */,
@@ -457,7 +457,7 @@
 			path = Navigation;
 			sourceTree = "<group>";
 		};
-		8126AF87286FF11B007DBAB9 /* Component */ = {
+		8126AF87286FF11B007DBAB9 /* Components */ = {
 			isa = PBXGroup;
 			children = (
 				1C3CF16C28D984DD00B46FC1 /* Shape */,
@@ -477,7 +477,7 @@
 				1C408EE62A81E68F00218708 /* Card.swift */,
 				1C83C85B2AFA1229008026F4 /* MessageCard.swift */,
 			);
-			path = Component;
+			path = Components;
 			sourceTree = "<group>";
 		};
 		813E775C288DC5C700109C19 /* Profile */ = {
@@ -1027,7 +1027,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.7;
+				MARKETING_VERSION = 1.1.8;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mwaibanda.MomentumiOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1058,7 +1058,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.7;
+				MARKETING_VERSION = 1.1.8;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mwaibanda.MomentumiOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
