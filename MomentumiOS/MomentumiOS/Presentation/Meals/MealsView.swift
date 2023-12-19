@@ -15,6 +15,7 @@ import MomentumSDK
 struct MealsView: View {
     @StateObject private var profileViewModel = ProfileViewModel()
     @State private var showAddMealSheet = false
+    @State private var showAuthSheet = false
     @State private var meals = [Meal]()
     @StateObject private var mealViewModel = MealViewModel()
     @EnvironmentObject var session: Session
@@ -71,7 +72,11 @@ struct MealsView: View {
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
                     Button {
                         withAnimation(.easeInOut(duration: 0.35)) {
-                            showAddMealSheet.toggle()
+                            if (session.currentUser?.isGuest ?? true) {
+                                showAuthSheet.toggle()
+                            } else {
+                                showAddMealSheet.toggle()
+                            }
                         }
                     } label: {
                         Image(systemName: "plus")
@@ -80,6 +85,11 @@ struct MealsView: View {
                 }
             }
         )
+        .sheet(isPresented: $showAuthSheet) {
+            ContentWrapper(navConfiguration: .detailConfig) {
+                AuthControllerView()
+            }
+        }
         .sheet(isPresented: $showAddMealSheet) {
             ZStack {
                 UploadMealCardView(onDismiss: { request in
