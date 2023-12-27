@@ -142,7 +142,7 @@ class ProfileViewModel: ObservableObject {
                             )
                             onCompletion()
                         } else if let error = res.message {
-                            Log.d(tag: "User", message: error)
+                            Log.d(tag: "User", error)
                         }
                     }
                 }
@@ -191,7 +191,7 @@ class ProfileViewModel: ObservableObject {
     
     func updatePassword(userId: String) {
         userController.updateMomentumUserPasswordUserId(userId: userId, password: password) {
-            Log.d(tag: "Profile/Password", message: "Password Updated")
+            Log.d(tag: "Profile/Password", "Password Updated")
         }
     }
     

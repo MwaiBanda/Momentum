@@ -27,14 +27,14 @@ final class PaymentViewModel : ObservableObject {
         self.paymentResult = paymentResult
         switch paymentResult {
         case .completed:
-            Log.d(tag:"Pay/Complete", message: "Payment Success")
+            Log.d(tag:"Pay/Complete", "Payment Success")
             isNavTitleHidden = true
             paymentSheet = nil
         case .canceled:
-            Log.d(tag:"Pay/Cancelled", message: "Payment Cancelled")
+            Log.d(tag:"Pay/Cancelled", "Payment Cancelled")
             isNavTitleHidden = false
         case .failed(let error):
-            Log.d(tag:"Pay/Failed", message: error.localizedDescription)
+            Log.d(tag:"Pay/Failed", error.localizedDescription)
             isNavTitleHidden = true
         }
     }
@@ -45,7 +45,7 @@ final class PaymentViewModel : ObservableObject {
                 self.response = response
                 onCompletion()
             } else if let error = response.message {
-                Log.d(tag: "Pay/Failure", message: error)
+                Log.d(tag: "Pay/Failure", error)
             }
         }
     }

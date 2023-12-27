@@ -20,6 +20,10 @@ struct PaymentSummaryView: View {
     @StateObject private var transactionViewModel = TransactionViewModel()
     @StateObject private var profileViewModel = ProfileViewModel()
     @State private var isEditingToggle = false
+    @State private var showingAlert = false
+    @State private var showOtherModal = false
+    @State private var otherLabel = ""
+
     var body: some View {
         ZStack {
             VStack {
@@ -27,10 +31,16 @@ struct PaymentSummaryView: View {
                     VStack {
                         Divider()
                         PaymentSummaryContentView(
+                            otherLabel: $otherLabel,
                             isEditingToggle: $isEditingToggle,
                             offerViewModel: offerViewModel,
                             contentViewModel: contentViewModel
-                        )
+                        ).onReceive(contentViewModel.$otherIsSelected) { _ in
+                            print("[Other]: Selected")
+                            if contentViewModel.otherIsSelected {
+                                showOtherModal.toggle()
+                            }
+                        }
                         Spacer()
                         if isEditingToggle {
                             Divider()
@@ -55,16 +65,31 @@ struct PaymentSummaryView: View {
                                 .padding(.trailing, 10)
                             }
                         } else {
-                            PaymentSheet.PaymentButton(
-                                paymentSheet: paymentSheet,
-                                onCompletion: paymentViewModel.onPaymentCompletion
-                            ) {
-                                Text("Confirm")
-                                    .fontWeight(.heavy)
-                                    .frame(width: screenBounds.width - 30, height: 55)
+                            if contentViewModel.selectedLabels.isEmpty {
+                                Button {
+                                    showingAlert.toggle()
+                                } label: {
+                                    Text("Confirm")
+                                        .fontWeight(.heavy)
+                                        .frame(width: screenBounds.width - 30, height: 55)
+                                }.buttonStyle(FilledButtonStyle(isDisabled: $isEditingToggle))
+                                
+                            } else {
+                                PaymentSheet.PaymentButton(
+                                    paymentSheet: paymentSheet,
+                                    onCompletion: { result in
+                                        paymentViewModel.onPaymentCompletion(paymentResult: result)
+                                        Log.d(tag: "PAYMENT DESCRIPTION", contentViewModel.getTransactionDescription(otherLabel: otherLabel))
+
+                                    }
+                                ) {
+                                    Text("Confirm")
+                                        .fontWeight(.heavy)
+                                        .frame(width: screenBounds.width - 30, height: 55)
+                                }
+                                .buttonStyle(FilledButtonStyle(isDisabled: $isEditingToggle))
+                                .disabled(isEditingToggle)
                             }
-                            .buttonStyle(FilledButtonStyle(isDisabled: $isEditingToggle))
-                            .disabled(isEditingToggle)
                         }
                         Divider()
                         
@@ -78,6 +103,52 @@ struct PaymentSummaryView: View {
                     
                 }
             }
+            if showOtherModal {
+                Color.black.opacity(0.5).ignoresSafeArea(.all)
+                    .navigationBarBackButtonHidden(true)
+                VStack {
+                    Spacer()
+                    VStack(alignment: .leading) {
+                        Text("What Ministry Are You Giving To?")
+                            .bold()
+                        TextEditor(text: $otherLabel)
+                            .frame(height: 100)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 10)
+                                    .stroke(.gray, lineWidth: 1)
+                            )
+                        HStack {
+                            Button {
+                                showOtherModal.toggle()
+                                contentViewModel.selectedLabels.removeAll(where: {
+                                    $0 == ToggleLabel.other
+                                })
+                                contentViewModel.otherIsSelected = false
+                                contentViewModel.otherAmount = "0"
+                            } label: {
+                                HStack {
+                                    Spacer()
+                                    Text("Cancel")
+                                        .padding(.vertical, 8)
+                                    Spacer()
+                                }
+                            }.buttonStyle(FilledButtonStyle())
+                            Spacer()
+                            Button {
+                                showOtherModal.toggle()
+                            } label: {
+                                HStack {
+                                    Spacer()
+                                    Text("Save")
+                                        .padding(.vertical, 8)
+                                    Spacer()
+                                }
+                            }.buttonStyle(FilledButtonStyle())
+                        }
+                    }.padding(20).frame(width: screenBounds.width * 0.8).background(Color.white).clipShape(RoundedCorner(radius: 10))
+                    Spacer()
+                }
+            }
             if let paymentResult = paymentViewModel.paymentResult {
                 
                 PaymentResultView(result: paymentResult)
@@ -87,7 +158,7 @@ struct PaymentSummaryView: View {
                         case .completed:
                             let transaction = Transaction(
                                 id: "",
-                                description: contentViewModel.getTransactionDescription(),
+                                description: contentViewModel.getTransactionDescription(otherLabel: otherLabel),
                                 amount: Int32(Double(offerViewModel.number) ?? 0.00),
                                 date: transactionViewModel.getTransactionDate(),
                                 createdOn: "",
@@ -102,21 +173,28 @@ struct PaymentSummaryView: View {
                             )
                             transactionViewModel.postTransactionInfo(transaction: transaction) {
                                 transactionViewModel.addTransaction(
-                                    description: contentViewModel.getTransactionDescription(),
+                                    description: contentViewModel.getTransactionDescription(otherLabel: otherLabel),
                                     date: transactionViewModel.getTransactionDate(),
                                     amount: Double(offerViewModel.number) ?? 0.00,
                                     isSeen: false
                                 )
                             }
                         case .canceled:
+                            Log.d(tag: "PAYMENT DESCRIPTION", contentViewModel.getTransactionDescription(otherLabel: otherLabel))
                             break
                         case .failed(let error):
-                            Log.d(tag: "ERROR", message: error.localizedDescription)
+                            Log.d(tag: "ERROR", error.localizedDescription)
                         }
                     }
                 
             }
         }
+        .alert(isPresented: $showingAlert, content: {
+            Alert(
+                title: Text("No Ministry Selected"),
+                message: Text("Please select a ministry your giving to, in order to proceed with this payment")
+            )
+        })
         .onAppear {
             profileViewModel.getContactInformation(userId: session.currentUser?.id ?? "") {
                 paymentViewModel.checkout(

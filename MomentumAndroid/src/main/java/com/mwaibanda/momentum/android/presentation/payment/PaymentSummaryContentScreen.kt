@@ -5,11 +5,19 @@ import androidx.compose.material.Divider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import com.mwaibanda.momentum.android.presentation.components.ToggleAmountLabel
-import com.mwaibanda.momentum.android.presentation.payment.PaymentSummaryContentViewModel.ToggleLabel.*
+import com.mwaibanda.momentum.android.presentation.payment.PaymentSummaryContentViewModel.ToggleLabel.MISSIONS
+import com.mwaibanda.momentum.android.presentation.payment.PaymentSummaryContentViewModel.ToggleLabel.OFFERING
+import com.mwaibanda.momentum.android.presentation.payment.PaymentSummaryContentViewModel.ToggleLabel.OTHER
+import com.mwaibanda.momentum.android.presentation.payment.PaymentSummaryContentViewModel.ToggleLabel.SPECIAL_SPEAKER
+import com.mwaibanda.momentum.android.presentation.payment.PaymentSummaryContentViewModel.ToggleLabel.TITHE
 import com.mwaibanda.momentum.utils.MultiplatformConstants
 
 @Composable
-fun PaymentSummaryContentScreen(amount: Int, contentViewModel: PaymentSummaryContentViewModel) {
+fun PaymentSummaryContentScreen(
+    otherLabel: String,
+    amount: Int,
+    contentViewModel: PaymentSummaryContentViewModel
+) {
     LaunchedEffect(key1 = Unit){
         contentViewModel.totalAmount = amount.toString()
     }
@@ -105,7 +113,7 @@ fun PaymentSummaryContentScreen(amount: Int, contentViewModel: PaymentSummaryCon
         )
         Divider()
         ToggleAmountLabel(
-            title = MultiplatformConstants.OTHER,
+            title = otherLabel.ifEmpty { MultiplatformConstants.OTHER },
             amount = contentViewModel.otherAmount,
             isSelected = contentViewModel.otherIsSelected,
             isDisabled = {

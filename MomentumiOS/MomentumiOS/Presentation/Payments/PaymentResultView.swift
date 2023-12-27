@@ -21,7 +21,7 @@ struct PaymentResultView: View {
         case .failed(let error):
             PaymentFailureView()
                 .onAppear {
-                    Log.d(tag:"[Failed]", message: error.localizedDescription)
+                    Log.d(tag:"[Failed]", error.localizedDescription)
                 }
         }
     }

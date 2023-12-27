@@ -98,7 +98,7 @@ class SermonsViewModel: ObservableObject  {
                 self.canLoadMoreSermons = sermonsResponse.canLoadMoreSermons
                 self.currentPage = Int(sermonsResponse.pageNumber)
             } else if let error = res.message {
-                Log.d(tag: "Sermon", message: error)
+                Log.d(tag: "Sermon", error)
                 self.canLoadMoreSermons = false
             }
         }
@@ -149,7 +149,7 @@ class SermonsViewModel: ObservableObject  {
                 self.canLoadMoreSermons = sermonsResponse.canLoadMoreSermons
                 self.currentPage = Int(sermonsResponse.pageNumber)
             } else if let error = res.message {
-                Log.d(tag: "Sermon", message: error)
+                Log.d(tag: "Sermon", error)
                 self.canLoadMoreSermons = false
             }
         }

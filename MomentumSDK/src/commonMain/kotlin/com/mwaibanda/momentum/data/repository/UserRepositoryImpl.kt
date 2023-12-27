@@ -19,10 +19,14 @@ class UserRepositoryImpl(
 ): MomentumBase(), UserRepository {
 
     override suspend fun postUser(user: User) {
-        httpClient.post {
-            momentumAPI(USERS_ENDPOINT)
-            contentType(ContentType.Application.Json)
-            setBody(user)
+        try {
+            httpClient.post {
+                momentumAPI(USERS_ENDPOINT)
+                contentType(ContentType.Application.Json)
+                setBody(user)
+            }
+        } catch (e: Exception) {
+            println(e.message.toString())
         }
     }
 
@@ -37,20 +41,28 @@ class UserRepositoryImpl(
         }
     }
 
-    override suspend fun updateUser(user: User): User {
-        val response: User = httpClient.put {
-            momentumAPI(USERS_ENDPOINT)
-            contentType(ContentType.Application.Json)
-            setBody(user)
-        }.body()
-        return response
+    override suspend fun updateUser(user: User): Result<User> {
+        return try {
+            val response: User = httpClient.put {
+                momentumAPI(USERS_ENDPOINT)
+                contentType(ContentType.Application.Json)
+                setBody(user)
+            }.body()
+            return Result.Success(response)
+        } catch (e: Exception) {
+            Result.Failure(e.message ?: "Unknown Error")
+        }
     }
 
 
 
     override suspend fun deleteUser(userId: String) {
-        httpClient.delete {
-            momentumAPI("$USERS_ENDPOINT/$userId")
+        try {
+            httpClient.delete {
+                momentumAPI("$USERS_ENDPOINT/$userId")
+            }
+        } catch (e: Exception) {
+            println(e.message)
         }
     }
 }

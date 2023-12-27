@@ -48,7 +48,7 @@ final class Session: ObservableObject {
                 )
                 onCompletion()
             } else if let error = res.message {
-                Log.d(tag: "Auth", message: error)
+                Log.d(tag: "Auth", error)
             }
         }
     }
@@ -69,7 +69,7 @@ final class Session: ObservableObject {
                 )
                 onCompletion()
             } else if let error = res.message {
-                Log.d(tag: "Auth", message: error)
+                Log.d(tag: "Auth", error)
             }
         }
     }
@@ -82,7 +82,7 @@ final class Session: ObservableObject {
                     isGuest: user.isAnonymous
                 )
             } else if let error = res.message {
-                Log.d(tag: "Auth", message: error)
+                Log.d(tag: "Auth", error)
             }
         }
     }
@@ -94,9 +94,9 @@ final class Session: ObservableObject {
                     id: user.uid,
                     isGuest: user.isAnonymous
                 )
-                Log.d(tag: "Auth", message: user)
+                Log.d(tag: "Auth", user)
             } else if let error = res.message {
-                Log.d(tag: "Auth", message: error)
+                Log.d(tag: "Auth", error)
             }
         })
     }

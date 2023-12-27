@@ -9,7 +9,7 @@
 import Foundation
 
 struct Log {
-    static func d(tag: String, message: Any) {
-        print("[\(tag)]: \(message)")
+    static func d(tag: String, _ messages: Any...) {
+        print("[\(tag)]: \(messages.map({ String(describing: $0 )}).joined())")
     }
 }

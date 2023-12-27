@@ -123,7 +123,7 @@ final class OfferViewModel: ObservableObject {
             isDecimalMode = true
             isKeypadDisabled = false
             number += ".00"
-            Log.d(tag: "isDecimal", message: "\(isDecimalMode)")
+            Log.d(tag: "isDecimal", "\(isDecimalMode)")
         }
     }
     

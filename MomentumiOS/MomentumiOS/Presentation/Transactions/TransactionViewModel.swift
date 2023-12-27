@@ -50,11 +50,11 @@ class TransactionViewModel: ObservableObject {
         controller.postTransactionInfo(transaction: transaction) { response in
             if let response = response.data {
                 if response == 200 {
-                    Log.d(tag: "Pay/Post/Status", message: response)
+                    Log.d(tag: "Pay/Post/Status", response)
                     onCompletion()
                 }
             } else if let error = response.message {
-                Log.d(tag: "Pay/Failure", message: error)
+                Log.d(tag: "Pay/Failure", error)
             }
         }
     }

@@ -50,8 +50,8 @@ final class PaymentSummaryContentViewModel: ObservableObject {
                 previousOption = ToggleOption(amount:  0, type: type)
                 resetPrevious()
             }
-            Log.d(tag: "ADD/\(type)", message: selectedLabels)
-            Log.d(tag: "Previous/\(previousOption.type)", message: previousOption)
+            Log.d(tag: "ADD/\(type)", selectedLabels)
+            Log.d(tag: "Previous/\(previousOption.type)", previousOption)
             
         }
         if selectedLabels.count == 1 {
@@ -240,7 +240,7 @@ final class PaymentSummaryContentViewModel: ObservableObject {
             break
         }
     }
-    func getTransactionDescription() -> String {
+    func getTransactionDescription(otherLabel: String) -> String {
         var description = ""
         if !selectedLabels.isEmpty {
             if selectedLabels.count < 2 {
@@ -255,7 +255,7 @@ final class PaymentSummaryContentViewModel: ObservableObject {
                 case .specialSpeaker:
                     description = "$\(speakersAmount): \(selectedLabels[0].rawValue)"
                 case .other:
-                    description = "$\(otherAmount): \(selectedLabels[0].rawValue)"
+                    description = "$\(otherAmount): \(otherLabel.isEmpty ? selectedLabels[0].rawValue : otherLabel)"
                 }
                 return description
             } else {
@@ -272,7 +272,7 @@ final class PaymentSummaryContentViewModel: ObservableObject {
                         case .specialSpeaker:
                             description += "$\(speakersAmount): \(toggle.rawValue)"
                         case .other:
-                            description += "$\(otherAmount): \(toggle.rawValue)"
+                            description += "$\(otherAmount): \(otherLabel.isEmpty ? toggle.rawValue : otherLabel)"
                         }
                     } else {
                         switch toggle {
@@ -285,7 +285,7 @@ final class PaymentSummaryContentViewModel: ObservableObject {
                         case .specialSpeaker:
                             description += "$\(speakersAmount): \(toggle.rawValue), "
                         case .other:
-                            description += "$\(otherAmount): \(toggle.rawValue), "
+                            description += "$\(otherAmount): \(otherLabel.isEmpty ? toggle.rawValue : otherLabel), "
                         }
                         
                     }

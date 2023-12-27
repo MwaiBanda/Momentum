@@ -13,22 +13,12 @@ struct AuthControllerView: View {
     @Environment(\.presentationMode) private var presentationMode
     @State private var showSignUp = true
     var body: some View {
+        
         GeometryReader { proxy in
             VStack(alignment: .trailing) {
                 if DeviceType.deviceIsPad {
                     Spacer()
                 }
-            
-                    
-                    Button { presentationMode.wrappedValue.dismiss() } label: {
-                        Image(systemName: "xmark.circle.fill")
-                            .imageScale(.large)
-                            .foregroundColor(.white)
-                    }
-                    .padding(.top)
-                    .offset(x: DeviceType.deviceIsPad ? 0 : 30)
-            
-                
                 
                 Spacer()
                 BlurredBackground {
@@ -56,6 +46,7 @@ struct AuthControllerView: View {
                     maxWidth: DeviceType.deviceIsPad ? proxy.size.width - 250 : screenBounds.width - 90,
                     maxHeight: showSignUp ? 490 : 300
                 )
+                
                 Spacer()
                 Button {
                     withAnimation(.easeOut(duration: 0.35)){
@@ -82,8 +73,10 @@ struct AuthControllerView: View {
                 if DeviceType.deviceIsPad {
                     Spacer()
                 }
-            }.frame(maxWidth: proxy.size.width)
+            }.frame(maxWidth: proxy.size.width, maxHeight: proxy.size.height)
         }
+        
+        
     }
 }
 
@@ -92,3 +85,4 @@ struct AuthControllerView_Previews: PreviewProvider {
         AuthControllerView()
     }
 }
+

@@ -90,6 +90,7 @@ struct SignInView: View {
                 Spacer()
             }.matchedGeometryEffect(id: "button", in: namespace)
         }
+        .accentColor(Color(hex: Constants.MOMENTUM_ORANGE))
     }
 }
 

@@ -51,13 +51,8 @@ struct ContentWrapper<Content: View>: View {
                                     NavBar(showMenu: $showMenu)
                                 }
                                 ScrollView(.vertical, showsIndicators: false){
-                                    VStack {
-                                        if navConfiguration == .defaultConfig {
-                                            Spacer()
-                                        }
-                                        content()
-                                    }
-                                        .frame(maxHeight: .infinity)
+                                    content()
+                                        .frame(minHeight:  geometry.size.height - (navConfiguration == .defaultConfig ? 90 : 50))
                                 }
                               /*   Divider()
                                .overlay(Color(.clear))

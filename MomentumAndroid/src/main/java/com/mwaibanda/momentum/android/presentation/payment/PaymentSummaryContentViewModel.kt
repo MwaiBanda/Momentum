@@ -5,7 +5,11 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
-import com.mwaibanda.momentum.android.presentation.payment.PaymentSummaryContentViewModel.ToggleLabel.*
+import com.mwaibanda.momentum.android.presentation.payment.PaymentSummaryContentViewModel.ToggleLabel.MISSIONS
+import com.mwaibanda.momentum.android.presentation.payment.PaymentSummaryContentViewModel.ToggleLabel.OFFERING
+import com.mwaibanda.momentum.android.presentation.payment.PaymentSummaryContentViewModel.ToggleLabel.OTHER
+import com.mwaibanda.momentum.android.presentation.payment.PaymentSummaryContentViewModel.ToggleLabel.SPECIAL_SPEAKER
+import com.mwaibanda.momentum.android.presentation.payment.PaymentSummaryContentViewModel.ToggleLabel.TITHE
 
 class PaymentSummaryContentViewModel: ViewModel() {
     enum class ToggleLabel {
@@ -208,14 +212,14 @@ class PaymentSummaryContentViewModel: ViewModel() {
             }
         }
     }
-    fun  getTransactionDescription(): String {
+    fun  getTransactionDescription(otherLabel: String): String {
         if (selectedLabels.count() == 1) {
             return when(selectedLabels[0]) {
                 OFFERING -> "$$offeringAmount: Offering"
                 TITHE -> "$$titheAmount: Tithe"
                 MISSIONS -> "$$missionsAmount: Missions"
                 SPECIAL_SPEAKER -> "$$speakersAmount: Special Speaker"
-                OTHER -> "$$otherAmount: Other"
+                OTHER -> "$$otherAmount: ${otherLabel.ifEmpty { "Other" }}"
             }
         } else {
             var description = ""
@@ -226,7 +230,7 @@ class PaymentSummaryContentViewModel: ViewModel() {
                           TITHE -> "$$titheAmount: Tithe"
                           MISSIONS -> "$$missionsAmount: Missions"
                           SPECIAL_SPEAKER -> "$$speakersAmount: Special Speaker"
-                          OTHER -> "$$otherAmount: Other"
+                          OTHER -> "$$otherAmount: ${otherLabel.ifEmpty { "Other" }}"
                       }
                 } else {
                     description += when(toggleLabel) {
@@ -234,7 +238,7 @@ class PaymentSummaryContentViewModel: ViewModel() {
                         TITHE -> "$$titheAmount: Tithe, "
                         MISSIONS -> "$$missionsAmount: Missions, "
                         SPECIAL_SPEAKER -> "$$speakersAmount: Special Speaker, "
-                        OTHER -> "$$otherAmount: Other, "
+                        OTHER -> "$$otherAmount: ${otherLabel.ifEmpty { "Other" }}"
                     }
                 }
             }

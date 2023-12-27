@@ -36,8 +36,24 @@ import com.google.android.gms.cast.framework.CastContext
 import com.google.android.gms.dynamite.DynamiteModule
 import com.mwaibanda.momentum.android.core.utils.C
 import com.mwaibanda.momentum.android.core.utils.Modal
-import com.mwaibanda.momentum.android.core.utils.Modal.*
-import com.mwaibanda.momentum.android.core.utils.NavigationRoutes.*
+import com.mwaibanda.momentum.android.core.utils.Modal.Authentication
+import com.mwaibanda.momentum.android.core.utils.Modal.PostMeal
+import com.mwaibanda.momentum.android.core.utils.Modal.PostVolunteerMeal
+import com.mwaibanda.momentum.android.core.utils.Modal.ViewRecipientInfo
+import com.mwaibanda.momentum.android.core.utils.Modal.ViewTransactions
+import com.mwaibanda.momentum.android.core.utils.NavigationRoutes.EventScreen
+import com.mwaibanda.momentum.android.core.utils.NavigationRoutes.LaunchScreen
+import com.mwaibanda.momentum.android.core.utils.NavigationRoutes.MealDetailScreen
+import com.mwaibanda.momentum.android.core.utils.NavigationRoutes.MealScreen
+import com.mwaibanda.momentum.android.core.utils.NavigationRoutes.MessageDetailScreen
+import com.mwaibanda.momentum.android.core.utils.NavigationRoutes.MessagesScreen
+import com.mwaibanda.momentum.android.core.utils.NavigationRoutes.OfferScreen
+import com.mwaibanda.momentum.android.core.utils.NavigationRoutes.PaymentFailureScreen
+import com.mwaibanda.momentum.android.core.utils.NavigationRoutes.PaymentSuccessScreen
+import com.mwaibanda.momentum.android.core.utils.NavigationRoutes.PaymentSummaryScreen
+import com.mwaibanda.momentum.android.core.utils.NavigationRoutes.PlayerScreen
+import com.mwaibanda.momentum.android.core.utils.NavigationRoutes.ProfileScreen
+import com.mwaibanda.momentum.android.core.utils.NavigationRoutes.SermonScreen
 import com.mwaibanda.momentum.android.presentation.MomentumEntry
 import com.mwaibanda.momentum.android.presentation.auth.AuthControllerScreen
 import com.mwaibanda.momentum.android.presentation.event.EventScreen
@@ -303,17 +319,18 @@ class MainActivity : BaseActivity() {
                             arguments = listOf(navArgument("amount") {
                                 type = NavType.FloatType
                             })
-                        ) {
+                        ) { navBackStackEntry ->
                             PaymentSummaryScreen(
                                 navController = navController,
                                 authViewModel = authViewModel,
                                 profileViewModel = profileViewModel,
                                 transactionViewModel = transactionViewModel,
-                                amount = it.arguments?.getFloat("amount") ?: 0.0f,
+                                amount = navBackStackEntry.arguments?.getFloat("amount") ?: 0.0f,
                                 canInitiateTransaction = paymentViewModel.canInitiateTransaction,
                                 onTransactionCanProcess = { canInitiateTransaction ->
                                     paymentViewModel.canInitiateTransaction = canInitiateTransaction
                                 },
+                                onShowModal = { showModalSheet = it },
                                 onHandlePaymentSheetResult = ::onHandlePaymentResult
                             ) { request, launcher ->
                                 checkout(request) { customer, intent ->

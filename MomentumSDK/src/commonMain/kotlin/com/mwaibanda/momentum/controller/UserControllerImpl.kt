@@ -52,7 +52,18 @@ class UserControllerImpl(driverFactory: DatabaseDriverFactory): UserController, 
 
     override fun updateUser(user: User, onCompletion: (User) -> Unit) {
         scope.launch {
-            updateUserCase(user, onCompletion)
+            updateUserCase(user) {
+                when(it) {
+                    is Result.Failure -> {
+                        println(it.message)
+                    }
+                    is Result.Success -> {
+                        it.data?.let { user ->
+                            onCompletion(user)
+                        }
+                    }
+                }
+            }
         }
     }
 

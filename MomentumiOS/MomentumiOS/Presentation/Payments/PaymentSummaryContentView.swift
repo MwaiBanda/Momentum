@@ -10,6 +10,7 @@ import SwiftUI
 import MomentumSDK
 
 struct PaymentSummaryContentView: View {
+    @Binding var otherLabel: String
     @Binding var isEditingToggle: Bool
     @ObservedObject var offerViewModel: OfferViewModel
     @ObservedObject var contentViewModel: PaymentSummaryContentViewModel
@@ -110,7 +111,7 @@ struct PaymentSummaryContentView: View {
                 
                 Divider()
                 ToggleAmountLabel(
-                    title: MultiplatformConstants.shared.OTHER,
+                    title: otherLabel.isEmpty ?  MultiplatformConstants.shared.OTHER : otherLabel,
                     amount: $contentViewModel.otherAmount,
                     isSelected: $contentViewModel.otherIsSelected,
                     showLabel: !contentViewModel.selectedLabels.isEmpty
@@ -158,6 +159,6 @@ struct PaymentSummaryContentView: View {
 
 struct PaymentSummaryContentView_Previews: PreviewProvider {
     static var previews: some View {
-        PaymentSummaryContentView(isEditingToggle: .constant(true), offerViewModel: OfferViewModel(), contentViewModel: PaymentSummaryContentViewModel())
+        PaymentSummaryContentView(otherLabel: .constant(""), isEditingToggle: .constant(true), offerViewModel: OfferViewModel(), contentViewModel: PaymentSummaryContentViewModel())
     }
 }
