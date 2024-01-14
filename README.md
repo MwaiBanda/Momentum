@@ -92,6 +92,10 @@ The app's are available for download on the app store & playstore for Android & 
     <td>Koin</td>
      <td>TinyDi</td>
   </tr>
+  <tr>
+    <td>Firebase Messaging</td>
+     <td>Firebase Messaging</td>
+  </tr>
    <tr>
     <td>StateFlow</td>
      <td></td>
