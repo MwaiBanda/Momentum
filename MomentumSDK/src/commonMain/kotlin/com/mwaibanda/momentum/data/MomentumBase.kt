@@ -3,6 +3,9 @@ package com.mwaibanda.momentum.data
 import co.touchlab.stately.ensureNeverFrozen
 import com.mwaibanda.momentum.utils.MultiplatformConstants
 import io.ktor.client.request.HttpRequestBuilder
+import io.ktor.client.request.setBody
+import io.ktor.http.ContentType
+import io.ktor.http.contentType
 import io.ktor.http.encodedPath
 import io.ktor.http.takeFrom
 
@@ -19,6 +22,7 @@ open class MomentumBase {
         const val TRANSACTIONS_ENDPOINT = "/transactions"
         const val SERMONS_ENDPOINT = "/sermons"
         const val MESSAGE_ENDPOINT = "/messages"
+        const val NOTES_ENDPOINT = "$MESSAGE_ENDPOINT/notes"
         const val USERS_ENDPOINT = "/users"
         const val MEALS_ENDPOINT = "/meals"
         const val EVENTS_ENDPOINT = "/events"
@@ -35,6 +39,12 @@ open class MomentumBase {
                     }
                 }
             }
+        }
+
+        inline fun <reified T> HttpRequestBuilder.momentumAPI(path: String, body: T) {
+            momentumAPI(path)
+            contentType(ContentType.Application.Json)
+            setBody(body)
         }
     }
 }

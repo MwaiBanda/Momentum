@@ -15,9 +15,6 @@ import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.get
 import io.ktor.client.request.post
-import io.ktor.client.request.setBody
-import io.ktor.http.ContentType
-import io.ktor.http.contentType
 import kotlinx.coroutines.delay
 
 class MealRepositoryImpl(
@@ -51,9 +48,7 @@ class MealRepositoryImpl(
     override suspend fun postMeal(request: MealRequest): Result<Meal> {
         return try {
             val meal: Meal = httpClient.post {
-                momentumAPI(MEALS_ENDPOINT)
-                contentType(ContentType.Application.Json)
-                setBody(request)
+                momentumAPI(MEALS_ENDPOINT, request)
             }.body<MealRequest>().toMeal()
             Result.Success(meal)
         } catch (e: Exception) {
@@ -64,9 +59,7 @@ class MealRepositoryImpl(
     override suspend fun postVolunteeredMeal(request: VolunteeredMealRequest): Result<VolunteeredMeal> {
         return try {
             val meal: VolunteeredMeal = httpClient.post {
-                momentumAPI(VOLUNTEERED_MEAL_ENDPOINT)
-                contentType(ContentType.Application.Json)
-                setBody(request)
+                momentumAPI(VOLUNTEERED_MEAL_ENDPOINT, request)
             }.body<VolunteeredMealRequest>().volunteeredMeal
             Result.Success(meal)
         } catch (e: Exception) {

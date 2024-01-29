@@ -17,10 +17,9 @@ buildscript {
     }
     dependencies {
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.21")
-        classpath("com.android.tools.build:gradle:8.2.0")
-        classpath ("com.squareup.sqldelight:gradle-plugin:1.5.4")
-        classpath ("com.google.gms:google-services:4.4.0")
-
+        classpath("com.android.tools.build:gradle:8.2.1")
+        classpath("com.squareup.sqldelight:gradle-plugin:1.5.4")
+        classpath("com.google.gms:google-services:4.4.0")
     }
 }
 

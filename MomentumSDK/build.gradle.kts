@@ -11,11 +11,18 @@ plugins {
 version = "1.0.0"
 
 kotlin {
-    androidTarget()
+    androidTarget {
+        compilations.all {
+            kotlinOptions {
+                jvmTarget = "17"
+            }
+        }
+    }
     iosX64()
     iosArm64()
     iosSimulatorArm64()
 
+    applyDefaultHierarchyTemplate()
 
     // For example:
     jvmToolchain(17)
@@ -65,7 +72,7 @@ kotlin {
             implementation("com.russhwolf:multiplatform-settings-no-arg:1.0.0")
             // Cache4K
             implementation("io.github.reactivecircus.cache4k:cache4k:0.8.0")
-            implementation("io.github.mwaibanda:authentication:1.0.5")
+            api("io.github.mwaibanda:authentication:1.0.5")
         }
 
         commonTest.dependencies {

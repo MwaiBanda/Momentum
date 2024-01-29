@@ -10,9 +10,6 @@ import io.ktor.client.request.delete
 import io.ktor.client.request.get
 import io.ktor.client.request.post
 import io.ktor.client.request.put
-import io.ktor.client.request.setBody
-import io.ktor.http.ContentType
-import io.ktor.http.contentType
 
 class UserRepositoryImpl(
     private val httpClient: HttpClient
@@ -21,9 +18,7 @@ class UserRepositoryImpl(
     override suspend fun postUser(user: User) {
         try {
             httpClient.post {
-                momentumAPI(USERS_ENDPOINT)
-                contentType(ContentType.Application.Json)
-                setBody(user)
+                momentumAPI(USERS_ENDPOINT, user)
             }
         } catch (e: Exception) {
             println(e.message.toString())
@@ -44,9 +39,7 @@ class UserRepositoryImpl(
     override suspend fun updateUser(user: User): Result<User> {
         return try {
             val response: User = httpClient.put {
-                momentumAPI(USERS_ENDPOINT)
-                contentType(ContentType.Application.Json)
-                setBody(user)
+                momentumAPI(USERS_ENDPOINT, user)
             }.body()
             return Result.Success(response)
         } catch (e: Exception) {

@@ -8,3 +8,4 @@ sealed class Result<T>(
     class Failure<T>(message: String, data:  T? = null): Result<T>(data, message)
 }
 
+

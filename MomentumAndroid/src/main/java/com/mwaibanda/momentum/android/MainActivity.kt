@@ -179,6 +179,7 @@ class MainActivity : BaseActivity() {
                 showModalSheet = sheetState.isVisible
             })
 
+
             MomentumEntry(showModalSheet, {
                 showModal(ViewTransactions)
             }) { contentPadding, navController ->
@@ -281,7 +282,13 @@ class MainActivity : BaseActivity() {
                         }
                         composable(MessageDetailScreen.route) {
                             currentMessage?.let {
-                                MessageDetailScreen(it)
+                                MessageDetailScreen(
+                                    message = it,
+                                    messageViewModel = messageViewModel,
+                                    authViewModel = authViewModel,
+                                ) {
+                                    showModal(it)
+                                }
                             }
                         }
                         composable(
