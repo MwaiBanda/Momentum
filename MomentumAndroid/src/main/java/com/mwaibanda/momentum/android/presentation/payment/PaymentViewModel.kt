@@ -7,10 +7,9 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import com.mwaibanda.momentum.domain.controller.PaymentController
 import com.mwaibanda.momentum.domain.models.Payment
-import com.mwaibanda.momentum.domain.models.Transaction
 import com.mwaibanda.momentum.domain.models.PaymentResponse
-import com.mwaibanda.momentum.utils.Result.Failure
-import com.mwaibanda.momentum.utils.Result.Success
+import com.mwaibanda.momentum.utils.DataResponse.Failure
+import com.mwaibanda.momentum.utils.DataResponse.Success
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow

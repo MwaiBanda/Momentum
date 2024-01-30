@@ -10,7 +10,7 @@ import com.mwaibanda.momentum.data.db.MomentumSermon
 import com.mwaibanda.momentum.data.db.SermonFavourite
 import com.mwaibanda.momentum.domain.controller.SermonController
 import com.mwaibanda.momentum.domain.models.Sermon
-import com.mwaibanda.momentum.utils.Result
+import com.mwaibanda.momentum.utils.DataResponse
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
@@ -110,8 +110,8 @@ class SermonViewModel(
         currentPage = 1
         sermonController.getSermon(currentPage) {
             when (it) {
-                is Result.Failure -> Log.d("SERMON/FAILURE", "${it.message}")
-                is Result.Success -> {
+                is DataResponse.Failure -> Log.d("SERMON/FAILURE", "${it.message}")
+                is DataResponse.Success -> {
                     sermons.value = it.data?.sermons ?: emptyList()
                     currentPage = (it.data?.pageNumber ?: 1)
                     _canLoadMoreSermons.value = it.data?.canLoadMoreSermons ?: false
@@ -128,11 +128,11 @@ class SermonViewModel(
         currentPage++
         sermonController.getSermon(currentPage) {
             when (it) {
-                is Result.Failure -> {
+                is DataResponse.Failure -> {
                     _canLoadMoreSermons.value = false
                     Log.d("SERMON/FAILURE", "${it.message}")
                 }
-                is Result.Success -> {
+                is DataResponse.Success -> {
                     sermons.value += it.data?.sermons ?: emptyList()
                     _canLoadMoreSermons.value = it.data?.canLoadMoreSermons ?: false
                     Log.d("SERMON/SUCCESS", "${it.data}")

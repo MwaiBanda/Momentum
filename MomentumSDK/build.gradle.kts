@@ -1,10 +1,11 @@
 plugins {
     kotlin("multiplatform")
     kotlin("native.cocoapods")
+    kotlin("plugin.serialization") version "1.9.10"
     id("com.android.library")
     id( "com.squareup.sqldelight")
     id("kotlin-parcelize")
-    kotlin("plugin.serialization") version "1.9.10"
+    id("com.rickclephas.kmp.nativecoroutines") version "1.0.0-ALPHA-24"
 }
 
 
@@ -17,6 +18,9 @@ kotlin {
                 jvmTarget = "17"
             }
         }
+    }
+    sourceSets.all {
+        languageSettings.optIn("kotlin.experimental.ExperimentalObjCName")
     }
     iosX64()
     iosArm64()

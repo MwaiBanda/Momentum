@@ -7,7 +7,7 @@ import com.mwaibanda.momentum.domain.controller.TransactionController
 import com.mwaibanda.momentum.domain.models.Transaction
 import com.mwaibanda.momentum.domain.usecase.transaction.GetTransactionsUseCase
 import com.mwaibanda.momentum.domain.usecase.transaction.PostTransactionUseCase
-import com.mwaibanda.momentum.utils.Result
+import com.mwaibanda.momentum.utils.DataResponse
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
@@ -39,7 +39,7 @@ class TransactionControllerImpl(driverFactory: DatabaseDriverFactory): Transacti
 
     override fun postTransactionInfo(
         transaction: Transaction,
-        onCompletion: (Result<Int>) -> Unit
+        onCompletion: (DataResponse<Int>) -> Unit
     ) {
         scope.launch {
             postTransactionUseCase(transaction) {
@@ -54,7 +54,7 @@ class TransactionControllerImpl(driverFactory: DatabaseDriverFactory): Transacti
 
     override fun getTransactions(
         userId: String,
-        onCompletion: (Result<List<Transaction>>) -> Unit
+        onCompletion: (DataResponse<List<Transaction>>) -> Unit
     ) {
         scope.launch {
             getTransactionsUseCase(userId = userId) {

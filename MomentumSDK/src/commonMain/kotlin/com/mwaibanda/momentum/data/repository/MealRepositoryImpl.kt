@@ -10,7 +10,7 @@ import com.mwaibanda.momentum.domain.models.VolunteeredMeal
 import com.mwaibanda.momentum.domain.repository.MealRepository
 import com.mwaibanda.momentum.domain.usecase.cache.GetItemUseCase
 import com.mwaibanda.momentum.domain.usecase.cache.SetItemUseCase
-import com.mwaibanda.momentum.utils.Result
+import com.mwaibanda.momentum.utils.DataResponse
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.get
@@ -22,10 +22,10 @@ class MealRepositoryImpl(
     private val getItemUseCase: GetItemUseCase<MealResponse>,
     private val setItemUseCase: SetItemUseCase<MealResponse>,
 ): MomentumBase(), MealRepository {
-    override suspend fun fetchAllMeals(): Result<MealResponse> {
+    override suspend fun fetchAllMeals(): DataResponse<MealResponse> {
         val cacheMeals = getItemUseCase(MEALS_KEY).orEmpty()
         if (cacheMeals.isNotEmpty()) {
-            return Result.Success(cacheMeals)
+            return DataResponse.Success(cacheMeals)
         }
         try {
             val mealDTO: MealContainerDTO = httpClient.get {
@@ -39,31 +39,31 @@ class MealRepositoryImpl(
                 fetchAllMeals()
             }
         } catch (e: Exception) {
-            return  Result.Failure(e.message.toString())
+            return  DataResponse.Failure(e.message.toString())
         }
         val newlyCachedMeals = getItemUseCase(MEALS_KEY).orEmpty()
-        return Result.Success(newlyCachedMeals)
+        return DataResponse.Success(newlyCachedMeals)
     }
 
-    override suspend fun postMeal(request: MealRequest): Result<Meal> {
+    override suspend fun postMeal(request: MealRequest): DataResponse<Meal> {
         return try {
             val meal: Meal = httpClient.post {
                 momentumAPI(MEALS_ENDPOINT, request)
             }.body<MealRequest>().toMeal()
-            Result.Success(meal)
+            DataResponse.Success(meal)
         } catch (e: Exception) {
-            Result.Failure(e.message.toString())
+            DataResponse.Failure(e.message.toString())
         }
     }
 
-    override suspend fun postVolunteeredMeal(request: VolunteeredMealRequest): Result<VolunteeredMeal> {
+    override suspend fun postVolunteeredMeal(request: VolunteeredMealRequest): DataResponse<VolunteeredMeal> {
         return try {
             val meal: VolunteeredMeal = httpClient.post {
                 momentumAPI(VOLUNTEERED_MEAL_ENDPOINT, request)
             }.body<VolunteeredMealRequest>().volunteeredMeal
-            Result.Success(meal)
+            DataResponse.Success(meal)
         } catch (e: Exception) {
-            Result.Failure(e.message.toString())
+            DataResponse.Failure(e.message.toString())
         }
     }
 

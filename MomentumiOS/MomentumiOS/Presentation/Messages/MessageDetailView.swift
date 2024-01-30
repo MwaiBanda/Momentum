@@ -12,54 +12,235 @@ import MomentumSDK
 import SDWebImageSwiftUI
 import Algorithms
 
+enum NoteState {
+    case Loading
+    case Display
+}
 struct MessageDetailView: View {
     let message: Message
-    @State private var text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
-    @State private var range = NSRange()
-    var body: some View {
-        ScrollView {
-            VStack(alignment: .leading, spacing: 0) {
-                WebImage(url: URL(string: message.thumbnail))
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(maxHeight: 350)
-                    .edgesIgnoringSafeArea(.top)
-//                TextView(text: $text, range: $range)
-//                    .frame(maxWidth: .infinity, minHeight: 100)
+    @StateObject private var messageViewModel = MessageViewModel()
+    @EnvironmentObject var session: Session
+    @State private var notes = ""
+    @State private var showNotes = false
+    @State private var isUpdating = false
+    @State private var showAuthSheet = false
+    @State private var currentNote: Note? = nil
+    @State private var currentPassage: Passage? = nil
+    @State private var passages = [Passage]()
+    @State private var currentNoteState: NoteState = .Display
 
-                ForEach(message.passages) { passage in
-                    if (passage.header ?? "").isEmpty {
-                        VStack(alignment: .leading) {
-                            HStack {
-                            Text(passage.verse ?? "")
-                                .bold()
-                                Spacer()
-                            }
-                            if let message = passage.message  {
-                                if #available(iOS 15, *) {
-                                    Text(getMesssageAttritubuted(message))
-                                        .textSelection(.enabled)
-                                } else {
-                                    Group {
-                                        getMessageTextArray(message: message).prefix(450).reduce(Text("")) { x, y in
-                                            x + y
+    var body: some View {
+        ZStack {
+            ScrollView {
+                VStack(alignment: .leading, spacing: 0) {
+                    WebImage(url: URL(string: message.thumbnail))
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(maxHeight: 350)
+                        .edgesIgnoringSafeArea(.top)
+                    //                TextView(text: $text, range: $range)
+                    //                    .frame(maxWidth: .infinity, minHeight: 100)
+                    
+                    ForEach(passages) { passage in
+                        if (passage.header ?? "").isEmpty {
+                            VStack(alignment: .leading) {
+                                HStack {
+                                    Text(passage.verse ?? "")
+                                        .fontWeight(.heavy)
+                                    Spacer()
+                                }
+                                if let message = passage.message  {
+                                    if #available(iOS 15, *) {
+                                        Text(getMesssageAttritubuted(message))
+                                            .textSelection(.enabled)
+                                    } else {
+                                        Group {
+                                            getMessageTextArray(message: message).prefix(450).reduce(Text("")) { x, y in
+                                                x + y
+                                            }
                                         }
                                     }
                                 }
+                            }.frame(maxWidth: .infinity).padding(10)
+                        } else {
+                            HStack {
+                                Text(passage.header ?? "")
+                                Spacer()
+                            }.padding(10)
+                        }
+                        if (passage.notes?.isEmpty ?? true) {
+                            Text("ADD NOTES")
+                                .fontWeight(.heavy)
+                                .padding(10)
+                                .onTapGesture {
+                                    if (session.currentUser?.isGuest ?? false)  {
+                                        showAuthSheet.toggle()
+                                    } else {
+                                        showNotes = true
+                                        notes = ""
+                                        isUpdating = false
+                                        currentPassage = passage
+                                    }
+                                }
+                        } else {
+                            Text("NOTES")
+                                .fontWeight(.heavy)
+                                .padding(.top, 10)
+                                .padding(.horizontal, 10)
+                            ForEach(passage.notes ?? [], id: \.id) { note in
+                                Text(note.content)
+                                    .padding(.horizontal, 10)
+                                    .padding(.bottom, 10)
+                                    .onTapGesture {
+                                        showNotes = true
+                                        notes = note.content
+                                        isUpdating = true
+                                        currentNote = note
+                                        currentPassage = passage
+                                    }
                             }
-                        }.frame(maxWidth: .infinity).padding(10)
-                    } else {
-                        HStack {
-                            Text(passage.header ?? "")
-                            Spacer()
-                        }.padding(10)
+                            Text("ADD MORE NOTES")
+                                .fontWeight(.heavy)
+                                .padding(10)
+                                .onTapGesture {
+                                    showNotes = true
+                                    notes = ""
+                                    isUpdating = false
+                                    currentPassage = passage
+                                }
+                            
+                        }
+                        Divider()
+                        
                     }
-                    Divider()
-                       
+                    
+                    
+                }
+            }
+            .navigationBarTitleDisplayMode(.inline)
+            .onAppear {
+                passages = message.passages
+            }
+            .sheet(isPresented: $showAuthSheet) {
+                ContentWrapper(navConfiguration: .detailConfig) {
+                    AuthControllerView()
+                }
+            }
+            if showNotes {
+                Color.black.opacity(0.5).ignoresSafeArea(.all)
+                VStack {
+                    Spacer()
+                    VStack(alignment: .leading) {
+                        Text("Enter your notes")
+                            .bold()
+                        switch(currentNoteState) {
+                        case .Display:
+                            TextEditor(text: $notes)
+                                .frame(height: 150)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .stroke(.gray, lineWidth: 1)
+                                )
+                        case .Loading:
+                            VStack(alignment: .center) {
+                                Spacer()
+                                HStack {
+                                    Spacer()
+                                    ProgressView()
+                                        .progressViewStyle(CircularProgressViewStyle())
+                                    Spacer()
+                                }
+                                Spacer()
+                            }.frame(maxWidth: .infinity, minHeight: 151, maxHeight: 151)
+                        }
+                        
+                        HStack {
+                            Button {
+                                showNotes = false
+                                isUpdating = false
+                                notes = ""
+                            } label: {
+                                HStack {
+                                    Spacer()
+                                    Text("Cancel")
+                                        .padding(.vertical, 8)
+                                    Spacer()
+                                }
+                            }.buttonStyle(FilledButtonStyle())
+                            Spacer()
+                            Button {
+                                currentNoteState = .Loading
+                                if isUpdating {
+                                    messageViewModel.updateNote(note: Note.UserNote(
+                                        id: currentNote?.id ?? "" ,
+                                        content: notes,
+                                        userId: session.currentUser?.id ?? ""
+                                    )) {
+                                        passages = passages.map({
+                                            if $0.id == currentPassage?.id {
+                                                return Passage(
+                                                    id: $0.id,
+                                                    header: $0.header,
+                                                    verse: $0.verse,
+                                                    message: $0.message,
+                                                    notes: $0.notes?.map({
+                                                        if $0.id == currentNote?.id {
+                                                            Note(id: currentNote?.id ?? "", content: notes)
+                                                        } else {
+                                                            $0
+                                                        }
+                                                    }))
+                                            } else {
+                                                return $0
+                                            }
+                                        })
+                                        showNotes = false
+                                        isUpdating = false
+                                        notes = ""
+                                        messageViewModel.clearMessagesCache()
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
+                                            currentNoteState = .Display
+                                        })
+                                    }
+                                } else {
+                                    messageViewModel.addNote(note: NoteRequest(content: notes, userId: session.currentUser?.id ?? "", passageId: currentPassage?.id ?? "")) {
+                                        passages = passages.map({
+                                            if $0.id == currentPassage?.id {
+                                                return Passage(
+                                                    id: $0.id,
+                                                    header: $0.header,
+                                                    verse: $0.verse,
+                                                    message: $0.message,
+                                                    notes: ($0.notes ?? []) + [
+                                                        Note(id: UUID().uuidString, content: notes)
+                                                    ])
+                                            } else {
+                                                return $0
+                                            }
+                                        })
+                                        showNotes = false
+                                        isUpdating = false
+                                        notes = ""
+                                        messageViewModel.clearMessagesCache()
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
+                                            currentNoteState = .Display
+                                        })
+                                    }
+                                }
+                            } label: {
+                                HStack {
+                                    Spacer()
+                                    Text("Save")
+                                        .padding(.vertical, 8)
+                                    Spacer()
+                                }
+                            }.buttonStyle(FilledButtonStyle())
+                        }
+                    }.padding(20).frame(width: screenBounds.width * 0.8).background(Color.white).clipShape(RoundedCorner(radius: 10))
+                    Spacer()
                 }
             }
         }
-        .navigationBarTitleDisplayMode(.inline)
     }
     
     func getMessageTextArray(message: String)  -> [Text] {

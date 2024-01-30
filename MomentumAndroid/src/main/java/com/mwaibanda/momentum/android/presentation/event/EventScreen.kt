@@ -1,5 +1,9 @@
+@file:OptIn(ExperimentalFoundationApi::class)
+
 package com.mwaibanda.momentum.android.presentation.event
 
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -12,7 +16,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -69,7 +72,7 @@ fun EventScreen(eventViewModel: EventViewModel = getViewModel()){
                 Divider()
                 Text(
                     text = MultiplatformConstants.EVENTS_SUBHEADING.uppercase(),
-                    modifier = Modifier.padding(horizontal = 10.dp),
+                    modifier = Modifier.padding(horizontal = 10.dp).padding(bottom = 2.dp),
                     style = MaterialTheme.typography.caption,
                     color = Color(C.MOMENTUM_ORANGE)
                 )
@@ -79,7 +82,6 @@ fun EventScreen(eventViewModel: EventViewModel = getViewModel()){
                         Modifier
                             .fillMaxWidth()
                             .navigationBarsPadding()
-                            .systemBarsPadding()
                             .padding(horizontal = 10.dp)
                     ) {
                         if (groupedEvents.isEmpty()) {
@@ -105,10 +107,26 @@ fun EventScreen(eventViewModel: EventViewModel = getViewModel()){
                                 }
                             }
                         } else {
-                            items(groupedEvents) { group ->
-                                GroupedEvents(group = group)
+                            groupedEvents.groupBy { it.monthAndYear }.forEach { (initial, groupedEvents) ->
+                                stickyHeader {
+                                    Text(
+                                        text = initial,
+                                        style = MaterialTheme.typography.h6,
+                                        fontWeight = FontWeight.Bold,
+                                        modifier = Modifier
+                                            .background(Color.White)
+                                            .padding(bottom = 5.dp)
+                                            .fillMaxWidth()
+
+                                    )
+                                }
+
+                                items(groupedEvents) { group ->
+                                    GroupedEvents(group = group)
+                                }
                             }
                         }
+
                         item {
                             Spacer(modifier = Modifier.height(65.dp))
                         }
@@ -123,21 +141,15 @@ fun EventScreen(eventViewModel: EventViewModel = getViewModel()){
 
 @Composable
 fun GroupedEvents(isRedacted: Boolean = false, group: GroupedEvent) {
-    Text(
-        text = group.monthAndYear,
-        style = MaterialTheme.typography.h6,
-        fontWeight = FontWeight.Bold,
-        modifier = Modifier
-            .padding(vertical = if (isRedacted) 2.dp else 0.dp)
-            .redacted(isRedacted)
-    )
-    group.events.forEach { event ->
-        Spacer(modifier = Modifier.height(10.dp))
-        EventCard(isRedacted = isRedacted, event = event) {
+    Column {
+        group.events.forEach { event ->
+            EventCard(isRedacted = isRedacted, event = event) {
 
+            }
         }
     }
-    Spacer(modifier = Modifier.height(20.dp))
+
+    Spacer(modifier = Modifier.height(15.dp))
 }
 @Composable
 fun EventCard(isRedacted: Boolean, event: Event, onCardClicked: () -> Unit) {

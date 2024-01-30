@@ -48,15 +48,18 @@ struct MealsView: View {
             }
            
         }
+        .padding(.bottom, 10)
         .onAppear {
-            DispatchQueue.main.async {
+            DispatchQueue.global().async {
                 if !(session.currentUser?.isGuest ?? true) {
                     profileViewModel.getContactInformation(userId: session.currentUser?.id ?? "") {
                         profileViewModel.getBillingInformation(userId: session.currentUser?.id ?? "")
                     }
                 }
                 mealViewModel.getMeals { meal in
-                    meals = meal
+                    DispatchQueue.main.async {
+                        meals = meal
+                    }
                 }
             }
         }

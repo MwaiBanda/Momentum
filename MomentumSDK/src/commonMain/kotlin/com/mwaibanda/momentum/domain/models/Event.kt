@@ -15,7 +15,7 @@ data class Event(
         return if (startTime == "placeholder") {
             "Thursday, Nov 2023"
         } else {
-            getFormattedDate(startTime, "EEEE, MMM YY")
+            getFormattedDate(startTime, "EEEE, MMM d")
         }
     }
     private fun getFormattedStartTime(): String {

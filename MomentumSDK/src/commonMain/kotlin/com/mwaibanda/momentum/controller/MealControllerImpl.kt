@@ -10,7 +10,7 @@ import com.mwaibanda.momentum.domain.usecase.cache.InvalidateItemsUseCase
 import com.mwaibanda.momentum.domain.usecase.meal.GetMealUseCase
 import com.mwaibanda.momentum.domain.usecase.meal.PostMealUseCase
 import com.mwaibanda.momentum.domain.usecase.meal.PostVolunteeredMealUseCase
-import com.mwaibanda.momentum.utils.Result
+import com.mwaibanda.momentum.utils.DataResponse
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
@@ -23,13 +23,13 @@ class MealControllerImpl: MealController, KoinComponent {
     private val postVolunteeredMealUseCase: PostVolunteeredMealUseCase by inject()
     private val invalidateItemsUseCase: InvalidateItemsUseCase by inject()
     private val scope: CoroutineScope = MainScope()
-    override fun getAllMeals(onCompletion: (Result<List<Meal>>) -> Unit) {
+    override fun getAllMeals(onCompletion: (DataResponse<List<Meal>>) -> Unit) {
         scope.launch {
             getMealUseCase(onCompletion)
         }
     }
 
-    override fun postMeal(request: MealRequest, onCompletion: (Result<Meal>) -> Unit) {
+    override fun postMeal(request: MealRequest, onCompletion: (DataResponse<Meal>) -> Unit) {
         scope.launch {
             postMealUseCase(request, onCompletion)
         }
@@ -37,7 +37,7 @@ class MealControllerImpl: MealController, KoinComponent {
 
     override fun postVolunteeredMeal(
         request: VolunteeredMealRequest,
-        onCompletion: (Result<VolunteeredMeal>) -> Unit,
+        onCompletion: (DataResponse<VolunteeredMeal>) -> Unit,
     ) {
         scope.launch {
             postVolunteeredMealUseCase(request, onCompletion)

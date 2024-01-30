@@ -27,6 +27,14 @@ class MomentumApplication: Application() {
             FirebaseMessaging.getInstance().subscribeToTopic(MultiplatformConstants.ALL_USERS_TOPIC).addOnCompleteListener {
                 if (!it.isSuccessful) {
                     Log.e(TAG, "Subscribing to Topic(${MultiplatformConstants.ALL_USERS_TOPIC}) failed", task.exception)
+                    FirebaseMessaging.getInstance().subscribeToTopic(MultiplatformConstants.ALL_ANDROID_USERS_TOPIC).addOnCompleteListener {
+                        if (!it.isSuccessful) {
+                            Log.e(TAG, "Subscribing to Topic(${MultiplatformConstants.ALL_ANDROID_USERS_TOPIC}) failed", task.exception)
+                            return@addOnCompleteListener
+                        } else {
+                            Log.e(TAG, "Subscribed to Topic(${MultiplatformConstants.ALL_ANDROID_USERS_TOPIC})")
+                        }
+                    }
                     return@addOnCompleteListener
                 } else {
                     Log.e(TAG, "Subscribed to Topic(${MultiplatformConstants.ALL_USERS_TOPIC})")

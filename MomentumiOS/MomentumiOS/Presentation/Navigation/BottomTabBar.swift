@@ -6,73 +6,67 @@
 //
 
 import SwiftUI
+import MomentumSDK
 
 struct BottomTabBar: View {
-
     @State private var selection = 2
-    init() {
-        let itemAppearance = UITabBarItemAppearance()
-        let appearance = UITabBarAppearance()
-        itemAppearance.normal.iconColor = UIColor(Color(.black))
-        itemAppearance.normal.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(Color(.black))]
-        appearance.backgroundColor = UIColor(Color(.clear))
-        
-        appearance.compactInlineLayoutAppearance = itemAppearance
-        
-        UITabBar.appearance().standardAppearance = appearance
-    }
+    
     var body: some View {
-        TabView(selection: $selection) {
-            NavigationView {
-                MealsView()
-            }
-            .navigationViewStyle(StackNavigationViewStyle())
-            .tag(0)
-            .tabItem {
-                Image(systemName: "takeoutbag.and.cup.and.straw")
+        ZStack {
+            Color.black.edgesIgnoringSafeArea(.all)
+            TabView(selection: $selection) {
+                NavigationView {
+                    MealsView()
+                }
+                .navigationViewStyle(StackNavigationViewStyle())
+                .tag(0)
+                .tabItem {
+                    Image(systemName: "takeoutbag.and.cup.and.straw")
+                    
+                }
                 
-            }
-           
-            NavigationView {
-                SermonsView()
-            }
-            .navigationViewStyle(StackNavigationViewStyle())
-            .tag(1)
-            .tabItem {
-                Image(systemName: "ticket")
+                NavigationView {
+                    SermonsView()
+                }
+                .navigationViewStyle(StackNavigationViewStyle())
+                .tag(1)
+                .tabItem {
+                    Image(systemName: "ticket")
+                    
+                }
+                NavigationView {
+                    MomentumBlurredBackground {
+                        OfferView()
+                    }
+                }
+                .navigationViewStyle(StackNavigationViewStyle())
+                .tag(2)
+                .tabItem {
+                    Image(systemName: "giftcard")
+                }
+                NavigationView {
+                    MessageView()
+                }
+                .navigationViewStyle(StackNavigationViewStyle())
+                .tag(3)
+                .tabItem {
+                    Image(systemName: "book")
+                    
+                }
                 
-            }
-            NavigationView {
-                MomentumBlurredBackground {
-                    OfferView()
+                NavigationView {
+                    EventView()
+                }
+                .navigationViewStyle(StackNavigationViewStyle())
+                .tag(4)
+                .tabItem {
+                    Image(systemName: "calendar")
+                    
                 }
             }
-            .navigationViewStyle(StackNavigationViewStyle())
-            .tag(2)
-            .tabItem {
-                Image(systemName: "giftcard")
-            }
-            NavigationView {
-                MessageView()
-            }
-            .navigationViewStyle(StackNavigationViewStyle())
-            .tag(3)
-            .tabItem {
-                Image(systemName: "book")
-                
-            }
-            
-            NavigationView {
-                EventView()
-            }
-            .navigationViewStyle(StackNavigationViewStyle())
-            .tag(4)
-            .tabItem {
-                Image(systemName: "calendar")
-                
-            }
+            .accentColor(Color(hex: Constants.MOMENTUM_ORANGE))
+           
         }
-        .accentColor(Color(hex: Constants.MOMENTUM_ORANGE))
     }
 }
 

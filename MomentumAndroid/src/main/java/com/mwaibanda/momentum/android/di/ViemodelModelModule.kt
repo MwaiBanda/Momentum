@@ -33,6 +33,6 @@ val viewModelModule = module {
     }
     viewModel { AuthViewModel(authController = get(), localDefaultsController = get()) }
     viewModel { SermonViewModel(sermonController = get()) }
-    viewModel { MessageViewModel(messageController = get(), postNoteUserCase = get(), updateNoteUseCase = get()) }
+    viewModel { MessageViewModel(messageController = get(), postNoteUseCase = get(), updateNoteUseCase = get()) }
     viewModel { EventViewModel(eventController = get()) }
 }

@@ -40,11 +40,38 @@ struct MessageView: View {
                 MessageList(messages: $messages)
             }
         }
-        .navigationTitle("Messages")
+        .padding(.bottom, 10)
+        .toolbar(content: {
+            
+            ToolbarItemGroup(placement: .navigationBarLeading) {
+                Text("Messages")
+                    .font(.largeTitle)
+                    .bold()
+            }
+            
+//            ToolbarItemGroup(placement: .navigationBarTrailing) {
+//                HStack {
+//                    Button {
+//                        
+//                    } label: {
+//                        Image(systemName: "magnifyingglass")
+//                    }
+//                    Button {
+//
+//                    } label: {
+//                        Image(systemName: "line.3.horizontal")
+//                    }
+//                }
+//            }
+        })
+        .background(Color.white.edgesIgnoringSafeArea(.all))
+        .navigationBarTitleDisplayMode(.inline)
         .onAppear {
-            DispatchQueue.main.async {
+            DispatchQueue.global().async {
                 messageViewModel.getAllMessages(userId: session.currentUser?.id ?? "") { messages in
-                    self.messages = messages
+                    DispatchQueue.main.async {
+                        self.messages = messages
+                    }
                 }
             }
         }

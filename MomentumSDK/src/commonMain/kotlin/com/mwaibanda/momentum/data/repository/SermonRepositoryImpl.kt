@@ -8,7 +8,7 @@ import com.mwaibanda.momentum.domain.repository.SermonRepository
 import com.mwaibanda.momentum.domain.usecase.cache.GetAllItemsUseCase
 import com.mwaibanda.momentum.domain.usecase.cache.GetItemUseCase
 import com.mwaibanda.momentum.domain.usecase.cache.SetItemUseCase
-import com.mwaibanda.momentum.utils.Result
+import com.mwaibanda.momentum.utils.DataResponse
 import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.request.*
@@ -20,11 +20,11 @@ class SermonRepositoryImpl(
     private val getAllItemsUseCase: GetAllItemsUseCase<SermonResponse>
 ) : SermonRepository, MomentumBase() {
 
-    override suspend fun fetchSermons(pageNumber: Int): Result<SermonResponse> {
+    override suspend fun fetchSermons(pageNumber: Int): DataResponse<SermonResponse> {
         val cachedResponse = getItemUseCase(key = "page$pageNumber")?.sermons.orEmpty()
         if (cachedResponse.isNotEmpty()) {
             val allCachedSermonResponses = getAllItemsUseCase()
-            return Result.Success(SermonResponse(
+            return DataResponse.Success(SermonResponse(
                 pageNumber = allCachedSermonResponses.maxBy { it.pageNumber }.pageNumber,
                 sermons = allCachedSermonResponses.flatMap { it.sermons },
                 canLoadMoreSermons = allCachedSermonResponses.maxBy { it.pageNumber }.canLoadMoreSermons
@@ -51,10 +51,10 @@ class SermonRepositoryImpl(
                 )
             )
         } catch (e: Exception) {
-            return Result.Failure(e.message.toString())
+            return DataResponse.Failure(e.message.toString())
         }
 
         val newlyCacheSermons = getItemUseCase(key = "page$pageNumber")
-        return Result.Success(newlyCacheSermons!!)
+        return DataResponse.Success(newlyCacheSermons!!)
     }
 }

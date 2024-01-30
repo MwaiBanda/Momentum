@@ -16,45 +16,98 @@ struct EventView: View {
         VStack {
             Divider()
             HStack {
-            Text(MultiplatformConstants.shared.EVENTS_SUBHEADING.uppercased())
-                .font(.caption)
-                .foregroundColor(Color(hex: Constants.MOMENTUM_ORANGE))
-                .padding(.leading)
+                Text(MultiplatformConstants.shared.EVENTS_SUBHEADING.uppercased())
+                    .font(.caption)
+                    .foregroundColor(Color(hex: Constants.MOMENTUM_ORANGE))
+                    .padding(.leading)
                 Spacer()
             }
             .padding(.top, 5)
             ScrollView {
-                if groupedEvents.isEmpty {
-                    ForEach(0..<12, id: \.self
-                    ) { _ in
-                        GroupedEvents(group: GroupedEvent(
-                            monthAndYear: "placeholder",
-                            events: Array(
-                                repeating: Event(
-                                    id: "placeholder",
-                                    startTime: "placeholder",
-                                    endTime: "placeholder", 
-                                    description: "placeholder",
-                                    intervalSummary: "placeholder",
-                                    name: "placeholder",
-                                    thumbnail: "placeholder"
-                                ),
-                                count: 4
-                         )))
+                LazyVStack(alignment: .center, spacing: 10, pinnedViews: [.sectionHeaders], content: {
+                    if groupedEvents.isEmpty {
+                        ForEach(0..<12, id: \.self
+                        ) { _ in
+                            Section(header: HStack {
+                                Text("placeholder")
+                                .font(.title)
+                                .fontWeight(.bold)
+                                .padding(.bottom, 5)
+                                Spacer()
+                            }.padding(.leading).background(Color.white)) {
+                                GroupedEvents(group: GroupedEvent(
+                                    monthAndYear: "placeholder",
+                                    events: Array(
+                                        repeating: Event(
+                                            id: "placeholder",
+                                            startTime: "placeholder",
+                                            endTime: "placeholder",
+                                            description: "placeholder",
+                                            intervalSummary: "placeholder",
+                                            name: "placeholder",
+                                            thumbnail: "placeholder"
+                                        ),
+                                        count: 4
+                                 )))
+                            }
+                        }
+                    } else {
+                        ForEach(groupedEvents, id: \.self) { count in
+                            Section(header: HStack {
+                               Text(count.monthAndYear)
+                                .font(.title)
+                                .fontWeight(.bold)
+                                .padding(.bottom, 5)
+                                Spacer()
+                            }.padding(.leading).background(Color.white)) {
+                                GroupedEvents(group: count)
+                            }
+                        }
                     }
-                } else {
-                    ForEach(groupedEvents, id: \.id) { group in
-                        GroupedEvents(group: group)
+                })
+            }
+            .redacted(reason: groupedEvents.isEmpty ? .placeholder : [])
+            .onAppear {
+                DispatchQueue.global().async {
+                    eventViewModel.getEvents { events in
+                        DispatchQueue.main.async {
+                            self.groupedEvents = events
+                        }
                     }
                 }
-            }.redacted(reason: groupedEvents.isEmpty ? .placeholder : [])
+            }
         }
-        
-        .navigationTitle("Events")
+        .padding(.bottom, 10)
+        .toolbar(content: {
+            
+            ToolbarItemGroup(placement: .navigationBarLeading) {
+                Text("Events")
+                    .font(.largeTitle)
+                    .bold()
+            }
+            
+//            ToolbarItemGroup(placement: .navigationBarTrailing) {
+//                HStack {
+//                    Button {
+//
+//                    } label: {
+//                        Image(systemName: "magnifyingglass")
+//                    }
+//                    Button {
+
+//                    } label: {
+//                        Image(systemName: "line.3.horizontal")
+//                    }
+//                }
+//            }
+        })
+        .navigationBarTitleDisplayMode(.inline)
         .onAppear {
-            DispatchQueue.main.async {
+            DispatchQueue.global().async {
                 eventViewModel.getEvents { events in
-                    self.groupedEvents = events
+                    DispatchQueue.main.async {
+                        self.groupedEvents = events
+                    }
                 }
             }
         }
@@ -64,13 +117,6 @@ struct EventView: View {
 struct GroupedEvents: View {
     let group: GroupedEvent
     var body: some View {
-        HStack {
-            Text(group.monthAndYear)
-                .font(.title)
-                .fontWeight(.bold)
-            Spacer()
-        }.padding(.leading)
-
         ForEach(group.events, id: \.id) { event in
             Card {
                 HStack {

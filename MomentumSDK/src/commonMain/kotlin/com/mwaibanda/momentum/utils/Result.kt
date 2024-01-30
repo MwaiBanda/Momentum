@@ -1,11 +1,11 @@
 package com.mwaibanda.momentum.utils
 
 sealed class Result<T>(
+    val message: String? = null,
     val data: T? = null,
-    val message:  String?  = null
 ) {
-    class Success<T>(data: T): Result<T>(data)
-    class Failure<T>(message: String, data:  T? = null): Result<T>(data, message)
+
+    class Data<T>( data: T?, message: String? = null): Result<T>(message, data)
+    class Loading<T>(message: String? = null, data:T? = null): Result<T>(message, data)
+    class Error<T>(message: String?, data:  T? = null): Result<T>(message, data)
 }
-
-

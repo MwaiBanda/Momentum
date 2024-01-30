@@ -3,7 +3,7 @@ package com.mwaibanda.momentum.data.repository
 import com.mwaibanda.momentum.data.MomentumBase
 import com.mwaibanda.momentum.domain.models.User
 import com.mwaibanda.momentum.domain.repository.UserRepository
-import com.mwaibanda.momentum.utils.Result
+import com.mwaibanda.momentum.utils.DataResponse
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.delete
@@ -25,25 +25,25 @@ class UserRepositoryImpl(
         }
     }
 
-    override suspend fun fetchUser(userId: String): Result<User> {
+    override suspend fun fetchUser(userId: String): DataResponse<User> {
         return try {
             val response: User = httpClient.get {
                 momentumAPI("$USERS_ENDPOINT/$userId")
             }.body()
-            Result.Success(response)
+            DataResponse.Success(response)
         } catch (e: Exception) {
-            Result.Failure(e.message.toString())
+            DataResponse.Failure(e.message.toString())
         }
     }
 
-    override suspend fun updateUser(user: User): Result<User> {
+    override suspend fun updateUser(user: User): DataResponse<User> {
         return try {
             val response: User = httpClient.put {
                 momentumAPI(USERS_ENDPOINT, user)
             }.body()
-            return Result.Success(response)
+            return DataResponse.Success(response)
         } catch (e: Exception) {
-            Result.Failure(e.message ?: "Unknown Error")
+            DataResponse.Failure(e.message ?: "Unknown Error")
         }
     }
 

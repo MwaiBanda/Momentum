@@ -1,7 +1,6 @@
 package com.mwaibanda.momentum.di
 
 
-import io.github.mwaibanda.authentication.di.Authentication
 import org.koin.core.context.startKoin
 import org.koin.dsl.KoinAppDeclaration
 
@@ -27,6 +26,3 @@ fun initKoin() = initKoin {
     )
 }
 
-object Authentication {
-    val auth = Authentication
-}

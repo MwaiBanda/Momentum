@@ -1,8 +1,8 @@
 package com.mwaibanda.momentum.domain.controller
 
 import com.mwaibanda.momentum.domain.models.GroupedEvent
-import com.mwaibanda.momentum.utils.Result
+import com.mwaibanda.momentum.utils.DataResponse
 
 interface EventController {
-    fun getAllEvents(onCompletion: (Result<List<GroupedEvent>>) -> Unit)
+    fun getAllEvents(onCompletion: (DataResponse<List<GroupedEvent>>) -> Unit)
 }

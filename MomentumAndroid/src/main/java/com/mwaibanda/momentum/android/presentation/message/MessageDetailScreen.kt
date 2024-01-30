@@ -263,9 +263,8 @@ fun MessageDetailScreen(
                                                         userId = authViewModel.currentUser?.id ?: ""
                                                     )
                                                 ) {
-                                                    passages = passages.map { if (it.id == currentPassage?.id) it.copy(notes = buildList {
-                                                        addAll(it.notes ?: emptyList())
-                                                        add(Note(id = currentNote?.id ?: "", content = notes))
+                                                    passages = passages.map { if (it.id == currentPassage?.id) it.copy(notes = it.notes?.map { note ->
+                                                        if (note.id == currentNote?.id) note.copy(content = notes) else note
                                                     }) else it }
                                                     addNote = false
                                                     isUpdatingNote = false

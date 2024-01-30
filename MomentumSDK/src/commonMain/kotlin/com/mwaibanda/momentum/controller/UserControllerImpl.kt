@@ -9,7 +9,7 @@ import com.mwaibanda.momentum.domain.usecase.user.DeleteRemoteUserUseCase
 import com.mwaibanda.momentum.domain.usecase.user.GetUserUseCase
 import com.mwaibanda.momentum.domain.usecase.user.PostUserUseCase
 import com.mwaibanda.momentum.domain.usecase.user.UpdateUserCase
-import com.mwaibanda.momentum.utils.Result
+import com.mwaibanda.momentum.utils.DataResponse
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
@@ -54,10 +54,10 @@ class UserControllerImpl(driverFactory: DatabaseDriverFactory): UserController, 
         scope.launch {
             updateUserCase(user) {
                 when(it) {
-                    is Result.Failure -> {
+                    is DataResponse.Failure -> {
                         println(it.message)
                     }
-                    is Result.Success -> {
+                    is DataResponse.Success -> {
                         it.data?.let { user ->
                             onCompletion(user)
                         }
@@ -71,7 +71,7 @@ class UserControllerImpl(driverFactory: DatabaseDriverFactory): UserController, 
         onCompletion(database.getUserByUserId(userId = userId))
     }
 
-    override fun getUser(userId: String, onCompletion: (Result<User>) -> Unit) {
+    override fun getUser(userId: String, onCompletion: (DataResponse<User>) -> Unit) {
         scope.launch {
             getUserUseCase(userId) {
                 onCompletion(it)

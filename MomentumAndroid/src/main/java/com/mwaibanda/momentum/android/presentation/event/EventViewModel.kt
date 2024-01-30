@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.mwaibanda.momentum.domain.controller.EventController
 import com.mwaibanda.momentum.domain.models.GroupedEvent
-import com.mwaibanda.momentum.utils.Result
+import com.mwaibanda.momentum.utils.DataResponse
 
 class EventViewModel(
     private val eventController: EventController
@@ -12,10 +12,10 @@ class EventViewModel(
     fun getEvents(onCompletion: (List<GroupedEvent>) -> Unit) {
         eventController.getAllEvents {
             when (it) {
-                is Result.Failure -> {
+                is DataResponse.Failure -> {
                     Log.e("MealViewModel[getAllMeals]", it.message ?: "" )
                 }
-                is Result.Success -> {
+                is DataResponse.Success -> {
                     onCompletion(it.data ?: emptyList())
                 }
             }

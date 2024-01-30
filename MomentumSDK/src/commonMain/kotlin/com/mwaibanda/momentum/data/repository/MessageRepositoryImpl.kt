@@ -7,7 +7,7 @@ import com.mwaibanda.momentum.domain.models.NoteRequest
 import com.mwaibanda.momentum.domain.repository.MessageRepository
 import com.mwaibanda.momentum.domain.usecase.cache.GetItemUseCase
 import com.mwaibanda.momentum.domain.usecase.cache.SetItemUseCase
-import com.mwaibanda.momentum.utils.Result
+import com.mwaibanda.momentum.utils.DataResponse
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.get
@@ -21,10 +21,10 @@ class MessageRepositoryImpl(
     private val getItemUseCase: GetItemUseCase<MessageResponse>,
     private val setItemUseCase: SetItemUseCase<MessageResponse>,
 ): MomentumBase(), MessageRepository {
-    override suspend fun fetchAllMessages(userId: String): Result<MessageResponse> {
+    override suspend fun fetchAllMessages(userId: String): DataResponse<MessageResponse> {
         val cacheMessages = getItemUseCase(MESSAGE_KEY).orEmpty()
         if (cacheMessages.isNotEmpty()) {
-            return Result.Success(cacheMessages)
+            return DataResponse.Success(cacheMessages)
         }
          try {
             val messages = httpClient.get {
@@ -37,32 +37,32 @@ class MessageRepositoryImpl(
                  fetchAllMessages(userId = userId)
              }
         } catch (e: Exception) {
-           return Result.Failure(e.message.toString())
+           return DataResponse.Failure(e.message.toString())
         }
 
         val newlyCacheMessages = getItemUseCase(MESSAGE_KEY).orEmpty()
-        return Result.Success(newlyCacheMessages)
+        return DataResponse.Success(newlyCacheMessages)
     }
 
-    override suspend fun addNoteToPassage(request: NoteRequest): Result<NoteRequest> {
+    override suspend fun addNoteToPassage(request: NoteRequest): DataResponse<NoteRequest> {
         return try {
             val response: NoteRequest = httpClient.post {
                 momentumAPI(NOTES_ENDPOINT, request)
             }.body()
-            Result.Success(response)
+            DataResponse.Success(response)
         } catch (e: Exception) {
-            Result.Failure(e.message.toString())
+            DataResponse.Failure(e.message.toString())
         }
     }
 
-    override suspend fun updateNote(note: Note.UserNote): Result<Note> {
+    override suspend fun updateNote(note: Note.UserNote): DataResponse<Note> {
         return try {
             val response: Note = httpClient.put {
                 momentumAPI(NOTES_ENDPOINT, note)
             }.body()
-            Result.Success(response)
+            DataResponse.Success(response)
         } catch (e: Exception) {
-            Result.Failure(e.message.toString())
+            DataResponse.Failure(e.message.toString())
         }
     }
 

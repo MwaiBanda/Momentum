@@ -16,8 +16,10 @@ import AVFoundation
 @TinyModule
 func singletonModule(){
     Module(
-        Single(Authentication.shared.auth.controller),
+        Single(AVPlayer()),
         Single(DatabaseDriverFactory()),
-        Single(AVPlayer())
+        Single(Momentum.shared.auth.controller),
+        Single(Momentum.shared.postNoteUseCase),
+        Single(Momentum.shared.updateNoteUseCase)
     )
 }

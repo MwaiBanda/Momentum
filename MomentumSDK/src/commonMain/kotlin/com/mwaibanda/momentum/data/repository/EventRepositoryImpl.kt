@@ -6,7 +6,7 @@ import com.mwaibanda.momentum.data.eventDTO.EventsDTO
 import com.mwaibanda.momentum.domain.repository.EventRepository
 import com.mwaibanda.momentum.domain.usecase.cache.GetItemUseCase
 import com.mwaibanda.momentum.domain.usecase.cache.SetItemUseCase
-import com.mwaibanda.momentum.utils.Result
+import com.mwaibanda.momentum.utils.DataResponse
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.get
@@ -16,10 +16,10 @@ class EventRepositoryImpl(
     private val getItemUseCase: GetItemUseCase<EventResponse>,
     private val setItemUseCase: SetItemUseCase<EventResponse>,
 ): MomentumBase(), EventRepository {
-    override suspend fun fetchAllEvents(): Result<EventResponse> {
+    override suspend fun fetchAllEvents(): DataResponse<EventResponse> {
         val cacheEvents = getItemUseCase(EVENTS_KEY).orEmpty()
         if (cacheEvents.isNotEmpty()) {
-            return Result.Success(cacheEvents)
+            return DataResponse.Success(cacheEvents)
         }
         try {
             val events = httpClient.get {
@@ -27,10 +27,10 @@ class EventRepositoryImpl(
             }.body<EventsDTO>().collection.map { it.toEvent() }
             setItemUseCase(EVENTS_KEY, events)
         } catch (e: Exception) {
-            return  Result.Failure(e.message.toString())
+            return  DataResponse.Failure(e.message.toString())
         }
         val newlyCacheEvents = getItemUseCase(EVENTS_KEY).orEmpty()
-        return Result.Success(newlyCacheEvents)
+        return DataResponse.Success(newlyCacheEvents)
     }
 
     companion object {

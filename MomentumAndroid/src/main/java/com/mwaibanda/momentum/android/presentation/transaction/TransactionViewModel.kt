@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import com.mwaibanda.momentum.data.db.MomentumTransaction
 import com.mwaibanda.momentum.domain.controller.TransactionController
 import com.mwaibanda.momentum.domain.models.Transaction
-import com.mwaibanda.momentum.utils.Result
+import com.mwaibanda.momentum.utils.DataResponse
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -21,10 +21,10 @@ class TransactionViewModel(
     private fun getTransactions(userId: String) {
         transactionController.getTransactions(userId = userId) { res ->
             when (res) {
-                is Result.Failure -> {
+                is DataResponse.Failure -> {
                     Log.d("Transaction/GetFailure", res.message ?: "")
                 }
-                is Result.Success -> {
+                is DataResponse.Success -> {
                     _transactions.value = res.data?.map { it.toMomentumTransaction() } ?: emptyList()
                     if (_transactions.value.isNotEmpty()) {
                         addTransactions(transactions = _transactions.value)
@@ -46,10 +46,10 @@ class TransactionViewModel(
     fun postTransactionInfo(transaction: Transaction, onCompletion: () -> Unit) {
         transactionController.postTransactionInfo(transaction = transaction) { res ->
             when (res) {
-                is Result.Failure -> {
+                is DataResponse.Failure -> {
                     Log.d("Pay/PostFailure", res.message ?: "")
                 }
-                is Result.Success -> {
+                is DataResponse.Success -> {
                     onCompletion()
                     Log.d("Pay/PostSuccess", res.message ?: "")
                 }

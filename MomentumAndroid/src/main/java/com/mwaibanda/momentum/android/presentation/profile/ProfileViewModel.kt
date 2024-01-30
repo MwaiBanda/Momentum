@@ -11,7 +11,7 @@ import com.mwaibanda.momentum.domain.controller.LocalDefaultsController
 import com.mwaibanda.momentum.domain.controller.UserController
 import com.mwaibanda.momentum.domain.models.User
 import com.mwaibanda.momentum.utils.MultiplatformConstants
-import com.mwaibanda.momentum.utils.Result
+import com.mwaibanda.momentum.utils.DataResponse
 
 class ProfileViewModel(
     private val userController: UserController,
@@ -145,7 +145,7 @@ class ProfileViewModel(
                     this.password = password
                     userController.getUser(userId) { res ->
                         when(res) {
-                            is Result.Success -> {
+                            is DataResponse.Success -> {
                                 fullname = res.data?.fullname ?: ""
                                 phone = res.data?.phone ?: ""
                                 email = res.data?.email ?: ""
@@ -160,7 +160,7 @@ class ProfileViewModel(
                                 )
                                 onCompletion()
                             }
-                            is Result.Failure -> {
+                            is DataResponse.Failure -> {
                                 Log.d("Auth/Failure", res.message ?: "")
                             }
                         }

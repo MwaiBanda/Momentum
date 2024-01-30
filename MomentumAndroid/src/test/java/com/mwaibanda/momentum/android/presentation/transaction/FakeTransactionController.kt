@@ -3,7 +3,7 @@ package com.mwaibanda.momentum.android.presentation.transaction
 import com.mwaibanda.momentum.data.db.MomentumTransaction
 import com.mwaibanda.momentum.domain.controller.TransactionController
 import com.mwaibanda.momentum.domain.models.Transaction
-import com.mwaibanda.momentum.utils.Result
+import com.mwaibanda.momentum.utils.DataResponse
 
 class FakeTransactionController: TransactionController {
     private var transactions = mutableListOf<MomentumTransaction>()
@@ -13,16 +13,16 @@ class FakeTransactionController: TransactionController {
 
     override fun postTransactionInfo(
         transaction: Transaction,
-        onCompletion: (Result<Int>) -> Unit,
+        onCompletion: (DataResponse<Int>) -> Unit,
     ) {
         transactions.add(transaction.toMomentumTransaction())
     }
 
     override fun getTransactions(
         userId: String,
-        onCompletion: (Result<List<Transaction>>) -> Unit,
+        onCompletion: (DataResponse<List<Transaction>>) -> Unit,
     ) {
-        onCompletion(Result.Success(emptyList()))
+        onCompletion(DataResponse.Success(emptyList()))
     }
 
     override fun addTransaction(

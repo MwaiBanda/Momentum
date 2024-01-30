@@ -15,7 +15,7 @@ import com.mwaibanda.momentum.domain.usecase.meal.GetMealUseCase
 import com.mwaibanda.momentum.domain.usecase.meal.PostMealUseCase
 import com.mwaibanda.momentum.domain.usecase.meal.PostVolunteeredMealUseCase
 import com.mwaibanda.momentum.domain.usecase.message.GetAllMessagesUseCase
-import com.mwaibanda.momentum.domain.usecase.message.PostNoteUserCase
+import com.mwaibanda.momentum.domain.usecase.message.PostNoteUseCase
 import com.mwaibanda.momentum.domain.usecase.message.UpdateNoteUseCase
 import com.mwaibanda.momentum.domain.usecase.notification.PostNotificationUseCase
 import com.mwaibanda.momentum.domain.usecase.payment.CheckoutUseCase
@@ -76,7 +76,7 @@ val useCasesModule = module {
      * @Message - Use-cases
      */
     single { GetAllMessagesUseCase(messageRepository = get()) }
-    single { PostNoteUserCase(messageRepository = get()) }
+    single { PostNoteUseCase(messageRepository = get()) }
     single { UpdateNoteUseCase(messageRepository = get()) }
     /**
      * @Notification - Use-cases

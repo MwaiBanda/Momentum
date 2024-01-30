@@ -57,6 +57,9 @@ struct MessageCard: View {
                         .multilineTextAlignment(.leading)
                 }
                 Spacer()
+                Image(systemName: "chevron.right")
+                    .foregroundColor(Color.black)
+                    .padding(.trailing, 10)
             }
             .foregroundColor(Color.black)
         }

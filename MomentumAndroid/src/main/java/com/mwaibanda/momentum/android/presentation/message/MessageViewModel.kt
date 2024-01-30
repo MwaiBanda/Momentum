@@ -7,16 +7,16 @@ import com.mwaibanda.momentum.domain.controller.MessageController
 import com.mwaibanda.momentum.domain.models.Message
 import com.mwaibanda.momentum.domain.models.Note
 import com.mwaibanda.momentum.domain.models.NoteRequest
-import com.mwaibanda.momentum.domain.usecase.message.PostNoteUserCase
+import com.mwaibanda.momentum.domain.usecase.message.PostNoteUseCase
 import com.mwaibanda.momentum.domain.usecase.message.UpdateNoteUseCase
+import com.mwaibanda.momentum.utils.DataResponse
 import com.mwaibanda.momentum.utils.Result
-import com.mwaibanda.momentum.utils.State
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 class MessageViewModel(
     private val messageController: MessageController,
-    private val postNoteUserCase: PostNoteUserCase,
+    private val postNoteUseCase: PostNoteUseCase,
     private val updateNoteUseCase: UpdateNoteUseCase,
 ): ViewModel() {
     fun getMessages(userId: String, isRefreshing: Boolean = false, onCompletion: (List<Message>) -> Unit) {
@@ -25,10 +25,10 @@ class MessageViewModel(
 
         messageController.getAllMessages(userId) {
             when (it) {
-                is Result.Failure -> {
+                is DataResponse.Failure -> {
                     Log.e("MessageViewModel[getMessages]", it.message ?: "" )
                 }
-                is Result.Success -> {
+                is DataResponse.Success -> {
                     onCompletion(it.data ?: emptyList())
                 }
             }
@@ -40,14 +40,14 @@ class MessageViewModel(
     }
     fun postNote(request: NoteRequest, onCompletion: () -> Unit) {
         viewModelScope.launch {
-            postNoteUserCase(request).collectLatest {
+            postNoteUseCase(request).collectLatest {
                 when(it) {
-                    is State.Data -> {
+                    is Result.Data -> {
                         Log.e("POST[Data]", "NOTE")
                         onCompletion()
                     }
-                    is State.Error -> Log.e("POST[Error]", "NOTE")
-                    is State.Loading -> Log.e("POST[Loading]", "NOTE")
+                    is Result.Error -> Log.e("POST[Error]", "NOTE")
+                    is Result.Loading -> Log.e("POST[Loading]", "NOTE")
                 }
             }
         }
@@ -57,12 +57,12 @@ class MessageViewModel(
         viewModelScope.launch {
             updateNoteUseCase(note).collectLatest {
                 when(it) {
-                    is State.Data -> {
+                    is Result.Data -> {
                         Log.e("PUT[Data]", "NOTE")
                         onCompletion()
                     }
-                    is State.Error -> Log.e("PUT[Error]", "NOTE")
-                    is State.Loading -> Log.e("PUT[Loading]", "NOTE")
+                    is Result.Error -> Log.e("PUT[Error]", "NOTE")
+                    is Result.Loading -> Log.e("PUT[Loading]", "NOTE")
                 }
             }
         }

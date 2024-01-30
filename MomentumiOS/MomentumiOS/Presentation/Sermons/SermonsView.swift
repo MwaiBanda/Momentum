@@ -181,6 +181,8 @@ struct SermonsView: View {
             .redacted(reason: sermonViewmodel.sermons.isEmpty ? .placeholder : [])
             
         }
+        .background(Color.white.edgesIgnoringSafeArea(.all))
+        .padding(.bottom, 10)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar(content: {
             

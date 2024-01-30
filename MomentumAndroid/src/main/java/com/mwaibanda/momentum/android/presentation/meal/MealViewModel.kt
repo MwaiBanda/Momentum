@@ -10,7 +10,7 @@ import com.mwaibanda.momentum.domain.models.Meal
 import com.mwaibanda.momentum.domain.models.Notification
 import com.mwaibanda.momentum.domain.models.VolunteeredMeal
 import com.mwaibanda.momentum.utils.MultiplatformConstants
-import com.mwaibanda.momentum.utils.Result
+import com.mwaibanda.momentum.utils.DataResponse
 
 class MealViewModel(
     private val mealController: MealController,
@@ -22,10 +22,10 @@ class MealViewModel(
 
         mealController.getAllMeals {
             when (it) {
-                is Result.Failure -> {
+                is DataResponse.Failure -> {
                     Log.e("MealViewModel[getAllMeals]", it.message ?: "" )
                 }
-                is Result.Success -> {
+                is DataResponse.Success -> {
                     onCompletion(it.data ?: emptyList())
                 }
             }
@@ -35,10 +35,10 @@ class MealViewModel(
     fun postMeal(request: MealRequest, onCompletion: (Meal) -> Unit) {
         mealController.postMeal(request) {
             when (it) {
-                is Result.Failure -> {
+                is DataResponse.Failure -> {
                     Log.e("MealViewModel[postMeal]", it.message ?: "" )
                 }
-                is Result.Success -> {
+                is DataResponse.Success -> {
                     it.data?.let { meal ->
                         onCompletion(meal)
                         notificationController.sendNotification(
@@ -58,10 +58,10 @@ class MealViewModel(
     fun postVolunteeredMeal(request: VolunteeredMealRequest, onCompletion: (VolunteeredMeal) -> Unit) {
         mealController.postVolunteeredMeal(request) {
             when (it) {
-                is Result.Failure -> {
+                is DataResponse.Failure -> {
                     Log.e("MealViewModel[postVolunteeredMeal]", it.message ?: "" )
                 }
-                is Result.Success -> {
+                is DataResponse.Success -> {
                     it.data?.let(onCompletion)
                 }
             }

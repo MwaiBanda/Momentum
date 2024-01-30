@@ -4,10 +4,10 @@ import com.mwaibanda.momentum.data.mealDTO.MealRequest
 import com.mwaibanda.momentum.data.mealDTO.VolunteeredMealRequest
 import com.mwaibanda.momentum.domain.models.Meal
 import com.mwaibanda.momentum.domain.models.VolunteeredMeal
-import com.mwaibanda.momentum.utils.Result
+import com.mwaibanda.momentum.utils.DataResponse
 
 interface MealRepository {
-    suspend fun fetchAllMeals(): Result<List<Meal>>
-    suspend fun postMeal(request: MealRequest): Result<Meal>
-    suspend fun postVolunteeredMeal(request: VolunteeredMealRequest): Result<VolunteeredMeal>
+    suspend fun fetchAllMeals(): DataResponse<List<Meal>>
+    suspend fun postMeal(request: MealRequest): DataResponse<Meal>
+    suspend fun postVolunteeredMeal(request: VolunteeredMealRequest): DataResponse<VolunteeredMeal>
 }

@@ -98,9 +98,16 @@ extension AppDelegate: UNUserNotificationCenterDelegate, MessagingDelegate {
             if let error {
                 print(error.localizedDescription)
             } else {
-                print("Subscribed to MomentumUsers topic")
+                print("Subscribed to \(MultiplatformConstants.shared.ALL_USERS_TOPIC) topic")
+                Messaging.messaging().subscribe(toTopic: MultiplatformConstants.shared.ALL_IOS_USERS_TOPIC) { error in
+                    if let error {
+                        print(error.localizedDescription)
+                    } else {
+                        print("Subscribed to \(MultiplatformConstants.shared.ALL_IOS_USERS_TOPIC) topic")
+                    }
+                    
+                }
             }
-            
         }
          let dataDict: [String: String] = ["token": fcmToken ?? ""]
          NotificationCenter.default.post(
