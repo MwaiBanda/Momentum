@@ -16,6 +16,6 @@ extension Passage: Identifiable {
     
 }
 
-extension GroupedEvent: Identifiable {
+extension EventGroup: Identifiable {
     public var id: String { UUID().uuidString }
 }

@@ -13,9 +13,9 @@ import MomentumSDK
 class EventViewModel: ObservableObject {
     @Inject private var eventController: EventController
 
-    func getEvents(onCompletion: @escaping ([GroupedEvent]) -> Void) {
+    func getEvents(onCompletion: @escaping ([EventGroup]) -> Void) {
         eventController.getAllEvents { res in
-            if let events = res.data as? [GroupedEvent] {
+            if let events = res.data as? [EventGroup] {
                 onCompletion(events)
             }
         }

@@ -39,18 +39,18 @@ import com.mwaibanda.momentum.android.core.exts.redacted
 import com.mwaibanda.momentum.android.core.utils.C
 import com.mwaibanda.momentum.android.presentation.components.LoadingSpinner
 import com.mwaibanda.momentum.domain.models.Event
-import com.mwaibanda.momentum.domain.models.GroupedEvent
+import com.mwaibanda.momentum.domain.models.EventGroup
 import com.mwaibanda.momentum.utils.MultiplatformConstants
 import org.koin.androidx.compose.getViewModel
 
 @Composable
 fun EventScreen(eventViewModel: EventViewModel = getViewModel()){
-    var groupedEvents by remember {
-        mutableStateOf(emptyList<GroupedEvent>())
+    var eventGroups by remember {
+        mutableStateOf(emptyList<EventGroup>())
     }
     LaunchedEffect(key1 = Unit, block = {
         eventViewModel.getEvents {
-            groupedEvents = it
+            eventGroups = it
         }
     })
     Column(
@@ -84,12 +84,12 @@ fun EventScreen(eventViewModel: EventViewModel = getViewModel()){
                             .navigationBarsPadding()
                             .padding(horizontal = 10.dp)
                     ) {
-                        if (groupedEvents.isEmpty()) {
+                        if (eventGroups.isEmpty()) {
                             item {
                                 repeat(2) {
-                                    GroupedEvents(
+                                    Events(
                                         isRedacted = true,
-                                        group = GroupedEvent(
+                                        events = EventGroup(
                                             monthAndYear = "placeholder",
                                             events = MutableList(3) {
                                                 Event(
@@ -102,15 +102,15 @@ fun EventScreen(eventViewModel: EventViewModel = getViewModel()){
                                                     thumbnail = "placeholder"
                                                 )
                                             }
-                                        )
+                                        ).events
                                     )
                                 }
                             }
                         } else {
-                            groupedEvents.groupBy { it.monthAndYear }.forEach { (initial, groupedEvents) ->
+                            eventGroups.groupBy { it.monthAndYear }.forEach { (monthAndYear, groupedEvents) ->
                                 stickyHeader {
                                     Text(
-                                        text = initial,
+                                        text = monthAndYear,
                                         style = MaterialTheme.typography.h6,
                                         fontWeight = FontWeight.Bold,
                                         modifier = Modifier
@@ -122,7 +122,7 @@ fun EventScreen(eventViewModel: EventViewModel = getViewModel()){
                                 }
 
                                 items(groupedEvents) { group ->
-                                    GroupedEvents(group = group)
+                                    Events(events = group.events)
                                 }
                             }
                         }
@@ -131,7 +131,7 @@ fun EventScreen(eventViewModel: EventViewModel = getViewModel()){
                             Spacer(modifier = Modifier.height(65.dp))
                         }
                     }
-                    LoadingSpinner(isVisible = groupedEvents.isEmpty())
+                    LoadingSpinner(isVisible = eventGroups.isEmpty())
                 }
 
             }
@@ -140,9 +140,9 @@ fun EventScreen(eventViewModel: EventViewModel = getViewModel()){
 }
 
 @Composable
-fun GroupedEvents(isRedacted: Boolean = false, group: GroupedEvent) {
+fun Events(isRedacted: Boolean = false, events: List<Event>) {
     Column {
-        group.events.forEach { event ->
+        events.forEach { event ->
             EventCard(isRedacted = isRedacted, event = event) {
 
             }

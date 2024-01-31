@@ -11,7 +11,7 @@ import MomentumSDK
 
 struct EventView: View {
     @StateObject private var eventViewModel = EventViewModel()
-    @State private var groupedEvents = [GroupedEvent]()
+    @State private var eventGroups = [EventGroup]()
     var body: some View {
         VStack {
             Divider()
@@ -25,7 +25,7 @@ struct EventView: View {
             .padding(.top, 5)
             ScrollView {
                 LazyVStack(alignment: .center, spacing: 10, pinnedViews: [.sectionHeaders], content: {
-                    if groupedEvents.isEmpty {
+                    if eventGroups.isEmpty {
                         ForEach(0..<12, id: \.self
                         ) { _ in
                             Section(header: HStack {
@@ -35,7 +35,7 @@ struct EventView: View {
                                 .padding(.bottom, 5)
                                 Spacer()
                             }.padding(.leading).background(Color.white)) {
-                                GroupedEvents(group: GroupedEvent(
+                                Events(events: EventGroup(
                                     monthAndYear: "placeholder",
                                     events: Array(
                                         repeating: Event(
@@ -48,30 +48,30 @@ struct EventView: View {
                                             thumbnail: "placeholder"
                                         ),
                                         count: 4
-                                 )))
+                                    )).events)
                             }
                         }
                     } else {
-                        ForEach(groupedEvents, id: \.self) { count in
+                        ForEach(eventGroups, id: \.self) { group in
                             Section(header: HStack {
-                               Text(count.monthAndYear)
+                               Text(group.monthAndYear)
                                 .font(.title)
                                 .fontWeight(.bold)
                                 .padding(.bottom, 5)
                                 Spacer()
                             }.padding(.leading).background(Color.white)) {
-                                GroupedEvents(group: count)
+                                Events(events: group.events)
                             }
                         }
                     }
                 })
             }
-            .redacted(reason: groupedEvents.isEmpty ? .placeholder : [])
+            .redacted(reason: eventGroups.isEmpty ? .placeholder : [])
             .onAppear {
                 DispatchQueue.global().async {
                     eventViewModel.getEvents { events in
                         DispatchQueue.main.async {
-                            self.groupedEvents = events
+                            self.eventGroups = events
                         }
                     }
                 }
@@ -106,7 +106,7 @@ struct EventView: View {
             DispatchQueue.global().async {
                 eventViewModel.getEvents { events in
                     DispatchQueue.main.async {
-                        self.groupedEvents = events
+                        self.eventGroups = events
                     }
                 }
             }
@@ -114,10 +114,10 @@ struct EventView: View {
     }
 }
 
-struct GroupedEvents: View {
-    let group: GroupedEvent
+struct Events: View {
+    let events: [Event]
     var body: some View {
-        ForEach(group.events, id: \.id) { event in
+        ForEach(events, id: \.id) { event in
             Card {
                 HStack {
                   
