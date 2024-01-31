@@ -86,7 +86,7 @@ struct OfferView: View {
             AppReviewRequest.RequestReviewWhenNeeeded()
         }
         .sheet(isPresented: $showAuthSheet) {
-            ContentWrapper(navConfiguration: .detailConfig) {
+            MomentumBlurredBackground {
                 AuthControllerView()
             }
         }

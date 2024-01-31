@@ -89,7 +89,7 @@ struct MealsView: View {
             }
         )
         .sheet(isPresented: $showAuthSheet) {
-            ContentWrapper(navConfiguration: .detailConfig) {
+            MomentumBlurredBackground {
                 AuthControllerView()
             }
         }
@@ -122,7 +122,7 @@ struct MealsList: View {
     @ObservedObject var profileViewModel: ProfileViewModel
 
     var body: some View {
-        ScrollView {
+        ScrollView(showsIndicators: false) {
             if meals.isEmpty {
                 ForEach(0..<12, id: \.self) { _ in
                     DescriptionCard(title: "placeholder", description: "placeholder")
@@ -138,7 +138,6 @@ struct MealsList: View {
             }
         }
         .redacted(reason: meals.isEmpty ? .placeholder : [])
-        .frame(height: screenBounds.height - 230)
         .padding(.top, 15)
     }
 }

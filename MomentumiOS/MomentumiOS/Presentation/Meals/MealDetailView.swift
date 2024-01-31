@@ -139,7 +139,7 @@ struct MealDetailView: View {
             .padding(.horizontal, 10)
         }
         .sheet(isPresented: $showAuthSheet) {
-            ContentWrapper(navConfiguration: .detailConfig) {
+            MomentumBlurredBackground {
                 AuthControllerView()
             }
         }

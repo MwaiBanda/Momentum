@@ -100,7 +100,7 @@ struct SermonCard: View {
             
         }
         .frame(width: screenBounds.width * 0.45)
-        .background(Color(.systemGray6))
+        .background(Color.white)
         .cornerRadius(8)
         .shadow(color: Color.black.opacity(0.15), radius: 20, x: 0, y: 10)
         .onAppear {

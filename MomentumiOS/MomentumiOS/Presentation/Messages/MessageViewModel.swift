@@ -16,7 +16,7 @@ class MessageViewModel: ObservableObject {
     @Inject private var messageController: MessageController
     @Inject private var postNoteUseCase: PostNoteUseCase
     @Inject private var updateNoteUseCase: UpdateNoteUseCase
-
+    
     func getAllMessages(userId: String, isRefreshing: Bool = false, onCompletion: @escaping ([Message]) -> Void) {
         if isRefreshing {
             messageController.clearMessagesCache()
@@ -38,15 +38,22 @@ class MessageViewModel: ObservableObject {
     
     private func addNote(note: NoteRequest, onCompletion: @escaping () -> Void) async {
         do {
-            try await postNoteUseCase.invoke(note: note).collect { res in
-                if let note = res?.data {
+            try await postNoteUseCase.post(note: note).collect { res in
+                guard let status = res?.status else { fatalError("No Result Found") }
+                switch(status) {
+                case .loading:
+                    os_log("[Event[Loading]]")
+                    break
+                case .error:
+                    guard let message = res?.message else { return }
+                    os_log("[Event[Error]]: \(message)")
+                    break
+                case .data:
+                    guard let note = res?.data else { return }
                     os_log("[Event[Data]] \(note)")
                     onCompletion()
-                } else if let message = res?.message {
-                    os_log("[Event[Error]]: \(message)")
-                    
-                } else  {
-                    os_log("[Event[Loading]]")
+                    break
+                default: break
                 }
             }
         } catch {
@@ -63,19 +70,33 @@ class MessageViewModel: ObservableObject {
     
     private func updateNote(note: Note.UserNote, onCompletion: @escaping () -> Void) async {
         do {
-            try await updateNoteUseCase.invoke(note: note).collect { res in
-                if let note = res?.data {
+            try await updateNoteUseCase.update(note: note).collect { res in
+                guard let status = res?.status else { fatalError("No Result Found") }
+                switch(status) {
+                case .loading:
+                    os_log("[Event[Loading]] \(res)")
+                    break
+                case .error:
+                    guard let message = res?.message else { return }
+                    os_log("[Event[Error]]: \(message)")
+                    break
+                case .data:
+                    guard let note = res?.data else { return }
                     os_log("[Event[Data]] \(note)")
                     onCompletion()
-                } else if let message = res?.message {
-                    os_log("[Event[Error]]: \(message)")
-                } else  {
-                    os_log("[Event[Loading]] \(res)")
+                    break
+                default: break
                 }
             }
         } catch {
             os_log("\(error.localizedDescription)")
         }
-        
+    }
+}
+
+extension Optional {
+    func unWrapResult() -> ResultStatus {
+        guard let unwrapped = self as? ResultStatus else { fatalError("No Result Found") }
+        return .loading
     }
 }

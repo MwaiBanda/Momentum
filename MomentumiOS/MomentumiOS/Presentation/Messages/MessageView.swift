@@ -81,7 +81,7 @@ struct MessageView: View {
 struct MessageList: View {
     @Binding var messages: [Message]
     var body: some View {
-        ScrollView {
+        ScrollView(showsIndicators: false) {
             if messages.isEmpty {
                 ForEach(0..<12, id: \.self
                 ) { _ in

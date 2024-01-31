@@ -55,7 +55,6 @@
 		8126AF75286FDB2F007DBAB9 /* View+Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8126AF74286FDB2F007DBAB9 /* View+Swift.swift */; };
 		8126AF77286FE009007DBAB9 /* Color+Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8126AF76286FE009007DBAB9 /* Color+Swift.swift */; };
 		8126AF7B286FE3C2007DBAB9 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8126AF7A286FE3C2007DBAB9 /* Constants.swift */; };
-		8126AF82286FEF39007DBAB9 /* ContentWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8126AF7D286FEF39007DBAB9 /* ContentWrapper.swift */; };
 		8126AF84286FEF39007DBAB9 /* NavBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8126AF7F286FEF39007DBAB9 /* NavBar.swift */; };
 		8126AF85286FEF39007DBAB9 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8126AF80286FEF39007DBAB9 /* MenuView.swift */; };
 		8126AF86286FEF39007DBAB9 /* BottomTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8126AF81286FEF39007DBAB9 /* BottomTabBar.swift */; };
@@ -161,7 +160,6 @@
 		8126AF74286FDB2F007DBAB9 /* View+Swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Swift.swift"; sourceTree = "<group>"; };
 		8126AF76286FE009007DBAB9 /* Color+Swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Swift.swift"; sourceTree = "<group>"; };
 		8126AF7A286FE3C2007DBAB9 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		8126AF7D286FEF39007DBAB9 /* ContentWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentWrapper.swift; sourceTree = "<group>"; };
 		8126AF7F286FEF39007DBAB9 /* NavBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavBar.swift; sourceTree = "<group>"; };
 		8126AF80286FEF39007DBAB9 /* MenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
 		8126AF81286FEF39007DBAB9 /* BottomTabBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomTabBar.swift; sourceTree = "<group>"; };
@@ -449,7 +447,6 @@
 		8126AF7C286FEF39007DBAB9 /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
-				8126AF7D286FEF39007DBAB9 /* ContentWrapper.swift */,
 				8126AF7F286FEF39007DBAB9 /* NavBar.swift */,
 				8126AF80286FEF39007DBAB9 /* MenuView.swift */,
 				8126AF81286FEF39007DBAB9 /* BottomTabBar.swift */,
@@ -834,7 +831,6 @@
 				1C83C85C2AFA1229008026F4 /* MessageCard.swift in Sources */,
 				8126AF86286FEF39007DBAB9 /* BottomTabBar.swift in Sources */,
 				81B802DA2877E7D80008509D /* PaymentSuccessView.swift in Sources */,
-				8126AF82286FEF39007DBAB9 /* ContentWrapper.swift in Sources */,
 				81B802DE2877ED7F0008509D /* FilledButtonStyle.swift in Sources */,
 				8182E77C288B9CC100A9CF9D /* PasswordTextfield.swift in Sources */,
 				1C8BACBE2923191B00731617 /* ControllerModule.swift in Sources */,
@@ -1017,7 +1013,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = MomentumiOS/MomentumiOS.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MomentumiOS/Preview Content\"";
 				DEVELOPMENT_TEAM = 2HB3YHCHVH;
 				ENABLE_BITCODE = NO;
@@ -1029,7 +1025,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.0;
+				MARKETING_VERSION = 1.2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mwaibanda.MomentumiOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1047,7 +1043,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = MomentumiOS/MomentumiOS.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MomentumiOS/Preview Content\"";
 				DEVELOPMENT_TEAM = 2HB3YHCHVH;
 				ENABLE_BITCODE = NO;
@@ -1060,7 +1056,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.0;
+				MARKETING_VERSION = 1.2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mwaibanda.MomentumiOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

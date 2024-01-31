@@ -39,7 +39,7 @@ struct EventView: View {
                                     monthAndYear: "placeholder",
                                     events: Array(
                                         repeating: Event(
-                                            id: "placeholder",
+                                            id: UUID().uuidString,
                                             startTime: "placeholder",
                                             endTime: "placeholder",
                                             description: "placeholder",

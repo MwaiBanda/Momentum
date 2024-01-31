@@ -55,7 +55,7 @@ struct SermonsView: View {
           
             
             
-            ScrollView {
+            ScrollView(showsIndicators: false) {
                 VStack(alignment: .leading) {
                     VStack(alignment: .leading) {
                         
@@ -177,11 +177,10 @@ struct SermonsView: View {
                     }
                 }
             }
-            .frame(height: screenBounds.height - 210)
             .redacted(reason: sermonViewmodel.sermons.isEmpty ? .placeholder : [])
             
         }
-        .background(Color.white.edgesIgnoringSafeArea(.all))
+        .background(Color.white.edgesIgnoringSafeArea(.bottom))
         .padding(.bottom, 10)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar(content: {
@@ -190,6 +189,7 @@ struct SermonsView: View {
                 Text("Sermons")
                     .font(.largeTitle)
                     .bold()
+                    .background(Color.white.edgesIgnoringSafeArea(.top))
             }
             
             ToolbarItemGroup(placement: .navigationBarTrailing) {

@@ -122,7 +122,7 @@ struct MessageDetailView: View {
                 passages = message.passages
             }
             .sheet(isPresented: $showAuthSheet) {
-                ContentWrapper(navConfiguration: .detailConfig) {
+                MomentumBlurredBackground {
                     AuthControllerView()
                 }
             }
