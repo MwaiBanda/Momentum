@@ -98,7 +98,7 @@ fun MealScreen(
         ) {
             Column {
                 Column {
-                    Spacer(modifier = Modifier.height(65.dp))
+                    Spacer(modifier = Modifier.height(25.dp))
                     Row(
                         Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.SpaceBetween,

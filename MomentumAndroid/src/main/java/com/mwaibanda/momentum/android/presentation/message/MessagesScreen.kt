@@ -81,7 +81,7 @@ fun MessagesScreen(
         ) {
             Column {
                 Column {
-                    Spacer(modifier = Modifier.height(65.dp))
+                    Spacer(modifier = Modifier.height(25.dp))
                     Text(
                         text = "Messages",
                         fontWeight = FontWeight.ExtraBold,

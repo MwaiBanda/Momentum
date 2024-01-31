@@ -60,7 +60,7 @@ fun EventScreen(eventViewModel: EventViewModel = getViewModel()){
     ) {
         Column {
             Column {
-                Spacer(modifier = Modifier.height(65.dp))
+                Spacer(modifier = Modifier.height(25.dp))
 
                 Text(
                     text = "Events",
