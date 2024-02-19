@@ -10,22 +10,43 @@ import Foundation
 import MomentumSDK
 import TinyDi
 import os
+import Combine
 
 @MainActor
 class MessageViewModel: ObservableObject {
     @Inject private var messageController: MessageController
     @Inject private var postNoteUseCase: PostNoteUseCase
     @Inject private var updateNoteUseCase: UpdateNoteUseCase
-    
-    func getAllMessages(userId: String, isRefreshing: Bool = false, onCompletion: @escaping ([MessageGroup]) -> Void) {
+    @Published private var messages = [MessageGroup]()
+    @MainActor var series = [String]()
+    @Published var searchTerm = ""
+    @Published var filteredSeries = ""
+    var filtered: AnyPublisher<[MessageGroup], Never> {
+        Publishers.CombineLatest3($messages, $searchTerm, $filteredSeries)
+            .map { events, term, series in
+                return events.filter {
+                    $0.containsTerm(term: term)
+                }.map {
+                    MessageGroup(series: $0.series, messages: $0.messages.filter {
+                        $0.containsTerm(term: term)
+                    })
+                }.filter {
+                    $0.series.lowercased().contains(series.lowercased()) || series.isEmpty
+                }
+            }
+            .eraseToAnyPublisher()
+    }
+        
+    func getAllMessages(userId: String, isRefreshing: Bool = false) {
         Task { @MainActor in
             if isRefreshing {
                 messageController.clearMessagesCache()
             }
             do {
-                try await messageController.getAllMessages(userId: userId) { res in
-                    if let meals = res.data as? [MessageGroup] {
-                        onCompletion(meals)
+                try await messageController.getAllMessages(userId: userId) { [weak self] res in
+                    if let messages = res.data as? [MessageGroup] {
+                        self?.series = messages.map({ $0.series })
+                        self?.messages = messages
                     }
                 }
             } catch {

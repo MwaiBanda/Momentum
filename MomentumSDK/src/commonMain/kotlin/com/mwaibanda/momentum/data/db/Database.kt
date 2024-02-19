@@ -1,8 +1,5 @@
 package com.mwaibanda.momentum.data.db
 
-import com.squareup.sqldelight.logs.LogSqliteDriver
-import kotlin.math.log
-
 internal class Database(databaseDriverFactory: DatabaseDriverFactory) {
     private val database = MomentumDatabase(
         driver = databaseDriverFactory.createDriver()
@@ -72,7 +69,12 @@ internal class Database(databaseDriverFactory: DatabaseDriverFactory) {
     }
 
     internal fun getUserByUserId(userId: String): MomentumUser? {
-        return database.getUserByUserId(userId = userId).executeAsOneOrNull()
+        return try {
+            database.getUserByUserId(userId = userId).executeAsOneOrNull()
+        } catch (e: Exception) {
+            println(e.message)
+            null
+        }
     }
 
     internal fun updateUserFullnameByUserId(userId: String, fullname: String){

@@ -66,8 +66,8 @@ class SermonViewModel(
         val filtered = sermons.filter { sermon ->
             sermon.title.lowercase().contains(searchTerm.lowercase()) ||
                     sermon.preacher.lowercase().contains(searchTerm.lowercase()) ||
-                    sermon.series.lowercase().contains(searchTerm.lowercase()) ||
                     sermon.date.lowercase().contains(searchTerm.lowercase()) ||
+                    sermon.series.lowercase().contains(searchTerm.lowercase()) ||
                     searchTerm.isEmpty()
         }.filter { sermon ->
             filterFavourites  && favouriteSermons.firstOrNull { it.id == sermon.id } != null ||

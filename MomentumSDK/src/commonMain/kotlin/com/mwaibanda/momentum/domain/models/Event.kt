@@ -18,6 +18,7 @@ data class Event(
             getFormattedDate(startTime, "EEEE, MMM d")
         }
     }
+
     private fun getFormattedStartTime(): String {
         return if (startTime == "placeholder") {
             "00:00pm"
@@ -25,6 +26,7 @@ data class Event(
             getFormattedDate(startTime, "h:mma").replace(":00", "")
         }
     }
+
     private fun getFormattedEndTime(): String {
         return if (endTime == "placeholder") {
             "00:00pm"
@@ -32,13 +34,23 @@ data class Event(
             getFormattedDate(endTime, "h:mma").replace(":00", "")
         }
     }
+
     fun getDisplayEventTime(): String {
         val startTime = getFormattedStartTime()
         val endTime = getFormattedEndTime()
         var result = "$startTime-$endTime"
-        if (startTime.contains("AM") && endTime.contains("AM") || startTime.contains("PM") && endTime.contains("PM")) {
-            result ="${startTime.replace("AM", "").replace("PM", "")}-$endTime"
+        if (startTime.contains("AM") && endTime.contains("AM") || startTime.contains("PM") && endTime.contains(
+                "PM"
+            )
+        ) {
+            result = "${startTime.replace("AM", "").replace("PM", "")}-$endTime"
         }
-        return  result.lowercase()
+        return result.lowercase()
+    }
+
+    fun containsTerm(term: String): Boolean {
+        return name.lowercase().contains(term.lowercase()) ||
+               getFormattedStartDate().lowercase().contains(term.lowercase()) ||
+               term.isEmpty()
     }
 }

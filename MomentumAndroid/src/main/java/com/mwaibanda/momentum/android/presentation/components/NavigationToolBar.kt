@@ -83,6 +83,7 @@ fun NavigationToolBar(
                         onClick = {
                             showSearchBar = showSearchBar.not()
                             showFilterBar = false
+                            if (showSearchBar.not()) onSearchTermChanged("")
                         },
                         modifier = Modifier.offset(x = if (isOptionEnabled.second) 16.dp else 0.dp)
                     ) {

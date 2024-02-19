@@ -3,6 +3,7 @@ package com.mwaibanda.momentum.android.presentation.message
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.mwaibanda.momentum.android.presentation.sermon.SermonViewModel
 import com.mwaibanda.momentum.domain.controller.MessageController
 import com.mwaibanda.momentum.domain.models.MessageGroup
 import com.mwaibanda.momentum.domain.models.Note
@@ -11,7 +12,17 @@ import com.mwaibanda.momentum.domain.usecase.message.PostNoteUseCase
 import com.mwaibanda.momentum.domain.usecase.message.UpdateNoteUseCase
 import com.mwaibanda.momentum.utils.DataResponse
 import com.mwaibanda.momentum.utils.Result
+import kotlinx.coroutines.currentCoroutineContext
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 
 class MessageViewModel(
@@ -19,17 +30,47 @@ class MessageViewModel(
     private val postNoteUseCase: PostNoteUseCase,
     private val updateNoteUseCase: UpdateNoteUseCase,
 ): ViewModel() {
-    fun getMessages(userId: String, isRefreshing: Boolean = false, onCompletion: (List<MessageGroup>) -> Unit) {
+    private val _messages = MutableStateFlow(emptyList<MessageGroup>())
+    private val messageGroups = _messages.asStateFlow()
+
+    private val _series = MutableStateFlow(emptyList<String>())
+    val series = _series.asStateFlow()
+
+    private val _searchTerm = MutableStateFlow("")
+    val searchTerm = _searchTerm.asStateFlow()
+
+    private val _filterBySeries = MutableStateFlow("")
+    val filterBySeries = _filterBySeries.asStateFlow()
+
+    val filteredMessages = combine(
+        messageGroups,
+        searchTerm,
+        filterBySeries,
+    ) { groups, term, series ->
+        groups.filter {
+            it.containsTerm(term)
+        }.map { group ->  group.copy(
+            messages = group.messages.filter { message ->
+                message.containsTerm(term)
+            }
+        ) }.filter {
+            it.series.lowercase().contains(series.lowercase()) || series.isEmpty()
+        }
+    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(), emptyList())
+
+    fun getMessages(userId: String, isRefreshing: Boolean = false, onCompletion: () -> Unit = {}) {
         viewModelScope.launch {
             if (isRefreshing) messageController.clearMessagesCache()
 
-            messageController.getAllMessages(userId) {
-                when (it) {
+            messageController.getAllMessages(userId) { response ->
+                when (response) {
                     is DataResponse.Failure -> {
-                        Log.e("MessageViewModel[getMessages]", it.message ?: "")
+                        Log.e("MessageViewModel[getMessages]", response.message ?: "")
                     }
                     is DataResponse.Success -> {
-                        onCompletion(it.data ?: emptyList())
+                        _messages.value = (response.data ?: emptyList())
+                        _series.value = _messages.value.map { it.series }
+                        onCompletion()
                     }
                 }
             }
@@ -67,5 +108,29 @@ class MessageViewModel(
                 }
             }
         }
+    }
+
+
+    fun onSearchTermChanged(value: String) {
+        _searchTerm.value = value
+    }
+    fun onFilteredSeriesChanged(value: String) {
+        _filterBySeries.value = value
+    }
+
+    fun searchTag(): Flow<String> = flow {
+        while (currentCoroutineContext().isActive) {
+            delay(2500)
+            SermonViewModel.searchTags.add(SermonViewModel.searchTags.removeFirst())
+            emit(SermonViewModel.searchTags.first())
+        }
+    }
+    companion object {
+        val searchTags = mutableListOf(
+            "by message",
+            "for preachers",
+            "by series name",
+            "by date"
+        )
     }
 }

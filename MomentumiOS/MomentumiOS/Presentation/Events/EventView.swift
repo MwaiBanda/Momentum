@@ -8,10 +8,13 @@
 
 import SwiftUI
 import MomentumSDK
+import Combine
 
 struct EventView: View {
     @StateObject private var eventViewModel = EventViewModel()
     @State private var eventGroups = [EventGroup]()
+    @State private var showSearch = false
+    @State private var disposables = Set<AnyCancellable>()
     var body: some View {
         VStack {
             Divider()
@@ -23,7 +26,28 @@ struct EventView: View {
                 Spacer()
             }
             .padding(.top, 5)
+                
             ScrollView {
+                VStack(alignment: .leading) {
+                    VStack(alignment: .leading) {
+                        
+                        if showSearch {
+                            TextField("Search for event", text: $eventViewModel.searchTerm)
+                                .padding(.top, 5)
+                            
+                        }
+                        
+                    }
+                    .font(.title3)
+                    .padding(.horizontal)
+                    .padding(.horizontal, 5)
+                    if showSearch  {
+                        Divider()
+                            .padding(.top, 5)
+                    }
+                }
+                .frame(height: showSearch ? 50 : 0)
+                .padding(.bottom, 5)
                 LazyVStack(alignment: .center, spacing: 10, pinnedViews: [.sectionHeaders], content: {
                     if eventGroups.isEmpty {
                         ForEach(0..<12, id: \.self
@@ -67,15 +91,7 @@ struct EventView: View {
                 })
             }
             .redacted(reason: eventGroups.isEmpty ? .placeholder : [])
-            .onAppear {
-                DispatchQueue.global().async {
-                    eventViewModel.getEvents { events in
-                        DispatchQueue.main.async {
-                            self.eventGroups = events
-                        }
-                    }
-                }
-            }
+           
         }
         .padding(.bottom, 10)
         .toolbar(content: {
@@ -85,31 +101,23 @@ struct EventView: View {
                     .font(.largeTitle)
                     .bold()
             }
-            
-//            ToolbarItemGroup(placement: .navigationBarTrailing) {
-//                HStack {
-//                    Button {
-//
-//                    } label: {
-//                        Image(systemName: "magnifyingglass")
-//                    }
-//                    Button {
-
-//                    } label: {
-//                        Image(systemName: "line.3.horizontal")
-//                    }
-//                }
-//            }
+            ToolbarItemGroup(placement: .navigationBarTrailing) {
+                Button {
+                    withAnimation(.easeInOut(duration: 0.35)) {
+                        showSearch.toggle()
+                    }
+                } label: {
+                    Image(systemName: showSearch ? "xmark" : "magnifyingglass")
+                }
+            }
         })
         .navigationBarTitleDisplayMode(.inline)
         .onAppear {
-            DispatchQueue.global().async {
-                eventViewModel.getEvents { events in
-                    DispatchQueue.main.async {
-                        self.eventGroups = events
-                    }
-                }
-            }
+            eventViewModel.getEvents()
+            eventViewModel.filtered.sink { groups in
+                eventGroups = groups
+            }.store(in: &disposables)
+            
         }
     }
 }

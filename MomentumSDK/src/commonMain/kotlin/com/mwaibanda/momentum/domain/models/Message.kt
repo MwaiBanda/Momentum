@@ -12,4 +12,11 @@ data class Message(
     val date: String,
     val createdOn: String,
     val passages: List<Passage>
-)
+) {
+    fun containsTerm(term: String): Boolean {
+        return preacher.lowercase().contains(term.lowercase()) ||
+               date.lowercase().contains(term.lowercase()) ||
+               title.lowercase().contains(term.lowercase()) ||
+               term.isEmpty()
+    }
+}

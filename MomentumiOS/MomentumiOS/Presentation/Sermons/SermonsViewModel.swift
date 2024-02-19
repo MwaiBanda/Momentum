@@ -12,6 +12,7 @@ import MediaPlayer
 import Combine
 import TinyDi
 
+
 class SermonsViewModel: ObservableObject  {
     @Inject private var controller: SermonController
     @Inject var player: AVPlayer

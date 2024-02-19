@@ -9,14 +9,32 @@
 import Foundation
 import TinyDi
 import MomentumSDK
+import Combine
 
 class EventViewModel: ObservableObject {
     @Inject private var eventController: EventController
-
-    func getEvents(onCompletion: @escaping ([EventGroup]) -> Void) {
+    @Published var events = [EventGroup]()
+    @Published var searchTerm = ""
+    var filtered: AnyPublisher<[EventGroup], Never> {
+        Publishers.CombineLatest($events, $searchTerm)
+            .map { [weak self] events, term in
+                events.filter({
+                    $0.containsTerm(term: self?.searchTerm ?? "")
+                }).map({
+                    EventGroup(monthAndYear: $0.monthAndYear, events: $0.events.filter({
+                        $0.containsTerm(term: self?.searchTerm ?? "")
+                    }))
+                })
+            }
+            .eraseToAnyPublisher()
+    }
+    
+    
+    
+    func getEvents() {
         eventController.getAllEvents { res in
             if let events = res.data as? [EventGroup] {
-                onCompletion(events)
+                self.events = events
             }
         }
     }

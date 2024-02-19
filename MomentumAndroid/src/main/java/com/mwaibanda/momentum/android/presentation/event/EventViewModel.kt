@@ -2,23 +2,70 @@ package com.mwaibanda.momentum.android.presentation.event
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.mwaibanda.momentum.android.presentation.sermon.SermonViewModel
 import com.mwaibanda.momentum.domain.controller.EventController
 import com.mwaibanda.momentum.domain.models.EventGroup
 import com.mwaibanda.momentum.utils.DataResponse
+import kotlinx.coroutines.currentCoroutineContext
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.isActive
 
 class EventViewModel(
     private val eventController: EventController
 ): ViewModel() {
-    fun getEvents(onCompletion: (List<EventGroup>) -> Unit) {
+    private val _events = MutableStateFlow(emptyList<EventGroup>())
+    private val eventGroups = _events.asStateFlow()
+
+    private val _searchTerm = MutableStateFlow("")
+    val searchTerm = _searchTerm.asStateFlow()
+
+    val filteredEvents = combine(
+        eventGroups,
+        searchTerm
+    ) { groups, term ->
+        groups.filter {
+            it.containsTerm(term)
+        }.map { group ->  group.copy(
+            events = group.events.filter { event ->
+                event.containsTerm(term)
+            }
+        ) }
+    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(), emptyList())
+    fun onSearchTermChanged(value: String) {
+        _searchTerm.value = value
+    }
+    fun getEvents() {
         eventController.getAllEvents {
             when (it) {
                 is DataResponse.Failure -> {
                     Log.e("MealViewModel[getAllMeals]", it.message ?: "" )
                 }
                 is DataResponse.Success -> {
-                    onCompletion(it.data ?: emptyList())
+                    _events.value = it.data ?: emptyList()
                 }
             }
         }
+    }
+
+    fun searchTag(): Flow<String> = flow {
+        while (currentCoroutineContext().isActive) {
+            delay(2500)
+            SermonViewModel.searchTags.add(SermonViewModel.searchTags.removeFirst())
+            emit(SermonViewModel.searchTags.first())
+        }
+    }
+    companion object {
+        val searchTags = mutableListOf(
+            "by event name",
+            "by date",
+        )
     }
 }

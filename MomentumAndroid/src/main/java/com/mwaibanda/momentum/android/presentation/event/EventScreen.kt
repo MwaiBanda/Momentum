@@ -24,10 +24,8 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -46,14 +44,14 @@ import org.koin.androidx.compose.getViewModel
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun EventScreen(eventViewModel: EventViewModel = getViewModel()){
-    var eventGroups by remember {
-        mutableStateOf(emptyList<EventGroup>())
-    }
+    val eventGroups by eventViewModel.filteredEvents.collectAsState()
+    val searchTerm by eventViewModel.searchTerm.collectAsState()
+    val searchTag by eventViewModel.searchTag().collectAsState(initial = "by event name")
+
     LaunchedEffect(key1 = Unit, block = {
-        eventViewModel.getEvents {
-            eventGroups = it
-        }
+        eventViewModel.getEvents()
     })
+
     Column(
         Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.SpaceBetween,
@@ -62,6 +60,9 @@ fun EventScreen(eventViewModel: EventViewModel = getViewModel()){
         NavigationToolBar(
             title = "Events",
             subTitle = MultiplatformConstants.EVENTS_SUBHEADING,
+            searchTerm = searchTerm,
+            searchTag = searchTag,
+            onSearchTermChanged = eventViewModel::onSearchTermChanged,
             isOptionEnabled = Pair(true, false)
         )
         Box(contentAlignment = Alignment.TopCenter) {
@@ -71,7 +72,7 @@ fun EventScreen(eventViewModel: EventViewModel = getViewModel()){
                     .navigationBarsPadding()
                     .padding(horizontal = 10.dp)
             ) {
-                if (eventGroups.isEmpty()) {
+                if (eventGroups.isEmpty() && searchTerm.isEmpty()) {
                     MutableList(6) {
                         EventGroup(
                             monthAndYear = "placeholder",
