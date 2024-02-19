@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mwaibanda.momentum.domain.controller.MessageController
-import com.mwaibanda.momentum.domain.models.Message
+import com.mwaibanda.momentum.domain.models.MessageGroup
 import com.mwaibanda.momentum.domain.models.Note
 import com.mwaibanda.momentum.domain.models.NoteRequest
 import com.mwaibanda.momentum.domain.usecase.message.PostNoteUseCase
@@ -19,17 +19,18 @@ class MessageViewModel(
     private val postNoteUseCase: PostNoteUseCase,
     private val updateNoteUseCase: UpdateNoteUseCase,
 ): ViewModel() {
-    fun getMessages(userId: String, isRefreshing: Boolean = false, onCompletion: (List<Message>) -> Unit) {
+    fun getMessages(userId: String, isRefreshing: Boolean = false, onCompletion: (List<MessageGroup>) -> Unit) {
+        viewModelScope.launch {
+            if (isRefreshing) messageController.clearMessagesCache()
 
-        if (isRefreshing) messageController.clearMessagesCache()
-
-        messageController.getAllMessages(userId) {
-            when (it) {
-                is DataResponse.Failure -> {
-                    Log.e("MessageViewModel[getMessages]", it.message ?: "" )
-                }
-                is DataResponse.Success -> {
-                    onCompletion(it.data ?: emptyList())
+            messageController.getAllMessages(userId) {
+                when (it) {
+                    is DataResponse.Failure -> {
+                        Log.e("MessageViewModel[getMessages]", it.message ?: "")
+                    }
+                    is DataResponse.Success -> {
+                        onCompletion(it.data ?: emptyList())
+                    }
                 }
             }
         }

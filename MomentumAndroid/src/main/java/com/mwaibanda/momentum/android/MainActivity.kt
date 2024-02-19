@@ -140,6 +140,9 @@ class MainActivity : BaseActivity() {
             var showModalSheet by rememberSaveable {
                 mutableStateOf(false)
             }
+            var showMasterScreen by rememberSaveable {
+                mutableStateOf(true)
+            }
 
             var currentModal: Modal by rememberSaveable {
                 mutableStateOf(ViewTransactions)
@@ -180,9 +183,10 @@ class MainActivity : BaseActivity() {
             })
 
 
-            MomentumEntry(showModalSheet, {
-                showModal(ViewTransactions)
-            }) { contentPadding, navController ->
+            MomentumEntry(
+                isShowingModal = showModalSheet,
+                onShowModal = { showModal(ViewTransactions) }
+            ) { contentPadding, navController ->
                 ModalBottomSheetLayout(
                     sheetState = sheetState,
                     sheetContent = {

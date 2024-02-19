@@ -20,7 +20,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
-import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -38,11 +37,13 @@ import androidx.compose.ui.unit.dp
 import com.mwaibanda.momentum.android.core.exts.redacted
 import com.mwaibanda.momentum.android.core.utils.C
 import com.mwaibanda.momentum.android.presentation.components.LoadingSpinner
+import com.mwaibanda.momentum.android.presentation.components.NavigationToolBar
 import com.mwaibanda.momentum.domain.models.Event
 import com.mwaibanda.momentum.domain.models.EventGroup
 import com.mwaibanda.momentum.utils.MultiplatformConstants
 import org.koin.androidx.compose.getViewModel
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun EventScreen(eventViewModel: EventViewModel = getViewModel()){
     var eventGroups by remember {
@@ -58,101 +59,86 @@ fun EventScreen(eventViewModel: EventViewModel = getViewModel()){
         verticalArrangement = Arrangement.SpaceBetween,
         horizontalAlignment = Alignment.Start
     ) {
-        Column {
-            Column {
-                Spacer(modifier = Modifier.height(25.dp))
-
-                Text(
-                    text = "Events",
-                    fontWeight = FontWeight.ExtraBold,
-                    style = MaterialTheme.typography.h5,
-                    modifier = Modifier.padding(10.dp)
-                )
-
-                Divider()
-                Text(
-                    text = MultiplatformConstants.EVENTS_SUBHEADING.uppercase(),
-                    modifier = Modifier.padding(horizontal = 10.dp).padding(bottom = 2.dp),
-                    style = MaterialTheme.typography.caption,
-                    color = Color(C.MOMENTUM_ORANGE)
-                )
-                Box(contentAlignment = Alignment.TopCenter) {
-
-                    LazyColumn(
-                        Modifier
-                            .fillMaxWidth()
-                            .navigationBarsPadding()
-                            .padding(horizontal = 10.dp)
-                    ) {
-                        if (eventGroups.isEmpty()) {
-                            item {
-                                repeat(2) {
-                                    Events(
-                                        isRedacted = true,
-                                        events = EventGroup(
-                                            monthAndYear = "placeholder",
-                                            events = MutableList(3) {
-                                                Event(
-                                                    id = "placeholder",
-                                                    startTime = "placeholder",
-                                                    endTime = "placeholder",
-                                                    description = "placeholder",
-                                                    intervalSummary = "placeholder",
-                                                    name = "placeholder",
-                                                    thumbnail = "placeholder"
-                                                )
-                                            }
-                                        ).events
-                                    )
-                                }
+        NavigationToolBar(
+            title = "Events",
+            subTitle = MultiplatformConstants.EVENTS_SUBHEADING,
+            isOptionEnabled = Pair(true, false)
+        )
+        Box(contentAlignment = Alignment.TopCenter) {
+            LazyColumn(
+                Modifier
+                    .fillMaxWidth()
+                    .navigationBarsPadding()
+                    .padding(horizontal = 10.dp)
+            ) {
+                if (eventGroups.isEmpty()) {
+                    MutableList(6) {
+                        EventGroup(
+                            monthAndYear = "placeholder",
+                            events = MutableList(3) {
+                                Event(
+                                    id = "placeholder",
+                                    startTime = "placeholder",
+                                    endTime = "placeholder",
+                                    description = "placeholder",
+                                    intervalSummary = "placeholder",
+                                    name = "placeholder",
+                                    thumbnail = "placeholder"
+                                )
                             }
-                        } else {
-                            eventGroups.groupBy { it.monthAndYear }.forEach { (monthAndYear, groupedEvents) ->
-                                stickyHeader {
-                                    Text(
-                                        text = monthAndYear,
-                                        style = MaterialTheme.typography.h6,
-                                        fontWeight = FontWeight.Bold,
-                                        modifier = Modifier
-                                            .background(Color.White)
-                                            .padding(bottom = 5.dp)
-                                            .fillMaxWidth()
-
-                                    )
-                                }
-
-                                items(groupedEvents) { group ->
-                                    Events(events = group.events)
-                                }
-                            }
+                        )
+                    }.forEach { group ->
+                        stickyHeader {
+                            Text(
+                                text = group.monthAndYear,
+                                style = MaterialTheme.typography.h6,
+                                fontWeight = FontWeight.Bold,
+                                modifier = Modifier
+                                    .background(Color.White)
+                                    .padding(bottom = 5.dp)
+                                    .fillMaxWidth()
+                                    .padding(vertical = 2.dp)
+                                    .redacted()
+                            )
                         }
 
-                        item {
-                            Spacer(modifier = Modifier.height(65.dp))
+                        items(group.events) { event ->
+                            EventCard(isRedacted = true, event = event)
                         }
                     }
-                    LoadingSpinner(isVisible = eventGroups.isEmpty())
+                } else {
+                    eventGroups.forEach { group ->
+                        stickyHeader {
+                            Text(
+                                text = group.monthAndYear,
+                                style = MaterialTheme.typography.h6,
+                                fontWeight = FontWeight.Bold,
+                                modifier = Modifier
+                                    .background(Color.White)
+                                    .padding(bottom = 5.dp)
+                                    .fillMaxWidth()
+
+                            )
+                        }
+
+                        items(group.events) { event ->
+                            EventCard(event = event)
+                        }
+                    }
                 }
 
+                item {
+                    Spacer(modifier = Modifier.height(65.dp))
+                }
             }
+            LoadingSpinner(isVisible = eventGroups.isEmpty())
         }
     }
 }
 
-@Composable
-fun Events(isRedacted: Boolean = false, events: List<Event>) {
-    Column {
-        events.forEach { event ->
-            EventCard(isRedacted = isRedacted, event = event) {
 
-            }
-        }
-    }
-
-    Spacer(modifier = Modifier.height(15.dp))
-}
 @Composable
-fun EventCard(isRedacted: Boolean, event: Event, onCardClicked: () -> Unit) {
+fun EventCard(isRedacted: Boolean = false, event: Event, onCardClicked: () -> Unit = {}) {
     Card(
         Modifier
             .heightIn(min = 55.dp)
@@ -169,36 +155,36 @@ fun EventCard(isRedacted: Boolean, event: Event, onCardClicked: () -> Unit) {
                 verticalAlignment = Alignment.CenterVertically
             ) {
 
-                    Row(
-                        Modifier.fillMaxWidth(0.95f),
-                        horizontalArrangement = Arrangement.SpaceBetween,
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Column {
-                            Text(text = event.getFormattedStartDate(), fontWeight = FontWeight.Medium,
-                                    modifier = Modifier.redacted(isRedacted)
-                            )
-                            Text(
-                                text = event.name,
-                                style = MaterialTheme.typography.body1,
-                                fontWeight = FontWeight.ExtraBold,
-                                color = Color(C.MOMENTUM_ORANGE),
-                                modifier = Modifier
-                                    .padding(vertical = if (isRedacted) 2.dp else 0.dp)
-                                    .redacted(isRedacted)
-                            )
-                            Text(text = event.intervalSummary, color = Color.Gray, style = MaterialTheme.typography.caption,
-                                modifier = Modifier.redacted(isRedacted)
-                            )
-                        }
+                Row(
+                    Modifier.fillMaxWidth(0.95f),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Column {
+                        Text(text = event.getFormattedStartDate(), fontWeight = FontWeight.Medium,
+                            modifier = Modifier.redacted(isRedacted)
+                        )
                         Text(
-                            text = event.getDisplayEventTime(),
-                            color = Color.Gray,
+                            text = event.name,
+                            style = MaterialTheme.typography.body1,
+                            fontWeight = FontWeight.ExtraBold,
+                            color = Color(C.MOMENTUM_ORANGE),
                             modifier = Modifier
                                 .padding(vertical = if (isRedacted) 2.dp else 0.dp)
                                 .redacted(isRedacted)
                         )
+                        Text(text = event.intervalSummary, color = Color.Gray, style = MaterialTheme.typography.caption,
+                            modifier = Modifier.redacted(isRedacted)
+                        )
                     }
+                    Text(
+                        text = event.getDisplayEventTime(),
+                        color = Color.Gray,
+                        modifier = Modifier
+                            .padding(vertical = if (isRedacted) 2.dp else 0.dp)
+                            .redacted(isRedacted)
+                    )
+                }
                 /*
                 Icon(
                     imageVector = Icons.Default.ChevronRight,

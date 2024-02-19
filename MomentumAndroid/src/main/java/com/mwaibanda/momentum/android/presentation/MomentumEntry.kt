@@ -53,7 +53,9 @@ fun MomentumEntry(
 
             AnimatedVisibility(visible = ScreenConfiguration.ScreensWithoutNavigation.screens.contains(currentRoute).not(), enter = fadeIn(), exit = fadeOut()) {
                 Column(
-                    Modifier.fillMaxSize().zIndex(if (isShowingModal) 0f else 1f),
+                    Modifier
+                        .fillMaxSize()
+                        .zIndex(if (isShowingModal) 0f else 1f),
                     verticalArrangement = Arrangement.SpaceBetween
                 ) {
                     TopBar(

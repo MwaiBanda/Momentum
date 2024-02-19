@@ -14,7 +14,7 @@ import SDWebImageSwiftUI
 struct MessageView: View {
     @StateObject private var messageViewModel = MessageViewModel()
     @EnvironmentObject var session: Session
-    @State private var messages = [Message]()
+    @State private var messages = [MessageGroup]()
     var body: some View {
         VStack {
             Divider()
@@ -49,20 +49,20 @@ struct MessageView: View {
                     .bold()
             }
             
-//            ToolbarItemGroup(placement: .navigationBarTrailing) {
-//                HStack {
-//                    Button {
-//                        
-//                    } label: {
-//                        Image(systemName: "magnifyingglass")
-//                    }
-//                    Button {
-//
-//                    } label: {
-//                        Image(systemName: "line.3.horizontal")
-//                    }
-//                }
-//            }
+            /*ToolbarItemGroup(placement: .navigationBarTrailing) {
+             HStack {
+             Button {
+             
+             } label: {
+             Image(systemName: "magnifyingglass")
+             }
+             Button {
+             
+             } label: {
+             Image(systemName: "line.3.horizontal")
+             }
+             }
+             }*/
         })
         .background(Color.white.edgesIgnoringSafeArea(.all))
         .navigationBarTitleDisplayMode(.inline)
@@ -79,33 +79,46 @@ struct MessageView: View {
 }
 
 struct MessageList: View {
-    @Binding var messages: [Message]
+    @Binding var messages: [MessageGroup]
     var body: some View {
         ScrollView(showsIndicators: false) {
-            if messages.isEmpty {
-                ForEach(0..<12, id: \.self
-                ) { _ in
-                    MessageCard(
-                        isRedacted: true,
-                        message: Message(
-                        id: "1001",
-                        thumbnail:"thumbnail",
-                        series: "placeholder",
-                        title: "placeholder",
-                        preacher: "placeholder",
-                        date: "placeholder",
-                        createdOn: "placeholder",
-                        passages: [Passage]()
-                    ))
-                }
-            } else {
-                ForEach(messages, id: \.id) { message in
-                    NavigationLink {
-                        MessageDetailView(message: message)
-                    } label: {
-                        MessageCard(message: message)
+            LazyVStack(alignment: .center, spacing: 10, pinnedViews: [.sectionHeaders]) {
+                if messages.isEmpty {
+                    ForEach(0..<12, id: \.self
+                    ) { _ in
+                        MessageCard(
+                            isRedacted: true,
+                            message: Message(
+                                id: "1001",
+                                thumbnail:"thumbnail",
+                                series: "placeholder",
+                                title: "placeholder",
+                                preacher: "placeholder",
+                                date: "placeholder",
+                                createdOn: "placeholder",
+                                passages: [Passage]()
+                            ))
                     }
-                    
+                } else {
+                    ForEach(messages, id: \.self) { group in
+                        Section(header: HStack {
+                            Text(group.series)
+                                .font(.title)
+                                .fontWeight(.bold)
+                                .padding(.bottom, 5)
+                                .padding(.vertical, 2)
+                            Spacer()
+                        }.padding(.leading).background(Color.white)){
+                            ForEach(group.messages, id: \.id) { message in
+                                NavigationLink {
+                                    MessageDetailView(message: message)
+                                } label: {
+                                    MessageCard(message: message)
+                                }
+                                
+                            }
+                        }
+                    }
                 }
             }
         }

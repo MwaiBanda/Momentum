@@ -26,7 +26,8 @@ import com.mwaibanda.momentum.android.core.utils.NavigationRoutes
 import com.mwaibanda.momentum.android.core.utils.ScreenConfiguration
 
 @Composable
-fun TopBar(navController: NavController, currentRoute: String?,onShowModal: () -> Unit) {
+fun TopBar(navController: NavController, currentRoute: String?, onShowModal: () -> Unit) {
+
     TopAppBar(
         title = {
             if (ScreenConfiguration.ScreensWithLogo.screens.contains(currentRoute))
@@ -44,10 +45,13 @@ fun TopBar(navController: NavController, currentRoute: String?,onShowModal: () -
         backgroundColor = if (ScreenConfiguration.ScreensWithoutBackButton.screens.contains(
                 currentRoute
             )
-        || currentRoute == NavigationRoutes.MessageDetailScreen.route) Color.Transparent else Color.White,
+            || currentRoute == NavigationRoutes.MessageDetailScreen.route
+        ) Color.Transparent else Color.White,
         elevation = 0.dp,
         navigationIcon = {
-            if (ScreenConfiguration.ScreensWithoutBackButton.screens.contains(currentRoute).not())
+            if (ScreenConfiguration.ScreensWithoutBackButton.screens.contains(currentRoute)
+                    .not()
+            )
                 IconButton(onClick = {
                     navController.popBackStack()
                 }) {
@@ -55,12 +59,21 @@ fun TopBar(navController: NavController, currentRoute: String?,onShowModal: () -
                         Icon(
                             Icons.Filled.ArrowBackIosNew,
                             "",
-                            tint = if ( currentRoute == NavigationRoutes.MessageDetailScreen.route) Color.White else Color(C.MOMENTUM_ORANGE)
+                            tint = if (currentRoute == NavigationRoutes.MessageDetailScreen.route) Color.White else Color(
+                                C.MOMENTUM_ORANGE
+                            )
                         )
-                        Text(text = "Back", color = if ( currentRoute == NavigationRoutes.MessageDetailScreen.route) Color.White else Color(C.MOMENTUM_ORANGE))
+                        Text(
+                            text = "Back",
+                            color = if (currentRoute == NavigationRoutes.MessageDetailScreen.route) Color.White else Color(
+                                C.MOMENTUM_ORANGE
+                            )
+                        )
                     }
                 }
-            if (ScreenConfiguration.ScreensWithoutTopBarIcons.screens.contains(currentRoute).not())
+            if (ScreenConfiguration.ScreensWithoutTopBarIcons.screens.contains(currentRoute)
+                    .not()
+            )
                 IconButton(
                     onClick = {
                         onShowModal()
@@ -79,7 +92,9 @@ fun TopBar(navController: NavController, currentRoute: String?,onShowModal: () -
                 }
         },
         actions = {
-            if (ScreenConfiguration.ScreensWithoutTopBarIcons.screens.contains(currentRoute).not())
+            if (ScreenConfiguration.ScreensWithoutTopBarIcons.screens.contains(currentRoute)
+                    .not()
+            )
                 IconButton(
                     onClick = { navController.navigate(NavigationRoutes.ProfileScreen.route) },
                     enabled = ScreenConfiguration.ScreensWithoutBackButton.screens.contains(
@@ -94,6 +109,7 @@ fun TopBar(navController: NavController, currentRoute: String?,onShowModal: () -
                     )
                 }
         },
-        modifier = Modifier.padding(top = 30.dp),
+        modifier = Modifier.padding(top = if (ScreenConfiguration.ScreensWithoutBackButton.screens.contains(currentRoute) && currentRoute != NavigationRoutes.OfferScreen.route) 0.dp else 30.dp),
     )
+
 }

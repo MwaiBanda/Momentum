@@ -8,7 +8,7 @@ import com.google.accompanist.placeholder.PlaceholderHighlight
 import com.google.accompanist.placeholder.placeholder
 import com.google.accompanist.placeholder.shimmer
 
-fun Modifier.redacted(isRedacted: Boolean): Modifier {
+fun Modifier.redacted(isRedacted: Boolean = true): Modifier {
     return this.placeholder(
         visible = isRedacted,
         color = Color.Gray,
