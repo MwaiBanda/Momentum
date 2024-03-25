@@ -12,7 +12,7 @@ import kotlin.native.ObjCName
 class PostNoteUseCase(
     private val messageRepository: MessageRepository
 ) {
-    @ObjCName("post")
+    @ObjCName("execute")
     suspend operator fun invoke(note: NoteRequest): CommonFlow<Result<NoteRequest>> = flow {
         emit(Result.Loading())
         when(val res = messageRepository.addNoteToPassage(note)) {

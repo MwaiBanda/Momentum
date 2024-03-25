@@ -21,7 +21,6 @@ func controllerModule(resolver: TinyDi) {
         Single<AuthController>(AuthControllerImpl(controller: resolver.resolve())),
         Single<SermonController>(SermonControllerImpl(driverFactory: resolver.resolve())),
         Single<MealController>(MealControllerImpl()),
-        Single<MessageController>(MessageControllerImpl()),
         Single<NotificationController>(NotificationControllerImpl()),
         Single<EventController>(EventControllerImpl())
     )

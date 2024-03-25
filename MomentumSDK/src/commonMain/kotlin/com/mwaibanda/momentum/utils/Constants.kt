@@ -50,4 +50,5 @@ object MultiplatformConstants {
     const val ALL_USERS_TOPIC = "MomentumUsers"
     const val ALL_ANDROID_USERS_TOPIC = "MomentumAndroid"
     const val ALL_IOS_USERS_TOPIC = "MomentumIOS"
+    const val MESSAGE_KEY = "messages"
 }

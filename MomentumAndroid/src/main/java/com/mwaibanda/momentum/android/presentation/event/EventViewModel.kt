@@ -3,7 +3,6 @@ package com.mwaibanda.momentum.android.presentation.event
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.mwaibanda.momentum.android.presentation.sermon.SermonViewModel
 import com.mwaibanda.momentum.domain.controller.EventController
 import com.mwaibanda.momentum.domain.models.EventGroup
 import com.mwaibanda.momentum.utils.DataResponse
@@ -58,13 +57,13 @@ class EventViewModel(
     fun searchTag(): Flow<String> = flow {
         while (currentCoroutineContext().isActive) {
             delay(2500)
-            SermonViewModel.searchTags.add(SermonViewModel.searchTags.removeFirst())
-            emit(SermonViewModel.searchTags.first())
+            searchTags.add(searchTags.removeFirst())
+            emit(searchTags.first())
         }
     }
     companion object {
         val searchTags = mutableListOf(
-            "by event name",
+            "by event",
             "by date",
         )
     }

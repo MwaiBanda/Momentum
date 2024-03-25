@@ -32,7 +32,7 @@ struct EventView: View {
                     VStack(alignment: .leading) {
                         
                         if showSearch {
-                            TextField("Search for event", text: $eventViewModel.searchTerm)
+                            TextField("Search \(eventViewModel.searchTag)", text: $eventViewModel.searchTerm)
                                 .padding(.top, 5)
                             
                         }

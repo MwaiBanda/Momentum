@@ -11,9 +11,9 @@ android {
     defaultConfig {
         applicationId = "com.mwaibanda.momentum.android"
         minSdk = 26
-        targetSdk = 33
-        versionCode = 34
-        versionName = "1.2.9"
+        targetSdk = 34
+        versionCode = 35
+        versionName = "1.3.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 

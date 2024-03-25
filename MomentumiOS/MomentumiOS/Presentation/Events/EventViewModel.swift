@@ -15,6 +15,7 @@ class EventViewModel: ObservableObject {
     @Inject private var eventController: EventController
     @Published var events = [EventGroup]()
     @Published var searchTerm = ""
+    @Published var searchTag = ""
     var filtered: AnyPublisher<[EventGroup], Never> {
         Publishers.CombineLatest($events, $searchTerm)
             .map { [weak self] events, term in
@@ -38,4 +39,14 @@ class EventViewModel: ObservableObject {
             }
         }
     }
+    
+    func shiftSearchTag() {
+        EventViewModel.searchTags.append(EventViewModel.searchTags.removeFirst())
+        searchTag = EventViewModel.searchTags.first ?? ""
+    }
+    
+    static var searchTags = [
+        "By Event",
+        "By Date",
+    ]
 }

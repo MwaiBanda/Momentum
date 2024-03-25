@@ -49,7 +49,7 @@ kotlin {
     }
     
     sourceSets {
-        val ktorVersion = "2.3.0"
+        val ktorVersion = "2.3.8"
         val serialization = "1.6.2"
         val firebase = "1.6.2"
         val sqlDelight = "1.5.4"
@@ -64,6 +64,7 @@ kotlin {
             implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
             implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
             implementation("io.ktor:ktor-client-logging:$ktorVersion")
+            implementation("io.ktor:ktor-client-cio:$ktorVersion")
             // Koin
             implementation("io.insert-koin:koin-core:3.5.0")
             // SQLDelight

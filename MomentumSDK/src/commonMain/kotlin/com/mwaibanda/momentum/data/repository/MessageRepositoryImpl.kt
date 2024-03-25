@@ -8,12 +8,13 @@ import com.mwaibanda.momentum.domain.repository.MessageRepository
 import com.mwaibanda.momentum.domain.usecase.cache.GetItemUseCase
 import com.mwaibanda.momentum.domain.usecase.cache.SetItemUseCase
 import com.mwaibanda.momentum.utils.DataResponse
+import com.mwaibanda.momentum.utils.MultiplatformConstants.MESSAGE_KEY
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
+import io.ktor.client.request.delete
 import io.ktor.client.request.get
 import io.ktor.client.request.post
 import io.ktor.client.request.put
-import kotlinx.coroutines.delay
 import com.mwaibanda.momentum.data.messageDTO.MessageDTO as MessageContainer
 
 class MessageRepositoryImpl(
@@ -26,22 +27,17 @@ class MessageRepositoryImpl(
         if (cacheMessages.isNotEmpty()) {
             return DataResponse.Success(cacheMessages)
         }
-         try {
+         return try {
             val messages = httpClient.get {
                 momentumAPI("$MESSAGE_ENDPOINT/$userId")
             }.body<MessageContainer>().data
              if (messages.isNotEmpty()) {
                  setItemUseCase(MESSAGE_KEY, messages)
-             } else {
-                 delay(30000)
-                 fetchAllMessages(userId = userId)
              }
+             DataResponse.Success(messages)
         } catch (e: Exception) {
            return DataResponse.Failure(e.message.toString())
         }
-
-        val newlyCacheMessages = getItemUseCase(MESSAGE_KEY).orEmpty()
-        return DataResponse.Success(newlyCacheMessages)
     }
 
     override suspend fun addNoteToPassage(request: NoteRequest): DataResponse<NoteRequest> {
@@ -66,7 +62,16 @@ class MessageRepositoryImpl(
         }
     }
 
-    companion object {
-        const val MESSAGE_KEY = "messages"
+    override suspend fun deleteNote(userId: String): DataResponse<Note> {
+        return try {
+            val response: Note = httpClient.delete {
+                momentumAPI("$NOTES_ENDPOINT/$userId")
+            }.body()
+            DataResponse.Success(response)
+        } catch (e: Exception) {
+            DataResponse.Failure(e.message.toString())
+        }
     }
+
+
 }

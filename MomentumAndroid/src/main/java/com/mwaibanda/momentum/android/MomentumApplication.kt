@@ -20,24 +20,21 @@ class MomentumApplication: Application() {
         FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
             if (!task.isSuccessful) {
                 Log.e(TAG, "Fetching FCM registration token failed", task.exception)
-                return@OnCompleteListener
             }
             val token = task.result
             Log.e(TAG, token)
             FirebaseMessaging.getInstance().subscribeToTopic(MultiplatformConstants.ALL_USERS_TOPIC).addOnCompleteListener {
                 if (!it.isSuccessful) {
                     Log.e(TAG, "Subscribing to Topic(${MultiplatformConstants.ALL_USERS_TOPIC}) failed", task.exception)
+                } else {
+                    Log.e(TAG, "Subscribed to Topic(${MultiplatformConstants.ALL_USERS_TOPIC})")
                     FirebaseMessaging.getInstance().subscribeToTopic(MultiplatformConstants.ALL_ANDROID_USERS_TOPIC).addOnCompleteListener {
                         if (!it.isSuccessful) {
                             Log.e(TAG, "Subscribing to Topic(${MultiplatformConstants.ALL_ANDROID_USERS_TOPIC}) failed", task.exception)
-                            return@addOnCompleteListener
                         } else {
                             Log.e(TAG, "Subscribed to Topic(${MultiplatformConstants.ALL_ANDROID_USERS_TOPIC})")
                         }
                     }
-                    return@addOnCompleteListener
-                } else {
-                    Log.e(TAG, "Subscribed to Topic(${MultiplatformConstants.ALL_USERS_TOPIC})")
                 }
             }
         })
@@ -54,5 +51,7 @@ class MomentumApplication: Application() {
 
     companion object {
         private const val TAG = "MomentumApplication"
+        const val DEFAULT_CHANNEL_ID = "Momentum-1001"
+        const val DEFAULT_CHANNEL = "Momentum Notifications"
     }
 }

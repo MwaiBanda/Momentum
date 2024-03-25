@@ -4,13 +4,11 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mwaibanda.momentum.android.presentation.sermon.SermonViewModel
-import com.mwaibanda.momentum.domain.controller.MessageController
 import com.mwaibanda.momentum.domain.models.MessageGroup
 import com.mwaibanda.momentum.domain.models.Note
 import com.mwaibanda.momentum.domain.models.NoteRequest
-import com.mwaibanda.momentum.domain.usecase.message.PostNoteUseCase
-import com.mwaibanda.momentum.domain.usecase.message.UpdateNoteUseCase
-import com.mwaibanda.momentum.utils.DataResponse
+import com.mwaibanda.momentum.domain.usecase.message.MessageUseCases
+import com.mwaibanda.momentum.utils.MultiplatformConstants
 import com.mwaibanda.momentum.utils.Result
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.delay
@@ -26,9 +24,7 @@ import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 
 class MessageViewModel(
-    private val messageController: MessageController,
-    private val postNoteUseCase: PostNoteUseCase,
-    private val updateNoteUseCase: UpdateNoteUseCase,
+    private val messageUseCases: MessageUseCases
 ): ViewModel() {
     private val _messages = MutableStateFlow(emptyList<MessageGroup>())
     private val messageGroups = _messages.asStateFlow()
@@ -60,29 +56,31 @@ class MessageViewModel(
 
     fun getMessages(userId: String, isRefreshing: Boolean = false, onCompletion: () -> Unit = {}) {
         viewModelScope.launch {
-            if (isRefreshing) messageController.clearMessagesCache()
+            if (isRefreshing) clearMessagesCache()
 
-            messageController.getAllMessages(userId) { response ->
-                when (response) {
-                    is DataResponse.Failure -> {
-                        Log.e("MessageViewModel[getMessages]", response.message ?: "")
-                    }
-                    is DataResponse.Success -> {
-                        _messages.value = (response.data ?: emptyList())
+            messageUseCases.read(userId).collectLatest {
+                when(it) {
+                    is Result.Data -> {
+                        _messages.value = (it.data ?: emptyList())
                         _series.value = _messages.value.map { it.series }
+                        Log.e("GET[Data]", "MESSAGE")
                         onCompletion()
                     }
+                    is Result.Error -> Log.e("MessageViewModel[getMessages]", it.message ?: "")
+
+                    is Result.Loading -> Log.e("GET[Loading]", "MESSAGE")
                 }
             }
+
         }
     }
 
     fun clearMessagesCache() {
-        messageController.clearMessagesCache()
+        messageUseCases.clearCache(MultiplatformConstants.MESSAGE_KEY)
     }
     fun postNote(request: NoteRequest, onCompletion: () -> Unit) {
         viewModelScope.launch {
-            postNoteUseCase(request).collectLatest {
+            messageUseCases.create(request).collectLatest {
                 when(it) {
                     is Result.Data -> {
                         Log.e("POST[Data]", "NOTE")
@@ -97,7 +95,7 @@ class MessageViewModel(
 
     fun updateNote(note: Note.UserNote, onCompletion: () -> Unit) {
         viewModelScope.launch {
-            updateNoteUseCase(note).collectLatest {
+            messageUseCases.update(note).collectLatest {
                 when(it) {
                     is Result.Data -> {
                         Log.e("PUT[Data]", "NOTE")
@@ -121,7 +119,7 @@ class MessageViewModel(
     fun searchTag(): Flow<String> = flow {
         while (currentCoroutineContext().isActive) {
             delay(2500)
-            SermonViewModel.searchTags.add(SermonViewModel.searchTags.removeFirst())
+            searchTags.add(searchTags.removeFirst())
             emit(SermonViewModel.searchTags.first())
         }
     }
@@ -129,7 +127,7 @@ class MessageViewModel(
         val searchTags = mutableListOf(
             "by message",
             "for preachers",
-            "by series name",
+            "by series",
             "by date"
         )
     }

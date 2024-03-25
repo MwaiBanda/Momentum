@@ -14,7 +14,9 @@ import com.mwaibanda.momentum.domain.usecase.localDefaults.SetStringUseCase
 import com.mwaibanda.momentum.domain.usecase.meal.GetMealUseCase
 import com.mwaibanda.momentum.domain.usecase.meal.PostMealUseCase
 import com.mwaibanda.momentum.domain.usecase.meal.PostVolunteeredMealUseCase
+import com.mwaibanda.momentum.domain.usecase.message.DeleteNoteUseCase
 import com.mwaibanda.momentum.domain.usecase.message.GetAllMessagesUseCase
+import com.mwaibanda.momentum.domain.usecase.message.MessageUseCases
 import com.mwaibanda.momentum.domain.usecase.message.PostNoteUseCase
 import com.mwaibanda.momentum.domain.usecase.message.UpdateNoteUseCase
 import com.mwaibanda.momentum.domain.usecase.notification.PostNotificationUseCase
@@ -78,6 +80,8 @@ val useCasesModule = module {
     single { GetAllMessagesUseCase(messageRepository = get()) }
     single { PostNoteUseCase(messageRepository = get()) }
     single { UpdateNoteUseCase(messageRepository = get()) }
+    single { DeleteNoteUseCase(messageRepository = get()) }
+    single { MessageUseCases(create = get(), read = get(), update = get(), delete = get(), clearCache = get()) }
     /**
      * @Notification - Use-cases
      */

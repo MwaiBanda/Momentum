@@ -1,6 +1,8 @@
 package com.mwaibanda.momentum.android
 
 import android.Manifest
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.app.PictureInPictureParams
 import android.content.pm.PackageManager
 import android.content.res.ColorStateList
@@ -107,6 +109,7 @@ class MainActivity : BaseActivity() {
                 //       by them granting the POST_NOTIFICATION permission. This UI should provide the user
                 //       "OK" and "No thanks" buttons. If the user selects "OK," directly request the permission.
                 //       If the user selects "No thanks," allow the user to continue without notifications.
+                requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
             } else {
                 // Directly ask for the permission
                 requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
@@ -115,6 +118,11 @@ class MainActivity : BaseActivity() {
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val importance = NotificationManager.IMPORTANCE_DEFAULT
+        val channel = NotificationChannel(MomentumApplication.DEFAULT_CHANNEL_ID, MomentumApplication.DEFAULT_CHANNEL, importance)
+        channel.description = "This is the default app notification channel"
+        val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+        notificationManager.createNotificationChannel(channel)
         askNotificationPermission()
         try {
             castContext = CastContext.getSharedInstance(this)

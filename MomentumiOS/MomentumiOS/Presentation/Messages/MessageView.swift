@@ -18,6 +18,7 @@ struct MessageView: View {
     @State private var showSearch = false
     @State private var showFilter = false
     @State private var disposables = Set<AnyCancellable>()
+    @State private var timerDisposables = Set<AnyCancellable>()
     var body: some View {
         VStack {
             Divider()
@@ -76,12 +77,22 @@ struct MessageView: View {
         .background(Color.white.edgesIgnoringSafeArea(.all))
         .navigationBarTitleDisplayMode(.inline)
         .onAppear {
-            DispatchQueue.global().async {
-                messageViewModel.getAllMessages(userId: session.currentUser?.id ?? "")
-            }
-            messageViewModel.filtered.sink { groups in
-                messages = groups
+            messageViewModel.getAllMessages(userId: session.currentUser?.id ?? "")
+            Timer.publish(every: 2.5, on: .main, in: .common)
+                .autoconnect()
+                .prepend(Date())
+                .map { _ in }
+                .sink(receiveValue: { _ in
+                    withAnimation {
+                        messageViewModel.shiftSearchTag()
+                    }
+                })
+                .store(in: &timerDisposables)
+            
+            messageViewModel.filtered.sink { msgs in
+                messages = msgs
             }.store(in: &disposables)
+           
         }
     }
 }
@@ -97,7 +108,7 @@ struct MessageList: View {
                 VStack(alignment: .leading) {
                     
                     if showSearch {
-                        TextField("Search for message", text: $messageViewModel.searchTerm)
+                        TextField("Search \(messageViewModel.searchTag)", text: $messageViewModel.searchTerm)
                             .padding(.top, 5)
                         
                     }
@@ -164,7 +175,6 @@ struct MessageList: View {
                                 } label: {
                                     MessageCard(message: message)
                                 }
-                                
                             }
                         }
                     }

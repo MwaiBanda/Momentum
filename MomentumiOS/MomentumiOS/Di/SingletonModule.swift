@@ -19,7 +19,6 @@ func singletonModule(){
         Single(AVPlayer()),
         Single(DatabaseDriverFactory()),
         Single(Momentum.shared.auth.controller),
-        Single(Momentum.shared.postNoteUseCase),
-        Single(Momentum.shared.updateNoteUseCase)
+        Single(Momentum.shared.messageUseCases)
     )
 }

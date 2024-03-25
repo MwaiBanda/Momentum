@@ -5,7 +5,6 @@ import com.mwaibanda.momentum.controller.BillingAddressControllerImpl
 import com.mwaibanda.momentum.controller.EventControllerImpl
 import com.mwaibanda.momentum.controller.LocalDefaultsControllerImpl
 import com.mwaibanda.momentum.controller.MealControllerImpl
-import com.mwaibanda.momentum.controller.MessageControllerImpl
 import com.mwaibanda.momentum.controller.NotificationControllerImpl
 import com.mwaibanda.momentum.controller.PaymentControllerImpl
 import com.mwaibanda.momentum.controller.SermonControllerImpl
@@ -33,7 +32,6 @@ val controllerModule = module {
     single<LocalDefaultsController> { LocalDefaultsControllerImpl() }
     single<SermonController> { SermonControllerImpl(driverFactory = get()) }
     single<MealController> { MealControllerImpl() }
-    single<MessageController> { MessageControllerImpl() }
     single<NotificationController> { NotificationControllerImpl() }
     single<EventController> { EventControllerImpl() }
 }

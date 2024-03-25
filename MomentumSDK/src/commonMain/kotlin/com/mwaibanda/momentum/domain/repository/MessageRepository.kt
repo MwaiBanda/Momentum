@@ -9,5 +9,6 @@ interface MessageRepository {
     suspend fun fetchAllMessages(userId: String): DataResponse<List<Message>>
     suspend fun addNoteToPassage(request: NoteRequest): DataResponse<NoteRequest>
     suspend fun updateNote(note: Note.UserNote): DataResponse<Note>
+    suspend fun deleteNote(userId: String): DataResponse<Note>
 
 }

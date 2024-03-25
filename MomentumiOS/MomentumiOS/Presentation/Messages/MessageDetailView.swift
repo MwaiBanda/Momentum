@@ -22,6 +22,7 @@ struct MessageDetailView: View {
     @EnvironmentObject var session: Session
     @State private var notes = ""
     @State private var showNotes = false
+    @State private var showAlert = false
     @State private var isUpdating = false
     @State private var showAuthSheet = false
     @State private var currentNote: Note? = nil
@@ -68,48 +69,66 @@ struct MessageDetailView: View {
                                 Spacer()
                             }.padding(10)
                         }
-                        if (passage.notes?.isEmpty ?? true) {
-                            Text("ADD NOTES")
-                                .fontWeight(.heavy)
-                                .padding(10)
-                                .onTapGesture {
-                                    if (session.currentUser?.isGuest ?? false)  {
-                                        showAuthSheet.toggle()
-                                    } else {
+                        if let passageNotes = passage.notes {
+                            if passageNotes.isEmpty {
+                                Text("ADD NOTES")
+                                    .fontWeight(.heavy)
+                                    .padding(10)
+                                    .onTapGesture {
+                                        if (session.currentUser?.isGuest ?? false)  {
+                                            showAuthSheet.toggle()
+                                        } else {
+                                            showNotes = true
+                                            notes = ""
+                                            isUpdating = false
+                                            currentPassage = passage
+                                        }
+                                    }
+                            } else {
+                                Text("NOTES")
+                                    .fontWeight(.heavy)
+                                    .padding(.top, 10)
+                                    .padding(.horizontal, 10)
+                                ForEach(passageNotes, id: \.id) { note in
+                                    Menu {
+                                        Button {
+                                            showNotes = true
+                                            notes = note.content
+                                            isUpdating = true
+                                            currentNote = note
+                                            currentPassage = passage
+                                        } label: {
+                                            Label("Update", systemImage: "square.and.pencil")
+                                        }
+                                        Button {
+                                            currentNote = note
+                                            currentPassage = passage
+                                            showAlert = true
+                                        } label: {
+                                            Label("Delete", systemImage: "trash")
+                                        }
+                                        
+                                    } label: {
+                                        Text(note.content)
+                                            .multilineTextAlignment(.leading)
+                                            .foregroundColor(Color.black)
+                                            .padding(.horizontal, 10)
+                                            .padding(.bottom, 10)
+                                    }
+                                }
+                                Text("ADD MORE NOTES")
+                                    .fontWeight(.heavy)
+                                    .padding(10)
+                                    .onTapGesture {
                                         showNotes = true
                                         notes = ""
                                         isUpdating = false
                                         currentPassage = passage
                                     }
-                                }
-                        } else {
-                            Text("NOTES")
-                                .fontWeight(.heavy)
-                                .padding(.top, 10)
-                                .padding(.horizontal, 10)
-                            ForEach(passage.notes ?? [], id: \.id) { note in
-                                Text(note.content)
-                                    .padding(.horizontal, 10)
-                                    .padding(.bottom, 10)
-                                    .onTapGesture {
-                                        showNotes = true
-                                        notes = note.content
-                                        isUpdating = true
-                                        currentNote = note
-                                        currentPassage = passage
-                                    }
+                                
                             }
-                            Text("ADD MORE NOTES")
-                                .fontWeight(.heavy)
-                                .padding(10)
-                                .onTapGesture {
-                                    showNotes = true
-                                    notes = ""
-                                    isUpdating = false
-                                    currentPassage = passage
-                                }
-                            
                         }
+                        
                         Divider()
                         
                     }
@@ -117,6 +136,35 @@ struct MessageDetailView: View {
                     
                 }
             }
+            .alert(isPresented: $showAlert, content: {
+                Alert(
+                    title: Text("Delete Note"),
+                    message: Text("Are you sure you want to delete this note?"),
+                    primaryButton: .default(Text("Cancel"), action: {
+                        showAlert = false
+                    }),
+                    secondaryButton: .destructive(Text("Delete"), action: {
+                        messageViewModel.deleteNote(noteId: currentNote?.id ?? "", onCompletion: {
+                            passages = passages.map({
+                                if $0.id == currentPassage?.id {
+                                    return Passage(
+                                        id: $0.id,
+                                        header: $0.header,
+                                        verse: $0.verse,
+                                        message: $0.message,
+                                        notes: $0.notes?.filter({
+                                             $0.id != currentNote?.id
+                                        }))
+                                } else {
+                                    return $0
+                                }
+                            })
+                            showAlert = false
+                            messageViewModel.clearMessagesCache()
+                        })
+                    })
+                )
+            })
             .navigationBarTitleDisplayMode(.inline)
             .onAppear {
                 passages = message.passages
@@ -127,7 +175,7 @@ struct MessageDetailView: View {
                 }
             }
             if showNotes {
-                Color.black.opacity(0.5).ignoresSafeArea(.all)
+                Color.black.opacity(0.5).edgesIgnoringSafeArea(.all)
                 VStack {
                     Spacer()
                     VStack(alignment: .leading) {

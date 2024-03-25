@@ -14,13 +14,13 @@ import Combine
 
 @MainActor
 class MessageViewModel: ObservableObject {
-    @Inject private var messageController: MessageController
-    @Inject private var postNoteUseCase: PostNoteUseCase
-    @Inject private var updateNoteUseCase: UpdateNoteUseCase
-    @Published private var messages = [MessageGroup]()
-    @MainActor var series = [String]()
+    @Inject private var messageNotesUseCases: MessageUseCases
+    @Published var messages = [MessageGroup]()
+    @Published var series = [String]()
     @Published var searchTerm = ""
+    @Published var searchTag = ""
     @Published var filteredSeries = ""
+    
     var filtered: AnyPublisher<[MessageGroup], Never> {
         Publishers.CombineLatest3($messages, $searchTerm, $filteredSeries)
             .map { events, term, series in
@@ -37,44 +37,71 @@ class MessageViewModel: ObservableObject {
             .eraseToAnyPublisher()
     }
         
-    func getAllMessages(userId: String, isRefreshing: Bool = false) {
+    func getAllMessages(userId: String, isRefreshing: Bool = false,  onCompletion: @escaping ([MessageGroup]) -> Void = { _ in }) {
+        if isRefreshing {
+           clearMessagesCache()
+        }
         Task { @MainActor in
-            if isRefreshing {
-                messageController.clearMessagesCache()
-            }
             do {
-                try await messageController.getAllMessages(userId: userId) { [weak self] res in
-                    if let messages = res.data as? [MessageGroup] {
-                        self?.series = messages.map({ $0.series })
-                        self?.messages = messages
+                try await messageNotesUseCases.read.execute(userId: userId).collect { [weak self] res in
+                    guard let status = res?.status else { fatalError("No Result Found") }
+                    switch(status) {
+                    case .loading:
+                        os_log("[MessageGroup[Loading]]")
+                        break
+                    case .error:
+                        guard let message = res?.message  else { return }
+                        os_log("[MessageGroup[Error]]: \(message)")
+                        break
+                    case .data:
+                        guard let messages = res?.data as? [MessageGroup] else { return }
+                        DispatchQueue.main.async {
+                            self?.messages = messages
+                            self?.series = messages.map({ $0.series })
+                        }
+                        os_log("[MessageGroup[Data]]")
+                        onCompletion(messages)
+                        break
+                    default: break
                     }
                 }
             } catch {
-                print(error.localizedDescription)
+                os_log("\(error.localizedDescription)")
             }
         }
     }
     
     func clearMessagesCache() {
-        messageController.clearMessagesCache()
+        URLCache.shared.removeAllCachedResponses()
+        let cookieStore = HTTPCookieStorage.shared
+        for cookie in cookieStore.cookies ?? [] {
+            cookieStore.deleteCookie(cookie)
+        }
+        messageNotesUseCases.clearCache.execute(key: MultiplatformConstants.shared.MESSAGE_KEY)
     }
+    
+    func shiftSearchTag() {
+        MessageViewModel.searchTags.append(MessageViewModel.searchTags.removeFirst())
+        searchTag = MessageViewModel.searchTags.first ?? ""
+    }
+
     
     func addNote(note: NoteRequest, onCompletion: @escaping () -> Void) {
         Task { @MainActor in
             do {
-                try await postNoteUseCase.post(note: note).collect { res in
+                try await messageNotesUseCases.create.execute(note: note).collect { res in
                     guard let status = res?.status else { fatalError("No Result Found") }
                     switch(status) {
                     case .loading:
-                        os_log("[Event[Loading]]")
+                        os_log("[NoteRequest[Loading]]")
                         break
                     case .error:
                         guard let message = res?.message else { return }
-                        os_log("[Event[Error]]: \(message)")
+                        os_log("[NoteRequest[Error]]: \(message)")
                         break
                     case .data:
                         guard let note = res?.data else { return }
-                        os_log("[Event[Data]] \(note)")
+                        os_log("[NoteRequest[Data]] \(note)")
                         onCompletion()
                         break
                     default: break
@@ -90,7 +117,34 @@ class MessageViewModel: ObservableObject {
     func updateNote(note: Note.UserNote, onCompletion: @escaping () -> Void) {
         Task { @MainActor in
             do {
-                try await updateNoteUseCase.update(note: note).collect { res in
+                try await messageNotesUseCases.update.execute(note: note).collect { res in
+                    guard let status = res?.status else { fatalError("No Result Found") }
+                    switch(status) {
+                    case .loading:
+                        os_log("[UserNote[Loading]] \(res)")
+                        break
+                    case .error:
+                        guard let message = res?.message else { return }
+                        os_log("[UserNote[Error]]: \(message)")
+                        break
+                    case .data:
+                        guard let note = res?.data else { return }
+                        os_log("[UserNote[Data]] \(note)")
+                        onCompletion()
+                        break
+                    default: break
+                    }
+                }
+            } catch {
+                os_log("\(error.localizedDescription)")
+            }
+        }
+    }
+    
+    func deleteNote(noteId: String, onCompletion: @escaping () -> Void) {
+        Task { @MainActor in
+            do {
+                try await messageNotesUseCases.delete_.execute(noteId: noteId).collect { res in
                     guard let status = res?.status else { fatalError("No Result Found") }
                     switch(status) {
                     case .loading:
@@ -113,6 +167,13 @@ class MessageViewModel: ObservableObject {
             }
         }
     }
+    
+    static var searchTags = [
+        "For Message",
+        "By Series",
+        "For Preachers",
+        "By Date"
+    ]
 }
 
 

@@ -9,13 +9,13 @@ import com.mwaibanda.momentum.utils.asCommonFlow
 import kotlinx.coroutines.flow.flow
 import kotlin.native.ObjCName
 
-class UpdateNoteUseCase(
+class DeleteNoteUseCase(
     private val messageRepository: MessageRepository
 ) {
     @ObjCName("execute")
-    suspend operator fun invoke(note: Note.UserNote): CommonFlow<Result<Note>> = flow {
+    suspend operator fun invoke(noteId: String): CommonFlow<Result<Note>> = flow {
         emit(Result.Loading())
-        when(val res = messageRepository.updateNote(note)) {
+        when(val res = messageRepository.deleteNote(noteId)) {
             is DataResponse.Failure -> emit(Result.Error(res.message))
             is DataResponse.Success -> emit(Result.Data(res.data))
         }

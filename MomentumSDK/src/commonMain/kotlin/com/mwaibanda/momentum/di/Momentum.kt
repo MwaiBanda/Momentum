@@ -1,13 +1,11 @@
 package com.mwaibanda.momentum.di
 
-import com.mwaibanda.momentum.domain.usecase.message.PostNoteUseCase
-import com.mwaibanda.momentum.domain.usecase.message.UpdateNoteUseCase
+import com.mwaibanda.momentum.domain.usecase.message.MessageUseCases
 import io.github.mwaibanda.authentication.di.Authentication
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
 object Momentum: KoinComponent {
-    val postNoteUseCase: PostNoteUseCase by inject()
-    val updateNoteUseCase: UpdateNoteUseCase by inject()
+    val messageUseCases: MessageUseCases by inject()
     val auth = Authentication
 }
