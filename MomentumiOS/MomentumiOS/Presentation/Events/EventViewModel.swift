@@ -22,7 +22,7 @@ class EventViewModel: ObservableObject {
                 events.filter({
                     $0.containsTerm(term: self?.searchTerm ?? "")
                 }).map({
-                    EventGroup(monthAndYear: $0.monthAndYear, events: $0.events.filter({
+                    EventGroup(id: $0.id, monthAndYear: $0.monthAndYear, events: $0.events.filter({
                         $0.containsTerm(term: self?.searchTerm ?? "")
                     }))
                 })

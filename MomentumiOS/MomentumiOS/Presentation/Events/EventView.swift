@@ -60,7 +60,7 @@ struct EventView: View {
                                 Spacer()
                             }.padding(.leading).background(Color.white)) {
                                 Events(events: EventGroup(
-                                    monthAndYear: "placeholder",
+                                    id: UUID().uuidString, monthAndYear: "placeholder",
                                     events: Array(
                                         repeating: Event(
                                             id: UUID().uuidString,

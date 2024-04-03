@@ -6,6 +6,7 @@ import com.mwaibanda.momentum.utils.CommonFlow
 import com.mwaibanda.momentum.utils.DataResponse
 import com.mwaibanda.momentum.utils.Result
 import com.mwaibanda.momentum.utils.asCommonFlow
+import com.mwaibanda.momentum.utils.randomUUID
 import kotlinx.coroutines.flow.flow
 import kotlin.native.ObjCName
 
@@ -23,6 +24,7 @@ class GetAllMessagesUseCase(
                             message.series
                         }?.map { messageEntry ->
                             MessageGroup(
+                                id =  randomUUID(),
                                 series = messageEntry.key,
                                 messages = messageEntry.value
                             )

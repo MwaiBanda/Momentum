@@ -64,7 +64,6 @@ kotlin {
             implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
             implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
             implementation("io.ktor:ktor-client-logging:$ktorVersion")
-            implementation("io.ktor:ktor-client-cio:$ktorVersion")
             // Koin
             implementation("io.insert-koin:koin-core:3.5.0")
             // SQLDelight
@@ -90,7 +89,7 @@ kotlin {
         }
 
         iosMain.dependencies {
-            implementation("io.ktor:ktor-client-ios:$ktorVersion")
+            implementation("io.ktor:ktor-client-darwin:$ktorVersion")
             implementation ("com.squareup.sqldelight:native-driver:$sqlDelight")
             implementation ("org.jetbrains.kotlinx:kotlinx-serialization-json:$serialization")
 

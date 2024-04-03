@@ -16,6 +16,7 @@ import Combine
 class MessageViewModel: ObservableObject {
     @Inject private var messageNotesUseCases: MessageUseCases
     @Published var messages = [MessageGroup]()
+    @Published var passages = [Passage]()
     @Published var series = [String]()
     @Published var searchTerm = ""
     @Published var searchTag = ""
@@ -27,7 +28,7 @@ class MessageViewModel: ObservableObject {
                 return events.filter {
                     $0.containsTerm(term: term)
                 }.map {
-                    MessageGroup(series: $0.series, messages: $0.messages.filter {
+                    MessageGroup(id: $0.id.isEmpty ? UUID().uuidString : $0.id, series: $0.series, messages: $0.messages.filter {
                         $0.containsTerm(term: term)
                     })
                 }.filter {

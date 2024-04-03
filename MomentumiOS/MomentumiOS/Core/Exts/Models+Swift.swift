@@ -12,10 +12,12 @@ extension Sermon: Identifiable { }
 
 extension Meal: Identifiable { }
 
-extension Passage: Identifiable {
-    
-}
+extension Note: Identifiable { }
 
-extension EventGroup: Identifiable {
-    public var id: String { UUID().uuidString }
-}
+extension Message: Identifiable { }
+
+extension Passage: Identifiable { }
+
+extension MessageGroup: Identifiable {}
+
+extension EventGroup: Identifiable {}

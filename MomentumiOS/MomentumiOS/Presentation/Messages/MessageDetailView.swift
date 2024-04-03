@@ -18,7 +18,7 @@ enum NoteState {
 }
 struct MessageDetailView: View {
     let message: Message
-    @StateObject private var messageViewModel = MessageViewModel()
+    @ObservedObject var messageViewModel: MessageViewModel
     @EnvironmentObject var session: Session
     @State private var notes = ""
     @State private var showNotes = false
@@ -167,7 +167,7 @@ struct MessageDetailView: View {
             })
             .navigationBarTitleDisplayMode(.inline)
             .onAppear {
-                passages = message.passages
+                passages = messageViewModel.passages
             }
             .sheet(isPresented: $showAuthSheet) {
                 MomentumBlurredBackground {

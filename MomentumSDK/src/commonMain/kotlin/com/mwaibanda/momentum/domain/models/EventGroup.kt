@@ -1,6 +1,7 @@
 package com.mwaibanda.momentum.domain.models
 
 data class EventGroup(
+    val id: String,
     val monthAndYear: String,
     val events: List<Event>
 ) {

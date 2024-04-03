@@ -90,7 +90,9 @@ struct MessageView: View {
                 .store(in: &timerDisposables)
             
             messageViewModel.filtered.sink { msgs in
+                print("sink>>>")
                 messages = msgs
+                print(messages.flatMap({ $0.messages }).flatMap({ $0.passages }).compactMap({ $0.notes }))
             }.store(in: &disposables)
            
         }
@@ -160,21 +162,29 @@ struct MessageList: View {
                             ))
                     }
                 } else {
-                    ForEach(messages, id: \.self) { group in
-                        Section(header: HStack {
+                    ForEach(messages, id: \.id) { group in
+                        Section(header: ZStack {
+                        HStack {
                             Text(group.series)
                                 .font(.title)
                                 .fontWeight(.bold)
                                 .padding(.bottom, 5)
                                 .padding(.vertical, 2)
                             Spacer()
-                        }.padding(.leading).background(Color.white)){
+                        }.padding(.leading).background(Color.white)}){
                             ForEach(group.messages, id: \.id) { message in
                                 NavigationLink {
-                                    MessageDetailView(message: message)
+                                    MessageDetailView(message: message, messageViewModel: messageViewModel)
                                 } label: {
                                     MessageCard(message: message)
-                                }
+                                }.simultaneousGesture(
+                                    TapGesture()
+                                        .onEnded { _ in
+                                            messageViewModel.passages = messageViewModel.messages.filter({ $0.messages.contains(where: { $0.id == message.id })}).first?.messages.first(where: { $0.id == message.id })?.passages ?? []
+//                                            print(message.passages.compactMap({ $0.notes }))
+//                                            print(messageViewModel.passages.compactMap({ $0.notes }))
+                                        }
+                                )
                             }
                         }
                     }

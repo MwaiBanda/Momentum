@@ -27,17 +27,16 @@ class MessageRepositoryImpl(
         if (cacheMessages.isNotEmpty()) {
             return DataResponse.Success(cacheMessages)
         }
-         return try {
+        try {
             val messages = httpClient.get {
                 momentumAPI("$MESSAGE_ENDPOINT/$userId")
             }.body<MessageContainer>().data
-             if (messages.isNotEmpty()) {
-                 setItemUseCase(MESSAGE_KEY, messages)
-             }
-             DataResponse.Success(messages)
+            setItemUseCase(MESSAGE_KEY, messages)
         } catch (e: Exception) {
-           return DataResponse.Failure(e.message.toString())
+            return DataResponse.Failure(e.message.toString())
         }
+        val newlyCachedMessages = getItemUseCase(MESSAGE_KEY).orEmpty()
+        return DataResponse.Success(newlyCachedMessages)
     }
 
     override suspend fun addNoteToPassage(request: NoteRequest): DataResponse<NoteRequest> {

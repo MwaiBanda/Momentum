@@ -4,6 +4,7 @@ import com.mwaibanda.momentum.domain.models.EventGroup
 import com.mwaibanda.momentum.domain.repository.EventRepository
 import com.mwaibanda.momentum.utils.DataResponse
 import com.mwaibanda.momentum.utils.getFormattedDate
+import com.mwaibanda.momentum.utils.randomUUID
 
 class GetEventsUseCase(
     private val eventRepository: EventRepository
@@ -19,7 +20,13 @@ class GetEventsUseCase(
                 onCompletion(DataResponse.Success(
                     events
                         .groupBy { getFormattedDate(it.startTime, "MMMM YYYY") }
-                        .map { EventGroup(it.key, it.value) }
+                        .map {
+                            EventGroup(
+                                id = randomUUID(),
+                                monthAndYear = it.key,
+                                events = it.value
+                            )
+                        }
                 ))
             }
         }
