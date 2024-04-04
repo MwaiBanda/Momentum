@@ -12,10 +12,9 @@ struct OfferView: View {
     @EnvironmentObject var session: Session
     @StateObject private var offerViewModel = OfferViewModel()
     @State private var showAuthSheet = false
-
+    
     var body: some View {
         VStack {
-            NavBar(showMenu: .constant(false))
             Spacer()
             if offerViewModel.displayText.isEmpty {
                 Text("$0")
@@ -63,14 +62,11 @@ struct OfferView: View {
             }
             Spacer()
             NavigationLink {
-                    PaymentSummaryView(offerViewModel: offerViewModel)
-                
+                PaymentSummaryView(offerViewModel: offerViewModel)
             } label: {
                 Text("Offer")
                     .fontWeight(.heavy)
-                    .frame(width: screenBounds.width - 30, height: 55)
-
-         
+                    .frame(width: screenBounds.width - 55, height: 55)
             }
             .disabled(session.currentUser?.isGuest ?? false)
             .buttonStyle(FilledButtonStyle())
@@ -79,8 +75,10 @@ struct OfferView: View {
                     showAuthSheet.toggle()
                 }
             })
-            .padding(.bottom, 10)
+            .padding(.bottom)
         }
+        .momentumNavigation()
+        .navigationBarTitleDisplayMode(.inline)
         .foregroundColor(.white)
         .onAppear {
             AppReviewRequest.RequestReviewWhenNeeeded()
@@ -97,7 +95,7 @@ struct OfferView: View {
 
 struct OfferVIew_Previews: PreviewProvider {
     static var previews: some View {
-            OfferView()
+        OfferView()
         
     }
 }

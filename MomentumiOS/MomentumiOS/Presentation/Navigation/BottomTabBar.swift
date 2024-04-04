@@ -83,6 +83,7 @@ struct MomentumBlurredBackground<Content: View>: View {
             BackgroundView().ignoresSafeArea(.all)
             VStack {
                 content()
+                Spacer()
             }
         }
     }

@@ -29,7 +29,7 @@ struct MessageDetailView: View {
     @State private var currentPassage: Passage? = nil
     @State private var passages = [Passage]()
     @State private var currentNoteState: NoteState = .Display
-
+    
     var body: some View {
         ZStack {
             ScrollView {
@@ -70,64 +70,64 @@ struct MessageDetailView: View {
                             }.padding(10)
                         }
                         if let passageNotes = passage.notes {
-                            if passageNotes.isEmpty {
-                                Text("ADD NOTES")
-                                    .fontWeight(.heavy)
-                                    .padding(10)
-                                    .onTapGesture {
-                                        if (session.currentUser?.isGuest ?? false)  {
-                                            showAuthSheet.toggle()
-                                        } else {
-                                            showNotes = true
-                                            notes = ""
-                                            isUpdating = false
-                                            currentPassage = passage
-                                        }
-                                    }
-                            } else {
-                                Text("NOTES")
-                                    .fontWeight(.heavy)
-                                    .padding(.top, 10)
-                                    .padding(.horizontal, 10)
-                                ForEach(passageNotes, id: \.id) { note in
-                                    Menu {
-                                        Button {
-                                            showNotes = true
-                                            notes = note.content
-                                            isUpdating = true
-                                            currentNote = note
-                                            currentPassage = passage
-                                        } label: {
-                                            Label("Update", systemImage: "square.and.pencil")
-                                        }
-                                        Button {
-                                            currentNote = note
-                                            currentPassage = passage
-                                            showAlert = true
-                                        } label: {
-                                            Label("Delete", systemImage: "trash")
-                                        }
-                                        
+                            
+                            Text("NOTES")
+                                .fontWeight(.heavy)
+                                .padding(.top, 10)
+                                .padding(.horizontal, 10)
+                            ForEach(passageNotes, id: \.id) { note in
+                                Menu {
+                                    Button {
+                                        showNotes = true
+                                        notes = note.content
+                                        isUpdating = true
+                                        currentNote = note
+                                        currentPassage = passage
                                     } label: {
-                                        Text(note.content)
-                                            .multilineTextAlignment(.leading)
-                                            .foregroundColor(Color.black)
-                                            .padding(.horizontal, 10)
-                                            .padding(.bottom, 10)
+                                        Label("Update", systemImage: "square.and.pencil")
                                     }
+                                    Button {
+                                        currentNote = note
+                                        currentPassage = passage
+                                        showAlert = true
+                                    } label: {
+                                        Label("Delete", systemImage: "trash")
+                                    }
+                                    
+                                } label: {
+                                    Text(note.content)
+                                        .multilineTextAlignment(.leading)
+                                        .foregroundColor(Color.black)
+                                        .padding(.horizontal, 10)
+                                        .padding(.bottom, 10)
                                 }
-                                Text("ADD MORE NOTES")
-                                    .fontWeight(.heavy)
-                                    .padding(10)
-                                    .onTapGesture {
+                            }
+                            Text("ADD MORE NOTES")
+                                .fontWeight(.heavy)
+                                .padding(10)
+                                .onTapGesture {
+                                    showNotes = true
+                                    notes = ""
+                                    isUpdating = false
+                                    currentPassage = passage
+                                }
+                            
+                        } else {
+                            Text("ADD NOTES")
+                                .fontWeight(.heavy)
+                                .padding(10)
+                                .onTapGesture {
+                                    if (session.currentUser?.isGuest ?? false)  {
+                                        showAuthSheet.toggle()
+                                    } else {
                                         showNotes = true
                                         notes = ""
                                         isUpdating = false
                                         currentPassage = passage
                                     }
-                                
-                            }
+                                }
                         }
+                        
                         
                         Divider()
                         
@@ -153,7 +153,7 @@ struct MessageDetailView: View {
                                         verse: $0.verse,
                                         message: $0.message,
                                         notes: $0.notes?.filter({
-                                             $0.id != currentNote?.id
+                                            $0.id != currentNote?.id
                                         }))
                                 } else {
                                     return $0
@@ -323,43 +323,43 @@ struct MessageDetailView: View {
 struct TextView: UIViewRepresentable {
     @Binding var text: String
     @Binding var range: NSRange
-
+    
     func makeCoordinator() -> Coordinator {
         Coordinator(self, range: $range)
     }
-
+    
     func makeUIView(context: Context) -> UITextView {
-
+        
         let myTextView = UITextView()
         myTextView.delegate = context.coordinator
-
+        
         myTextView.font = UIFont(name: "HelveticaNeue", size: 15)
         myTextView.isScrollEnabled = true
         myTextView.isEditable = false
         myTextView.isUserInteractionEnabled = true
         myTextView.backgroundColor = UIColor(white: 0.0, alpha: 0.05)
-
+        
         return myTextView
     }
-
+    
     func updateUIView(_ uiView: UITextView, context: Context) {
         uiView.text = text
     }
-
+    
     class Coordinator : NSObject, UITextViewDelegate {
-
+        
         var parent: TextView
         @Binding var range: NSRange // <---
-
+        
         init(_ uiTextView: TextView, range: Binding<NSRange>) {
             self.parent = uiTextView
             _range = range
         }
-
+        
         func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
             return true
         }
-
+        
         func textViewDidChange(_ textView: UITextView) {
             print("text now: \(String(describing: textView.text!))")
             self.parent.text = textView.text
