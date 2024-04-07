@@ -4,7 +4,16 @@ import android.view.animation.OvershootInterpolator
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.navigationBars
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.windowInsetsBottomHeight
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -61,7 +70,7 @@ fun LaunchScreen(navController: NavController) {
         Column (
             horizontalAlignment = Alignment.CenterHorizontally
         ){
-            Text(text = "Copyright © 2023 Momentum. All rights reserved.", modifier = Modifier.padding(bottom = 15.dp))
+            Text(text = "Copyright © 2024 Momentum. All rights reserved.", modifier = Modifier.padding(bottom = 15.dp))
             Spacer(
                 Modifier
                     .windowInsetsBottomHeight(WindowInsets.navigationBars)

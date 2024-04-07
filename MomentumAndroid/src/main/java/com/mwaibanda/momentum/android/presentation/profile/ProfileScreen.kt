@@ -121,7 +121,7 @@ fun ProfileScreen(
         ) {
             Column {
                 Column {
-                    Spacer(modifier = Modifier.height(65.dp))
+                    Spacer(modifier = Modifier.height(69.dp))
                     Text(
                         text = MultiplatformConstants.PROFILE,
                         fontWeight = FontWeight.ExtraBold,

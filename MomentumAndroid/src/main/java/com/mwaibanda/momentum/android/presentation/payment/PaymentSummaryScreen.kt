@@ -140,7 +140,7 @@ fun PaymentSummaryScreen(
         ) {
             Column {
                 Column {
-                    Spacer(modifier = Modifier.height(65.dp))
+                    Spacer(modifier = Modifier.height(68.dp))
                     Text(
                         text = "Payment Summary",
                         fontWeight = FontWeight.ExtraBold,

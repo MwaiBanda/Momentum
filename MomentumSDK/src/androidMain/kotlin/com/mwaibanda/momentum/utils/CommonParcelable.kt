@@ -6,3 +6,6 @@ import kotlinx.android.parcel.Parcelize
 actual typealias CommonParcelize = Parcelize
 
 actual typealias CommonParcelable = Parcelable
+
+
+

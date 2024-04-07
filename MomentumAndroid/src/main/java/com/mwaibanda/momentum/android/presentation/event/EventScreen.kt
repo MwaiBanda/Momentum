@@ -39,6 +39,7 @@ import com.mwaibanda.momentum.android.presentation.components.NavigationToolBar
 import com.mwaibanda.momentum.domain.models.Event
 import com.mwaibanda.momentum.domain.models.EventGroup
 import com.mwaibanda.momentum.utils.MultiplatformConstants
+import com.mwaibanda.momentum.utils.randomUUID
 import org.koin.androidx.compose.getViewModel
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -75,6 +76,7 @@ fun EventScreen(eventViewModel: EventViewModel = getViewModel()){
                 if (eventGroups.isEmpty() && searchTerm.isEmpty()) {
                     MutableList(6) {
                         EventGroup(
+                            id = randomUUID(),
                             monthAndYear = "placeholder",
                             events = MutableList(3) {
                                 Event(

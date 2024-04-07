@@ -77,24 +77,27 @@ struct MessageView: View {
         .background(Color.white.edgesIgnoringSafeArea(.all))
         .navigationBarTitleDisplayMode(.inline)
         .onAppear {
-            messageViewModel.getAllMessages(userId: session.currentUser?.id ?? "")
-            Timer.publish(every: 2.5, on: .main, in: .common)
-                .autoconnect()
-                .prepend(Date())
-                .map { _ in }
-                .sink(receiveValue: { _ in
-                    withAnimation {
-                        messageViewModel.shiftSearchTag()
+            if messages.isEmpty {
+                messageViewModel.getAllMessages(userId: session.currentUser?.id ?? "")
+                Timer.publish(every: 2.5, on: .main, in: .common)
+                    .autoconnect()
+                    .prepend(Date())
+                    .map { _ in }
+                    .sink(receiveValue: { _ in
+                        withAnimation {
+                            messageViewModel.shiftSearchTag()
+                        }
+                    })
+                    .store(in: &timerDisposables)
+                
+                messageViewModel.filtered.sink { msgs in
+                    print("sink>>>")
+                    DispatchQueue.main.async {
+                        messages = msgs
+                        print(messages.flatMap({ $0.messages }).flatMap({ $0.passages }).compactMap({ $0.notes }))
                     }
-                })
-                .store(in: &timerDisposables)
-            
-            messageViewModel.filtered.sink { msgs in
-                print("sink>>>")
-                messages = msgs
-                print(messages.flatMap({ $0.messages }).flatMap({ $0.passages }).compactMap({ $0.notes }))
-            }.store(in: &disposables)
-           
+                }.store(in: &disposables)
+            }
         }
     }
 }
@@ -162,30 +165,15 @@ struct MessageList: View {
                             ))
                     }
                 } else {
-                    ForEach(messages, id: \.id) { group in
-                        Section(header: ZStack {
-                        HStack {
+                    ForEach(messages, id: \.self) { group in
+                        Section(header: HStack {
                             Text(group.series)
-                                .font(.title)
-                                .fontWeight(.bold)
-                                .padding(.bottom, 5)
-                                .padding(.vertical, 2)
-                            Spacer()
-                        }.padding(.leading).background(Color.white)}){
-                            ForEach(group.messages, id: \.id) { message in
-                                NavigationLink {
-                                    MessageDetailView(message: message, messageViewModel: messageViewModel)
-                                } label: {
-                                    MessageCard(message: message)
-                                }.simultaneousGesture(
-                                    TapGesture()
-                                        .onEnded { _ in
-                                            messageViewModel.passages = messageViewModel.messages.filter({ $0.messages.contains(where: { $0.id == message.id })}).first?.messages.first(where: { $0.id == message.id })?.passages ?? []
-//                                            print(message.passages.compactMap({ $0.notes }))
-//                                            print(messageViewModel.passages.compactMap({ $0.notes }))
-                                        }
-                                )
-                            }
+                             .font(.title)
+                             .fontWeight(.bold)
+                             .padding(.bottom, 5)
+                             Spacer()
+                         }.padding(.leading).background(Color.white)){
+                             Messages(messages: group.messages, messageViewModel: messageViewModel)
                         }
                     }
                 }
@@ -195,6 +183,27 @@ struct MessageList: View {
     }
 }
 
+struct Messages: View {
+    let messages: [Message]
+    @ObservedObject var messageViewModel: MessageViewModel
+    var body: some View {
+        ForEach(messages, id: \.id) { message in
+            NavigationLink {
+                MessageDetailView(message: message, messageViewModel: messageViewModel)
+            } label: {
+                MessageCard(message: message)
+            }.simultaneousGesture(
+                TapGesture()
+                    .onEnded { _ in
+                        messageViewModel.passages = messageViewModel.messages.filter({ $0.messages.contains(where: { $0.id == message.id })}).first?.messages.first(where: { $0.id == message.id })?.passages ?? []
+    //                                            print(message.passages.compactMap({ $0.notes }))
+    //                                            print(messageViewModel.passages.compactMap({ $0.notes }))
+                    }
+            )
+        }
+    }
+
+}
 #Preview {
     MessageView()
 }

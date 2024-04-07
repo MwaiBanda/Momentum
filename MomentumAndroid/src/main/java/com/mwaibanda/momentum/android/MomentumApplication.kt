@@ -6,6 +6,7 @@ import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
 import com.mwaibanda.momentum.android.di.mainModule
 import com.mwaibanda.momentum.android.di.viewModelModule
+import com.mwaibanda.momentum.di.Momentum
 import com.mwaibanda.momentum.di.controllerModule
 import com.mwaibanda.momentum.di.initKoin
 import com.mwaibanda.momentum.utils.MultiplatformConstants
@@ -16,6 +17,7 @@ import org.koin.android.ext.koin.androidContext
 class MomentumApplication: Application() {
     override fun onCreate() {
         super.onCreate()
+        Momentum.tryXML()
         Authentication.initialize(this)
         FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
             if (!task.isSuccessful) {

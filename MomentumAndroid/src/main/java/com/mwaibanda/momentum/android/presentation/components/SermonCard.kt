@@ -95,18 +95,19 @@ fun SermonCard(
                 Image(
                     painter = painterResource(id = R.drawable.thumbnail),
                     contentDescription = "Video thumbnail placeholder",
-                    modifier = Modifier.redacted(true)
+                    modifier = Modifier.fillMaxWidth().redacted(true)
                 )
                 if (isRedacted.not()) {
                     Box(
                         contentAlignment = Alignment.TopEnd,
-                        modifier = Modifier.redacted(isRedacted),
+                        modifier = Modifier.fillMaxWidth().redacted(isRedacted),
                     ) {
                         AsyncImage(
                             model = ImageRequest.Builder(LocalContext.current)
                                 .data(sermon.videoThumbnail)
                                 .crossfade(true)
                                 .build(),
+                            modifier = Modifier.fillMaxWidth(),
                             contentDescription = "Sermon thumbnail",
                             contentScale = ContentScale.FillWidth,
                             onSuccess = { thumbnailHasLoaded = true},

@@ -77,6 +77,8 @@ kotlin {
             // Cache4K
             implementation("io.github.reactivecircus.cache4k:cache4k:0.8.0")
             api("io.github.mwaibanda:authentication:1.0.5")
+            implementation("com.fleeksoft.ksoup:ksoup:0.1.2")
+
         }
 
         commonTest.dependencies {

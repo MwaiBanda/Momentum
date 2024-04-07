@@ -159,7 +159,7 @@ struct SermonsView: View {
                                 showSermon = true
                                 print("clicked")
                             }
-                            .frame(maxHeight: 250)
+                            .frame(maxHeight: UIDevice.isIPad ? 350 : 250)
                         }
                     }
                 }

@@ -1,7 +1,6 @@
 package com.mwaibanda.momentum.android.presentation.sermon
 
 import android.content.pm.ActivityInfo
-import android.graphics.Picture
 import android.graphics.Rect
 import android.net.Uri
 import android.util.Log
@@ -14,11 +13,31 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.layout.*
-import androidx.compose.material.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.systemBarsPadding
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
+import androidx.compose.material.Slider
+import androidx.compose.material.SliderDefaults
+import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CastConnected
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -35,7 +54,6 @@ import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.mediarouter.app.MediaRouteButton
 import androidx.navigation.NavController
-import com.google.android.exoplayer2.DeviceInfo
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.Player
@@ -46,8 +64,14 @@ import com.google.android.exoplayer2.ui.AspectRatioFrameLayout
 import com.google.android.exoplayer2.ui.StyledPlayerView
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSource
 import com.google.android.exoplayer2.util.MimeTypes
-import com.google.android.gms.cast.*
-import com.google.android.gms.cast.framework.*
+import com.google.android.gms.cast.MediaInfo
+import com.google.android.gms.cast.MediaLoadRequestData
+import com.google.android.gms.cast.MediaMetadata
+import com.google.android.gms.cast.MediaQueueItem
+import com.google.android.gms.cast.framework.CastButtonFactory
+import com.google.android.gms.cast.framework.CastContext
+import com.google.android.gms.cast.framework.Session
+import com.google.android.gms.cast.framework.SessionManagerListener
 import com.google.android.gms.common.images.WebImage
 import com.mwaibanda.momentum.android.R
 import com.mwaibanda.momentum.android.core.exts.formatMinSec
@@ -215,7 +239,7 @@ fun PlayerScreen(
             sermonViewModel.addSermon(
                 MomentumSermon(
                     id = sermonViewModel.currentSermon?.id ?: "",
-                    last_played_time = (currentPlayer?.currentPosition?.toDouble() ?: 0.0),
+                    last_played_time = lastPosition.toDouble(),
                     last_played_percentage = (((currentPlayer?.currentPosition?.toFloat() ?: 0f) / (currentPlayer?.duration?.toFloat() ?: 0f)) * 100.0).toInt()
                 )
             ) {
