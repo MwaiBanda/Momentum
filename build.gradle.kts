@@ -40,7 +40,7 @@ allprojects {
         mavenCentral()
         maven {
             name = "GitHubPackages"
-            url = uri(getExtraString("SOURCE_URL").toString())
+            url = uri("https://maven.pkg.github.com/MwaiBanda/Authentication")
             credentials {
                 username = getExtraString("GITHUB_EMAIL")
                 password = getExtraString("GITHUB_TOKEN")
