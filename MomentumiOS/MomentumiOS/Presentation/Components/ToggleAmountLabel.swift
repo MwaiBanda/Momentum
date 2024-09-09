@@ -31,7 +31,7 @@ struct ToggleAmountLabel: View {
                     )
                 Text(title)
                     .font(.headline)
-                    .fontWeight(.heavy)
+                    .fontWeight(.bold)
                 
             }
             .onTapGesture {

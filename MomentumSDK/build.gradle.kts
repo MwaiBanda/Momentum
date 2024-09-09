@@ -1,11 +1,10 @@
 plugins {
     kotlin("multiplatform")
     kotlin("native.cocoapods")
-    kotlin("plugin.serialization") version "1.9.10"
+    kotlin("plugin.serialization") version "2.0.20"
     id("com.android.library")
     id( "com.squareup.sqldelight")
     id("kotlin-parcelize")
-    id("com.rickclephas.kmp.nativecoroutines") version "1.0.0-ALPHA-24"
 }
 
 
@@ -28,7 +27,6 @@ kotlin {
 
     applyDefaultHierarchyTemplate()
 
-    // For example:
     jvmToolchain(17)
     cocoapods {
         summary = """
@@ -44,41 +42,33 @@ kotlin {
         framework {
             baseName = "MomentumSDK"
             isStatic = true
-
         }
     }
     
     sourceSets {
-        val ktorVersion = "2.3.8"
-        val serialization = "1.6.2"
-        val firebase = "1.6.2"
-        val sqlDelight = "1.5.4"
-
         commonMain.dependencies {
             // Stately
-            implementation("co.touchlab:stately-common:1.2.5")
-            implementation("co.touchlab:stately-isolate:1.2.1")
-            implementation("co.touchlab:stately-iso-collections:1.2.1")
+            implementation(libs.stately.common)
+            implementation(libs.stately.isolate)
+            implementation(libs.stately.iso.collections)
             // Ktor
-            implementation("io.ktor:ktor-client-core:$ktorVersion")
-            implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
-            implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
-            implementation("io.ktor:ktor-client-logging:$ktorVersion")
+            implementation(libs.ktor.client.core)
+            implementation(libs.ktor.client.content.negotiation)
+            implementation(libs.ktor.serialization.kotlinx.json)
+            implementation(libs.ktor.client.logging)
             // Koin
-            implementation("io.insert-koin:koin-core:3.5.0")
+            implementation(libs.koin.core)
             // SQLDelight
-            implementation("com.squareup.sqldelight:runtime:$sqlDelight")
+            implementation(libs.sqldelight.runtime)
             // Kotlin Serialization
-            implementation ("org.jetbrains.kotlinx:kotlinx-serialization-json:$serialization")
+            implementation (libs.kotlinx.serialization.json)
             // Kotlin datetime
-            implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
+            implementation(libs.kotlinx.datetime)
             // Multiplatform Preferences
-            implementation("com.russhwolf:multiplatform-settings-no-arg:1.0.0")
+            implementation(libs.multiplatform.settings.no.arg)
             // Cache4K
-            implementation("io.github.reactivecircus.cache4k:cache4k:0.8.0")
-            api("io.github.mwaibanda:authentication:1.0.5")
-            implementation("com.fleeksoft.ksoup:ksoup:0.1.2")
-
+            implementation(libs.cache4k)
+            api(libs.authentication)
         }
 
         commonTest.dependencies {
@@ -86,21 +76,21 @@ kotlin {
         }
 
         androidMain.dependencies {
-            implementation("io.ktor:ktor-client-okhttp:$ktorVersion")
-            implementation("com.squareup.sqldelight:android-driver:$sqlDelight")
+            implementation(libs.ktor.client.okhttp)
+            implementation(libs.android.driver)
         }
 
         iosMain.dependencies {
-            implementation("io.ktor:ktor-client-darwin:$ktorVersion")
-            implementation ("com.squareup.sqldelight:native-driver:$sqlDelight")
-            implementation ("org.jetbrains.kotlinx:kotlinx-serialization-json:$serialization")
-
+            implementation(libs.ktor.client.darwin)
+            implementation (libs.native.driver)
+            implementation (libs.kotlinx.serialization.json)
+            implementation(libs.firebase.auth)
         }
 
         iosTest.dependencies {
-            implementation("dev.gitlive:firebase-auth:$firebase")
-            implementation ("org.jetbrains.kotlinx:kotlinx-serialization-json:$serialization")
-            implementation ("com.squareup.sqldelight:native-driver:$sqlDelight")
+            implementation(libs.firebase.auth)
+            implementation (libs.kotlinx.serialization.json)
+            implementation (libs.native.driver)
         }
     }
 
@@ -114,7 +104,7 @@ android {
     }
     namespace = "com.mwaibanda.momentum"
     dependencies {
-        implementation("androidx.core:core-i18n:1.0.0-alpha01")
+        implementation(libs.androidx.core.i18n)
     }
 }
 

@@ -17,19 +17,14 @@ struct ProfileView: View {
     var body: some View {
         VStack(alignment: .leading) {
             Divider()
-            Text(MultiplatformConstants.shared.PROFILE_SUBHEADING.uppercased())
-                .font(.caption)
-                .foregroundColor(Color(hex: Constants.MOMENTUM_ORANGE))
-                .padding(.leading)
-                .padding(.leading, 5)
             HStack {
                 circleIcon
                     .padding(.leading)
                 
                 VStack(alignment: .leading) {
                     Text(profileViewModel.fullname.isEmpty ? "Guest" : profileViewModel.fullname)
-                        .font(.title3)
-                        .fontWeight(.heavy)
+                        .font(.headline)
+                        .fontWeight(.bold)
                     Text(profileViewModel.createdOn.isEmpty ? "Create an Account or Sign In" : "Est. \(profileViewModel.createdOn.contains("Z") ?  DateUtilsKt.getFormattedDate(date: profileViewModel.createdOn, format: "mm/dd/yyyy") : profileViewModel.createdOn)")
                         .font(.caption)
                         .foregroundColor(.gray)
@@ -48,7 +43,7 @@ struct ProfileView: View {
                                     .frame(width: 35)
                                 Text(MultiplatformConstants.shared.CONTACT_INFORMATION)
                                     .font(.headline)
-                                    .fontWeight(.heavy)
+                                    .fontWeight(.bold)
                                 
                             }
                         }, coverIcon: { isExpanded in
@@ -109,7 +104,7 @@ struct ProfileView: View {
                                     .frame(width: 35)
                                 Text(MultiplatformConstants.shared.BILLING_INFORMATION)
                                     .font(.headline)
-                                    .fontWeight(.heavy)
+                                    .fontWeight(.bold)
                                 
                             }
                         }, coverIcon: { isExpanded in
@@ -170,7 +165,7 @@ struct ProfileView: View {
                                     .frame(width: 35)
                                 Text(MultiplatformConstants.shared.MANAGE_ACCOUNT)
                                     .font(.headline)
-                                    .fontWeight(.heavy)
+                                    .fontWeight(.bold)
                                 
                             }
                         }, coverIcon: { isExpanded in
@@ -179,7 +174,7 @@ struct ProfileView: View {
                         }, innerContent: {
                             VStack(alignment: .leading) {
                                 Text(MultiplatformConstants.shared.DELETE_ACCOUNT)
-                                    .fontWeight(.heavy)
+                                    .fontWeight(.bold)
                                     .font(.title3)
                                 Text(MultiplatformConstants.shared.DELETION_WARNING)
                                     .foregroundColor(.gray)
@@ -255,7 +250,7 @@ struct ProfileView: View {
                                     .frame(width: 35)
                                 Text(MultiplatformConstants.shared.TECHNICAL_SUPPORT)
                                     .font(.headline)
-                                    .fontWeight(.heavy)
+                                    .fontWeight(.bold)
                                 
                             }
                         }, coverIcon: { isExpanded in
@@ -306,7 +301,7 @@ struct ProfileView: View {
                                     .frame(width: 35)
                                 Text(MultiplatformConstants.shared.FEEDBACK)
                                     .font(.headline)
-                                    .fontWeight(.heavy)
+                                    .fontWeight(.bold)
                                 
                             }
                         }, coverIcon: { isExpanded in
@@ -349,7 +344,7 @@ struct ProfileView: View {
                                     .frame(width: 35)
                                 Text(MultiplatformConstants.shared.INFORMATION)
                                     .font(.headline)
-                                    .fontWeight(.heavy)
+                                    .fontWeight(.bold)
                                 
                             }
                         }, coverIcon: { isExpanded in
@@ -411,7 +406,7 @@ struct ProfileView: View {
         }
         .navigationBarHidden(false)
         .navigationTitle("Profile")
-        .navigationBarTitleDisplayMode(.large)
+        .navigationBarTitleDisplayMode(.inline)
         .onAppear {
             if !(session.currentUser?.isGuest ?? true) {
                 profileViewModel.getContactInformation(userId: session.currentUser?.id ?? "") {

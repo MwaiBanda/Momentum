@@ -1,3 +1,12 @@
+plugins {
+    alias(libs.plugins.androidApplication).apply(false)
+    alias(libs.plugins.androidLibrary).apply(false)
+    alias(libs.plugins.kotlinAndroid).apply(false)
+    alias(libs.plugins.kotlinMultiplatform).apply(false)
+    alias(libs.plugins.compose.compiler) apply false
+    id("com.google.gms.google-services") version "4.4.2" apply false
+}
+
 val secretPropsFile = project.rootProject.file("local.properties")
 if (secretPropsFile.exists()) {
     secretPropsFile.reader().use {
@@ -16,10 +25,11 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.21")
-        classpath("com.android.tools.build:gradle:8.2.2")
-        classpath("com.squareup.sqldelight:gradle-plugin:1.5.4")
-        classpath("com.google.gms:google-services:4.4.1")
+        classpath(libs.kotlin.gradle.plugin)
+        classpath(libs.gradle)
+        classpath(libs.gradle.plugin)
+        classpath(libs.google.services)
+
 
     }
 }

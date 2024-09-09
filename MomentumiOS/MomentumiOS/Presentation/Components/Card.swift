@@ -17,7 +17,8 @@ struct Card<Content: View>: View {
                 .shadow(radius: 1)
             VStack(alignment: .leading ){
                 content()
-            }.clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
+            }
+            .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
         }
     }
 }

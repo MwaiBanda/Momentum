@@ -16,11 +16,11 @@ struct EventView: View {
     @State private var showSearch = false
     @State private var disposables = Set<AnyCancellable>()
     var body: some View {
-        VStack {
+        VStack(spacing: 0) {
             Divider()
             HStack {
                 Text(MultiplatformConstants.shared.EVENTS_SUBHEADING.uppercased())
-                    .font(.caption)
+                    .font(.caption2)
                     .foregroundColor(Color(hex: Constants.MOMENTUM_ORANGE))
                     .padding(.leading)
                 Spacer()
@@ -79,7 +79,7 @@ struct EventView: View {
                         ForEach(eventGroups, id: \.self) { group in
                             Section(header: HStack {
                                Text(group.monthAndYear)
-                                .font(.title)
+                                .font(.title3)
                                 .fontWeight(.bold)
                                 .padding(.bottom, 5)
                                 Spacer()
@@ -89,17 +89,20 @@ struct EventView: View {
                         }
                     }
                 })
+                .padding(.bottom, 10)
             }
             .redacted(reason: eventGroups.isEmpty ? .placeholder : [])
-           
+            Divider()
+                .padding(.bottom, 5)
         }
-        .padding(.bottom, 10)
+        
         .toolbar(content: {
             
             ToolbarItemGroup(placement: .navigationBarLeading) {
                 Text("Events")
-                    .font(.largeTitle)
-                    .bold()
+                    .font(.title3)
+                    .fontWeight(.heavy)
+
             }
             ToolbarItemGroup(placement: .navigationBarTrailing) {
                 Button {

@@ -20,11 +20,11 @@ struct MessageView: View {
     @State private var disposables = Set<AnyCancellable>()
     @State private var timerDisposables = Set<AnyCancellable>()
     var body: some View {
-        VStack {
+        VStack(spacing: 0) {
             Divider()
             HStack {
                 Text(MultiplatformConstants.shared.MESSAGES_SUBHEADING.uppercased())
-                    .font(.caption)
+                    .font(.caption2)
                     .foregroundColor(Color(hex: Constants.MOMENTUM_ORANGE))
                     .padding(.leading)
                 Spacer()
@@ -41,14 +41,16 @@ struct MessageView: View {
             } else {
                 MessageList(messageViewModel: messageViewModel, messages: $messages, showSearch: $showSearch, showFilter: $showFilter)
             }
+            Divider()
+                .padding(.bottom, 5)
         }
-        .padding(.bottom, 10)
+       
         .toolbar(content: {
             
             ToolbarItemGroup(placement: .navigationBarLeading) {
                 Text("Messages")
-                    .font(.largeTitle)
-                    .bold()
+                    .font(.title3)
+                    .fontWeight(.heavy)
             }
             
             ToolbarItemGroup(placement: .navigationBarTrailing) {
@@ -109,9 +111,8 @@ struct MessageList: View {
     @Binding var showFilter: Bool
     var body: some View {
         ScrollView(showsIndicators: false) {
-            VStack(alignment: .leading) {
-                VStack(alignment: .leading) {
-                    
+            VStack(alignment: .leading, spacing: 0) {
+                VStack(alignment: .leading, spacing: 0) {
                     if showSearch {
                         TextField("Search \(messageViewModel.searchTag)", text: $messageViewModel.searchTerm)
                             .padding(.top, 5)
@@ -128,24 +129,26 @@ struct MessageList: View {
                                             .imageScale(.medium)
                                             .foregroundColor(messageViewModel.filteredSeries == series  ? .init(hex: Constants.MOMENTUM_ORANGE) : .black)
                                         Text(series)
+                                            .font(.subheadline)
+                                            .multilineTextAlignment(.leading)
                                             .foregroundColor(.black)
                                         Spacer()
-                                    }
-                                }.contentShape(Rectangle())
+                                    }.contentShape(Rectangle())
+                                }
+                                .padding(.vertical, 3)
                             }
                         }
-                        
+
                     }
                 }
                 .font(.title3)
                 .padding(.horizontal)
-                .padding(.horizontal, 5)
+                .padding([.bottom, .horizontal], 5)
                 if showSearch || showFilter {
                     Divider()
-                        .padding(.top, 5)
                 }
             }
-            .frame(height: showSearch ? 50 : showFilter ? 130 : 0)
+            .frame(height: showSearch ? 50 : showFilter ? 140 : 0)
             .padding(.bottom, 5)
             LazyVStack(alignment: .center, spacing: 10, pinnedViews: [.sectionHeaders]) {
                 if messages.isEmpty {
@@ -168,9 +171,9 @@ struct MessageList: View {
                     ForEach(messages, id: \.self) { group in
                         Section(header: HStack {
                             Text(group.series)
-                             .font(.title)
+                             .font(.title3)
                              .fontWeight(.bold)
-                             .padding(.bottom, 5)
+                             .padding(.vertical, 5)
                              Spacer()
                          }.padding(.leading).background(Color.white)){
                              Messages(messages: group.messages, messageViewModel: messageViewModel)
@@ -178,6 +181,7 @@ struct MessageList: View {
                     }
                 }
             }
+            .padding(.bottom, 10)
         }
         .redacted(reason: messages.isEmpty ? .placeholder : [])
     }

@@ -18,7 +18,7 @@ struct PaymentSummaryContentView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             Text("SELECT MULTIPLE OPTIONS TO EDIT AMOUNTS")
-                .font(.caption)
+                .font(.caption2)
                 .foregroundColor(Color(hex: Constants.MOMENTUM_ORANGE))
                 .padding(.leading)
             ScrollView {
@@ -137,15 +137,15 @@ struct PaymentSummaryContentView: View {
                     Divider()
                     HStack {
                         Text("Total")
-                            .font(.title)
+                            .font(.title3)
                             .bold()
                         
                         Spacer()
                         
                         Text(offerViewModel.isDecimalMode ? offerViewModel.displayNumber : offerViewModel.displayNumber + ".00")
                             .fontWeight(.light)
-                            .font(.title)
-                        
+                            .font(.title3)
+
                     }.padding()
                     Divider()
                 }

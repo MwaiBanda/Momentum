@@ -17,7 +17,6 @@ import org.koin.android.ext.koin.androidContext
 class MomentumApplication: Application() {
     override fun onCreate() {
         super.onCreate()
-        Momentum.tryXML()
         Authentication.initialize(this)
         FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
             if (!task.isSuccessful) {

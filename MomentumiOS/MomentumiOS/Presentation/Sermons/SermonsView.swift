@@ -32,7 +32,7 @@ struct SermonsView: View {
             if !showSearch && !showFilter {
                 HStack {
                     Text("TAP TO WATCH RECENT SERMONS")
-                        .font(.caption)
+                        .font(.caption2)
                         .foregroundColor(Color(hex: Constants.MOMENTUM_ORANGE))
                         .padding(.leading)
                         .padding(.leading, 5)
@@ -43,7 +43,7 @@ struct SermonsView: View {
             } else if showFilter {
                 HStack {
                     Text("FILTER SERMONS")
-                        .font(.caption)
+                        .font(.caption2)
                         .foregroundColor(Color(hex: Constants.MOMENTUM_ORANGE))
                         .padding(.leading)
                         .padding(.leading, 5)
@@ -165,6 +165,7 @@ struct SermonsView: View {
                 }
                 .padding(.horizontal, 10)
                 .padding(.bottom, sermonViewmodel.canLoadMoreSermons ? 25 :  50)
+                .padding(.bottom, 10)
                 if !sermonViewmodel.sermons.isEmpty {
                     if sermonViewmodel.canLoadMoreSermons {
                         Button { sermonViewmodel.loadMoreSermons() } label: {
@@ -178,17 +179,18 @@ struct SermonsView: View {
                 }
             }
             .redacted(reason: sermonViewmodel.sermons.isEmpty ? .placeholder : [])
+            Divider()
+                .padding(.bottom, 5)
             
         }
         .background(Color.white.edgesIgnoringSafeArea(.bottom))
-        .padding(.bottom, 10)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar(content: {
             
             ToolbarItemGroup(placement: .navigationBarLeading) {
                 Text("Sermons")
-                    .font(.largeTitle)
-                    .bold()
+                    .font(.title3)
+                    .fontWeight(.heavy)
                     .background(Color.white.edgesIgnoringSafeArea(.top))
             }
             

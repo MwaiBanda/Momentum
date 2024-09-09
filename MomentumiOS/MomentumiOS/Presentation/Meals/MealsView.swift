@@ -25,7 +25,7 @@ struct MealsView: View {
             Divider()
             HStack {
             Text(MultiplatformConstants.shared.MEALS_SUBHEADING.uppercased())
-                .font(.caption)
+                .font(.caption2)
                 .foregroundColor(Color(hex: Constants.MOMENTUM_ORANGE))
                 .padding(.leading)
                 .padding(.leading, 5)
@@ -46,9 +46,9 @@ struct MealsView: View {
             } else {
                 MealsList(meals: $meals, mealViewModel: mealViewModel, profileViewModel: profileViewModel)
             }
-           
+            Divider()
+                .padding(.bottom, 5)
         }
-        .padding(.bottom, 10)
         .onAppear {
             DispatchQueue.global().async {
                 if !(session.currentUser?.isGuest ?? true) {
@@ -68,8 +68,8 @@ struct MealsView: View {
             content: {
                 ToolbarItemGroup(placement: .navigationBarLeading) {
                     Text("Meals")
-                        .font(.largeTitle)
-                        .bold()
+                        .font(.title3)
+                        .fontWeight(.heavy)
                 }
                 
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
@@ -139,6 +139,7 @@ struct MealsList: View {
         }
         .redacted(reason: meals.isEmpty ? .placeholder : [])
         .padding(.top, 15)
+        .padding(.bottom, 10)
     }
 }
 struct UploadMealCardView: View {

@@ -12,7 +12,7 @@ Pod::Spec.new do |spec|
         '
     spec.vendored_frameworks      = 'build/cocoapods/framework/MomentumSDK.framework'
     spec.libraries                = 'c++'
-    spec.ios.deployment_target = '14.1'
+    spec.ios.deployment_target    = '14.1'
                 
                 
     if !Dir.exist?('build/cocoapods/framework/MomentumSDK.framework') || Dir.empty?('build/cocoapods/framework/MomentumSDK.framework')
@@ -25,6 +25,10 @@ Pod::Spec.new do |spec|
 
         Alternatively, proper pod installation is performed during Gradle sync in the IDE (if Podfile location is set)"
     end
+                
+    spec.xcconfig = {
+        'ENABLE_USER_SCRIPT_SANDBOXING' => 'NO',
+    }
                 
     spec.pod_target_xcconfig = {
         'KOTLIN_PROJECT_PATH' => ':MomentumSDK',

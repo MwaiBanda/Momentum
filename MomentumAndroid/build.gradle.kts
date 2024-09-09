@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
     kotlin("android")
     kotlin("plugin.serialization") version "1.9.10"
+    id("org.jetbrains.kotlin.plugin.compose") version "2.0.20"
     id("com.google.gms.google-services")
     id("kotlin-parcelize")
 }
@@ -14,9 +15,7 @@ android {
         targetSdk = 34
         versionCode = 36
         versionName = "1.3.1"
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-
     }
     buildFeatures {
         compose = true
@@ -37,9 +36,7 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.6"
-    }
+
     testOptions {
         unitTests.isIncludeAndroidResources  = true
         unitTests.isReturnDefaultValues = true
@@ -58,87 +55,82 @@ android {
 
 dependencies {
     implementation(project(":MomentumSDK"))
-    implementation("androidx.core:core-ktx:1.12.0")
-    implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("androidx.compose.ui:ui:1.5.4")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
-    implementation("com.google.android.material:material:1.11.0")
+    implementation(libs.core.ktx)
+    implementation(libs.appcompat)
+    implementation(libs.ui)
+    implementation(libs.lifecycle.runtime.ktx)
+    implementation(libs.material)
     // Integration with activities
-    implementation("androidx.activity:activity-compose:1.8.2")
+    implementation(libs.activity.compose)
     // Compose Material Design
-    implementation("androidx.compose.material:material:1.5.4")
+    implementation(libs.androidx.material)
     // Animations
-    implementation("androidx.compose.animation:animation:1.5.4")
+    implementation(libs.androidx.animation)
     // Tooling support (Previews, etc.)
-    implementation("androidx.compose.ui:ui-tooling:1.5.4")
+    implementation(libs.androidx.ui.tooling)
     // Integration with ViewModels
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
-    implementation("com.google.firebase:firebase-auth:22.3.0")
-    implementation("com.google.firebase:firebase-messaging:23.4.0")
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
+    implementation(libs.google.firebase.auth)
+    implementation(libs.firebase.messaging)
     // UI Tests
-    androidTestImplementation("androidx.compose.ui:ui-test-junit4:1.5.4")
+    androidTestImplementation(libs.androidx.ui.test.junit4)
     //Unit Testing
-    testImplementation("junit:junit:4.13.2")
-    testImplementation("org.junit.jupiter:junit-jupiter:5.10.1")
-    testImplementation("org.junit.jupiter:junit-jupiter-engine:5.10.1")
-    testImplementation("androidx.arch.core:core-testing:2.2.0")
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
-    testImplementation("org.robolectric:robolectric:4.11.1")
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
-    testImplementation("org.mockito:mockito-core:5.8.0")
-    testImplementation("app.cash.turbine:turbine:1.0.0")
+    testImplementation(libs.junit)
+    testImplementation(libs.junit.jupiter)
+    testImplementation(libs.junit.jupiter.engine)
+    testImplementation(libs.androidx.core.testing)
+    testImplementation(libs.jetbrains.kotlinx.coroutines.test)
+    testImplementation(libs.robolectric)
+    testImplementation(libs.jetbrains.kotlinx.coroutines.test)
+    testImplementation(libs.mockito.core)
+    testImplementation(libs.turbine)
     // Navigation
-    implementation("androidx.navigation:navigation-compose:2.7.6")
+    implementation(libs.androidx.navigation.compose)
     // Icons exts
-    implementation("androidx.compose.material:material-icons-extended:1.5.4")
+    implementation(libs.androidx.material.icons.extended)
     // Status Bar
-    implementation("com.google.accompanist:accompanist-systemuicontroller:0.32.0")
-    implementation("com.google.accompanist:accompanist-insets:0.30.1")
+    implementation(libs.accompanist.systemuicontroller)
+    implementation(libs.accompanist.insets)
     //Placeholder
-    implementation("com.google.accompanist:accompanist-placeholder-material:0.32.0")
+    implementation(libs.accompanist.placeholder.material)
     // Stripe Android SDK
-    implementation("com.stripe:stripe-android:20.35.2")
+    implementation(libs.stripe.android)
     //Koin
-    implementation("io.insert-koin:koin-android:3.5.0")
-    implementation("io.insert-koin:koin-core:3.5.0")
+    implementation(libs.koin.android)
+    implementation(libs.koin.core)
     // Koin Jetpack Compose
-    implementation("io.insert-koin:koin-androidx-compose:3.5.0")
-    implementation("io.insert-koin:koin-androidx-navigation:3.5.0")
+    implementation(libs.koin.androidx.compose)
+    implementation(libs.koin.androidx.navigation)
     //Lottie
-    implementation("com.airbnb.android:lottie-compose:6.2.0")
+    implementation(libs.lottie.compose)
     // Bottom Sheet
-    implementation("com.google.accompanist:accompanist-navigation-material:0.32.0")
+    implementation(libs.accompanist.navigation.material)
     // Firebase Auth Kotlin SDK
     // This dependency is downloaded from the Google’s Maven repository.
     // So, make sure you also include that repository in your project's build.gradle file.
-    implementation("com.google.android.play:review:2.0.1")
+    implementation(libs.review)
     // For Kotlin users also add the Kotlin extensions library for Play In-App Review:
-    implementation("com.google.android.play:review-ktx:2.0.1")
+    implementation(libs.review.ktx)
     // Coil Image loading
-    implementation("io.coil-kt:coil-compose:2.5.0")
+    implementation(libs.coil.compose)
     // Exoplayer
-//    implementation("androidx.media3:media3-exoplayer:1.0.0-beta01")
-//    implementation("androidx.media3:media3-common:1.0.0-beta01")
-//    implementation("androidx.media3:media3-ui:1.0.0-beta01")
-//    implementation("androidx.media3:media3-cast:1.0.0-beta01")
-
-    implementation("com.google.android.exoplayer:exoplayer:2.19.1")
-    implementation("com.google.android.exoplayer:exoplayer-ui:2.19.1")
-    implementation("com.google.android.exoplayer:extension-cast:2.19.1")
+    implementation(libs.exoplayer)
+    implementation(libs.exoplayer.ui)
+    implementation(libs.extension.cast)
 
     // Kotlin serialization
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.2")
+    implementation(libs.kotlinx.serialization.json)
 
     // Auth
-    implementation("io.github.mwaibanda:authentication:1.0.5")
+    implementation(libs.authentication)
 
     // Logging
-    implementation("org.slf4j:slf4j-simple:2.0.9")
+    implementation(libs.slf4j.simple)
 
     // Calendar
-    implementation( "io.github.boguszpawlowski.composecalendar:composecalendar:1.1.1")
+    implementation( libs.composecalendar)
     // separate artifact with utilities for working with kotlinx-datetime
-    implementation("io.github.boguszpawlowski.composecalendar:kotlinx-datetime:1.1.1")
+    implementation(libs.composecalendar.kotlinx.datetime)
 
 }
 
