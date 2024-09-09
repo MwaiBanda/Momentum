@@ -32,12 +32,11 @@
 		1C8BACBA2923174D00731617 /* TinyDi in Frameworks */ = {isa = PBXBuildFile; productRef = 1C8BACB92923174D00731617 /* TinyDi */; };
 		1C8BACBC292317AE00731617 /* SingletonModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8BACBB292317AE00731617 /* SingletonModule.swift */; };
 		1C8BACBE2923191B00731617 /* ControllerModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8BACBD2923191B00731617 /* ControllerModule.swift */; };
-		1C918AC42ADCF42700587A43 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 1C918AC32ADCF42700587A43 /* FirebaseAnalytics */; };
-		1C918AC62ADCF42700587A43 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 1C918AC52ADCF42700587A43 /* FirebaseAuth */; };
-		1C918AC82ADCF42700587A43 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 1C918AC72ADCF42700587A43 /* FirebaseMessaging */; };
 		1CA5277328CED0DC00066605 /* AppReviewRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CA5277228CED0DC00066605 /* AppReviewRequester.swift */; };
 		1CB27F912B0F447A0029E9E9 /* EventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB27F902B0F447A0029E9E9 /* EventView.swift */; };
 		1CB27F932B0F44920029E9E9 /* EventViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB27F922B0F44920029E9E9 /* EventViewModel.swift */; };
+		1CB9A01E2C8E9D5A008D73BC /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 1CB9A01D2C8E9D5A008D73BC /* FirebaseAuth */; };
+		1CB9A0202C8E9D5A008D73BC /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 1CB9A01F2C8E9D5A008D73BC /* FirebaseMessaging */; };
 		1CE5BEAF2A80C939008F7BD8 /* MultiDatePicker in Frameworks */ = {isa = PBXBuildFile; productRef = 1CE5BEAE2A80C939008F7BD8 /* MultiDatePicker */; };
 		1CE5BEB12A80D74D008F7BD8 /* postSuccess.json in Resources */ = {isa = PBXBuildFile; fileRef = 1CE5BEB02A80D74D008F7BD8 /* postSuccess.json */; };
 		1CE8F2B228D92AFB0077F2F0 /* SermonsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE8F2B128D92AFB0077F2F0 /* SermonsViewModel.swift */; };
@@ -64,7 +63,6 @@
 		813E158F287F48F10069A6BB /* PaymentSummaryContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813E158E287F48F10069A6BB /* PaymentSummaryContentViewModel.swift */; };
 		813E775E288DC60500109C19 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813E775D288DC60500109C19 /* ProfileView.swift */; };
 		814525F528793F3300989B4C /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 814525F428793F3300989B4C /* Lottie */; };
-		814525F728793F5000989B4C /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 814525F628793F5000989B4C /* LottieView.swift */; };
 		814525F9287940DF00989B4C /* failed.json in Resources */ = {isa = PBXBuildFile; fileRef = 814525F8287940DF00989B4C /* failed.json */; };
 		814525FB287940E900989B4C /* success.json in Resources */ = {isa = PBXBuildFile; fileRef = 814525FA287940E900989B4C /* success.json */; };
 		814E5DE728778E470008BAC1 /* PaymentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 814E5DE628778E470008BAC1 /* PaymentViewModel.swift */; };
@@ -169,7 +167,6 @@
 		813A97CD2889D82600377943 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		813E158E287F48F10069A6BB /* PaymentSummaryContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentSummaryContentViewModel.swift; sourceTree = "<group>"; };
 		813E775D288DC60500109C19 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
-		814525F628793F5000989B4C /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
 		814525F8287940DF00989B4C /* failed.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = failed.json; sourceTree = "<group>"; };
 		814525FA287940E900989B4C /* success.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = success.json; sourceTree = "<group>"; };
 		814E5DE628778E470008BAC1 /* PaymentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentViewModel.swift; sourceTree = "<group>"; };
@@ -221,20 +218,19 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1C918AC82ADCF42700587A43 /* FirebaseMessaging in Frameworks */,
-				1C918AC42ADCF42700587A43 /* FirebaseAnalytics in Frameworks */,
-				1C918AC62ADCF42700587A43 /* FirebaseAuth in Frameworks */,
 				1C46D1432A80A4A500E5FB25 /* StripeCardScan in Frameworks */,
 				1CEA18842B00A6A500E16231 /* Algorithms in Frameworks */,
 				1C46D1452A80A4A500E5FB25 /* StripePaymentSheet in Frameworks */,
 				8186F1F12894EA0700FEA781 /* Introspect in Frameworks */,
 				1C46D1492A80A4A500E5FB25 /* StripePaymentsUI in Frameworks */,
+				1CB9A01E2C8E9D5A008D73BC /* FirebaseAuth in Frameworks */,
 				1C46D1412A80A4A500E5FB25 /* StripeApplePay in Frameworks */,
 				1C8BACBA2923174D00731617 /* TinyDi in Frameworks */,
 				814525F528793F3300989B4C /* Lottie in Frameworks */,
 				1C46D13F2A80A4A500E5FB25 /* Stripe in Frameworks */,
 				3703363E8055D813FEFB7DBA /* Pods_MomentumiOS.framework in Frameworks */,
 				1C3CF16B28D95E3000B46FC1 /* SDWebImageSwiftUI in Frameworks */,
+				1CB9A0202C8E9D5A008D73BC /* FirebaseMessaging in Frameworks */,
 				1C46D1472A80A4A500E5FB25 /* StripePayments in Frameworks */,
 				1CE5BEAF2A80C939008F7BD8 /* MultiDatePicker in Frameworks */,
 			);
@@ -465,7 +461,6 @@
 				8126AF88286FF12F007DBAB9 /* MenuButton.swift */,
 				8126AF8A286FFD84007DBAB9 /* BackgroundView.swift */,
 				81B802D32877E4080008509D /* LoadingView.swift */,
-				814525F628793F5000989B4C /* LottieView.swift */,
 				811A3E7C287E05D90052682B /* ToggleAmountLabel.swift */,
 				819497FD288797240099B30B /* TransactionLabel.swift */,
 				8182E779288B91FB00A9CF9D /* BlurredBackground.swift */,
@@ -650,10 +645,9 @@
 				1C46D1462A80A4A500E5FB25 /* StripePayments */,
 				1C46D1482A80A4A500E5FB25 /* StripePaymentsUI */,
 				1CE5BEAE2A80C939008F7BD8 /* MultiDatePicker */,
-				1C918AC32ADCF42700587A43 /* FirebaseAnalytics */,
-				1C918AC52ADCF42700587A43 /* FirebaseAuth */,
-				1C918AC72ADCF42700587A43 /* FirebaseMessaging */,
 				1CEA18832B00A6A500E16231 /* Algorithms */,
+				1CB9A01D2C8E9D5A008D73BC /* FirebaseAuth */,
+				1CB9A01F2C8E9D5A008D73BC /* FirebaseMessaging */,
 			);
 			productName = MomentumiOS;
 			productReference = 7555FF7B242A565900829871 /* MomentumiOS.app */;
@@ -714,8 +708,8 @@
 				1C8BACB82923174D00731617 /* XCRemoteSwiftPackageReference "TinyDi" */,
 				1C46D13D2A80A4A500E5FB25 /* XCRemoteSwiftPackageReference "stripe-ios-spm" */,
 				1CE5BEAD2A80C939008F7BD8 /* XCRemoteSwiftPackageReference "MultiDatePicker" */,
-				1C918AC22ADCF42700587A43 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				1CEA18822B00A6A500E16231 /* XCRemoteSwiftPackageReference "swift-algorithms" */,
+				1CB9A01C2C8E9D5A008D73BC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 7555FF7C242A565900829871 /* Products */;
 			projectDirPath = "";
@@ -839,7 +833,6 @@
 				817AD150288BB0B00046441D /* SignUpView.swift in Sources */,
 				1CB27F912B0F447A0029E9E9 /* EventView.swift in Sources */,
 				1C3CF16E28D984F400B46FC1 /* RoundedCorner.swift in Sources */,
-				814525F728793F5000989B4C /* LottieView.swift in Sources */,
 				8126AF7B286FE3C2007DBAB9 /* Constants.swift in Sources */,
 				1CB27F932B0F44920029E9E9 /* EventViewModel.swift in Sources */,
 				81B802DC2877E7FF0008509D /* PaymentFailureView.swift in Sources */,
@@ -1183,12 +1176,12 @@
 				kind = branch;
 			};
 		};
-		1C918AC22ADCF42700587A43 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+		1CB9A01C2C8E9D5A008D73BC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 10.16.0;
+				minimumVersion = 11.1.0;
 			};
 		};
 		1CE5BEAD2A80C939008F7BD8 /* XCRemoteSwiftPackageReference "MultiDatePicker" */ = {
@@ -1266,19 +1259,14 @@
 			package = 1C8BACB82923174D00731617 /* XCRemoteSwiftPackageReference "TinyDi" */;
 			productName = TinyDi;
 		};
-		1C918AC32ADCF42700587A43 /* FirebaseAnalytics */ = {
+		1CB9A01D2C8E9D5A008D73BC /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 1C918AC22ADCF42700587A43 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseAnalytics;
-		};
-		1C918AC52ADCF42700587A43 /* FirebaseAuth */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 1C918AC22ADCF42700587A43 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			package = 1CB9A01C2C8E9D5A008D73BC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAuth;
 		};
-		1C918AC72ADCF42700587A43 /* FirebaseMessaging */ = {
+		1CB9A01F2C8E9D5A008D73BC /* FirebaseMessaging */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 1C918AC22ADCF42700587A43 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			package = 1CB9A01C2C8E9D5A008D73BC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseMessaging;
 		};
 		1CE5BEAE2A80C939008F7BD8 /* MultiDatePicker */ = {

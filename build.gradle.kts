@@ -29,8 +29,6 @@ buildscript {
         classpath(libs.gradle)
         classpath(libs.gradle.plugin)
         classpath(libs.google.services)
-
-
     }
 }
 

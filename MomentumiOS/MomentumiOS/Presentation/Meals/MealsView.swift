@@ -9,7 +9,7 @@
 import SwiftUI
 import MultiDatePicker
 import MomentumSDK
-
+import Lottie
 
 
 struct MealsView: View {
@@ -315,7 +315,7 @@ struct UploadMealCardView: View {
                         }
                         .tag(3)
                         VStack {
-                            LottieView(name: "postSuccess", loopMode: .loop, alignment: .scaleAspectFit)
+                            LottieView(animation: .named("postSuccess")).looping()
                                 .frame(width: 200, height: 200, alignment: .center)
                             
                             Text("""

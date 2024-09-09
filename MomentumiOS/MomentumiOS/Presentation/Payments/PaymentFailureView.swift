@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import Lottie
 
 struct PaymentFailureView: View {
     @Environment(\.presentationMode) private var presentationMode
@@ -14,7 +15,7 @@ struct PaymentFailureView: View {
         ZStack {
             Color.white.ignoresSafeArea()
         VStack {
-        LottieView(name: "failed")
+            LottieView(animation: .named("failed"))
             .frame(width: 250, height: 250)
         Text("Payment Failed")
             .fontWeight(.heavy)

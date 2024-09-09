@@ -37,7 +37,7 @@ kotlin {
         authors = "Mwai Banda"
         license = "MIT"
         homepage = "https://momentumindiana.org"
-        ios.deploymentTarget = "14.1"
+        ios.deploymentTarget = "14.0"
         podfile = project.file("../MomentumiOS/Podfile")
         framework {
             baseName = "MomentumSDK"
