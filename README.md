@@ -1,6 +1,11 @@
 # Momentum
 Multiplatform payments & sermon streaming apps(Android, iOS & iPadOS) for Momentum Church in Indiana. Built in Kotlin Multiplatform Mobile(KMM) with SwiftUI & Jetpack Compose, the apps allow users to make payments to the church, stream past sermons, edit & update account information. Persists data locally with SQLDelight and Remote with Postgres via a [Go backend](https://github.com/MwaiBanda/Momentum-Server). The apps are architected to emphasize code sharing between Android, iOS & iPadOS, so all core business logic written in the SDK, Android, iOS & iPadOS only contain presentation logic, viewmodels and tests.
-
+### How to run 
+1. add to your local.properties your GitHub email and a login token this downloads my Firebase [authentication wrapper library](https://github.com/MwaiBanda/Authentication)
+   ```
+   GITHUB_EMAIL=YOUR_EMAIL
+   GITHUB_TOKEN=YOUR_TOKEN
+   ```
 ### Download Via AppStore or PlayStore
 The app's are available for download on the app store & playstore for Android & iPhone
 <table>
