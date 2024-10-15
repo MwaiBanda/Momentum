@@ -48,7 +48,7 @@ struct EventView: View {
                 }
                 .frame(height: showSearch ? 50 : 0)
                 .padding(.bottom, 5)
-                LazyVStack(alignment: .center, spacing: 10, pinnedViews: [.sectionHeaders], content: {
+                LazyVStack(alignment: .center, spacing: 15, pinnedViews: [.sectionHeaders], content: {
                     if eventGroups.isEmpty {
                         ForEach(0..<12, id: \.self
                         ) { _ in
@@ -81,7 +81,7 @@ struct EventView: View {
                                Text(group.monthAndYear)
                                 .font(.title3)
                                 .fontWeight(.bold)
-                                .padding(.bottom, 5)
+                                .padding(.vertical, 3)
                                 Spacer()
                             }.padding(.leading).background(Color.white)) {
                                 Events(events: group.events)

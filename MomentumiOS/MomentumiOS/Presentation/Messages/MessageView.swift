@@ -194,8 +194,9 @@ struct Messages: View {
         ForEach(messages, id: \.id) { message in
             NavigationLink {
                 MessageDetailView(message: message, messageViewModel: messageViewModel)
+                    .navigationTitle(message.title)
             } label: {
-                MessageCard(message: message)
+                MessageCard(message: message).padding(.horizontal, 2)
             }.simultaneousGesture(
                 TapGesture()
                     .onEnded { _ in

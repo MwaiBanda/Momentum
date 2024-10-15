@@ -1,5 +1,5 @@
 {
-  "originHash" : "bb741eb5b73bca53e0781be82effd0edff025f6a194046be23b519d255e453b3",
+  "originHash" : "7d7e43ea5cb705b47b17c90f4915186e52f95dd16c13f82fb665c5f5a99f6fe1",
   "pins" : [
     {
       "identity" : "abseil-cpp-binary",
@@ -132,8 +132,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SDWebImage/SDWebImage.git",
       "state" : {
-        "revision" : "484bc774e1091f622c4856e576ff957b29403676",
-        "version" : "5.13.3"
+        "revision" : "8a1be70a625683bc04d6903e2935bf23f3c6d609",
+        "version" : "5.19.7"
       }
     },
     {
@@ -141,8 +141,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SDWebImage/SDWebImageSwiftUI.git",
       "state" : {
-        "revision" : "61fefe9c284fd41ddef77d02749e88f00c305196",
-        "version" : "2.2.2"
+        "revision" : "53573d6dd017e354c0e7d8f1c86b77ef1383c996",
+        "version" : "2.2.7"
       }
     },
     {
@@ -150,8 +150,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/stripe/stripe-ios-spm",
       "state" : {
-        "revision" : "e90fc876c57e16363f1450bc703941993301ef60",
-        "version" : "23.12.0"
+        "revision" : "d408e7e9d00e6c25de0e7ef3571207bb02582791",
+        "version" : "23.31.1"
       }
     },
     {

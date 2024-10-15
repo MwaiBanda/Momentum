@@ -19,16 +19,16 @@ struct MealsView: View {
     @State private var meals = [Meal]()
     @StateObject private var mealViewModel = MealViewModel()
     @EnvironmentObject var session: Session
-
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             Divider()
             HStack {
-            Text(MultiplatformConstants.shared.MEALS_SUBHEADING.uppercased())
-                .font(.caption2)
-                .foregroundColor(Color(hex: Constants.MOMENTUM_ORANGE))
-                .padding(.leading)
-                .padding(.leading, 5)
+                Text(MultiplatformConstants.shared.MEALS_SUBHEADING.uppercased())
+                    .font(.caption2)
+                    .foregroundColor(Color(hex: Constants.MOMENTUM_ORANGE))
+                    .padding(.leading)
+                    .padding(.leading, 5)
                 
                 Spacer()
             }
@@ -120,7 +120,7 @@ struct MealsList: View {
     @Binding var meals: [Meal]
     @ObservedObject var mealViewModel: MealViewModel
     @ObservedObject var profileViewModel: ProfileViewModel
-
+    
     var body: some View {
         ScrollView(showsIndicators: false) {
             if meals.isEmpty {
@@ -133,6 +133,8 @@ struct MealsList: View {
                         MealDetailView(mealViewModel: mealViewModel, profileViewModel: profileViewModel, mealRequest: meal)
                     } label: {
                         DescriptionCard(title: meal.recipient, description: meal.reason)
+                            .padding(.bottom, 5)
+                            .padding([.bottom, .horizontal], 5)
                     }
                 }
             }
@@ -149,7 +151,7 @@ struct UploadMealCardView: View {
     @State private var startLoading = false
     @State private var loadingIncrement: Double = 1
     @EnvironmentObject var session: Session
-
+    
     /* STATE PAGE 1*/
     @State private var recipient = ""
     @State private var email = ""
