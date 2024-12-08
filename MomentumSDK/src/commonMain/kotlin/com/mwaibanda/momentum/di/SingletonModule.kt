@@ -47,7 +47,7 @@ val singletonModule = module {
     single { Authentication }
     single { Authentication.controller }
     single<Cache<String, Any>>{
-        Cache.Builder()
+        Cache.Builder<String, Any>()
             .expireAfterWrite(2.hours + 30.minutes)
             .build()
     }

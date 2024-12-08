@@ -114,12 +114,14 @@ class ProfileViewModel: ObservableObject {
     ) {
         userController.getMomentumUserById(userId: userId) { [unowned self] user in
             if let user = user {
-                fullname = user.fullname
-                phone = user.phone
-                email = user.email
-                password = user.password
-                createdOn = user.created_on
-                onCompletion()
+                DispatchQueue.main.async { [weak self] in
+                    self?.fullname = user.fullname
+                    self?.phone = user.phone
+                    self?.email = user.email
+                    self?.password = user.password
+                    self?.createdOn = user.created_on
+                    onCompletion()
+                }
             } else {
                 localDefaultsController.getString(
                     key: MultiplatformConstants.shared.PASSWORD
@@ -155,10 +157,12 @@ class ProfileViewModel: ObservableObject {
             userId: userId
         ) { [unowned self] address in
             if let address = address {
-                streetAddress = address.street_address
-                apt = address.apt ?? ""
-                city = address.city
-                zipCode = address.zip_code
+                DispatchQueue.main.async { [weak self] in
+                    self?.streetAddress = address.street_address
+                    self?.apt = address.apt ?? ""
+                    self?.city = address.city
+                    self?.zipCode = address.zip_code
+                }
             }
         }
     }

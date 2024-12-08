@@ -276,14 +276,14 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		47B66ABC42D8E67FA0C258EA0086AB8E /* Release */ = {
+		0B4F191191B2E37EC4F22DAAF6856921 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C74E6A19E7829FC317FA1EDAC74B6A01 /* MomentumSDK.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_OBJC_WEAK = NO;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -431,14 +431,14 @@
 			};
 			name = Release;
 		};
-		614723D3A1911342AA287364B153260B /* Debug */ = {
+		92DB15907DDA863130B7D6141ABCE5D7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = A28BF62EE51F1D547F1501D24F5F38A1 /* MomentumSDK.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_OBJC_WEAK = NO;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -529,8 +529,8 @@
 		507667F2F334BFCF9262DC00A499DA1B /* Build configuration list for PBXAggregateTarget "MomentumSDK" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				614723D3A1911342AA287364B153260B /* Debug */,
-				47B66ABC42D8E67FA0C258EA0086AB8E /* Release */,
+				92DB15907DDA863130B7D6141ABCE5D7 /* Debug */,
+				0B4F191191B2E37EC4F22DAAF6856921 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -1,11 +1,13 @@
 package com.mwaibanda.momentum.android.presentation.sermon
 
+import android.os.Build
 import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.mwaibanda.momentum.android.presentation.message.MessageViewModel
 import com.mwaibanda.momentum.data.db.MomentumSermon
 import com.mwaibanda.momentum.data.db.SermonFavourite
 import com.mwaibanda.momentum.domain.controller.SermonController
@@ -102,7 +104,14 @@ class SermonViewModel(
     fun searchTag(): Flow<String> = flow {
         while (currentCoroutineContext().isActive) {
             delay(2500)
-            searchTags.add(searchTags.removeFirst())
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM) {
+                searchTags.add(MessageViewModel.searchTags.removeFirst())
+            } else {
+                searchTags = buildList {
+                    addAll(MessageViewModel.searchTags)
+                    add(removeAt(0))
+                }.toMutableList()
+            }
             emit(searchTags.first())
         }
     }
@@ -198,7 +207,7 @@ class SermonViewModel(
         onCompletion()
     }
     companion object {
-        val searchTags = mutableListOf(
+        var searchTags = mutableListOf(
             "by sermon",
             "for preachers",
             "by series name",

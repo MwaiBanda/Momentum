@@ -1,14 +1,14 @@
 plugins {
     id("com.android.application")
     kotlin("android")
-    kotlin("plugin.serialization") version "1.9.10"
-    id("org.jetbrains.kotlin.plugin.compose") version "2.0.20"
+    kotlin("plugin.serialization") version libs.versions.kotlin
+    id("org.jetbrains.kotlin.plugin.compose") version libs.versions.kotlin
     id("com.google.gms.google-services")
     id("kotlin-parcelize")
 }
 
 android {
-    compileSdk = 34
+    compileSdk = 35
     defaultConfig {
         applicationId = "com.mwaibanda.momentum.android"
         minSdk = 26

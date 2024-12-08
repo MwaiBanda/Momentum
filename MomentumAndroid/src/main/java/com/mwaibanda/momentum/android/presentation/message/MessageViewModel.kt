@@ -1,5 +1,6 @@
 package com.mwaibanda.momentum.android.presentation.message
 
+import android.os.Build
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -119,12 +120,19 @@ class MessageViewModel(
     fun searchTag(): Flow<String> = flow {
         while (currentCoroutineContext().isActive) {
             delay(2500)
-            searchTags.add(searchTags.removeFirst())
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM) {
+                searchTags.add(searchTags.removeFirst())
+            } else {
+                searchTags = buildList {
+                    addAll(searchTags)
+                    add(removeAt(0))
+                }.toMutableList()
+            }
             emit(SermonViewModel.searchTags.first())
         }
     }
     companion object {
-        val searchTags = mutableListOf(
+        var searchTags = mutableListOf(
             "by message",
             "for preachers",
             "by series",
