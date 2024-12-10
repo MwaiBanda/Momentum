@@ -16,7 +16,7 @@ kotlin = "2.1.0"
 
 activityCompose = "1.9.3"
 animation = "1.7.5"
-authentication = "1.0.6"
+authentication = "1.0.8"
 cache4k = "0.13.0"
 coreI18n = "1.0.0-alpha01"
 coreKtx = "1.15.0"
