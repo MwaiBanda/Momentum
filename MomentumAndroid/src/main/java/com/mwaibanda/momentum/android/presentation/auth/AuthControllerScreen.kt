@@ -1,5 +1,6 @@
 package com.mwaibanda.momentum.android.presentation.auth
 
+import android.widget.Toast
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.Crossfade
 import androidx.compose.animation.core.animateDpAsState
@@ -26,6 +27,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.TouchApp
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -35,9 +37,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -53,16 +57,27 @@ fun AuthControllerScreen(
     onCloseModal: () -> Unit
 ) {
     val configuration = LocalConfiguration.current
+    val context = LocalContext.current
     val screenWidth = configuration.screenWidthDp.dp
     var showSignUp by remember {
         mutableStateOf(true)
+    }
+    var showResetPassword by remember {
+        mutableStateOf(false)
+    }
+    var email by remember {
+        mutableStateOf(TextFieldValue())
     }
     var isPasswordFocused by remember {
         mutableStateOf(false)
     }
     val animateAuthSizeDp: Dp by animateDpAsState(
-        targetValue = if (showSignUp) 430.dp else 260.dp, label = ""
+        targetValue = if (showSignUp) 430.dp else if (showResetPassword) 200.dp else 260.dp, label = ""
     )
+
+    LaunchedEffect(showSignUp) {
+        email = TextFieldValue("")
+    }
     BackHandler {
         onCloseModal()
     }
@@ -123,8 +138,11 @@ fun AuthControllerScreen(
                                 }
                             } else {
                                 SignInScreen(
+                                    email = email,
+                                    showResetPassword = showResetPassword,
                                     authViewModel = authViewModel,
-                                    onFocusChange = { isPasswordFocused = it }
+                                    onFocusChange = { isPasswordFocused = it },
+                                    onEmailChange = { email = it }
                                 ) {
                                     onCloseModal()
                                 }
@@ -134,7 +152,36 @@ fun AuthControllerScreen(
 
 
                     Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
+                        if (showSignUp.not() && showResetPassword.not()) {
+                            Column(
+                                Modifier
+                                    .clickable {
+                                        showResetPassword = true
+                                            authViewModel.resetPassword(email = email.text) {
+                                                Toast.makeText(
+                                                    context,
+                                                    "Please check your email for reset link",
+                                                    Toast.LENGTH_LONG
+                                                ).show()
+                                            }
 
+                                    }
+                                    .fillMaxWidth()
+                                    .padding(vertical = 10.dp), verticalArrangement = Arrangement.Center
+                            ) {
+
+                                Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
+                                    Text(
+                                        text = "Forgot Password?", color = Color.White
+                                    )
+                                    Icon(
+                                        imageVector = Icons.Default.TouchApp,
+                                        contentDescription = "",
+                                        tint = Color.White,
+                                    )
+                                }
+                            }
+                        }
 
                         TranslucentBackground(
                             Modifier
@@ -143,7 +190,13 @@ fun AuthControllerScreen(
                                     width = screenWidth - 50.dp
                                 )
                                 .clip(RoundedCornerShape(15.dp))
-                                .clickable { showSignUp = showSignUp.not() }
+                                .clickable {
+                                    if (showResetPassword) {
+                                        showResetPassword = false
+                                    } else {
+                                        showSignUp = showSignUp.not()
+                                    }
+                                }
                         ) {
                             Column(
                                 Modifier
@@ -154,7 +207,7 @@ fun AuthControllerScreen(
                                Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
                                    Text(
                                        text = buildAnnotatedString {
-                                           append("${ if (showSignUp) "Already" else "Don't" } have an account? ")
+                                           append("${ if (showSignUp || showResetPassword) "Already" else "Don't" } have an account? ")
                                            withStyle(
                                                style = SpanStyle(
                                                    color = Color(C.MOMENTUM_ORANGE),
@@ -174,6 +227,7 @@ fun AuthControllerScreen(
                                }
                             }
                         }
+
                         Spacer(Modifier.height(100.dp))
                     }
                 }

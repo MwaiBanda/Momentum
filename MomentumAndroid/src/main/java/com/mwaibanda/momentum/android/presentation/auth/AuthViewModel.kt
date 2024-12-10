@@ -10,6 +10,7 @@ import com.mwaibanda.momentum.domain.controller.LocalDefaultsController
 import com.mwaibanda.momentum.utils.MultiplatformConstants
 import io.github.mwaibanda.authentication.utils.AuthResult.Failure
 import io.github.mwaibanda.authentication.utils.AuthResult.Success
+import io.github.mwaibanda.authentication.utils.DefaultAuthResult
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
@@ -37,6 +38,19 @@ class AuthViewModel(
                 else -> {}
             }
             Log.d("Auth", "User {id: ${res.data?.uid}, isGuest: ${res.data?.isAnonymous}}")
+        }
+    }
+    fun resetPassword(email: String, onCompletion: () -> Unit = {}) {
+        authController.resetPassword(email) {
+            when(it) {
+                is DefaultAuthResult.Failure -> {
+                    Log.d("Auth/Failure", it.message ?: "")
+                }
+
+                is DefaultAuthResult.Success -> {
+                    onCompletion()
+                }
+            }
         }
     }
 

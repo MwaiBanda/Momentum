@@ -5,10 +5,15 @@ import com.mwaibanda.momentum.domain.controller.AuthController
 import io.github.mwaibanda.authentication.domain.controller.AuthenticationController
 import io.github.mwaibanda.authentication.domain.model.UserResponse
 import io.github.mwaibanda.authentication.utils.AuthResult
+import io.github.mwaibanda.authentication.utils.DefaultAuthResult
 
 class AuthControllerImpl(
     private val controller: AuthenticationController
 ): AuthController {
+    override fun resetPassword(email: String, onCompletion: (DefaultAuthResult) -> Unit) {
+        controller.resetPassword(email, onCompletion)
+    }
+
     override fun signInWithEmail(
         email: String,
         password: String,
