@@ -1,5 +1,6 @@
 package com.mwaibanda.momentum.android.presentation.auth
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -22,6 +23,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
@@ -33,15 +35,16 @@ import com.mwaibanda.momentum.android.presentation.components.PasswordTextField
 
 @Composable
 fun SignInScreen(
-    email: TextFieldValue,
     showResetPassword: Boolean,
     authViewModel: AuthViewModel,
     onFocusChange: (Boolean) -> Unit,
-    onEmailChange: (TextFieldValue) -> Unit,
     onCloseModal: () -> Unit
 ) {
+    val context = LocalContext.current
     val focusManager = LocalFocusManager.current
-
+    var email by remember {
+        mutableStateOf(TextFieldValue())
+    }
     var password by remember {
         mutableStateOf(TextFieldValue())
     }
@@ -67,7 +70,7 @@ fun SignInScreen(
             placeholder = "Email",
             icon = Icons.Outlined.MailOutline,
             keyboardType = KeyboardType.Email,
-            onTextChange = onEmailChange
+            onTextChange = { email = it }
         ) {
             focusManager.clearFocus()
         }
@@ -87,9 +90,21 @@ fun SignInScreen(
         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
             Button(
                 onClick = {
-                    if (email.text.isNotEmpty() and password.text.isNotEmpty()) {
-                        authViewModel.signIn(email = email.text, password = password.text) {
-                            onCloseModal()
+                    if (email.text.isNotEmpty()) {
+                        if (showResetPassword) {
+                            authViewModel.resetPassword(email = email.text) {
+                                Toast.makeText(
+                                    context,
+                                    "Please check your email for a password reset link",
+                                    Toast.LENGTH_LONG
+                                ).show()
+                            }
+                        } else {
+                            if (password.text.isNotEmpty()) {
+                                authViewModel.signIn(email = email.text, password = password.text) {
+                                    onCloseModal()
+                                }
+                            }
                         }
                     }
                 },

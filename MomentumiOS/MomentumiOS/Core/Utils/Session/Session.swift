@@ -23,6 +23,19 @@ final class Session: ObservableObject {
         }
     }
     
+    func resetPassword(
+        email: String,
+        onCompletion: @escaping () -> Void = {}
+    ){
+        authController.resetPassword(email: email) { res in
+          if let error = res.message {
+                Log.d(tag: "Auth", error)
+            } else {
+                onCompletion()
+            }
+        }
+    }
+    
     func signIn(
         email: String,
         password: String,

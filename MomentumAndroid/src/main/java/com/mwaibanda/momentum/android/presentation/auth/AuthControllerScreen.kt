@@ -1,6 +1,5 @@
 package com.mwaibanda.momentum.android.presentation.auth
 
-import android.widget.Toast
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.Crossfade
 import androidx.compose.animation.core.animateDpAsState
@@ -27,7 +26,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.TouchApp
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -41,7 +39,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -57,7 +54,6 @@ fun AuthControllerScreen(
     onCloseModal: () -> Unit
 ) {
     val configuration = LocalConfiguration.current
-    val context = LocalContext.current
     val screenWidth = configuration.screenWidthDp.dp
     var showSignUp by remember {
         mutableStateOf(true)
@@ -65,9 +61,7 @@ fun AuthControllerScreen(
     var showResetPassword by remember {
         mutableStateOf(false)
     }
-    var email by remember {
-        mutableStateOf(TextFieldValue())
-    }
+
     var isPasswordFocused by remember {
         mutableStateOf(false)
     }
@@ -75,9 +69,7 @@ fun AuthControllerScreen(
         targetValue = if (showSignUp) 430.dp else if (showResetPassword) 200.dp else 260.dp, label = ""
     )
 
-    LaunchedEffect(showSignUp) {
-        email = TextFieldValue("")
-    }
+
     BackHandler {
         onCloseModal()
     }
@@ -138,11 +130,9 @@ fun AuthControllerScreen(
                                 }
                             } else {
                                 SignInScreen(
-                                    email = email,
                                     showResetPassword = showResetPassword,
                                     authViewModel = authViewModel,
                                     onFocusChange = { isPasswordFocused = it },
-                                    onEmailChange = { email = it }
                                 ) {
                                     onCloseModal()
                                 }
@@ -157,14 +147,6 @@ fun AuthControllerScreen(
                                 Modifier
                                     .clickable {
                                         showResetPassword = true
-                                            authViewModel.resetPassword(email = email.text) {
-                                                Toast.makeText(
-                                                    context,
-                                                    "Please check your email for reset link",
-                                                    Toast.LENGTH_LONG
-                                                ).show()
-                                            }
-
                                     }
                                     .fillMaxWidth()
                                     .padding(vertical = 10.dp), verticalArrangement = Arrangement.Center

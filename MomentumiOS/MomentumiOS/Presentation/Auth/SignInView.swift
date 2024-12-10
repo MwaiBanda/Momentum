@@ -9,6 +9,8 @@
 import SwiftUI
 
 struct SignInView: View {
+    @Binding var showResetPassword: Bool
+    @Binding var showToast: Bool
     @State private var email = ""
     @State private var password = ""
     @EnvironmentObject var session: Session
@@ -19,13 +21,13 @@ struct SignInView: View {
     var body: some View {
         VStack(alignment: .leading) {
             VStack(alignment: .leading) {
-            Text("Sign In")
+                Text(showResetPassword ? "Reset Password" : "Sign In")
                 .font(.title3)
                 .fontWeight(.heavy)
                 .foregroundColor(.white)
                 .padding(.horizontal)
                 .padding(.top)
-            Text("Sing In To Your Account Proceed")
+                Text(showResetPassword ? "Enter Email to Get a Password Reset Link" : "Sing In To Your Account Proceed")
                 .font(.subheadline)
                 .foregroundColor(.white.opacity(0.3))
                 .padding(.horizontal)
@@ -63,21 +65,33 @@ struct SignInView: View {
                 .overlay(Color(.white).opacity(0.5))
                 .padding(.vertical)
             
-            PasswordTextfield(password: $password, placeholder: "Password") {
-                
+            if !showResetPassword {
+                PasswordTextfield(password: $password, placeholder: "Password") {
+                    
+                }
+                .padding(.horizontal)
+                .matchedGeometryEffect(id: "password", in: namespace)
+                Divider()
+                    .overlay(Color(.white).opacity(0.5))
+                    .padding(.top)
             }
-            .padding(.horizontal)
-            .matchedGeometryEffect(id: "password", in: namespace)
-            Divider()
-                .overlay(Color(.white).opacity(0.5))
-                .padding(.top)
             Spacer()
             HStack {
                 Spacer()
                 Button {
-                    if !email.isEmpty && !password.isEmpty {
-                        session.signIn(email: email, password: password) {
-                            onSignInCompletion()
+                    if !email.isEmpty  {
+                        if showResetPassword {
+                            session.resetPassword(email: email) {
+                                showToast.toggle()
+                                let softImpact = UIImpactFeedbackGenerator(style: .soft)
+                                softImpact.impactOccurred(intensity: 0.8)
+                            }
+                        } else  {
+                            if  !password.isEmpty {
+                                session.signIn(email: email, password: password) {
+                                    onSignInCompletion()
+                                }
+                            }
                         }
                     }
                 } label: {
@@ -91,6 +105,7 @@ struct SignInView: View {
             }.matchedGeometryEffect(id: "button", in: namespace)
         }
         .accentColor(Color(hex: Constants.MOMENTUM_ORANGE))
+      
     }
 }
 
