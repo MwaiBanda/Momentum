@@ -109,81 +109,103 @@ struct MessageList: View {
     @Binding var messages: [MessageGroup]
     @Binding var showSearch: Bool
     @Binding var showFilter: Bool
+    @State private var pinned: Int? = nil
+
     var body: some View {
-        ScrollView(showsIndicators: false) {
-            VStack(alignment: .leading, spacing: 0) {
+        VStack{
+            ScrollView(showsIndicators: false) {
                 VStack(alignment: .leading, spacing: 0) {
-                    if showSearch {
-                        TextField("Search \(messageViewModel.searchTag)", text: $messageViewModel.searchTerm)
-                            .padding(.top, 5)
-                        
-                    }
-                    if showFilter {
-                        ScrollView {
-                            ForEach(messageViewModel.series, id: \.self) { series  in
-                                Button{
-                                    messageViewModel.filteredSeries = (series == messageViewModel.filteredSeries ? "" : series)
-                                } label: {
-                                    HStack {
-                                        Image(systemName:  messageViewModel.filteredSeries == series ? "checkmark.square.fill" : "square")
-                                            .imageScale(.medium)
-                                            .foregroundColor(messageViewModel.filteredSeries == series  ? .init(hex: Constants.MOMENTUM_ORANGE) : .black)
-                                        Text(series)
-                                            .font(.subheadline)
-                                            .multilineTextAlignment(.leading)
-                                            .foregroundColor(.black)
-                                        Spacer()
-                                    }.contentShape(Rectangle())
+                    VStack(alignment: .leading, spacing: 0) {
+                        if showSearch {
+                            TextField("Search \(messageViewModel.searchTag)", text: $messageViewModel.searchTerm)
+                                .padding(.top, 5)
+                            
+                        }
+                        if showFilter {
+                            ScrollView {
+                                ForEach(messageViewModel.series, id: \.self) { series  in
+                                    Button{
+                                        messageViewModel.filteredSeries = (series == messageViewModel.filteredSeries ? "" : series)
+                                    } label: {
+                                        HStack {
+                                            Image(systemName:  messageViewModel.filteredSeries == series ? "checkmark.square.fill" : "square")
+                                                .imageScale(.medium)
+                                                .foregroundColor(messageViewModel.filteredSeries == series  ? .init(hex: Constants.MOMENTUM_ORANGE) : .black)
+                                            Text(series)
+                                                .font(.subheadline)
+                                                .multilineTextAlignment(.leading)
+                                                .foregroundColor(.black)
+                                            Spacer()
+                                        }.contentShape(Rectangle())
+                                    }
+                                    .padding(.vertical, 3)
                                 }
-                                .padding(.vertical, 3)
+                            }
+                            
+                        }
+                    }
+                    .font(.title3)
+                    .padding(.horizontal)
+                    .padding([.bottom, .horizontal], 5)
+                    if showSearch || showFilter {
+                        Divider()
+                    }
+                }
+                .frame(height: showSearch ? 50 : showFilter ? 140 : 0)
+                .padding(.bottom, 5)
+                LazyVStack(alignment: .center, spacing: 10, pinnedViews: [.sectionHeaders]) {
+                    if messages.isEmpty {
+                        ForEach(0..<12, id: \.self
+                        ) { _ in
+                            MessageCard(
+                                isRedacted: true,
+                                message: Message(
+                                    id: "1001",
+                                    thumbnail:"thumbnail",
+                                    series: "placeholder",
+                                    title: "placeholder",
+                                    preacher: "placeholder",
+                                    date: "placeholder",
+                                    createdOn: "placeholder",
+                                    passages: [Passage]()
+                                ))
+                        }
+                    } else {
+                        ForEach(Array(messages.enumerated()), id: \.offset) { i, group in
+                            Section(header: VStack(spacing: 0) {
+                                HStack {
+                                    Text(group.series)
+                                        .font(.title3)
+                                        .fontWeight(.bold)
+                                        .padding(.vertical, 5)
+                                    Spacer()
+                                }.padding(.leading)
+                            }.background(Color.white)){
+                                Messages(messages: group.messages, messageViewModel: messageViewModel)
+                            }
+                            .onPreferenceChange(ViewOffsetKey.self) {
+                                // verify if position is zero (pinned) in container coordinates
+                                if $0 == 0 {
+                                    self.pinned = i
+                                } else if self.pinned == i {
+                                    // clean-up if changed (might depend - for simplicity)
+                                    self.pinned = nil
+                                }
                             }
                         }
-
                     }
                 }
-                .font(.title3)
-                .padding(.horizontal)
-                .padding([.bottom, .horizontal], 5)
-                if showSearch || showFilter {
-                    Divider()
-                }
+                .padding(.bottom, 10)
             }
-            .frame(height: showSearch ? 50 : showFilter ? 140 : 0)
-            .padding(.bottom, 5)
-            LazyVStack(alignment: .center, spacing: 10, pinnedViews: [.sectionHeaders]) {
-                if messages.isEmpty {
-                    ForEach(0..<12, id: \.self
-                    ) { _ in
-                        MessageCard(
-                            isRedacted: true,
-                            message: Message(
-                                id: "1001",
-                                thumbnail:"thumbnail",
-                                series: "placeholder",
-                                title: "placeholder",
-                                preacher: "placeholder",
-                                date: "placeholder",
-                                createdOn: "placeholder",
-                                passages: [Passage]()
-                            ))
-                    }
-                } else {
-                    ForEach(messages, id: \.self) { group in
-                        Section(header: HStack {
-                            Text(group.series)
-                             .font(.title3)
-                             .fontWeight(.bold)
-                             .padding(.vertical, 5)
-                             Spacer()
-                         }.padding(.leading).background(Color.white)){
-                             Messages(messages: group.messages, messageViewModel: messageViewModel)
-                        }
-                    }
-                }
-            }
-            .padding(.bottom, 10)
-        }
+        }.coordinateSpace(name: "area")
         .redacted(reason: messages.isEmpty ? .placeholder : [])
+    }
+}
+public struct ViewOffsetKey: PreferenceKey {
+    public typealias Value = CGFloat
+    public static var defaultValue = CGFloat.zero
+    public static func reduce(value: inout Value, nextValue: () -> Value) {
+        value += nextValue()
     }
 }
 

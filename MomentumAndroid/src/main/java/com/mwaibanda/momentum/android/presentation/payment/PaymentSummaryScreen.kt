@@ -134,20 +134,14 @@ fun PaymentSummaryScreen(
         Column(
             Modifier
                 .fillMaxSize()
+                .padding(top = 5.dp)
                 .verticalScroll(rememberScrollState()),
             verticalArrangement = Arrangement.SpaceBetween,
             horizontalAlignment = Alignment.Start
         ) {
             Column {
                 Column {
-                    Spacer(modifier = Modifier.height(68.dp))
-                    Text(
-                        text = "Payment Summary",
-                        fontWeight = FontWeight.ExtraBold,
-                        style = MaterialTheme.typography.h5,
-                        modifier = Modifier.padding(10.dp)
-                    )
-                    Divider()
+                    Spacer(modifier = Modifier.height(90.dp))
                     Text(
                         text = "Select multiple options to edit amounts".uppercase(),
                         style = MaterialTheme.typography.caption,
@@ -217,7 +211,6 @@ fun PaymentSummaryScreen(
                     )
                 }
                 Spacer(modifier = Modifier.height(10.dp))
-                Divider()
                 BottomSpacing()
             }
         }

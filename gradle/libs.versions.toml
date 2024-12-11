@@ -44,7 +44,7 @@ slf4jSimple = "2.0.9"
 statelyCommon = "2.0.6"
 statelyIsolate = "2.0.6"
 statelyIsoCollections = "2.0.6"
-stripeAndroid = "20.35.2"
+stripeAndroid = "21.2.1"
 turbine = "1.0.0"
 ui = "1.7.5"
 

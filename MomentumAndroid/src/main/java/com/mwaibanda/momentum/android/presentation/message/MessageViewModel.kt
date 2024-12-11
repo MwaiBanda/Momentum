@@ -5,9 +5,11 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mwaibanda.momentum.android.presentation.sermon.SermonViewModel
+import com.mwaibanda.momentum.domain.models.Message
 import com.mwaibanda.momentum.domain.models.MessageGroup
 import com.mwaibanda.momentum.domain.models.Note
 import com.mwaibanda.momentum.domain.models.NoteRequest
+import com.mwaibanda.momentum.domain.models.Passage
 import com.mwaibanda.momentum.domain.usecase.message.MessageUseCases
 import com.mwaibanda.momentum.utils.MultiplatformConstants
 import com.mwaibanda.momentum.utils.Result
@@ -30,11 +32,29 @@ class MessageViewModel(
     private val _messages = MutableStateFlow(emptyList<MessageGroup>())
     private val messageGroups = _messages.asStateFlow()
 
+    private val _message: MutableStateFlow<Message?> = MutableStateFlow(null)
+    val message = _message.asStateFlow()
+
+    private val _passages: MutableStateFlow<List<Passage>> = MutableStateFlow(emptyList())
+    val passages = _passages.asStateFlow()
+
+    private val _passage: MutableStateFlow<Passage?> = MutableStateFlow(null)
+    val passage = _passage.asStateFlow()
+
+    private val _note: MutableStateFlow<Note?> = MutableStateFlow(null)
+    val note = _note.asStateFlow()
+
     private val _series = MutableStateFlow(emptyList<String>())
     val series = _series.asStateFlow()
 
     private val _searchTerm = MutableStateFlow("")
     val searchTerm = _searchTerm.asStateFlow()
+
+    private val _showAddNote = MutableStateFlow(false)
+    val showAddNote = _showAddNote.asStateFlow()
+
+    private val _isUpdatingNote = MutableStateFlow(false)
+    val isUpdatingNote = _isUpdatingNote.asStateFlow()
 
     private val _filterBySeries = MutableStateFlow("")
     val filterBySeries = _filterBySeries.asStateFlow()
@@ -74,6 +94,31 @@ class MessageViewModel(
             }
 
         }
+    }
+
+    fun setMessage(value: Message) {
+        _message.value = value
+    }
+
+    fun setNote(value: Note) {
+        _note.value = value
+    }
+
+    fun setPassage(value: Passage) {
+        _passage.value = value
+    }
+
+    fun setPassages(value: List<Passage>) {
+        _passages.value = value
+    }
+
+
+    fun setShowAddNote(value: Boolean) {
+        _showAddNote.value = value
+    }
+
+    fun setIsUpdatingNote(value: Boolean) {
+        _isUpdatingNote.value = value
     }
 
     fun clearMessagesCache() {

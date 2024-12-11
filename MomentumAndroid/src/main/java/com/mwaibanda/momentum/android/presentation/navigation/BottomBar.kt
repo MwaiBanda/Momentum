@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.windowInsetsBottomHeight
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
+import androidx.compose.material.Divider
 import androidx.compose.material.Icon
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Person
@@ -34,6 +35,7 @@ fun BottomBar(navController: NavController, currentRoute: String?) {
     )
 
     Column {
+        if (currentRoute != NavigationRoutes.OfferScreen.route) Divider(color = Color.Gray.copy(0.25f))
         BottomNavigation(
             elevation = 0.dp,
             backgroundColor = if (ScreenConfiguration.ScreensWithTransparentBottomBar.screens.contains(currentRoute)) Color.Transparent else Color.White

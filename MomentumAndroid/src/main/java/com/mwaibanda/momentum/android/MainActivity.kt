@@ -163,9 +163,6 @@ class MainActivity : BaseActivity() {
             var currentMeal: Meal? by rememberSaveable {
                 mutableStateOf(null)
             }
-            var currentMessage: Message? by rememberSaveable {
-                mutableStateOf(null)
-            }
 
             var currentVolunteeredMeal: VolunteeredMeal? by rememberSaveable {
                 mutableStateOf(null)
@@ -193,7 +190,9 @@ class MainActivity : BaseActivity() {
 
             MomentumEntry(
                 isShowingModal = showModalSheet,
-                onShowModal = { showModal(ViewTransactions) }
+                authViewModel = authViewModel,
+                messageViewModel = messageViewModel,
+                onShowModal = { showModal(it) }
             ) { contentPadding, navController ->
                 ModalBottomSheetLayout(
                     sheetState = sheetState,
@@ -289,19 +288,16 @@ class MainActivity : BaseActivity() {
                         }
                         composable(MessagesScreen.route) {
                             MessagesScreen(navController = navController, authViewModel = authViewModel, messageViewModel = messageViewModel) {
-                                currentMessage = it
+                                messageViewModel.setMessage(it)
                             }
                         }
                         composable(MessageDetailScreen.route) {
-                            currentMessage?.let {
                                 MessageDetailScreen(
-                                    message = it,
                                     messageViewModel = messageViewModel,
                                     authViewModel = authViewModel,
                                 ) {
                                     showModal(it)
                                 }
-                            }
                         }
                         composable(
                             route = PlayerScreen.route

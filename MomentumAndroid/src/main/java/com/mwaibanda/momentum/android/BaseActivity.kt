@@ -84,7 +84,8 @@ open class BaseActivity : FragmentActivity() {
     companion object {
         val googlePayConfig = PaymentSheet.GooglePayConfiguration(
             environment = PaymentSheet.GooglePayConfiguration.Environment.Production,
-            countryCode = "US"
+            countryCode = "US",
+            currencyCode = "USD"
         )
     }
 }

@@ -114,6 +114,7 @@ fun ProfileScreen(
         Column(
             Modifier
                 .fillMaxSize()
+                .padding(top = 5.dp)
                 .background(Color.White)
                 .verticalScroll(rememberScrollState()),
             verticalArrangement = Arrangement.SpaceBetween,
@@ -121,14 +122,7 @@ fun ProfileScreen(
         ) {
             Column {
                 Column {
-                    Spacer(modifier = Modifier.height(69.dp))
-                    Text(
-                        text = MultiplatformConstants.PROFILE,
-                        fontWeight = FontWeight.ExtraBold,
-                        style = MaterialTheme.typography.h5,
-                        modifier = Modifier.padding(10.dp)
-                    )
-                    Divider()
+                    Spacer(modifier = Modifier.height(90.dp))
                     Text(
                         text = MultiplatformConstants.PROFILE_SUBHEADING.uppercase(),
                         style = MaterialTheme.typography.caption,

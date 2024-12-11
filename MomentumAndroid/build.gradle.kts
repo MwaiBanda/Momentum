@@ -13,8 +13,8 @@ android {
         applicationId = "com.mwaibanda.momentum.android"
         minSdk = 26
         targetSdk = 34
-        versionCode = 38
-        versionName = "1.3.1"
+        versionCode = 39
+        versionName = "1.3.2"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     buildFeatures {

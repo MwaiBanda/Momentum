@@ -77,13 +77,14 @@ struct EventView: View {
                         }
                     } else {
                         ForEach(eventGroups, id: \.self) { group in
-                            Section(header: HStack {
-                               Text(group.monthAndYear)
-                                .font(.title3)
-                                .fontWeight(.bold)
-                                .padding(.vertical, 3)
+                            Section(header: VStack(spacing: 0){HStack {
+                                Text(group.monthAndYear)
+                                    .font(.title3)
+                                    .fontWeight(.bold)
+                                    .padding(.vertical, 3)
                                 Spacer()
-                            }.padding(.leading).background(Color.white)) {
+                            }.padding(.leading)
+                            }.background(Color.white)) {
                                 Events(events: group.events)
                             }
                         }

@@ -132,16 +132,19 @@ fun MessagesScreen(
                     } else {
                         messages.forEachIndexed { i, group ->
                             stickyHeader {
-                                Text(
-                                    text = group.series,
-                                    style = MaterialTheme.typography.h6,
-                                    fontWeight = FontWeight.Bold,
-                                    modifier = Modifier
-                                        .background(Color.White)
-                                        .padding(bottom = 5.dp)
-                                        .padding(vertical = 3.dp)
-                                        .fillMaxWidth()
-                                )
+                                Column {
+                                    Text(
+                                        text = group.series,
+                                        style = MaterialTheme.typography.h6,
+                                        fontWeight = FontWeight.Bold,
+                                        modifier = Modifier
+                                            .background(Color.White)
+                                            .padding(bottom = 7.dp)
+                                            .padding(vertical = 3.dp)
+                                            .padding(top = 4.dp)
+                                            .fillMaxWidth()
+                                    )
+                                }
                             }
 
                             items(group.messages) { message ->
