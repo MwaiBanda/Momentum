@@ -1,4 +1,4 @@
-package com.mwaibanda.momentum.android.presentation.payment
+package com.mwaibanda.momentum.android.presentation.offer.payment
 
 import android.util.Log
 import androidx.activity.compose.ManagedActivityResultLauncher
@@ -44,8 +44,8 @@ import com.mwaibanda.momentum.android.core.utils.C
 import com.mwaibanda.momentum.android.core.utils.NavigationRoutes
 import com.mwaibanda.momentum.android.presentation.auth.AuthViewModel
 import com.mwaibanda.momentum.android.presentation.components.BottomSpacing
-import com.mwaibanda.momentum.android.presentation.profile.ProfileViewModel
-import com.mwaibanda.momentum.android.presentation.transaction.TransactionViewModel
+import com.mwaibanda.momentum.android.presentation.offer.profile.ProfileViewModel
+import com.mwaibanda.momentum.android.presentation.offer.transaction.TransactionViewModel
 import com.mwaibanda.momentum.domain.models.Payment
 import com.mwaibanda.momentum.domain.models.Transaction
 import com.mwaibanda.momentum.domain.models.User

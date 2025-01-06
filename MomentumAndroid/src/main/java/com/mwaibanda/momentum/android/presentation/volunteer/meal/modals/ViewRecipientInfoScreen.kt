@@ -1,4 +1,4 @@
-package com.mwaibanda.momentum.android.presentation.meal.modals
+package com.mwaibanda.momentum.android.presentation.volunteer.meal.modals
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box

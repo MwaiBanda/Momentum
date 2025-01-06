@@ -1,9 +1,10 @@
 package com.mwaibanda.momentum.android.presentation.profile
 
 import com.mwaibanda.momentum.android.presentation.auth.FakeLocalDefaultsController
-import com.mwaibanda.momentum.android.presentation.profile.ProfileViewModel.ProfileCard.BILLING_INFO
-import com.mwaibanda.momentum.android.presentation.profile.ProfileViewModel.ProfileCard.CONTACT_INFO
-import com.mwaibanda.momentum.android.presentation.profile.ProfileViewModel.ProfileCard.FEEDBACK
+import com.mwaibanda.momentum.android.presentation.offer.profile.ProfileViewModel
+import com.mwaibanda.momentum.android.presentation.offer.profile.ProfileViewModel.ProfileCard.BILLING_INFO
+import com.mwaibanda.momentum.android.presentation.offer.profile.ProfileViewModel.ProfileCard.CONTACT_INFO
+import com.mwaibanda.momentum.android.presentation.offer.profile.ProfileViewModel.ProfileCard.FEEDBACK
 import com.mwaibanda.momentum.domain.controller.BillingAddressController
 import com.mwaibanda.momentum.domain.controller.LocalDefaultsController
 import com.mwaibanda.momentum.domain.controller.UserController

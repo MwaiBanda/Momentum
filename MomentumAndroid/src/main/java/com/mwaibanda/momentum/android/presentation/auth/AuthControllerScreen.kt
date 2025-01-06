@@ -45,7 +45,7 @@ import androidx.compose.ui.unit.dp
 import com.mwaibanda.momentum.android.core.utils.C
 import com.mwaibanda.momentum.android.presentation.components.BlurredBackground
 import com.mwaibanda.momentum.android.presentation.components.TranslucentBackground
-import com.mwaibanda.momentum.android.presentation.profile.ProfileViewModel
+import com.mwaibanda.momentum.android.presentation.offer.profile.ProfileViewModel
 
 @Composable
 fun AuthControllerScreen(

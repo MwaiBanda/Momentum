@@ -14,7 +14,7 @@ if (secretPropsFile.exists()) {
             load(it)
         }
     }.onEach { (name, value) ->
-        ext[name.toString()] = value
+        extensions.add(name.toString(), value)
     }
 }
 
@@ -53,4 +53,4 @@ tasks.register("clean", Delete::class) {
     delete(rootProject.buildDir)
 }
 
-fun getExtraString(name: String) = ext[name]?.toString()
+fun getExtraString(name: String) = extensions[name].toString()

@@ -6,14 +6,16 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.fragment.app.FragmentActivity
 import com.mwaibanda.momentum.android.presentation.auth.AuthViewModel
-import com.mwaibanda.momentum.android.presentation.meal.MealViewModel
 import com.mwaibanda.momentum.android.presentation.message.MessageViewModel
-import com.mwaibanda.momentum.android.presentation.payment.PaymentViewModel
-import com.mwaibanda.momentum.android.presentation.profile.ProfileViewModel
+import com.mwaibanda.momentum.android.presentation.offer.payment.PaymentViewModel
+import com.mwaibanda.momentum.android.presentation.offer.profile.ProfileViewModel
+import com.mwaibanda.momentum.android.presentation.offer.transaction.TransactionViewModel
 import com.mwaibanda.momentum.android.presentation.sermon.SermonViewModel
-import com.mwaibanda.momentum.android.presentation.transaction.TransactionViewModel
+import com.mwaibanda.momentum.android.presentation.volunteer.ServicesViewModel
+import com.mwaibanda.momentum.android.presentation.volunteer.meal.MealViewModel
 import com.mwaibanda.momentum.domain.models.Meal
 import com.mwaibanda.momentum.domain.models.Payment
+import com.mwaibanda.momentum.domain.models.Tab
 import com.mwaibanda.momentum.domain.models.VolunteeredMeal
 import com.stripe.android.PaymentConfiguration
 import com.stripe.android.paymentsheet.PaymentSheet
@@ -27,6 +29,7 @@ import org.koin.android.ext.android.inject
 
 open class BaseActivity : FragmentActivity() {
     protected val mealViewModel: MealViewModel by inject()
+    protected val servicesViewModel: ServicesViewModel by inject()
     protected val authViewModel: AuthViewModel by inject()
     protected val paymentViewModel: PaymentViewModel by inject()
     protected val profileViewModel: ProfileViewModel by inject()
@@ -41,10 +44,12 @@ open class BaseActivity : FragmentActivity() {
 
     protected val volunteeredMealChannel = Channel<VolunteeredMeal>()
     protected val mealChannel = Channel<Meal>()
+    protected val tabChannel = Channel<Tab>()
 
     init {
         authViewModel.checkAndSignIn()
     }
+
     protected fun checkout(
         transaction: Payment,
         onSuccess: (customer: PaymentSheet.CustomerConfiguration?, intent: String) -> Unit

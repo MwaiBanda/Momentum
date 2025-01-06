@@ -29,7 +29,7 @@ class MessageRepositoryImpl(
         }
         try {
             val messages = httpClient.get {
-                momentumAPI("$MESSAGE_ENDPOINT/$userId")
+                momentumAPI("$MESSAGES_ENDPOINT/$userId")
             }.body<MessageContainer>().data
             setItemUseCase(MESSAGE_KEY, messages)
         } catch (e: Exception) {

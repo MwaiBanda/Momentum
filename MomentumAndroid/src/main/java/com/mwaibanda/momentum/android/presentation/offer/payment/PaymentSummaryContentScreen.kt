@@ -1,15 +1,15 @@
-package com.mwaibanda.momentum.android.presentation.payment
+package com.mwaibanda.momentum.android.presentation.offer.payment
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.Divider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import com.mwaibanda.momentum.android.presentation.components.ToggleAmountLabel
-import com.mwaibanda.momentum.android.presentation.payment.PaymentSummaryContentViewModel.ToggleLabel.MISSIONS
-import com.mwaibanda.momentum.android.presentation.payment.PaymentSummaryContentViewModel.ToggleLabel.OFFERING
-import com.mwaibanda.momentum.android.presentation.payment.PaymentSummaryContentViewModel.ToggleLabel.OTHER
-import com.mwaibanda.momentum.android.presentation.payment.PaymentSummaryContentViewModel.ToggleLabel.SPECIAL_SPEAKER
-import com.mwaibanda.momentum.android.presentation.payment.PaymentSummaryContentViewModel.ToggleLabel.TITHE
+import com.mwaibanda.momentum.android.presentation.offer.payment.PaymentSummaryContentViewModel.ToggleLabel.MISSIONS
+import com.mwaibanda.momentum.android.presentation.offer.payment.PaymentSummaryContentViewModel.ToggleLabel.OFFERING
+import com.mwaibanda.momentum.android.presentation.offer.payment.PaymentSummaryContentViewModel.ToggleLabel.OTHER
+import com.mwaibanda.momentum.android.presentation.offer.payment.PaymentSummaryContentViewModel.ToggleLabel.SPECIAL_SPEAKER
+import com.mwaibanda.momentum.android.presentation.offer.payment.PaymentSummaryContentViewModel.ToggleLabel.TITHE
 import com.mwaibanda.momentum.utils.MultiplatformConstants
 
 @Composable

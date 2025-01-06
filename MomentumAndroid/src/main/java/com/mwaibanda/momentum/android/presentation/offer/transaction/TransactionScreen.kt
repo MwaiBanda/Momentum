@@ -1,4 +1,4 @@
-package com.mwaibanda.momentum.android.presentation.transaction
+package com.mwaibanda.momentum.android.presentation.offer.transaction
 
 import androidx.compose.material.Divider
 import androidx.compose.runtime.Composable

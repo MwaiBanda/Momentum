@@ -1,4 +1,4 @@
-package com.mwaibanda.momentum.android.presentation.meal.modals
+package com.mwaibanda.momentum.android.presentation.volunteer.meal.modals
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -47,7 +47,7 @@ import com.mwaibanda.momentum.android.core.utils.getDate
 import com.mwaibanda.momentum.android.presentation.auth.AuthViewModel
 import com.mwaibanda.momentum.android.presentation.components.BaseModal
 import com.mwaibanda.momentum.android.presentation.components.IconTextField
-import com.mwaibanda.momentum.android.presentation.profile.ProfileViewModel
+import com.mwaibanda.momentum.android.presentation.offer.profile.ProfileViewModel
 import com.mwaibanda.momentum.domain.models.User
 import com.mwaibanda.momentum.domain.models.VolunteeredMeal
 import kotlinx.coroutines.channels.Channel

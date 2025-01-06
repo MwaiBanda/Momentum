@@ -1,4 +1,4 @@
-package com.mwaibanda.momentum.android.presentation.meal
+package com.mwaibanda.momentum.android.presentation.volunteer.meal
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -15,14 +15,11 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Card
-import androidx.compose.material.Divider
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ChevronRight
 import androidx.compose.material.pullrefresh.PullRefreshIndicator
 import androidx.compose.material.pullrefresh.pullRefresh
@@ -56,7 +53,6 @@ fun MealScreen(
     mealViewModel: MealViewModel,
     channel: Channel<Meal>,
     onMealSelected: (Meal?) -> Unit,
-    onShowModal: () -> Unit
 ) {
     var meals by remember {
         mutableStateOf(emptyList<Meal>())
@@ -98,28 +94,7 @@ fun MealScreen(
         ) {
             Column {
                 Column {
-                    Spacer(modifier = Modifier.height(35.dp))
-                    Row(
-                        Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceBetween,
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Text(
-                            text = "Meals",
-                            fontWeight = FontWeight.ExtraBold,
-                            style = MaterialTheme.typography.h5,
-                            modifier = Modifier.padding(10.dp)
-                        )
-
-                        IconButton(onClick = onShowModal) {
-                            Icon(
-                                imageVector = Icons.Default.Add,
-                                contentDescription = "Add Meal Icon",
-                                tint = Color(C.MOMENTUM_ORANGE)
-                            )
-                        }
-                    }
-                    Divider()
+                    Spacer(modifier = Modifier.height(90.dp))
                     Text(
                         text = MultiplatformConstants.MEALS_SUBHEADING.uppercase(),
                         modifier = Modifier.padding(horizontal = 10.dp),

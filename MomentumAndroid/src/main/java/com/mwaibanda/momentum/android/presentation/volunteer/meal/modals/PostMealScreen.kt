@@ -1,4 +1,4 @@
-package com.mwaibanda.momentum.android.presentation.meal.modals
+package com.mwaibanda.momentum.android.presentation.volunteer.meal.modals
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.SizeTransform
@@ -65,7 +65,7 @@ import com.mwaibanda.momentum.android.core.utils.C
 import com.mwaibanda.momentum.android.presentation.auth.AuthViewModel
 import com.mwaibanda.momentum.android.presentation.components.BaseModal
 import com.mwaibanda.momentum.android.presentation.components.IconTextField
-import com.mwaibanda.momentum.android.presentation.meal.MealViewModel
+import com.mwaibanda.momentum.android.presentation.volunteer.meal.MealViewModel
 import com.mwaibanda.momentum.data.mealDTO.MealRequest
 import com.mwaibanda.momentum.data.mealDTO.MealVolunteerRequest
 import com.mwaibanda.momentum.domain.models.Meal

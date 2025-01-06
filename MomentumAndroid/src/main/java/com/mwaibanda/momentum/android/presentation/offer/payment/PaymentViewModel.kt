@@ -1,4 +1,4 @@
-package com.mwaibanda.momentum.android.presentation.payment
+package com.mwaibanda.momentum.android.presentation.offer.payment
 
 import android.util.Log
 import androidx.compose.runtime.getValue

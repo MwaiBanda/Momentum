@@ -1,4 +1,4 @@
-package com.mwaibanda.momentum.android.presentation.payment
+package com.mwaibanda.momentum.android.presentation.offer.payment
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -12,20 +12,17 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.airbnb.lottie.compose.LottieAnimation
-import com.airbnb.lottie.compose.LottieCompositionSpec
-import com.airbnb.lottie.compose.animateLottieCompositionAsState
-import com.airbnb.lottie.compose.rememberLottieComposition
+import com.airbnb.lottie.compose.*
 import com.mwaibanda.momentum.android.R
 import com.mwaibanda.momentum.android.core.utils.C
 import com.mwaibanda.momentum.android.core.utils.NavigationRoutes
 import com.mwaibanda.momentum.android.presentation.components.BottomSpacing
 
 @Composable
-fun PaymentFailureScreen(navController: NavController) {
+fun PaymentSuccessScreen(navController: NavController) {
     val composition by rememberLottieComposition(
         LottieCompositionSpec
-            .RawRes(R.raw.failed)
+            .RawRes(R.raw.success)
     )
     val progress by animateLottieCompositionAsState(
         composition,
@@ -50,7 +47,7 @@ fun PaymentFailureScreen(navController: NavController) {
                 modifier = Modifier.size(250.dp)
             )
             Text(
-                text = "Payment Failed",
+                text = "Payment Success",
                 fontWeight = FontWeight.ExtraBold,
                 color = Color(C.MOMENTUM_ORANGE),
                 style = MaterialTheme.typography.h5,
@@ -58,8 +55,10 @@ fun PaymentFailureScreen(navController: NavController) {
             )
             Text(
                 text = """
-                Your payment hasn't been made successfully.
-                Try again to proceed with making a payment.
+                Your payment has been made successfully.
+                For more details. Check the transactions
+                tab to see or give again, in the Accounts
+                section.
                 """.trimIndent(),
                 textAlign = TextAlign.Center
             )

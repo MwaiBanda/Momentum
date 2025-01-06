@@ -1,6 +1,7 @@
 package com.mwaibanda.momentum.android.presentation.payment
 
 import app.cash.turbine.test
+import com.mwaibanda.momentum.android.presentation.offer.payment.PaymentViewModel
 import com.mwaibanda.momentum.domain.controller.PaymentController
 import com.mwaibanda.momentum.domain.models.Payment
 import kotlinx.coroutines.runBlocking

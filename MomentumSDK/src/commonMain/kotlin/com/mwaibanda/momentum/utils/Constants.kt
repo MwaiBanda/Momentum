@@ -34,6 +34,8 @@ object MultiplatformConstants {
     const val PROFILE_SUBHEADING = "Edit personal information & manage account"
     const val MESSAGES_SUBHEADING = "View upcoming messages and add notes"
     const val API_KEY = "67a78d53-d47c-4981-b3e4-1843b8591904"
+    const val VOLUNTEER_SUBHEADING = "View available ministries & volunteer"
+    const val VOLUNTEER_SERVICE_SUBHEADING = "View available days & volunteer"
     const val MEALS_SUBHEADING = "View available meals & volunteer"
     const val EVENTS_SUBHEADING = "View available events & set reminders"
     const val CONTACT_INFORMATION = "Contact Information"
@@ -51,4 +53,5 @@ object MultiplatformConstants {
     const val ALL_ANDROID_USERS_TOPIC = "MomentumAndroid"
     const val ALL_IOS_USERS_TOPIC = "MomentumIOS"
     const val MESSAGE_KEY = "messages"
+    const val SERVICES_KEY = "services"
 }

@@ -4,6 +4,8 @@ import com.mwaibanda.momentum.domain.models.Meal
 import com.mwaibanda.momentum.domain.models.User
 import com.mwaibanda.momentum.domain.models.VolunteeredMeal
 import kotlinx.serialization.SerialName
+import kotlin.uuid.ExperimentalUuidApi
+import kotlin.uuid.Uuid
 
 @kotlinx.serialization.Serializable
 data class MealRequest(
@@ -28,20 +30,17 @@ data class MealRequest(
     @SerialName("user_id")
     val userId: String
 ){
+    @OptIn(ExperimentalUuidApi::class)
     fun toMeal(): Meal {
         return Meal(
-            id = "M${(100 downTo 10).toList().random()}-${(1000 downTo 100).toList().random()}-${(10 downTo 0).toList().random()}-${(10000 downTo 1000).toList().random()}",
+            id = "M${Uuid.random()}",
             allergies = allergies,
             city = city,
             email = email,
             favourites = favourites,
             instructions = instructions,
             leastFavourites = leastFavourites,
-            meals = meals.map { VolunteeredMeal(id = "${
-                (100 downTo 10).toList().random()
-            }-${(1000 downTo 100).toList().random()}-${
-                (10 downTo 0).toList().random()
-            }-${(10000 downTo 1000).toList().random()}","","", "", "", User("", "","", it.userId, "")) },
+            meals = meals.map { VolunteeredMeal(id = Uuid.random().toString(),"","", "", "", User("", "","", it.userId, "")) },
             numOfAdults = numOfAdults,
             numberOfKids = numberOfKids,
             participants = emptyList(),

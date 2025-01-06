@@ -15,7 +15,6 @@ import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ModalBottomSheetLayout
 import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.material.rememberModalBottomSheetState
@@ -38,53 +37,43 @@ import com.google.android.gms.cast.framework.CastContext
 import com.google.android.gms.dynamite.DynamiteModule
 import com.mwaibanda.momentum.android.core.utils.C
 import com.mwaibanda.momentum.android.core.utils.Modal
-import com.mwaibanda.momentum.android.core.utils.Modal.Authentication
-import com.mwaibanda.momentum.android.core.utils.Modal.PostMeal
-import com.mwaibanda.momentum.android.core.utils.Modal.PostVolunteerMeal
-import com.mwaibanda.momentum.android.core.utils.Modal.ViewRecipientInfo
-import com.mwaibanda.momentum.android.core.utils.Modal.ViewTransactions
-import com.mwaibanda.momentum.android.core.utils.NavigationRoutes.EventScreen
-import com.mwaibanda.momentum.android.core.utils.NavigationRoutes.LaunchScreen
-import com.mwaibanda.momentum.android.core.utils.NavigationRoutes.MealDetailScreen
-import com.mwaibanda.momentum.android.core.utils.NavigationRoutes.MealScreen
-import com.mwaibanda.momentum.android.core.utils.NavigationRoutes.MessageDetailScreen
-import com.mwaibanda.momentum.android.core.utils.NavigationRoutes.MessagesScreen
-import com.mwaibanda.momentum.android.core.utils.NavigationRoutes.OfferScreen
-import com.mwaibanda.momentum.android.core.utils.NavigationRoutes.PaymentFailureScreen
-import com.mwaibanda.momentum.android.core.utils.NavigationRoutes.PaymentSuccessScreen
-import com.mwaibanda.momentum.android.core.utils.NavigationRoutes.PaymentSummaryScreen
-import com.mwaibanda.momentum.android.core.utils.NavigationRoutes.PlayerScreen
-import com.mwaibanda.momentum.android.core.utils.NavigationRoutes.ProfileScreen
-import com.mwaibanda.momentum.android.core.utils.NavigationRoutes.SermonScreen
+import com.mwaibanda.momentum.android.core.utils.Modal.*
+import com.mwaibanda.momentum.android.core.utils.NavigationRoutes.*
 import com.mwaibanda.momentum.android.presentation.MomentumEntry
 import com.mwaibanda.momentum.android.presentation.auth.AuthControllerScreen
 import com.mwaibanda.momentum.android.presentation.event.EventScreen
-import com.mwaibanda.momentum.android.presentation.meal.MealScreen
-import com.mwaibanda.momentum.android.presentation.meal.MealsDetailScreen
-import com.mwaibanda.momentum.android.presentation.meal.modals.PostMealScreen
-import com.mwaibanda.momentum.android.presentation.meal.modals.PostVolunteerMealScreen
-import com.mwaibanda.momentum.android.presentation.meal.modals.ViewRecipientInfoScreen
 import com.mwaibanda.momentum.android.presentation.message.MessageDetailScreen
 import com.mwaibanda.momentum.android.presentation.message.MessagesScreen
 import com.mwaibanda.momentum.android.presentation.navigation.LaunchScreen
 import com.mwaibanda.momentum.android.presentation.offer.OfferScreen
-import com.mwaibanda.momentum.android.presentation.payment.PaymentFailureScreen
-import com.mwaibanda.momentum.android.presentation.payment.PaymentSuccessScreen
-import com.mwaibanda.momentum.android.presentation.payment.PaymentSummaryScreen
-import com.mwaibanda.momentum.android.presentation.profile.ProfileScreen
+import com.mwaibanda.momentum.android.presentation.offer.payment.PaymentFailureScreen
+import com.mwaibanda.momentum.android.presentation.offer.payment.PaymentSuccessScreen
+import com.mwaibanda.momentum.android.presentation.offer.payment.PaymentSummaryScreen
+import com.mwaibanda.momentum.android.presentation.offer.profile.ProfileScreen
+import com.mwaibanda.momentum.android.presentation.offer.transaction.TransactionScreen
 import com.mwaibanda.momentum.android.presentation.sermon.PlayerScreen
 import com.mwaibanda.momentum.android.presentation.sermon.SermonScreen
-import com.mwaibanda.momentum.android.presentation.transaction.TransactionScreen
+import com.mwaibanda.momentum.android.presentation.volunteer.VolunteerService
+import com.mwaibanda.momentum.android.presentation.volunteer.VolunteerServiceDetail
+import com.mwaibanda.momentum.android.presentation.volunteer.VolunteerServices
+import com.mwaibanda.momentum.android.presentation.volunteer.meal.MealScreen
+import com.mwaibanda.momentum.android.presentation.volunteer.meal.MealsDetailScreen
+import com.mwaibanda.momentum.android.presentation.volunteer.meal.modals.PostMealScreen
+import com.mwaibanda.momentum.android.presentation.volunteer.meal.modals.PostVolunteerMealScreen
+import com.mwaibanda.momentum.android.presentation.volunteer.meal.modals.PostVolunteerServiceScreen
+import com.mwaibanda.momentum.android.presentation.volunteer.meal.modals.ViewRecipientInfoScreen
 import com.mwaibanda.momentum.domain.models.Meal
-import com.mwaibanda.momentum.domain.models.Message
 import com.mwaibanda.momentum.domain.models.Sermon
+import com.mwaibanda.momentum.domain.models.Tab
+import com.mwaibanda.momentum.domain.models.VolunteerService
 import com.mwaibanda.momentum.domain.models.VolunteeredMeal
+import com.mwaibanda.momentum.domain.models.value
 import com.mwaibanda.momentum.utils.MultiplatformConstants
 import com.stripe.android.paymentsheet.PaymentSheet
 import com.stripe.android.paymentsheet.PaymentSheetContract
 import kotlinx.coroutines.launch
+import kotlinx.serialization.json.Json
 
-@OptIn(ExperimentalMaterialApi::class)
 class MainActivity : BaseActivity() {
     private lateinit var castContext: CastContext
     private val requestPermissionLauncher = registerForActivityResult(
@@ -104,7 +93,11 @@ class MainActivity : BaseActivity() {
                 PackageManager.PERMISSION_GRANTED
             ) {
                 // FCM SDK (and your app) can post notifications.
-            } else if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.POST_NOTIFICATIONS)) {
+            } else if (ActivityCompat.shouldShowRequestPermissionRationale(
+                    this,
+                    Manifest.permission.POST_NOTIFICATIONS
+                )
+            ) {
                 // TODO: display an educational UI explaining to the user the features that will be enabled
                 //       by them granting the POST_NOTIFICATION permission. This UI should provide the user
                 //       "OK" and "No thanks" buttons. If the user selects "OK," directly request the permission.
@@ -116,10 +109,15 @@ class MainActivity : BaseActivity() {
             }
         }
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val importance = NotificationManager.IMPORTANCE_DEFAULT
-        val channel = NotificationChannel(MomentumApplication.DEFAULT_CHANNEL_ID, MomentumApplication.DEFAULT_CHANNEL, importance)
+        val channel = NotificationChannel(
+            MomentumApplication.DEFAULT_CHANNEL_ID,
+            MomentumApplication.DEFAULT_CHANNEL,
+            importance
+        )
         channel.description = "This is the default app notification channel"
         val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
         notificationManager.createNotificationChannel(channel)
@@ -148,9 +146,6 @@ class MainActivity : BaseActivity() {
             var showModalSheet by rememberSaveable {
                 mutableStateOf(false)
             }
-            var showMasterScreen by rememberSaveable {
-                mutableStateOf(true)
-            }
 
             var currentModal: Modal by rememberSaveable {
                 mutableStateOf(ViewTransactions)
@@ -165,6 +160,13 @@ class MainActivity : BaseActivity() {
             }
 
             var currentVolunteeredMeal: VolunteeredMeal? by rememberSaveable {
+                mutableStateOf(null)
+            }
+
+            var currentVolunteeredService: VolunteerService? by rememberSaveable {
+                mutableStateOf(null)
+            }
+            var currentTab: Tab? by rememberSaveable {
                 mutableStateOf(null)
             }
 
@@ -190,6 +192,7 @@ class MainActivity : BaseActivity() {
 
             MomentumEntry(
                 isShowingModal = showModalSheet,
+                tab = currentTab,
                 authViewModel = authViewModel,
                 messageViewModel = messageViewModel,
                 onShowModal = { showModal(it) }
@@ -203,17 +206,20 @@ class MainActivity : BaseActivity() {
                                 transactionViewModel = transactionViewModel,
                                 closeModal
                             )
+
                             Authentication -> AuthControllerScreen(
                                 authViewModel = authViewModel,
                                 profileViewModel = profileViewModel,
                                 closeModal
                             )
+
                             PostMeal -> PostMealScreen(
                                 mealViewModel = mealViewModel,
                                 authViewModel = authViewModel,
                                 channel = mealChannel,
                                 closeModal
                             )
+
                             PostVolunteerMeal -> currentVolunteeredMeal?.let {
                                 PostVolunteerMealScreen(
                                     profileViewModel = profileViewModel,
@@ -223,7 +229,17 @@ class MainActivity : BaseActivity() {
                                     closeModal
                                 )
                             }
+
                             ViewRecipientInfo -> ViewRecipientInfoScreen(currentMeal, closeModal)
+                            PostVolunteerService -> {
+                                PostVolunteerServiceScreen(
+                                    tab = currentTab,
+                                    servicesViewModel = servicesViewModel,
+                                    authViewModel = authViewModel,
+                                    channel = mealChannel,
+                                    closeModal
+                                )
+                            }
                         }
                     }
                 ) {
@@ -235,6 +251,39 @@ class MainActivity : BaseActivity() {
                         composable(LaunchScreen.route) {
                             LaunchScreen(navController = navController)
                         }
+                        composable(VolunteerScreen.route) {
+                            VolunteerServices(
+                                navController = navController,
+                                servicesViewModel = servicesViewModel
+                            ) { currentTab = it }
+                        }
+                        composable(
+                            route = VolunteerServiceScreen.route,
+                            arguments = listOf(navArgument("service") {
+                                type = NavType.StringType
+                            })
+                        ) { navBackStackEntry ->
+                            VolunteerService(
+                                Json.decodeFromString(
+                                    navBackStackEntry.arguments?.getString("service") ?: ""
+                                ), servicesViewModel
+                            ) {
+                                currentVolunteeredService = it
+                                navController.navigate("volunteer/${currentTab?.type?.value}/detail")
+                            }
+                        }
+                        composable(
+                            route = VolunteerServiceDetailScreen.route,
+                            arguments = listOf(navArgument("service") {
+                                type = NavType.StringType
+                            })
+                        ) { navBackStackEntry ->
+                            currentVolunteeredService?.let {
+                                VolunteerServiceDetail(it) {
+
+                                }
+                            }
+                        }
                         composable(MealScreen.route) {
                             MealScreen(
                                 mealViewModel = mealViewModel,
@@ -242,13 +291,8 @@ class MainActivity : BaseActivity() {
                                 onMealSelected = {
                                     currentMeal = it
                                     navController.navigate(MealDetailScreen.route)
-                                }) {
-                                if (authViewModel.currentUser?.isGuest == true) {
-                                    showModal(Authentication)
-                                } else {
-                                    showModal(PostMeal)
                                 }
-                            }
+                            )
                         }
                         composable(EventScreen.route) {
                             EventScreen()
@@ -287,17 +331,21 @@ class MainActivity : BaseActivity() {
                             }
                         }
                         composable(MessagesScreen.route) {
-                            MessagesScreen(navController = navController, authViewModel = authViewModel, messageViewModel = messageViewModel) {
+                            MessagesScreen(
+                                navController = navController,
+                                authViewModel = authViewModel,
+                                messageViewModel = messageViewModel
+                            ) {
                                 messageViewModel.setMessage(it)
                             }
                         }
                         composable(MessageDetailScreen.route) {
-                                MessageDetailScreen(
-                                    messageViewModel = messageViewModel,
-                                    authViewModel = authViewModel,
-                                ) {
-                                    showModal(it)
-                                }
+                            MessageDetailScreen(
+                                messageViewModel = messageViewModel,
+                                authViewModel = authViewModel,
+                            ) {
+                                showModal(it)
+                            }
                         }
                         composable(
                             route = PlayerScreen.route

@@ -7,11 +7,11 @@ data class MessageGroup(
 ) {
     fun containsTerm(term: String): Boolean {
         return series.lowercase().contains(term.lowercase()) ||
-               messages.count { message ->
+                messages.count { message ->
                     message.preacher.lowercase().contains(term.lowercase()) ||
-                            message.date.lowercase().contains(term.lowercase())  ||
+                            message.date.lowercase().contains(term.lowercase()) ||
                             message.title.lowercase().contains(term.lowercase())
-               } > 0 ||
-               term.isEmpty()
+                } > 0 ||
+                term.isEmpty()
     }
 }

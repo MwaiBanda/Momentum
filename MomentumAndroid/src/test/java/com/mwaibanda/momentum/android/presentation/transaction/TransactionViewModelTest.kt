@@ -1,6 +1,7 @@
 package com.mwaibanda.momentum.android.presentation.transaction
 
 import app.cash.turbine.test
+import com.mwaibanda.momentum.android.presentation.offer.transaction.TransactionViewModel
 import com.mwaibanda.momentum.data.db.MomentumTransaction
 import com.mwaibanda.momentum.domain.controller.TransactionController
 import kotlinx.coroutines.runBlocking

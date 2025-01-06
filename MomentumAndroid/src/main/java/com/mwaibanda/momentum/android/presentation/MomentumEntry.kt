@@ -56,6 +56,7 @@ import com.mwaibanda.momentum.android.presentation.navigation.TopBar
 import com.mwaibanda.momentum.domain.models.Note
 import com.mwaibanda.momentum.domain.models.NoteRequest
 import com.mwaibanda.momentum.domain.models.Passage
+import com.mwaibanda.momentum.domain.models.Tab
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.util.UUID
@@ -63,6 +64,7 @@ import java.util.UUID
 @Composable
 fun MomentumEntry(
     isShowingModal: Boolean,
+    tab: Tab?,
     authViewModel: AuthViewModel,
     messageViewModel: MessageViewModel,
     onShowModal: (Modal) -> Unit,
@@ -112,10 +114,10 @@ fun MomentumEntry(
                     TopBar(
                         navController = navController,
                         currentRoute = currentRoute,
+                        tabChannel = tab,
+                        authViewModel = authViewModel,
                         messageViewModel = messageViewModel,
-                        onShowModal = {
-                            onShowModal(Modal.ViewTransactions)
-                        }
+                        onShowModal = onShowModal
                     )
 
                     BottomBar(navController = navController, currentRoute = currentRoute)

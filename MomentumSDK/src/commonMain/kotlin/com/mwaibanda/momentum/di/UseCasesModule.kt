@@ -22,6 +22,10 @@ import com.mwaibanda.momentum.domain.usecase.message.UpdateNoteUseCase
 import com.mwaibanda.momentum.domain.usecase.notification.PostNotificationUseCase
 import com.mwaibanda.momentum.domain.usecase.payment.CheckoutUseCase
 import com.mwaibanda.momentum.domain.usecase.sermon.GetSermonsUseCase
+import com.mwaibanda.momentum.domain.usecase.service.GetAllServicesUseCase
+import com.mwaibanda.momentum.domain.usecase.service.GetServiceByTypeUseCase
+import com.mwaibanda.momentum.domain.usecase.service.PostVolunteerServiceUseCase
+import com.mwaibanda.momentum.domain.usecase.service.ServicesUseCases
 import com.mwaibanda.momentum.domain.usecase.transaction.GetTransactionsUseCase
 import com.mwaibanda.momentum.domain.usecase.transaction.PostTransactionUseCase
 import com.mwaibanda.momentum.domain.usecase.user.DeleteRemoteUserUseCase
@@ -82,6 +86,13 @@ val useCasesModule = module {
     single { UpdateNoteUseCase(messageRepository = get()) }
     single { DeleteNoteUseCase(messageRepository = get()) }
     single { MessageUseCases(create = get(), read = get(), update = get(), delete = get(), clearCache = get()) }
+    /**
+     * @Services - Use-cases
+     */
+    single { GetAllServicesUseCase(serviceRepository = get()) }
+    single { GetServiceByTypeUseCase(serviceRepository = get()) }
+    single { PostVolunteerServiceUseCase(serviceRepository = get()) }
+    single { ServicesUseCases(create = get(), readByType = get(), read = get()) }
     /**
      * @Notification - Use-cases
      */

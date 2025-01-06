@@ -1,11 +1,11 @@
-package com.mwaibanda.momentum.android.presentation.profile
+package com.mwaibanda.momentum.android.presentation.offer.profile
 
 import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
-import com.mwaibanda.momentum.android.presentation.profile.ProfileViewModel.ProfileCard.*
+import com.mwaibanda.momentum.android.presentation.offer.profile.ProfileViewModel.ProfileCard.*
 import com.mwaibanda.momentum.domain.controller.BillingAddressController
 import com.mwaibanda.momentum.domain.controller.LocalDefaultsController
 import com.mwaibanda.momentum.domain.controller.UserController

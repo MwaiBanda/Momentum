@@ -10,5 +10,4 @@ interface MessageRepository {
     suspend fun addNoteToPassage(request: NoteRequest): DataResponse<NoteRequest>
     suspend fun updateNote(note: Note.UserNote): DataResponse<Note>
     suspend fun deleteNote(userId: String): DataResponse<Note>
-
 }

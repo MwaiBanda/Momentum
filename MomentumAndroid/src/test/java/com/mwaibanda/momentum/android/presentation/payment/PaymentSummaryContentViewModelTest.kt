@@ -1,6 +1,7 @@
 package com.mwaibanda.momentum.android.presentation.payment
 
-import com.mwaibanda.momentum.android.presentation.payment.PaymentSummaryContentViewModel.ToggleLabel.*
+import com.mwaibanda.momentum.android.presentation.offer.payment.PaymentSummaryContentViewModel
+import com.mwaibanda.momentum.android.presentation.offer.payment.PaymentSummaryContentViewModel.ToggleLabel.*
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test

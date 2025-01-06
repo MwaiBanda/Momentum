@@ -1,4 +1,4 @@
-package com.mwaibanda.momentum.android.presentation.payment
+package com.mwaibanda.momentum.android.presentation.offer.payment
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -12,17 +12,20 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.airbnb.lottie.compose.*
+import com.airbnb.lottie.compose.LottieAnimation
+import com.airbnb.lottie.compose.LottieCompositionSpec
+import com.airbnb.lottie.compose.animateLottieCompositionAsState
+import com.airbnb.lottie.compose.rememberLottieComposition
 import com.mwaibanda.momentum.android.R
 import com.mwaibanda.momentum.android.core.utils.C
 import com.mwaibanda.momentum.android.core.utils.NavigationRoutes
 import com.mwaibanda.momentum.android.presentation.components.BottomSpacing
 
 @Composable
-fun PaymentSuccessScreen(navController: NavController) {
+fun PaymentFailureScreen(navController: NavController) {
     val composition by rememberLottieComposition(
         LottieCompositionSpec
-            .RawRes(R.raw.success)
+            .RawRes(R.raw.failed)
     )
     val progress by animateLottieCompositionAsState(
         composition,
@@ -47,7 +50,7 @@ fun PaymentSuccessScreen(navController: NavController) {
                 modifier = Modifier.size(250.dp)
             )
             Text(
-                text = "Payment Success",
+                text = "Payment Failed",
                 fontWeight = FontWeight.ExtraBold,
                 color = Color(C.MOMENTUM_ORANGE),
                 style = MaterialTheme.typography.h5,
@@ -55,10 +58,8 @@ fun PaymentSuccessScreen(navController: NavController) {
             )
             Text(
                 text = """
-                Your payment has been made successfully.
-                For more details. Check the transactions
-                tab to see or give again, in the Accounts
-                section.
+                Your payment hasn't been made successfully.
+                Try again to proceed with making a payment.
                 """.trimIndent(),
                 textAlign = TextAlign.Center
             )

@@ -1,4 +1,4 @@
-package com.mwaibanda.momentum.android.presentation.transaction
+package com.mwaibanda.momentum.android.presentation.offer.transaction
 
 import android.util.Log
 import androidx.lifecycle.ViewModel

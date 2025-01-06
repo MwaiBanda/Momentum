@@ -27,7 +27,7 @@ import com.mwaibanda.momentum.android.core.utils.ScreenConfiguration
 fun BottomBar(navController: NavController, currentRoute: String?) {
     val context = LocalContext.current
     val bottomTabs = listOf(
-        NavigationRoutes.MealScreen,
+        NavigationRoutes.VolunteerScreen,
         NavigationRoutes.SermonScreen,
         NavigationRoutes.OfferScreen,
         NavigationRoutes.MessagesScreen,
