@@ -13,9 +13,9 @@ import com.mwaibanda.momentum.android.presentation.offer.transaction.Transaction
 import com.mwaibanda.momentum.android.presentation.sermon.SermonViewModel
 import com.mwaibanda.momentum.android.presentation.volunteer.ServicesViewModel
 import com.mwaibanda.momentum.android.presentation.volunteer.meal.MealViewModel
+import com.mwaibanda.momentum.domain.models.Day
 import com.mwaibanda.momentum.domain.models.Meal
 import com.mwaibanda.momentum.domain.models.Payment
-import com.mwaibanda.momentum.domain.models.Tab
 import com.mwaibanda.momentum.domain.models.VolunteeredMeal
 import com.stripe.android.PaymentConfiguration
 import com.stripe.android.paymentsheet.PaymentSheet
@@ -44,7 +44,7 @@ open class BaseActivity : FragmentActivity() {
 
     protected val volunteeredMealChannel = Channel<VolunteeredMeal>()
     protected val mealChannel = Channel<Meal>()
-    protected val tabChannel = Channel<Tab>()
+    protected val dayChannel = Channel<Day>()
 
     init {
         authViewModel.checkAndSignIn()

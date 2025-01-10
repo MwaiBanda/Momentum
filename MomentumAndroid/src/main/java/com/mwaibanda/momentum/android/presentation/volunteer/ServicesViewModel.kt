@@ -3,6 +3,7 @@ package com.mwaibanda.momentum.android.presentation.volunteer
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.mwaibanda.momentum.domain.models.DayRequest
 import com.mwaibanda.momentum.domain.models.Service
 import com.mwaibanda.momentum.domain.models.Tab
 import com.mwaibanda.momentum.domain.models.VolunteerServiceRequest
@@ -60,6 +61,21 @@ class ServicesViewModel(
     fun postVolunteerService(request: VolunteerServiceRequest) {
         viewModelScope.launch {
             servicesUseCase.create(request).collectLatest {
+                when(it) {
+                    is Result.Data -> {
+                        _refreshCount.value++
+                        Log.e("GET[Data]", "postVolunteerService")
+                    }
+                    is Result.Error -> Log.e("ServicesViewModel[postVolunteerService]", it.message ?: "")
+
+                    is Result.Loading -> Log.e("GET[Loading]", "Service")
+                }
+            }
+        }
+    }
+    fun updateVolunteerServiceDay(request: DayRequest) {
+        viewModelScope.launch {
+            servicesUseCase.updateDay(request).collectLatest {
                 when(it) {
                     is Result.Data -> {
                         _refreshCount.value++

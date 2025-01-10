@@ -5,7 +5,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class VolunteerServiceRequest(
-    val days: List<DayRequest>,
+    val days: List<DayMetadata>,
     val description: String,
     val email: String,
     val id: String,

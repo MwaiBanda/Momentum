@@ -1,5 +1,6 @@
 package com.mwaibanda.momentum.android.presentation.volunteer
 
+import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -44,19 +45,45 @@ import com.mwaibanda.momentum.android.core.utils.Modal
 import com.mwaibanda.momentum.android.core.utils.getDate
 import com.mwaibanda.momentum.android.presentation.components.RecipientInfo
 import com.mwaibanda.momentum.domain.models.Day
+import com.mwaibanda.momentum.domain.models.DayRequest
 import com.mwaibanda.momentum.domain.models.VolunteerService
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.launch
 
 @Composable
 fun VolunteerServiceDetail(
-    currentMeal: VolunteerService,
-    onShowModal: (Modal) -> Unit
+    currentService: VolunteerService,
+    servicesViewModel: ServicesViewModel,
+    channel: Channel<Day>,
+    onShowModal: (Modal, Day?) -> Unit
 ) {
-    var meals by remember {
+    var days by remember {
         mutableStateOf(emptyList<Day>())
     }
 
     LaunchedEffect(key1 = Unit) {
-        meals = currentMeal.days.sortedBy { getDate(it.date) }.toMutableList()
+        days = currentService.days.sortedBy { getDate(it.date) }.toMutableList()
+        launch {
+            for (day in channel) {
+                Log.e("[DAY]", days.toString())
+                val index = days.indexOfFirst { it.id == day.id }
+                days = buildList {
+                    addAll(days)
+                    removeAt(index)
+                }
+                servicesViewModel.updateVolunteerServiceDay(
+                    DayRequest(
+                        id = day.id,
+                        notes = day.notes,
+                        date = day.date,
+                    )
+                )
+                days = buildList {
+                    addAll(days)
+                    add(index, day)
+                }
+            }
+        }
     }
     Column(
         Modifier
@@ -82,22 +109,22 @@ fun VolunteerServiceDetail(
                 )
                 RecipientInfo(
                     title = "Team Lead",
-                    description = currentMeal.organizer,
+                    description = currentService.organizer,
                     icon = Icons.Outlined.Shield
                 )
                 RecipientInfo(
                     title = "Email",
-                    description = currentMeal.email,
+                    description = currentService.email,
                     icon = Icons.Outlined.People
                 )
                 RecipientInfo(
                     title = "Description",
-                    description = currentMeal.description,
+                    description = currentService.description,
                     icon = Icons.Outlined.Timelapse
                 )
                 OutlinedButton(
                     onClick = {
-                        onShowModal(Modal.ViewRecipientInfo)
+                        onShowModal(Modal.ViewRecipientInfo, null)
                     },
                     modifier = Modifier
                         .fillMaxWidth()
@@ -123,7 +150,7 @@ fun VolunteerServiceDetail(
             style = MaterialTheme.typography.h6,
             fontWeight = FontWeight.Bold
         )
-        meals.forEachIndexed { index, volunteeredMeal ->
+        days.forEachIndexed { _, volunteeredServiceDay ->
             Card(
                 Modifier
                     .heightIn(min = 55.dp)
@@ -136,10 +163,10 @@ fun VolunteerServiceDetail(
                 Row(Modifier.padding(10.dp)) {
                     Column {
                         Text(
-                            text = getDate(volunteeredMeal.date).split(",").first().trim(),
+                            text = getDate(volunteeredServiceDay.date).split(",").first().trim(),
                             fontWeight = FontWeight.Medium
                         )
-                        Text(text = getDate(volunteeredMeal.date).split(",").last().trim())
+                        Text(text = getDate(volunteeredServiceDay.date).split(",").last().trim())
                     }
 
                     Box(
@@ -149,7 +176,7 @@ fun VolunteerServiceDetail(
                             .background(Color.Gray.copy(0.5f))
                             .width(1.dp)
                     )
-                    if (volunteeredMeal.notes.isEmpty()) {
+                    if (volunteeredServiceDay.notes.isEmpty()) {
                         Column {
                             Text(
                                 text = "Available",
@@ -157,7 +184,7 @@ fun VolunteerServiceDetail(
                             )
                             Button(
                                 onClick = {
-                                    onShowModal(Modal.PostVolunteerMeal)
+                                    onShowModal(Modal.PostVolunteerServiceDay, volunteeredServiceDay)
                                 },
                                 elevation = ButtonDefaults.elevation(0.dp, 0.dp),
                                 modifier = Modifier
@@ -186,7 +213,7 @@ fun VolunteerServiceDetail(
                             contentAlignment = Alignment.Center
                         ) {
                             Text(
-                                text = volunteeredMeal.user?.fullname
+                                text = volunteeredServiceDay.user?.fullname
                                     ?.split(" ")
                                     ?.map { it.firstOrNull().toString() }
                                     ?.reduce { x, y -> x + y } ?: "",
@@ -198,8 +225,8 @@ fun VolunteerServiceDetail(
                     }
 
                     Column(Modifier.padding(start = 10.dp)) {
-                        Text(text = volunteeredMeal.user?.fullname ?: "", fontWeight = FontWeight.Medium)
-                        Text(text = volunteeredMeal.notes.trim())
+                        Text(text = volunteeredServiceDay.user?.fullname ?: "", fontWeight = FontWeight.Medium)
+                        Text(text = volunteeredServiceDay.notes.trim())
                     }
                 }
             }

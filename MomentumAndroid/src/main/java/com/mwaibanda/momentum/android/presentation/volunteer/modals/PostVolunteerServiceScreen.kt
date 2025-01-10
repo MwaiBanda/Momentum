@@ -59,7 +59,7 @@ import com.mwaibanda.momentum.android.presentation.auth.AuthViewModel
 import com.mwaibanda.momentum.android.presentation.components.BaseModal
 import com.mwaibanda.momentum.android.presentation.components.IconTextField
 import com.mwaibanda.momentum.android.presentation.volunteer.ServicesViewModel
-import com.mwaibanda.momentum.domain.models.DayRequest
+import com.mwaibanda.momentum.domain.models.DayMetadata
 import com.mwaibanda.momentum.domain.models.Meal
 import com.mwaibanda.momentum.domain.models.Tab
 import com.mwaibanda.momentum.domain.models.VolunteerServiceRequest
@@ -254,7 +254,7 @@ fun PostVolunteerServiceScreen(
                                     organizer = organizer.text,
                                     userId = authViewModel.currentUser?.id ?: "",
                                     days = calendarState.selectionState.selection.map {
-                                        DayRequest(
+                                        DayMetadata(
                                             date = "$it 05:00:00 +0000"
                                         )
                                     },

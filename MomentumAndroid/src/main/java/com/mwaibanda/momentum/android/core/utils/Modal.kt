@@ -5,6 +5,7 @@ enum class Modal {
     Authentication,
     PostMeal,
     PostVolunteerService,
+    PostVolunteerServiceDay,
     PostVolunteerMeal,
     ViewRecipientInfo
 }

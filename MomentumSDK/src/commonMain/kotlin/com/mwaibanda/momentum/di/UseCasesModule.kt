@@ -24,6 +24,7 @@ import com.mwaibanda.momentum.domain.usecase.payment.CheckoutUseCase
 import com.mwaibanda.momentum.domain.usecase.sermon.GetSermonsUseCase
 import com.mwaibanda.momentum.domain.usecase.service.GetAllServicesUseCase
 import com.mwaibanda.momentum.domain.usecase.service.GetServiceByTypeUseCase
+import com.mwaibanda.momentum.domain.usecase.service.PostVolunteerServiceDayUseCase
 import com.mwaibanda.momentum.domain.usecase.service.PostVolunteerServiceUseCase
 import com.mwaibanda.momentum.domain.usecase.service.ServicesUseCases
 import com.mwaibanda.momentum.domain.usecase.transaction.GetTransactionsUseCase
@@ -92,7 +93,8 @@ val useCasesModule = module {
     single { GetAllServicesUseCase(serviceRepository = get()) }
     single { GetServiceByTypeUseCase(serviceRepository = get()) }
     single { PostVolunteerServiceUseCase(serviceRepository = get()) }
-    single { ServicesUseCases(create = get(), readByType = get(), read = get()) }
+    single { PostVolunteerServiceDayUseCase(serviceRepository = get()) }
+    single { ServicesUseCases(create = get(), readByType = get(), read = get(), updateDay = get()) }
     /**
      * @Notification - Use-cases
      */

@@ -48,8 +48,8 @@ import com.mwaibanda.momentum.android.presentation.auth.AuthViewModel
 import com.mwaibanda.momentum.android.presentation.components.BaseModal
 import com.mwaibanda.momentum.android.presentation.components.IconTextField
 import com.mwaibanda.momentum.android.presentation.offer.profile.ProfileViewModel
+import com.mwaibanda.momentum.domain.models.Day
 import com.mwaibanda.momentum.domain.models.User
-import com.mwaibanda.momentum.domain.models.VolunteeredMeal
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -58,13 +58,10 @@ import kotlinx.coroutines.launch
 fun PostVolunteerServiceDayScreen(
     profileViewModel: ProfileViewModel,
     authViewModel: AuthViewModel,
-    channel: Channel<VolunteeredMeal>,
-    volunteeredMeal: VolunteeredMeal,
+    channel: Channel<Day>,
+    volunteeredServiceDay: Day,
     closeModal: () -> Unit
 ){
-    var meal by remember {
-        mutableStateOf("")
-    }
     var notes by remember {
         mutableStateOf("")
     }
@@ -106,7 +103,7 @@ fun PostVolunteerServiceDayScreen(
                                 color = Color.Gray
                             )
                             Text(
-                                text = "With this new meal",
+                                text = "Add any notes and volunteer",
                                 fontWeight = FontWeight.Bold,
                                 color = Color.Gray
                             )
@@ -137,33 +134,16 @@ fun PostVolunteerServiceDayScreen(
                 Column(
                     Modifier
                         .fillMaxWidth()
-                        .fillMaxHeight(0.8f)
+                        .fillMaxHeight(0.7f)
                         .verticalScroll(rememberScrollState())
                 ) {
                     IconTextField(
-                        text = TextFieldValue(getDate(volunteeredMeal.date)),
+                        text = TextFieldValue(getDate(volunteeredServiceDay.date)),
                         placeholder = "Date",
                         icon = Icons.Outlined.CalendarMonth,
                         keyboardType = KeyboardType.Text,
                         accentColor = Color.Gray,
                         isReadOnly = true
-                    )
-                    Divider()
-                    Text(
-                        text = "Meal",
-                        modifier = Modifier.padding(horizontal = 10.dp),
-                        fontWeight = FontWeight.Bold,
-                        color = Color.Gray
-                    )
-                    BasicTextField(
-                        value = meal,
-                        onValueChange = { meal = it },
-                        minLines = 5,
-                        maxLines = 5,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .wrapContentHeight()
-                            .padding(horizontal = 10.dp)
                     )
                     Divider()
                     Text(
@@ -191,11 +171,9 @@ fun PostVolunteerServiceDayScreen(
                             closeModal()
                             coroutineScope.launch {
                                 channel.send(
-                                    VolunteeredMeal(
-                                        id = volunteeredMeal.id,
-                                        createdOn = volunteeredMeal.createdOn,
-                                        description =  meal,
-                                        date = volunteeredMeal.date,
+                                    Day(
+                                        id = volunteeredServiceDay.id,
+                                        date = volunteeredServiceDay.date,
                                         notes = notes,
                                         user = User(
                                             profileViewModel.fullname,
@@ -207,7 +185,6 @@ fun PostVolunteerServiceDayScreen(
                                 )
                                 launch {
                                     delay(1500)
-                                    meal = ""
                                     notes = ""
                                 }
                             }

@@ -60,8 +60,10 @@ import com.mwaibanda.momentum.android.presentation.volunteer.meal.MealScreen
 import com.mwaibanda.momentum.android.presentation.volunteer.meal.MealsDetailScreen
 import com.mwaibanda.momentum.android.presentation.volunteer.meal.modals.PostMealScreen
 import com.mwaibanda.momentum.android.presentation.volunteer.meal.modals.PostVolunteerMealScreen
+import com.mwaibanda.momentum.android.presentation.volunteer.meal.modals.PostVolunteerServiceDayScreen
 import com.mwaibanda.momentum.android.presentation.volunteer.meal.modals.PostVolunteerServiceScreen
 import com.mwaibanda.momentum.android.presentation.volunteer.meal.modals.ViewRecipientInfoScreen
+import com.mwaibanda.momentum.domain.models.Day
 import com.mwaibanda.momentum.domain.models.Meal
 import com.mwaibanda.momentum.domain.models.Sermon
 import com.mwaibanda.momentum.domain.models.Tab
@@ -166,6 +168,10 @@ class MainActivity : BaseActivity() {
             var currentVolunteeredService: VolunteerService? by rememberSaveable {
                 mutableStateOf(null)
             }
+            var currentVolunteeredServiceDay: Day? by rememberSaveable {
+                mutableStateOf(null)
+            }
+
             var currentTab: Tab? by rememberSaveable {
                 mutableStateOf(null)
             }
@@ -240,6 +246,15 @@ class MainActivity : BaseActivity() {
                                     closeModal
                                 )
                             }
+                            PostVolunteerServiceDay -> currentVolunteeredServiceDay?.let {
+                                PostVolunteerServiceDayScreen(
+                                    profileViewModel = profileViewModel,
+                                    authViewModel = authViewModel,
+                                    channel = dayChannel,
+                                    volunteeredServiceDay = it,
+                                    closeModal
+                                )
+                            }
                         }
                     }
                 ) {
@@ -277,10 +292,19 @@ class MainActivity : BaseActivity() {
                             arguments = listOf(navArgument("service") {
                                 type = NavType.StringType
                             })
-                        ) { navBackStackEntry ->
+                        ) {
                             currentVolunteeredService?.let {
-                                VolunteerServiceDetail(it) {
-
+                                VolunteerServiceDetail(
+                                    currentService = it,
+                                    channel = dayChannel,
+                                    servicesViewModel = servicesViewModel
+                                ) { modal, day ->
+                                    currentVolunteeredServiceDay = day
+                                    if (authViewModel.currentUser?.isGuest == true) {
+                                        showModal(Authentication)
+                                    } else {
+                                        showModal(modal)
+                                    }
                                 }
                             }
                         }
