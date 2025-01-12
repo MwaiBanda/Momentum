@@ -1,4 +1,4 @@
-package com.mwaibanda.momentum.android.presentation.volunteer
+package com.mwaibanda.momentum.android.presentation.volunteer.service
 
 import android.util.Log
 import androidx.compose.foundation.BorderStroke
@@ -44,6 +44,7 @@ import com.mwaibanda.momentum.android.core.utils.C
 import com.mwaibanda.momentum.android.core.utils.Modal
 import com.mwaibanda.momentum.android.core.utils.getDate
 import com.mwaibanda.momentum.android.presentation.components.RecipientInfo
+import com.mwaibanda.momentum.android.presentation.volunteer.ServicesViewModel
 import com.mwaibanda.momentum.domain.models.Day
 import com.mwaibanda.momentum.domain.models.DayRequest
 import com.mwaibanda.momentum.domain.models.VolunteerService
@@ -124,7 +125,7 @@ fun VolunteerServiceDetail(
                 )
                 OutlinedButton(
                     onClick = {
-                        onShowModal(Modal.ViewRecipientInfo, null)
+//                        onShowModal(Modal.ViewRecipientInfo, null)
                     },
                     modifier = Modifier
                         .fillMaxWidth()

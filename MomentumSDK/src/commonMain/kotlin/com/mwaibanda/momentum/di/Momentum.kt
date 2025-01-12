@@ -8,6 +8,6 @@ import org.koin.core.component.inject
 
 object Momentum: KoinComponent {
     val messageUseCases: MessageUseCases by inject()
-    val servicesUseCasesUseCases: ServicesUseCases by inject()
+    val servicesUseCases: ServicesUseCases by inject()
     val auth = Authentication
 }

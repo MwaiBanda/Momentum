@@ -39,6 +39,14 @@
 		1CA5277328CED0DC00066605 /* AppReviewRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CA5277228CED0DC00066605 /* AppReviewRequester.swift */; };
 		1CB27F912B0F447A0029E9E9 /* EventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB27F902B0F447A0029E9E9 /* EventView.swift */; };
 		1CB27F932B0F44920029E9E9 /* EventViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB27F922B0F44920029E9E9 /* EventViewModel.swift */; };
+		1CE595E72D3345E300E87FA1 /* Services.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE595E62D3345E300E87FA1 /* Services.swift */; };
+		1CE595E92D33462900E87FA1 /* ServicesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE595E82D33461C00E87FA1 /* ServicesViewModel.swift */; };
+		1CE595EC2D33517100E87FA1 /* DescriptionCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE595EB2D33517100E87FA1 /* DescriptionCard.swift */; };
+		1CE595EE2D33517B00E87FA1 /* DefaultTextfield.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE595ED2D33517B00E87FA1 /* DefaultTextfield.swift */; };
+		1CE595F02D33518C00E87FA1 /* UploadMealCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE595EF2D33518C00E87FA1 /* UploadMealCardView.swift */; };
+		1CE595F22D33525200E87FA1 /* VolunteerServiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE595F12D33525200E87FA1 /* VolunteerServiceView.swift */; };
+		1CE595F42D33582600E87FA1 /* RecipentInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE595F32D33582600E87FA1 /* RecipentInfo.swift */; };
+		1CE595F62D335D5D00E87FA1 /* VolunteerServiceDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE595F52D335D5D00E87FA1 /* VolunteerServiceDetailView.swift */; };
 		1CE5BEAF2A80C939008F7BD8 /* MultiDatePicker in Frameworks */ = {isa = PBXBuildFile; productRef = 1CE5BEAE2A80C939008F7BD8 /* MultiDatePicker */; };
 		1CE5BEB12A80D74D008F7BD8 /* postSuccess.json in Resources */ = {isa = PBXBuildFile; fileRef = 1CE5BEB02A80D74D008F7BD8 /* postSuccess.json */; };
 		1CE8F2B228D92AFB0077F2F0 /* SermonsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE8F2B128D92AFB0077F2F0 /* SermonsViewModel.swift */; };
@@ -143,6 +151,14 @@
 		1CA5277228CED0DC00066605 /* AppReviewRequester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppReviewRequester.swift; sourceTree = "<group>"; };
 		1CB27F902B0F447A0029E9E9 /* EventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventView.swift; sourceTree = "<group>"; };
 		1CB27F922B0F44920029E9E9 /* EventViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventViewModel.swift; sourceTree = "<group>"; };
+		1CE595E62D3345E300E87FA1 /* Services.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services.swift; sourceTree = "<group>"; };
+		1CE595E82D33461C00E87FA1 /* ServicesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServicesViewModel.swift; sourceTree = "<group>"; };
+		1CE595EB2D33517100E87FA1 /* DescriptionCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionCard.swift; sourceTree = "<group>"; };
+		1CE595ED2D33517B00E87FA1 /* DefaultTextfield.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultTextfield.swift; sourceTree = "<group>"; };
+		1CE595EF2D33518C00E87FA1 /* UploadMealCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadMealCardView.swift; sourceTree = "<group>"; };
+		1CE595F12D33525200E87FA1 /* VolunteerServiceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolunteerServiceView.swift; sourceTree = "<group>"; };
+		1CE595F32D33582600E87FA1 /* RecipentInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipentInfo.swift; sourceTree = "<group>"; };
+		1CE595F52D335D5D00E87FA1 /* VolunteerServiceDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolunteerServiceDetailView.swift; sourceTree = "<group>"; };
 		1CE5BEB02A80D74D008F7BD8 /* postSuccess.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = postSuccess.json; sourceTree = "<group>"; };
 		1CE8F2B128D92AFB0077F2F0 /* SermonsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SermonsViewModel.swift; sourceTree = "<group>"; };
 		1CE8F2B328D92B220077F2F0 /* SermonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SermonsView.swift; sourceTree = "<group>"; };
@@ -303,6 +319,26 @@
 			path = Events;
 			sourceTree = "<group>";
 		};
+		1CE595E42D33452A00E87FA1 /* Volunteer */ = {
+			isa = PBXGroup;
+			children = (
+				1CE595EA2D334F5900E87FA1 /* Service */,
+				1CE595E82D33461C00E87FA1 /* ServicesViewModel.swift */,
+				1C46D12F2A8072CA00E5FB25 /* Meals */,
+				1CE595E62D3345E300E87FA1 /* Services.swift */,
+			);
+			path = Volunteer;
+			sourceTree = "<group>";
+		};
+		1CE595EA2D334F5900E87FA1 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				1CE595F52D335D5D00E87FA1 /* VolunteerServiceDetailView.swift */,
+				1CE595F12D33525200E87FA1 /* VolunteerServiceView.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
 		1CE8F2B028D92ACA0077F2F0 /* Sermons */ = {
 			isa = PBXGroup;
 			children = (
@@ -387,9 +423,9 @@
 		8126AF6E286FD7AF007DBAB9 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				1CE595E42D33452A00E87FA1 /* Volunteer */,
 				1CB27F8F2B0F444B0029E9E9 /* Events */,
 				1C1551242AF8B38A002393B3 /* Messages */,
-				1C46D12F2A8072CA00E5FB25 /* Meals */,
 				1CE8F2B028D92ACA0077F2F0 /* Sermons */,
 				813E775C288DC5C700109C19 /* Profile */,
 				8182E776288B919700A9CF9D /* Auth */,
@@ -459,6 +495,10 @@
 		8126AF87286FF11B007DBAB9 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				1CE595F32D33582600E87FA1 /* RecipentInfo.swift */,
+				1CE595EF2D33518C00E87FA1 /* UploadMealCardView.swift */,
+				1CE595ED2D33517B00E87FA1 /* DefaultTextfield.swift */,
+				1CE595EB2D33517100E87FA1 /* DescriptionCard.swift */,
 				1C3CF16C28D984DD00B46FC1 /* Shape */,
 				81B802DF2877ED940008509D /* Styles */,
 				8182E77B288B9CC100A9CF9D /* PasswordTextfield.swift */,
@@ -784,19 +824,24 @@
 			files = (
 				811A3E7F287E16AF0052682B /* PaymentSummaryContentView.swift in Sources */,
 				81B802D82877E7C40008509D /* PaymentResultView.swift in Sources */,
+				1CE595E92D33462900E87FA1 /* ServicesViewModel.swift in Sources */,
 				1C3CF17028D98B1600B46FC1 /* Models+Swift.swift in Sources */,
 				81B802D62877E46A0008509D /* PaymentSummaryView.swift in Sources */,
 				818A2E99288DFE5E005D7449 /* BasePlainExpandableCard.swift in Sources */,
 				1C408EEB2A8AE11200218708 /* MealViewModel.swift in Sources */,
+				1CE595EE2D33517B00E87FA1 /* DefaultTextfield.swift in Sources */,
 				2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */,
 				813E775E288DC60500109C19 /* ProfileView.swift in Sources */,
 				81E937CD288E4F2400D74BD3 /* ProfileViewModel.swift in Sources */,
+				1CE595F22D33525200E87FA1 /* VolunteerServiceView.swift in Sources */,
 				819498002887B2460099B30B /* ToggleLabel.swift in Sources */,
 				1C46D1312A8072EB00E5FB25 /* MealsView.swift in Sources */,
 				816CCDE1288F365600795B59 /* LinkLabel.swift in Sources */,
 				816CCDE328903C8C00795B59 /* SignInView.swift in Sources */,
 				81E8F8D12892144400F4A87C /* ProfileCards.swift in Sources */,
 				1C8BACBC292317AE00731617 /* SingletonModule.swift in Sources */,
+				1CE595F62D335D5D00E87FA1 /* VolunteerServiceDetailView.swift in Sources */,
+				1CE595EC2D33517100E87FA1 /* DescriptionCard.swift in Sources */,
 				8184A3D9288B85FF00083399 /* NavConfiguration.swift in Sources */,
 				8182E77A288B91FB00A9CF9D /* BlurredBackground.swift in Sources */,
 				814E5DE728778E470008BAC1 /* PaymentViewModel.swift in Sources */,
@@ -806,6 +851,7 @@
 				81B802D42877E4080008509D /* LoadingView.swift in Sources */,
 				1C6F04652AFA039C00A3C2D6 /* MessageViewModel.swift in Sources */,
 				1CE8F2B228D92AFB0077F2F0 /* SermonsViewModel.swift in Sources */,
+				1CE595F02D33518C00E87FA1 /* UploadMealCardView.swift in Sources */,
 				819E6161288654F0007BD761 /* TransactionView.swift in Sources */,
 				1C408EE72A81E68F00218708 /* Card.swift in Sources */,
 				1C408EE92A82EE0200218708 /* MealDetailView.swift in Sources */,
@@ -816,6 +862,7 @@
 				1C82C2A628ED277000E19A30 /* SermonCard.swift in Sources */,
 				8126AF77286FE009007DBAB9 /* Color+Swift.swift in Sources */,
 				81E937CF288E5E2A00D74BD3 /* TitledTextField.swift in Sources */,
+				1CE595F42D33582600E87FA1 /* RecipentInfo.swift in Sources */,
 				8126AF85286FEF39007DBAB9 /* MenuView.swift in Sources */,
 				813E158F287F48F10069A6BB /* PaymentSummaryContentViewModel.swift in Sources */,
 				8126AF8B286FFD84007DBAB9 /* BackgroundView.swift in Sources */,
@@ -834,6 +881,7 @@
 				1C83C85C2AFA1229008026F4 /* MessageCard.swift in Sources */,
 				8126AF86286FEF39007DBAB9 /* BottomTabBar.swift in Sources */,
 				81B802DA2877E7D80008509D /* PaymentSuccessView.swift in Sources */,
+				1CE595E72D3345E300E87FA1 /* Services.swift in Sources */,
 				81B802DE2877ED7F0008509D /* FilledButtonStyle.swift in Sources */,
 				8182E77C288B9CC100A9CF9D /* PasswordTextfield.swift in Sources */,
 				1C8BACBE2923191B00731617 /* ControllerModule.swift in Sources */,

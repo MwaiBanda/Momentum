@@ -1,149 +1,16 @@
 //
-//  Meals.swift
+//  UploadMealCardView.swift
 //  MomentumiOS
 //
-//  Created by Mwai Banda on 8/6/23.
-//  Copyright © 2023 Momentum. All rights reserved.
+//  Created by Mwai Banda on 1/11/25.
+//  Copyright © 2025 Momentum. All rights reserved.
 //
 
 import SwiftUI
-import MultiDatePicker
 import MomentumSDK
 import Lottie
+import MultiDatePicker
 
-
-struct MealsView: View {
-    @StateObject private var profileViewModel = ProfileViewModel()
-    @State private var showAddMealSheet = false
-    @State private var showAuthSheet = false
-    @State private var meals = [Meal]()
-    @StateObject private var mealViewModel = MealViewModel()
-    @EnvironmentObject var session: Session
-    
-    var body: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            Divider()
-            HStack {
-                Text(MultiplatformConstants.shared.MEALS_SUBHEADING.uppercased())
-                    .font(.caption2)
-                    .foregroundColor(Color(hex: Constants.MOMENTUM_ORANGE))
-                    .padding(.leading)
-                    .padding(.leading, 5)
-                
-                Spacer()
-            }
-            .padding(.top, 5)
-            if #available(iOS 15, *) {
-                MealsList(meals: $meals, mealViewModel: mealViewModel, profileViewModel: profileViewModel)
-                    .refreshable {
-                        meals = []
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5, execute: {
-                            mealViewModel.getMeals(isResfreshing: true) { meals in
-                                self.meals = meals
-                            }
-                        })
-                    }
-            } else {
-                MealsList(meals: $meals, mealViewModel: mealViewModel, profileViewModel: profileViewModel)
-            }
-            Divider()
-                .padding(.bottom, 5)
-        }
-        .onAppear {
-            DispatchQueue.global().async {
-                if !(session.currentUser?.isGuest ?? true) {
-                    profileViewModel.getContactInformation(userId: session.currentUser?.id ?? "") {
-                        profileViewModel.getBillingInformation(userId: session.currentUser?.id ?? "")
-                    }
-                }
-                mealViewModel.getMeals { meal in
-                    DispatchQueue.main.async {
-                        meals = meal
-                    }
-                }
-            }
-        }
-        .navigationBarTitleDisplayMode(.inline)
-        .toolbar(
-            content: {
-                ToolbarItemGroup(placement: .navigationBarLeading) {
-                    Text("Meals")
-                        .font(.title3)
-                        .fontWeight(.heavy)
-                }
-                
-                ToolbarItemGroup(placement: .navigationBarTrailing) {
-                    Button {
-                        withAnimation(.easeInOut(duration: 0.35)) {
-                            if (session.currentUser?.isGuest ?? true) {
-                                showAuthSheet.toggle()
-                            } else {
-                                showAddMealSheet.toggle()
-                            }
-                        }
-                    } label: {
-                        Image(systemName: "plus")
-                    }
-                    
-                }
-            }
-        )
-        .sheet(isPresented: $showAuthSheet) {
-            MomentumBlurredBackground {
-                AuthControllerView()
-            }
-        }
-        .sheet(isPresented: $showAddMealSheet) {
-            ZStack {
-                UploadMealCardView(onDismiss: { request in
-                    mealViewModel.postMeal(request: request) { _ in
-                        mealViewModel.getMeals { meals in
-                            self.meals = meals
-                        }
-                    }
-                    showAddMealSheet.toggle()
-                })
-            }.onTapGesture {
-                UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-            }
-        }
-    }
-}
-
-struct Meals_Previews: PreviewProvider {
-    static var previews: some View {
-        MealsView()
-    }
-}
-
-struct MealsList: View {
-    @Binding var meals: [Meal]
-    @ObservedObject var mealViewModel: MealViewModel
-    @ObservedObject var profileViewModel: ProfileViewModel
-    
-    var body: some View {
-        ScrollView(showsIndicators: false) {
-            if meals.isEmpty {
-                ForEach(0..<12, id: \.self) { _ in
-                    DescriptionCard(title: "placeholder", description: "placeholder")
-                }
-            } else {
-                ForEach(meals) { meal in
-                    NavigationLink  {
-                        MealDetailView(mealViewModel: mealViewModel, profileViewModel: profileViewModel, mealRequest: meal)
-                    } label: {
-                        DescriptionCard(title: meal.recipient, description: meal.reason)
-                            .padding(.bottom, 5)
-                            .padding([.bottom, .horizontal], 5)
-                    }
-                }
-            }
-        }
-        .redacted(reason: meals.isEmpty ? .placeholder : [])
-        .padding(.top, 15)
-        .padding(.bottom, 10)
-    }
-}
 struct UploadMealCardView: View {
     @State private var currentPage = Int()
     @State private var timer = Timer.publish(every: 3, on: .main, in: .common).autoconnect()
@@ -389,63 +256,5 @@ struct UploadMealCardView: View {
     
     func startTimer() {
         self.timer = Timer.publish(every: 0.01, on: .main, in: .common).autoconnect()
-    }
-}
-
-
-struct DefaultTextfield: View {
-    var title: String
-    var icon: String
-    @Binding var text: String
-    var body: some View {
-        TextField(title, text: $text)
-            .textContentType(.username)
-            .disableAutocorrection(true)
-            .keyboardType(.emailAddress)
-            .autocapitalization(.none)
-            .padding(.leading, 24)
-            .padding(15)
-            .foregroundColor(Color.black)
-            .cornerRadius(7)
-            .disableAutocorrection(false)
-            .overlay(
-                HStack{
-                    Image(systemName: icon)
-                    Spacer()
-                }
-                    .padding(.horizontal, 12)
-                    .foregroundColor(Color.gray)
-                
-            )
-            .ignoresSafeArea(.keyboard, edges: .bottom)
-    }
-}
-
-struct DescriptionCard: View {
-    var title: String
-    var description: String
-    
-    var body: some View {
-        Card {
-            HStack {
-                VStack(alignment: .leading) {
-                    Text(title)
-                        .font(.title3)
-                        .fontWeight(.bold)
-                        .foregroundColor(Color.black)
-                    Text(description)
-                        .foregroundColor(.gray)
-                }
-                Spacer()
-                Image(systemName: "chevron.right")
-                    .foregroundColor(Color.black)
-            }
-            .padding(5)
-            .padding(.horizontal, 10)
-            .padding(.vertical, 10)
-        }
-        .frame(maxHeight: 70)
-        .padding(.horizontal, 10)
-        .padding(.top, 5)
     }
 }

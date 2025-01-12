@@ -17,12 +17,12 @@ struct MealDetailView: View {
 
     @State private var showRepcipentInfoSheet = false
     @State private var showVoluteerSheet = false
-    @State private var meal = "\u{2022} "
+    @State private var mealDescription = "\u{2022} "
     @State private var notes = "\u{2022} "
     @State private var selectedIndex = 0
     @State private var meals = [VolunteeredMeal]()
 
-    var mealRequest: Meal
+    var meal: Meal
     var body: some View {
         
         ScrollView {
@@ -41,12 +41,12 @@ struct MealDetailView: View {
                         )
                         RecipentInfo(
                             title: "Food for",
-                            description: "\(mealRequest.numOfAdults) Adults, \(mealRequest.numberOfKids) Kids",
+                            description: "\(meal.numOfAdults) Adults, \(meal.numberOfKids) Kids",
                             icon: "person.3"
                         )
                         RecipentInfo(
                             title: "Drop-time",
-                            description: mealRequest.preferredTime,
+                            description: meal.preferredTime,
                             icon: "deskclock"
                         )
                         
@@ -170,10 +170,10 @@ struct MealDetailView: View {
                 RecipentInfo(
                     title: "Meal Drop-Off Location",
                     description:"""
-                        \(mealRequest.street)
-                        \(mealRequest.city)
-                        \(mealRequest.phone)
-                        \(mealRequest.instructions)
+                        \(meal.street)
+                        \(meal.city)
+                        \(meal.phone)
+                        \(meal.instructions)
                         """.trimmingCharacters(in: .whitespacesAndNewlines),
                     icon: "location"
                 )
@@ -183,7 +183,7 @@ struct MealDetailView: View {
                 
                 RecipentInfo(
                     title: "Preferred Drop-time Time",
-                    description: mealRequest.preferredTime,
+                    description: meal.preferredTime,
                     icon: "deskclock"
                 )
                 .padding()
@@ -191,7 +191,7 @@ struct MealDetailView: View {
                 
                 RecipentInfo(
                     title: "People to Cook for",
-                    description: "\(mealRequest.numOfAdults) Adults, \(mealRequest.numberOfKids) Kids",
+                    description: "\(meal.numOfAdults) Adults, \(meal.numberOfKids) Kids",
                     icon: "person.3"
                 )
                 .padding()
@@ -199,7 +199,7 @@ struct MealDetailView: View {
                 
                 RecipentInfo(
                     title: "Favourite Meals or Restaurants",
-                    description: "\(mealRequest.favourites)",
+                    description: "\(meal.favourites)",
                     icon: "hand.thumbsup"
                 )
                 .padding()
@@ -212,7 +212,7 @@ struct MealDetailView: View {
             
         }
         .onAppear {
-            meals = mealRequest.meals.sorted(by: { getDay(meal: $0) < getDay(meal: $1) })
+            meals = meal.meals.sorted(by: { getDay(meal: $0) < getDay(meal: $1) })
         }
         .sheet(isPresented: $showVoluteerSheet) {
             VStack {
@@ -257,12 +257,12 @@ struct MealDetailView: View {
                                 .foregroundColor(.gray)
                                 .font(.headline)
                                 .fontWeight(.semibold)
-                            TextEditor(text: $meal)
+                            TextEditor(text: $mealDescription)
                                 .frame(minHeight: 120, maxHeight: 120)
                                 .foregroundColor(.black)
-                                .onChange(of: meal) { [meal] newText in
-                                    if newText.suffix(1) == "\n" && newText > meal {
-                                        self.meal.append("\u{2022} ")
+                                .onChange(of: mealDescription) { [mealDescription] newText in
+                                    if newText.suffix(1) == "\n" && newText > mealDescription {
+                                        self.mealDescription.append("\u{2022} ")
                                     }
                                 }
                         }.padding(.horizontal, 15)
@@ -288,9 +288,9 @@ struct MealDetailView: View {
                             Button { withAnimation(.easeInOut) {
                                 
                                 let removed = meals.remove(at: selectedIndex)
-                                let meal = VolunteeredMeal(id: removed.id, createdOn: removed.createdOn, description: meal.replacingOccurrences(of: "\u{2022}", with: ""), date: removed.date, notes: notes, user: User(fullname: profileViewModel.fullname, email: profileViewModel.email, phone: profileViewModel.phone, userId: session.currentUser?.id ?? "", createdOn: Date().description))
-                                mealViewModel.postVolunteeredMeal(request: VolunteeredMealRequest(mealId: mealRequest.id, volunteeredMeal: meal)) { meal in
-                                    meals.insert(meal, at: selectedIndex)
+                                let volunteeredMeal = VolunteeredMeal(id: removed.id, createdOn: removed.createdOn, description: mealDescription.replacingOccurrences(of: "\u{2022}", with: ""), date: removed.date, notes: notes, user: User(fullname: profileViewModel.fullname, email: profileViewModel.email, phone: profileViewModel.phone, userId: session.currentUser?.id ?? "", createdOn: Date().description))
+                                mealViewModel.postVolunteeredMeal(request: VolunteeredMealRequest(mealId: meal.id, volunteeredMeal: volunteeredMeal)) { volunteeredMeal in
+                                    meals.insert(volunteeredMeal, at: selectedIndex)
                                 }
                                 showVoluteerSheet.toggle()
                                 UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
@@ -343,24 +343,3 @@ struct MealDetailView: View {
     }
 }
 
-struct RecipentInfo: View {
-    var title: String
-    var description: String
-    var icon: String
-    
-    var body: some View {
-        HStack(alignment: .firstTextBaseline) {
-            Image(systemName: icon)
-                .imageScale(.large)
-                .frame(width: 40)
-            VStack(alignment: .leading) {
-                Text(title)
-                    .font(.headline)
-                    .bold()
-                Text(description)
-                    .font(.subheadline)
-                
-            }
-        }.padding(.top, 10)
-    }
-}

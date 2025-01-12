@@ -16,12 +16,12 @@ struct BottomTabBar: View {
             Color.black.edgesIgnoringSafeArea(.all)
             TabView(selection: $selection) {
                 NavigationView {
-                    MealsView()
+                    Services()
                 }
                 .navigationViewStyle(StackNavigationViewStyle())
                 .tag(0)
                 .tabItem {
-                    Image(systemName: "takeoutbag.and.cup.and.straw")
+                    Image(systemName: "person.2")
                     
                 }
                 

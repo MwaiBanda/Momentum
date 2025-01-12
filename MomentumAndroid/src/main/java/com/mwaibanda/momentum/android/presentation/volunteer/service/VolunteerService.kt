@@ -1,4 +1,4 @@
-package com.mwaibanda.momentum.android.presentation.volunteer
+package com.mwaibanda.momentum.android.presentation.volunteer.service
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -29,6 +29,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.mwaibanda.momentum.android.core.utils.C
 import com.mwaibanda.momentum.android.presentation.components.LoadingSpinner
+import com.mwaibanda.momentum.android.presentation.volunteer.ServicesViewModel
 import com.mwaibanda.momentum.android.presentation.volunteer.meal.DescriptionCard
 import com.mwaibanda.momentum.domain.models.Tab
 import com.mwaibanda.momentum.domain.models.VolunteerService

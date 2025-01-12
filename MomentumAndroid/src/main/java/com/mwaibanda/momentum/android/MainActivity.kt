@@ -53,8 +53,8 @@ import com.mwaibanda.momentum.android.presentation.offer.profile.ProfileScreen
 import com.mwaibanda.momentum.android.presentation.offer.transaction.TransactionScreen
 import com.mwaibanda.momentum.android.presentation.sermon.PlayerScreen
 import com.mwaibanda.momentum.android.presentation.sermon.SermonScreen
-import com.mwaibanda.momentum.android.presentation.volunteer.VolunteerService
-import com.mwaibanda.momentum.android.presentation.volunteer.VolunteerServiceDetail
+import com.mwaibanda.momentum.android.presentation.volunteer.service.VolunteerService
+import com.mwaibanda.momentum.android.presentation.volunteer.service.VolunteerServiceDetail
 import com.mwaibanda.momentum.android.presentation.volunteer.VolunteerServices
 import com.mwaibanda.momentum.android.presentation.volunteer.meal.MealScreen
 import com.mwaibanda.momentum.android.presentation.volunteer.meal.MealsDetailScreen
