@@ -60,4 +60,44 @@ class ServicesViewModel: ObservableObject {
             }
         }
     }
+    
+    func updateVolunteerServiceDay(request: DayRequest, onCompletion: @escaping () -> Void) {
+        servicesUseCases.updateDay.execute(request: request).collect { res in
+            guard let status = res?.status else { fatalError("No Result Found") }
+            switch(status) {
+            case .loading:
+                os_log("[updateVolunteerServiceDay[Loading]]")
+                break
+            case .error:
+                guard let message = res?.message  else { return }
+                os_log("[updateVolunteerServiceDay[Error]]: \(message)")
+                break
+            case .data:
+                onCompletion()
+                os_log("[updateVolunteerServiceDay[Data]]")
+                break
+            default: break
+            }
+        }
+    }
+    
+    func postVolunteerService(request: VolunteerServiceRequest) {
+        servicesUseCases.create.execute(request: request).collect { res in
+            guard let status = res?.status else { fatalError("No Result Found") }
+            switch(status) {
+            case .loading:
+                os_log("[postVolunteerService[Loading]]")
+                break
+            case .error:
+                guard let message = res?.message  else { return }
+                os_log("[postVolunteerService[Error]]: \(message)")
+                break
+            case .data:
+                os_log("[postVolunteerService[Data]]")
+                break
+            default: break
+            }
+        }
+    }
+    
 }

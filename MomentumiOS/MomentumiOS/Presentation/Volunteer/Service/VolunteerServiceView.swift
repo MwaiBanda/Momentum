@@ -14,7 +14,7 @@ import Lottie
 
 struct VolunteerServiceView: View {
     @Binding var tab: MomentumSDK.Tab
-    @ObservedObject var serviceViewModel: ServicesViewModel
+    @ObservedObject var servicesViewModel: ServicesViewModel
     @StateObject private var profileViewModel = ProfileViewModel()
     @State private var showAddServiceSheet = false
     @State private var showAuthSheet = false
@@ -35,11 +35,11 @@ struct VolunteerServiceView: View {
             }
             .padding(.top, 5)
             if #available(iOS 15, *) {
-                ServiceList(services: $services, profileViewModel: profileViewModel)
+                ServiceList(services: $services, profileViewModel: profileViewModel, servicesViewModel: servicesViewModel)
                     .refreshable {
                         services = []
                         DispatchQueue.main.asyncAfter(deadline: .now() + 1.5, execute: {
-                            serviceViewModel.getServiceByType(tab: tab) { remote in
+                            servicesViewModel.getServiceByType(tab: tab) { remote in
                                 DispatchQueue.main.async {
                                     services = remote
                                 }
@@ -47,7 +47,7 @@ struct VolunteerServiceView: View {
                         })
                     }
             } else {
-                ServiceList(services: $services, profileViewModel: profileViewModel)
+                ServiceList(services: $services, profileViewModel: profileViewModel, servicesViewModel: servicesViewModel)
             }
             Divider()
                 .padding(.bottom, 5)
@@ -59,7 +59,7 @@ struct VolunteerServiceView: View {
                         profileViewModel.getBillingInformation(userId: session.currentUser?.id ?? "")
                     }
                 }
-                serviceViewModel.getServiceByType(tab: tab) { remote in
+                servicesViewModel.getServiceByType(tab: tab) { remote in
                     DispatchQueue.main.async {
                         services = remote
                     }
@@ -90,6 +90,13 @@ struct VolunteerServiceView: View {
                 AuthControllerView()
             }
         }
+        .sheet(isPresented: $showAddServiceSheet) {
+            UploadServiceCardView(tab: $tab) {
+                print("Dismiss")
+                showAddServiceSheet.toggle()
+                servicesViewModel.postVolunteerService(request: $0)
+            }
+        }
     }
 }
 
@@ -98,6 +105,7 @@ struct VolunteerServiceView: View {
 struct ServiceList: View {
     @Binding var services: [VolunteerService]
     @ObservedObject var profileViewModel: ProfileViewModel
+    @ObservedObject var servicesViewModel: ServicesViewModel
     var body: some View {
         ScrollView(showsIndicators: false) {
             if services.isEmpty {
@@ -107,7 +115,7 @@ struct ServiceList: View {
             } else {
                 ForEach(services, id: \.id) { service in
                     NavigationLink  {
-                        VolunteerServiceDetailView(profileViewModel: profileViewModel, service: service)
+                        VolunteerServiceDetailView(profileViewModel: profileViewModel, servicesViewModel: servicesViewModel, service: service)
                     } label: {
                         DescriptionCard(title: service.description_, description: service.organizer)
                             .padding(.bottom, 5)

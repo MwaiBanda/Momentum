@@ -77,6 +77,7 @@ fun VolunteerServiceDetail(
                         id = day.id,
                         notes = day.notes,
                         date = day.date,
+                        user = day.user
                     )
                 )
                 days = buildList {
@@ -214,10 +215,10 @@ fun VolunteerServiceDetail(
                             contentAlignment = Alignment.Center
                         ) {
                             Text(
-                                text = volunteeredServiceDay.user?.fullname
-                                    ?.split(" ")
-                                    ?.map { it.firstOrNull().toString() }
-                                    ?.reduce { x, y -> x + y } ?: "",
+                                text = volunteeredServiceDay.user.fullname
+                                    .split(" ")
+                                    .map { it.firstOrNull().toString() }
+                                    .reduce { x, y -> x + y },
                                 fontWeight = FontWeight.ExtraBold,
                                 style = MaterialTheme.typography.h6,
                                 color = Color.White

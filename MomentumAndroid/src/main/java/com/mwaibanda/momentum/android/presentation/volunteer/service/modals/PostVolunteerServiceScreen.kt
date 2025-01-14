@@ -126,7 +126,7 @@ fun PostVolunteerServiceScreen(
                     Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
                         Column(Modifier.padding(horizontal = 15.dp, vertical = 25.dp)) {
                             Text(text = "Let's Get Started", style = MaterialTheme.typography.h6, fontWeight = FontWeight.ExtraBold, color = Color.Gray)
-                            Text(text = "With this new meal",  fontWeight = FontWeight.Bold, color = Color.Gray)
+                            Text(text = "With this new request",  fontWeight = FontWeight.Bold, color = Color.Gray)
                         }
                         Text(text = buildAnnotatedString {
                             withStyle(SpanStyle(fontSize = 11.sp)) {

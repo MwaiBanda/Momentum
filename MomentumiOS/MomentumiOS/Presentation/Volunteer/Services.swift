@@ -50,7 +50,7 @@ struct Services: View {
                                 case .meals:
                                     MealsView()
                                 default:
-                                    VolunteerServiceView(tab: .constant(tab), serviceViewModel: serviceViewModel)
+                                    VolunteerServiceView(tab: .constant(tab), servicesViewModel: serviceViewModel)
                                 }
                             } label: {
                                 ZStack {

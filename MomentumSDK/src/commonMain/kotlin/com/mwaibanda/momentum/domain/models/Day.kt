@@ -7,5 +7,5 @@ data class Day(
     val date: String,
     val id: String,
     val notes: String,
-    val user: User? = null
+    val user: User
 )

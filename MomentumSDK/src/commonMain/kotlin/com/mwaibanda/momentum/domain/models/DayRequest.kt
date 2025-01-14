@@ -7,5 +7,5 @@ data class DayRequest(
     val date: String,
     val id: String,
     val notes: String,
-    val user: UserResponse? = null
+    val user: User? = null
 )
