@@ -1,5 +1,5 @@
 {
-  "originHash" : "81db6385950dd248d1e3e705898052402b90fc5c0d306c7712bad8fa720b3f92",
+  "originHash" : "ac27fb77a77c6e6b3fbe5796a59769f719099a112586e12bd99fb437f0ca929b",
   "pins" : [
     {
       "identity" : "abseil-cpp-binary",
@@ -11,9 +11,9 @@
       }
     },
     {
-      "identity" : "alerttoast?tab=readme-ov-file",
+      "identity" : "alerttoast",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/elai950/AlertToast?tab=readme-ov-file",
+      "location" : "https://github.com/elai950/AlertToast.git",
       "state" : {
         "revision" : "b39252eacd159904afd7d718bba0afabb87f2f2f",
         "version" : "1.3.9"

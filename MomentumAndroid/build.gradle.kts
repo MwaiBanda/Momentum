@@ -8,11 +8,11 @@ plugins {
 }
 
 android {
-    compileSdk = 35
+    compileSdk = 36
     defaultConfig {
         applicationId = "com.mwaibanda.momentum.android"
         minSdk = 26
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 40
         versionName = "1.3.3"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -87,7 +87,7 @@ dependencies {
     // Navigation
     implementation(libs.androidx.navigation.compose)
     // Icons exts
-    implementation(libs.androidx.material.icons.extended)
+    implementation(libs.androidx.compose.material.icons.extended)
     // Status Bar
     implementation(libs.accompanist.systemuicontroller)
     implementation(libs.accompanist.insets)
@@ -98,6 +98,7 @@ dependencies {
     //Koin
     implementation(libs.koin.android)
     implementation(libs.koin.core)
+    implementation(libs.koin.androidx.compose.navigation)
     // Koin Jetpack Compose
     implementation(libs.koin.androidx.compose)
     implementation(libs.koin.androidx.navigation)
@@ -121,8 +122,6 @@ dependencies {
     // Kotlin serialization
     implementation(libs.kotlinx.serialization.json)
 
-    // Auth
-    implementation(libs.authentication)
 
     // Logging
     implementation(libs.slf4j.simple)

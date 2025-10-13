@@ -157,7 +157,7 @@ fun ProfileScreen(
                             Text(
                                 text = profileViewModel.fullname.ifEmpty { "Guest" }
                                     .split(" ")
-                                    .map { it.first().toString() }
+                                    .map { it.firstOrNull()?.toString() ?: "" }
                                     .reduce { x, y -> x + y },
                                 fontWeight = FontWeight.ExtraBold,
                                 style = MaterialTheme.typography.h6,

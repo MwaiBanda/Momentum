@@ -40,11 +40,11 @@ import com.mwaibanda.momentum.domain.models.Event
 import com.mwaibanda.momentum.domain.models.EventGroup
 import com.mwaibanda.momentum.utils.MultiplatformConstants
 import com.mwaibanda.momentum.utils.randomUUID
-import org.koin.androidx.compose.getViewModel
+import org.koin.androidx.compose.koinViewModel
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun EventScreen(eventViewModel: EventViewModel = getViewModel()){
+fun EventScreen(eventViewModel: EventViewModel = koinViewModel()){
     val eventGroups by eventViewModel.filteredEvents.collectAsState()
     val searchTerm by eventViewModel.searchTerm.collectAsState()
     val searchTag by eventViewModel.searchTag().collectAsState(initial = "by event name")
@@ -144,7 +144,7 @@ fun EventScreen(eventViewModel: EventViewModel = getViewModel()){
 fun EventCard(isRedacted: Boolean = false, event: Event, onCardClicked: () -> Unit = {}) {
     Card(
         Modifier
-            .heightIn(min = 55.dp)
+            .heightIn(min = 80.dp)
             .fillMaxWidth()
             .clip(RoundedCornerShape(5.dp))
             .padding(top = 10.dp)
@@ -159,11 +159,11 @@ fun EventCard(isRedacted: Boolean = false, event: Event, onCardClicked: () -> Un
             ) {
 
                 Row(
-                    Modifier.fillMaxWidth(0.95f),
+                    Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Column {
+                    Column(Modifier.fillMaxWidth(0.65f)) {
                         Text(text = event.getFormattedStartDate(), fontWeight = FontWeight.Medium,
                             modifier = Modifier.redacted(isRedacted)
                         )
@@ -185,6 +185,7 @@ fun EventCard(isRedacted: Boolean = false, event: Event, onCardClicked: () -> Un
                         color = Color.Gray,
                         modifier = Modifier
                             .padding(vertical = if (isRedacted) 2.dp else 0.dp)
+                            .padding(end = 4.dp)
                             .redacted(isRedacted)
                     )
                 }

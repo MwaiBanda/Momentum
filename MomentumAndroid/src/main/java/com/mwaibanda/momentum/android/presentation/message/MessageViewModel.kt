@@ -1,10 +1,8 @@
 package com.mwaibanda.momentum.android.presentation.message
 
-import android.os.Build
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.mwaibanda.momentum.android.presentation.sermon.SermonViewModel
 import com.mwaibanda.momentum.domain.models.Message
 import com.mwaibanda.momentum.domain.models.MessageGroup
 import com.mwaibanda.momentum.domain.models.Note
@@ -58,6 +56,13 @@ class MessageViewModel(
 
     private val _filterBySeries = MutableStateFlow("")
     val filterBySeries = _filterBySeries.asStateFlow()
+
+    private val _searchTags = MutableStateFlow(listOf(
+        "by message",
+        "for preachers",
+        "by series",
+        "by date"
+    ))
 
     val filteredMessages = combine(
         messageGroups,
@@ -165,23 +170,11 @@ class MessageViewModel(
     fun searchTag(): Flow<String> = flow {
         while (currentCoroutineContext().isActive) {
             delay(2500)
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM) {
-                searchTags.add(searchTags.removeFirst())
-            } else {
-                searchTags = buildList {
-                    addAll(searchTags)
-                    add(removeAt(0))
-                }.toMutableList()
+            _searchTags.value = buildList {
+                addAll(_searchTags.value)
+                add(removeAt(0))
             }
-            emit(SermonViewModel.searchTags.first())
+            emit(_searchTags.value.first())
         }
-    }
-    companion object {
-        var searchTags = mutableListOf(
-            "by message",
-            "for preachers",
-            "by series",
-            "by date"
-        )
     }
 }

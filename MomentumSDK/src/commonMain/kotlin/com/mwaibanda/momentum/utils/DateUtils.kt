@@ -1,11 +1,13 @@
 package com.mwaibanda.momentum.utils
 
-import kotlinx.datetime.Clock
+import kotlin.time.Clock.System
 import kotlin.time.Duration.Companion.hours
+import kotlin.time.ExperimentalTime
 
+@OptIn(ExperimentalTime::class)
 fun getMMDDateFormat(): String {
     val dateTime = DateTime()
-    val currentMoment = Clock.System.now().minus(3.hours).toString()
+    val currentMoment = System.now().minus(3.hours).toString()
     return dateTime.getFormattedDate(currentMoment,"MMM d")
 
 }

@@ -51,14 +51,14 @@ import com.mwaibanda.momentum.domain.models.Transaction
 import com.mwaibanda.momentum.domain.models.User
 import com.stripe.android.paymentsheet.PaymentSheetContract
 import com.stripe.android.paymentsheet.PaymentSheetResult
-import org.koin.androidx.compose.getViewModel
+import org.koin.androidx.compose.koinViewModel
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 @Composable
 fun PaymentSummaryScreen(
     navController: NavController,
-    contentViewModel: PaymentSummaryContentViewModel = getViewModel(),
+    contentViewModel: PaymentSummaryContentViewModel = koinViewModel(),
     authViewModel: AuthViewModel,
     profileViewModel: ProfileViewModel,
     transactionViewModel: TransactionViewModel,

@@ -33,21 +33,21 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.mwaibanda.momentum.android.core.utils.Modal
 import com.mwaibanda.momentum.android.core.utils.AppReviewRequester
 import com.mwaibanda.momentum.android.core.utils.C
+import com.mwaibanda.momentum.android.core.utils.Modal
 import com.mwaibanda.momentum.android.presentation.auth.AuthViewModel
 import com.mwaibanda.momentum.android.presentation.components.BlurredBackground
 import com.mwaibanda.momentum.android.presentation.components.BottomSpacing
-import org.koin.androidx.compose.get
-import org.koin.androidx.compose.getViewModel
+import org.koin.androidx.compose.koinViewModel
+import org.koin.compose.koinInject
 
 @Composable
 fun OfferScreen(
     navController: NavController,
     authViewModel: AuthViewModel,
-    offerViewModel: OfferViewModel = getViewModel(),
-    appReviewRequester: AppReviewRequester = get(),
+    offerViewModel: OfferViewModel = koinViewModel(),
+    appReviewRequester: AppReviewRequester = koinInject(),
     onShowModal: (Modal) -> Unit
 ){
     val context = LocalContext.current
@@ -137,5 +137,5 @@ fun OfferScreen(
 @Composable
 @Preview
 fun OfferScreenPreview(){
-    OfferScreen(rememberNavController() ,offerViewModel = getViewModel(), authViewModel = getViewModel()) {}
+    OfferScreen(rememberNavController() ,offerViewModel = koinViewModel(), authViewModel = koinViewModel()) {}
 }

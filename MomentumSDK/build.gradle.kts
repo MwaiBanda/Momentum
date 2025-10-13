@@ -11,13 +11,7 @@ plugins {
 version = "1.0.0"
 
 kotlin {
-    androidTarget {
-        compilations.all {
-            kotlinOptions {
-                jvmTarget = "17"
-            }
-        }
-    }
+    androidTarget()
     sourceSets.all {
         languageSettings.optIn("kotlin.experimental.ExperimentalObjCName")
     }
@@ -97,7 +91,7 @@ kotlin {
 }
 
 android {
-    compileSdk = 34
+    compileSdk = 36
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     defaultConfig {
         minSdk = 26

@@ -13,7 +13,6 @@
 		1C2293702D05715500BE3A49 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 1C22936F2D05715500BE3A49 /* FirebaseAuth */; };
 		1C2293722D05715500BE3A49 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = 1C2293712D05715500BE3A49 /* FirebaseCore */; };
 		1C2293742D05715500BE3A49 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 1C2293732D05715500BE3A49 /* FirebaseMessaging */; };
-		1C326C782D08AEAC00F4DB24 /* AlertToast in Frameworks */ = {isa = PBXBuildFile; productRef = 1C326C772D08AEAC00F4DB24 /* AlertToast */; };
 		1C3CF16B28D95E3000B46FC1 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 1C3CF16A28D95E3000B46FC1 /* SDWebImageSwiftUI */; };
 		1C3CF16E28D984F400B46FC1 /* RoundedCorner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C3CF16D28D984F400B46FC1 /* RoundedCorner.swift */; };
 		1C3CF17028D98B1600B46FC1 /* Models+Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C3CF16F28D98B1600B46FC1 /* Models+Swift.swift */; };
@@ -29,6 +28,7 @@
 		1C46D1472A80A4A500E5FB25 /* StripePayments in Frameworks */ = {isa = PBXBuildFile; productRef = 1C46D1462A80A4A500E5FB25 /* StripePayments */; };
 		1C46D1492A80A4A500E5FB25 /* StripePaymentsUI in Frameworks */ = {isa = PBXBuildFile; productRef = 1C46D1482A80A4A500E5FB25 /* StripePaymentsUI */; };
 		1C6F04652AFA039C00A3C2D6 /* MessageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6F04642AFA039C00A3C2D6 /* MessageViewModel.swift */; };
+		1C7042362E98839600B3AE00 /* AlertToast in Frameworks */ = {isa = PBXBuildFile; productRef = 1C7042352E98839600B3AE00 /* AlertToast */; };
 		1C82C2A428ECB97900E19A30 /* DeviceSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C82C2A328ECB97900E19A30 /* DeviceSize.swift */; };
 		1C82C2A628ED277000E19A30 /* SermonCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C82C2A528ED277000E19A30 /* SermonCard.swift */; };
 		1C83C85C2AFA1229008026F4 /* MessageCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C83C85B2AFA1229008026F4 /* MessageCard.swift */; };
@@ -240,7 +240,7 @@
 				1C46D1432A80A4A500E5FB25 /* StripeCardScan in Frameworks */,
 				1C2293722D05715500BE3A49 /* FirebaseCore in Frameworks */,
 				1CEA18842B00A6A500E16231 /* Algorithms in Frameworks */,
-				1C326C782D08AEAC00F4DB24 /* AlertToast in Frameworks */,
+				1C7042362E98839600B3AE00 /* AlertToast in Frameworks */,
 				1C46D1452A80A4A500E5FB25 /* StripePaymentSheet in Frameworks */,
 				8186F1F12894EA0700FEA781 /* Introspect in Frameworks */,
 				1C46D1492A80A4A500E5FB25 /* StripePaymentsUI in Frameworks */,
@@ -693,7 +693,7 @@
 				1C22936F2D05715500BE3A49 /* FirebaseAuth */,
 				1C2293712D05715500BE3A49 /* FirebaseCore */,
 				1C2293732D05715500BE3A49 /* FirebaseMessaging */,
-				1C326C772D08AEAC00F4DB24 /* AlertToast */,
+				1C7042352E98839600B3AE00 /* AlertToast */,
 			);
 			productName = MomentumiOS;
 			productReference = 7555FF7B242A565900829871 /* MomentumiOS.app */;
@@ -756,7 +756,7 @@
 				1CE5BEAD2A80C939008F7BD8 /* XCRemoteSwiftPackageReference "MultiDatePicker" */,
 				1CEA18822B00A6A500E16231 /* XCRemoteSwiftPackageReference "swift-algorithms" */,
 				1C22936E2D05715500BE3A49 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
-				1C326C762D08AEAC00F4DB24 /* XCRemoteSwiftPackageReference "AlertToast" */,
+				1C7042342E98839600B3AE00 /* XCRemoteSwiftPackageReference "AlertToast" */,
 			);
 			productRefGroup = 7555FF7C242A565900829871 /* Products */;
 			projectDirPath = "";
@@ -1215,14 +1215,6 @@
 				minimumVersion = 11.6.0;
 			};
 		};
-		1C326C762D08AEAC00F4DB24 /* XCRemoteSwiftPackageReference "AlertToast" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/elai950/AlertToast?tab=readme-ov-file";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.3.9;
-			};
-		};
 		1C3CF16928D95E3000B46FC1 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI.git";
@@ -1237,6 +1229,14 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 23.31.1;
+			};
+		};
+		1C7042342E98839600B3AE00 /* XCRemoteSwiftPackageReference "AlertToast" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/elai950/AlertToast.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.3.9;
 			};
 		};
 		1C8BACB82923174D00731617 /* XCRemoteSwiftPackageReference "TinyDi" */ = {
@@ -1297,11 +1297,6 @@
 			package = 1C22936E2D05715500BE3A49 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseMessaging;
 		};
-		1C326C772D08AEAC00F4DB24 /* AlertToast */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 1C326C762D08AEAC00F4DB24 /* XCRemoteSwiftPackageReference "AlertToast" */;
-			productName = AlertToast;
-		};
 		1C3CF16A28D95E3000B46FC1 /* SDWebImageSwiftUI */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 1C3CF16928D95E3000B46FC1 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
@@ -1336,6 +1331,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 1C46D13D2A80A4A500E5FB25 /* XCRemoteSwiftPackageReference "stripe-ios-spm" */;
 			productName = StripePaymentsUI;
+		};
+		1C7042352E98839600B3AE00 /* AlertToast */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1C7042342E98839600B3AE00 /* XCRemoteSwiftPackageReference "AlertToast" */;
+			productName = AlertToast;
 		};
 		1C8BACB92923174D00731617 /* TinyDi */ = {
 			isa = XCSwiftPackageProductDependency;

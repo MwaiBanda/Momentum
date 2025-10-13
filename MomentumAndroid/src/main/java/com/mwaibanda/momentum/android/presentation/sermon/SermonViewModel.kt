@@ -1,13 +1,11 @@
 package com.mwaibanda.momentum.android.presentation.sermon
 
-import android.os.Build
 import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.mwaibanda.momentum.android.presentation.message.MessageViewModel
 import com.mwaibanda.momentum.data.db.MomentumSermon
 import com.mwaibanda.momentum.data.db.SermonFavourite
 import com.mwaibanda.momentum.domain.controller.SermonController
@@ -52,6 +50,13 @@ class SermonViewModel(
 
     private val _isLandscape = MutableStateFlow(false)
     var isLandscape = _isLandscape.asStateFlow()
+
+    private val _searchTags = MutableStateFlow(listOf(
+        "by sermon",
+        "for preachers",
+        "by series name",
+        "by date"
+    ))
 
 
     fun setLandscape(value: Boolean) {
@@ -104,15 +109,13 @@ class SermonViewModel(
     fun searchTag(): Flow<String> = flow {
         while (currentCoroutineContext().isActive) {
             delay(2500)
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM) {
-                searchTags.add(MessageViewModel.searchTags.removeFirst())
-            } else {
-                searchTags = buildList {
-                    addAll(MessageViewModel.searchTags)
-                    add(removeAt(0))
-                }.toMutableList()
+
+            _searchTags.value = buildList {
+                addAll(_searchTags.value)
+                add(removeAt(0))
             }
-            emit(searchTags.first())
+
+            emit(_searchTags.value.first())
         }
     }
     fun fetchSermons() {
@@ -205,13 +208,5 @@ class SermonViewModel(
             _watchedSermons.value = sermons
         }
         onCompletion()
-    }
-    companion object {
-        var searchTags = mutableListOf(
-            "by sermon",
-            "for preachers",
-            "by series name",
-            "by date"
-        )
     }
 }

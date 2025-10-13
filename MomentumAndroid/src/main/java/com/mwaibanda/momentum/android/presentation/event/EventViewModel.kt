@@ -1,10 +1,8 @@
 package com.mwaibanda.momentum.android.presentation.event
 
-import android.os.Build
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.mwaibanda.momentum.android.presentation.message.MessageViewModel
 import com.mwaibanda.momentum.domain.controller.EventController
 import com.mwaibanda.momentum.domain.models.EventGroup
 import com.mwaibanda.momentum.utils.DataResponse
@@ -27,6 +25,11 @@ class EventViewModel(
 
     private val _searchTerm = MutableStateFlow("")
     val searchTerm = _searchTerm.asStateFlow()
+
+    private val _searchTags = MutableStateFlow(listOf(
+        "by event",
+        "by date",
+    ))
 
     val filteredEvents = combine(
         eventGroups,
@@ -59,21 +62,12 @@ class EventViewModel(
     fun searchTag(): Flow<String> = flow {
         while (currentCoroutineContext().isActive) {
             delay(2500)
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM) {
-                searchTags.add(MessageViewModel.searchTags.removeFirst())
-            } else {
-                searchTags = buildList {
-                    addAll(MessageViewModel.searchTags)
+                _searchTags.value = buildList {
+                    addAll(_searchTags.value)
                     add(removeAt(0))
                 }.toMutableList()
-            }
-            emit(searchTags.first())
+
+            emit(_searchTags.value.first())
         }
-    }
-    companion object {
-        var searchTags = mutableListOf(
-            "by event",
-            "by date",
-        )
     }
 }

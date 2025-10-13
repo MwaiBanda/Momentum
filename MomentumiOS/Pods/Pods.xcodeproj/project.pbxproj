@@ -20,13 +20,13 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		3316F304F1B080AE6E61515E8563B04A /* Pods-MomentumiOS-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 16E596A34FA5D0413446792E992E34AC /* Pods-MomentumiOS-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		AC1799D18B9D4CF2F6097F98822B5F9A /* Pods-MomentumiOS-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = EACA16B54587BC9072D1AD0498625ACC /* Pods-MomentumiOS-dummy.m */; };
-		EB5E46B58C704621518D0413F0444883 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */; };
+		4DE555806FACF5B1BC736F58B4EAA959 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 384DDA2CB25005BD6479B5987C619DD4 /* Foundation.framework */; };
+		C3AF443CC50739C96AA6DB62FFDAE985 /* Pods-MomentumiOS-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = EACA16B54587BC9072D1AD0498625ACC /* Pods-MomentumiOS-dummy.m */; };
+		D3D6B227DC21FA84381EDD1E5D9B7C64 /* Pods-MomentumiOS-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 16E596A34FA5D0413446792E992E34AC /* Pods-MomentumiOS-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		02E53680464C76178635B903BE7791AA /* PBXContainerItemProxy */ = {
+		73D61A47385F22C1C2142319500D9E20 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 			proxyType = 1;
@@ -39,11 +39,11 @@
 		16E596A34FA5D0413446792E992E34AC /* Pods-MomentumiOS-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-MomentumiOS-umbrella.h"; sourceTree = "<group>"; };
 		1B588A5C97F1AC9A9436CE48DD355E53 /* Pods-MomentumiOS-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-MomentumiOS-acknowledgements.markdown"; sourceTree = "<group>"; };
 		2E02F2560F882F3E0F95A5DDA5D9B476 /* Pods-MomentumiOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-MomentumiOS.debug.xcconfig"; sourceTree = "<group>"; };
+		384DDA2CB25005BD6479B5987C619DD4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		39A4E101B425973721E2316BE179668B /* Pods-MomentumiOS.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-MomentumiOS.modulemap"; sourceTree = "<group>"; };
 		4A2C10209B893718391D877A9E1054E3 /* Pods-MomentumiOS */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "Pods-MomentumiOS"; path = Pods_MomentumiOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C10B2E672A4E033285A859F2308419F /* Pods-MomentumiOS-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-MomentumiOS-Info.plist"; sourceTree = "<group>"; };
 		574304B98D367B4DC4281F787B0F17F0 /* Pods-MomentumiOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-MomentumiOS.release.xcconfig"; sourceTree = "<group>"; };
-		73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		9A620336F95F761396EE71B665535F40 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
 		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		A28BF62EE51F1D547F1501D24F5F38A1 /* MomentumSDK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = MomentumSDK.debug.xcconfig; sourceTree = "<group>"; };
@@ -55,11 +55,11 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		1873A75CD577FE4F86F3BD8C820CBD63 /* Frameworks */ = {
+		684989AF9535F9683DD34136C75B9B49 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EB5E46B58C704621518D0413F0444883 /* Foundation.framework in Frameworks */,
+				4DE555806FACF5B1BC736F58B4EAA959 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -111,14 +111,6 @@
 			path = "../MomentumiOS/Pods/Target Support Files/MomentumSDK";
 			sourceTree = "<group>";
 		};
-		578452D2E740E91742655AC8F1636D1F /* iOS */ = {
-			isa = PBXGroup;
-			children = (
-				73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */,
-			);
-			name = iOS;
-			sourceTree = "<group>";
-		};
 		612050C1ED22BF41E4A473ED5603ADD4 /* Pods-MomentumiOS */ = {
 			isa = PBXGroup;
 			children = (
@@ -158,9 +150,17 @@
 		D210D550F4EA176C3123ED886F8F87F5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				578452D2E740E91742655AC8F1636D1F /* iOS */,
+				E4801F62A6B08CD9B5410329F1A18FDE /* iOS */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E4801F62A6B08CD9B5410329F1A18FDE /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				384DDA2CB25005BD6479B5987C619DD4 /* Foundation.framework */,
+			);
+			name = iOS;
 			sourceTree = "<group>";
 		};
 		F248675267D719773DC8638E7333C82A /* Development Pods */ = {
@@ -174,11 +174,11 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		96A4AE85B5E41FB2E5FC285EF4830182 /* Headers */ = {
+		38F5C376151A30A7FF61C3FD2EC0D88C /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3316F304F1B080AE6E61515E8563B04A /* Pods-MomentumiOS-umbrella.h in Headers */,
+				D3D6B227DC21FA84381EDD1E5D9B7C64 /* Pods-MomentumiOS-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -187,17 +187,17 @@
 /* Begin PBXNativeTarget section */
 		9BA7A66DC057E2A7C169848BA65858D9 /* Pods-MomentumiOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = FE6C7136BC26C97BE89D3F529DC74AD3 /* Build configuration list for PBXNativeTarget "Pods-MomentumiOS" */;
+			buildConfigurationList = A59192AFE64BBC41FC1C8FF32C2225A6 /* Build configuration list for PBXNativeTarget "Pods-MomentumiOS" */;
 			buildPhases = (
-				96A4AE85B5E41FB2E5FC285EF4830182 /* Headers */,
-				93E3BD6E25440ACE26F9027D2E204996 /* Sources */,
-				1873A75CD577FE4F86F3BD8C820CBD63 /* Frameworks */,
-				2CE46F5D6A5D53C0DEBBAFD4CD93B364 /* Resources */,
+				38F5C376151A30A7FF61C3FD2EC0D88C /* Headers */,
+				33979C878C3EFC5CFEC0DC076337AA95 /* Sources */,
+				684989AF9535F9683DD34136C75B9B49 /* Frameworks */,
+				EE356A36C978983E5DEAD3E437355357 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				09FB28201ADB2CA3C4FC30E4B8A52358 /* PBXTargetDependency */,
+				CBF635E031698C04DF9F2875EE51094F /* PBXTargetDependency */,
 			);
 			name = "Pods-MomentumiOS";
 			productName = Pods_MomentumiOS;
@@ -210,8 +210,8 @@
 		BFDFE7DC352907FC980B868725387E98 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1300;
-				LastUpgradeCheck = 1300;
+				LastSwiftUpdateCheck = 1600;
+				LastUpgradeCheck = 1600;
 			};
 			buildConfigurationList = 4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 12.0";
@@ -222,6 +222,8 @@
 				en,
 			);
 			mainGroup = CF1408CF629C7361332E53B88F7BD30C;
+			minimizedProjectReferenceProxies = 0;
+			preferredProjectObjectVersion = 77;
 			productRefGroup = 106EACFB7C3DB874C539AF70156588DF /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -233,7 +235,7 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		2CE46F5D6A5D53C0DEBBAFD4CD93B364 /* Resources */ = {
+		EE356A36C978983E5DEAD3E437355357 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -256,45 +258,27 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		93E3BD6E25440ACE26F9027D2E204996 /* Sources */ = {
+		33979C878C3EFC5CFEC0DC076337AA95 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AC1799D18B9D4CF2F6097F98822B5F9A /* Pods-MomentumiOS-dummy.m in Sources */,
+				C3AF443CC50739C96AA6DB62FFDAE985 /* Pods-MomentumiOS-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		09FB28201ADB2CA3C4FC30E4B8A52358 /* PBXTargetDependency */ = {
+		CBF635E031698C04DF9F2875EE51094F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = MomentumSDK;
 			target = F12ADCBFC27D31831623CB1FE7568F8D /* MomentumSDK */;
-			targetProxy = 02E53680464C76178635B903BE7791AA /* PBXContainerItemProxy */;
+			targetProxy = 73D61A47385F22C1C2142319500D9E20 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		0B4F191191B2E37EC4F22DAAF6856921 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = C74E6A19E7829FC317FA1EDAC74B6A01 /* MomentumSDK.release.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
-		48E3B0FA1700CCA1C1584EA067D71798 /* Debug */ = {
+		1B090929AEA63E2202AB3B653E247F0B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2E02F2560F882F3E0F95A5DDA5D9B476 /* Pods-MomentumiOS.debug.xcconfig */;
 			buildSettings = {
@@ -308,6 +292,8 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				INFOPLIST_FILE = "Target Support Files/Pods-MomentumiOS/Pods-MomentumiOS-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
@@ -393,7 +379,7 @@
 			};
 			name = Release;
 		};
-		5FEEE6A102ED630C5AD5BA578FDBE85C /* Release */ = {
+		673675212987895750C095947CE13153 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 574304B98D367B4DC4281F787B0F17F0 /* Pods-MomentumiOS.release.xcconfig */;
 			buildSettings = {
@@ -407,6 +393,8 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				INFOPLIST_FILE = "Target Support Files/Pods-MomentumiOS/Pods-MomentumiOS-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
@@ -431,13 +419,14 @@
 			};
 			name = Release;
 		};
-		92DB15907DDA863130B7D6141ABCE5D7 /* Debug */ = {
+		6C770BB103ED2C740C3A32C51F86AC79 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A28BF62EE51F1D547F1501D24F5F38A1 /* MomentumSDK.debug.xcconfig */;
+			baseConfigurationReference = C74E6A19E7829FC317FA1EDAC74B6A01 /* MomentumSDK.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_OBJC_WEAK = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -445,8 +434,9 @@
 				);
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
 			};
-			name = Debug;
+			name = Release;
 		};
 		A0374B8CF9A7D6A45F6D116D698D1C19 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -514,6 +504,24 @@
 			};
 			name = Debug;
 		};
+		E9E9346E9702CED08365E6D7066B1150 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A28BF62EE51F1D547F1501D24F5F38A1 /* MomentumSDK.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -529,17 +537,17 @@
 		507667F2F334BFCF9262DC00A499DA1B /* Build configuration list for PBXAggregateTarget "MomentumSDK" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				92DB15907DDA863130B7D6141ABCE5D7 /* Debug */,
-				0B4F191191B2E37EC4F22DAAF6856921 /* Release */,
+				E9E9346E9702CED08365E6D7066B1150 /* Debug */,
+				6C770BB103ED2C740C3A32C51F86AC79 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		FE6C7136BC26C97BE89D3F529DC74AD3 /* Build configuration list for PBXNativeTarget "Pods-MomentumiOS" */ = {
+		A59192AFE64BBC41FC1C8FF32C2225A6 /* Build configuration list for PBXNativeTarget "Pods-MomentumiOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				48E3B0FA1700CCA1C1584EA067D71798 /* Debug */,
-				5FEEE6A102ED630C5AD5BA578FDBE85C /* Release */,
+				1B090929AEA63E2202AB3B653E247F0B /* Debug */,
+				673675212987895750C095947CE13153 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
